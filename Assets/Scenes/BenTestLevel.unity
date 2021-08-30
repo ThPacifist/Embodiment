@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 135167153}
   m_Layer: 0
   m_Name: Surrogate Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -724,6 +724,7 @@ GameObject:
   - component: {fileID: 1714956705}
   - component: {fileID: 1714956704}
   - component: {fileID: 1714956709}
+  - component: {fileID: 1714956710}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -837,8 +838,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   button: {fileID: 1714956708}
-  collider: {fileID: 1714956705}
   restPos: {x: 0, y: 0, z: 0}
+--- !u!65 &1714956710
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714956703}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.5621452, z: 0.9999999}
+  m_Center: {x: 0, y: 0.28107256, z: 0}
 --- !u!1 &1931701070
 GameObject:
   m_ObjectHideFlags: 0

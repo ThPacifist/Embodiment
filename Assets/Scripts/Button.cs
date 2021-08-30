@@ -42,33 +42,23 @@ public class Button : MonoBehaviour
         {
             if(!isTouching)
             {
-                Debug.Log("Behind LeanTween");
-                LeanTween.moveY(this.gameObject, restPos.y, 1);
+                this.gameObject.transform.position = restPos;
             }
         }
 
-        if(GetComponent<Collider>().bounds.max.y != restPos.y)
+        if(this.gameObject.transform.position != restPos)
         {
             Activate();
         }
     }
 
-
     private void OnCollisionEnter(Collision collision)
     {
         isTouching = true;
-        Debug.Log("Is Touching");
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        StartCoroutine(WaitForTouch());
-    }
-
-    IEnumerator WaitForTouch()
-    {
-        yield return new WaitForSeconds(4);
         isTouching = false;
-        Debug.Log("Is not Touching");
     }
 }
