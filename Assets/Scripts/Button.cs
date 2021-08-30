@@ -8,7 +8,10 @@ public class Button : MonoBehaviour
     public bool type; //true is for light buttons, false is for heavy buttons
     [SerializeField]
     Transform button;
+    [SerializeField]
+    BoxCollider collider;
 
+    public Vector3 restPos;
     /*Light Buttons:
      * - Can be pressed by any creature or object
      * - Will stay pressed once pressed
@@ -22,17 +25,22 @@ public class Button : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        restPos = collider.bounds.max;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(type)
+        if (type)
         {
 
         }
         else
+        {
+            
+        }
+
+        if(collider.bounds.max.y < restPos.y)
         {
 
         }
