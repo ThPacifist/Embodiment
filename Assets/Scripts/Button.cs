@@ -12,6 +12,8 @@ public class Button : MonoBehaviour
     BoxCollider collider;
 
     public Vector3 restPos;
+
+    bool isTouching = false;
     /*Light Buttons:
      * - Can be pressed by any creature or object
      * - Will stay pressed once pressed
@@ -42,7 +44,12 @@ public class Button : MonoBehaviour
 
         if(collider.bounds.max.y < restPos.y)
         {
-
+            
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 }
