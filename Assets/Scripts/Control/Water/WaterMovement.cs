@@ -6,9 +6,11 @@ using System;
 public class WaterMovement : MonoBehaviour
 {
     //Initial code by Jason on 8/27
+    //Water gated stated added by Jason on 8/31
     /*
      * TODO:
-     * Add functionality to jump
+     * Add jump
+     * Tweaks to the movement as the game goes on
      */
 
     //Assets and public variables
@@ -21,6 +23,9 @@ public class WaterMovement : MonoBehaviour
 
     //Private variables
     private float speed = 10;
+    private bool inWater = false;
+    private bool surface = false;
+    private bool onLand = false;
 
     //Things to do on awake
     private void Awake()
@@ -44,10 +49,23 @@ public class WaterMovement : MonoBehaviour
     {
         //Movement for left and right and up and down when in water
         Vector3 a = input.WaterMovement.Movement.ReadValue<Vector2>() * speed * Time.deltaTime;
+
+        //If not in water don't allow vertical movement
+        if(!inWater)
+        {
+            a.y = 0;
+        }
+
+        //If on land slow down movement
+        if(onLand)
+        {
+            a.x *= 0.5f;
+        }
+
         player.position += a;
 
         //Jump
-        if (input.WaterMovement.Jump.ReadValue<float>() > 0)
+        if (input.WaterMovement.Jump.ReadValue<float>() > 0 && surface)
         {
             Debug.Log("Jump");
         }
@@ -59,7 +77,7 @@ public class WaterMovement : MonoBehaviour
         }
 
         //Embody
-        if (input.WaterMovement.Embody.ReadValue<float>() > 0)
+        if (input.WaterMovement.Embody.ReadValue<float>() > 0 && onLand)
         {
             Embody();
         }
@@ -76,5 +94,14 @@ public class WaterMovement : MonoBehaviour
             Pause();
         }
 
+    }
+
+    //Check if they're on the ground
+    private void OnCollisionStay(Collision collision)
+    {
+        if (!inWater)
+        {
+            onLand = true;
+        }
     }
 }

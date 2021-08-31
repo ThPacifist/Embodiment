@@ -5,14 +5,19 @@ using System;
 
 public class AirMovement : MonoBehaviour
 {
-    //Initial code added by Jason on 8/27
+    //Initial code added on 8/27 by Jason 
+    //Jumpng added on 8/30 by Jason
+    //Basic functionality finished on 8/31 by Jason
     /*
-     * TODO: add a jump with  cooldown, but that does not require you to be on the ground.
+     * TODO:
+     * Make it float on water
+     * Tweaks to movement as the game goes on
      */
 
     //Assets and public variables
     AirControls input;
     public Transform player;
+    public Rigidbody rigid;
     public static Action Interact = delegate { };
     public static Action Embody = delegate { };
     public static Action Special = delegate { };
@@ -20,6 +25,9 @@ public class AirMovement : MonoBehaviour
 
     //Private variables
     private float speed = 10;
+    private float jumpHeight = 3;
+    public float cooldown;
+    public bool canJump = true;
 
     //Things to do on awake
     private void Awake()
@@ -45,9 +53,19 @@ public class AirMovement : MonoBehaviour
         player.position += new Vector3(1, 0, 0) * input.AirMovement.Movement.ReadValue<float>() * speed * Time.deltaTime;
 
         //Jump
-        if (input.AirMovement.Fly.ReadValue<float>() > 0)
+        if (input.AirMovement.Fly.ReadValue<float>() > 0 && canJump)
         {
-            Debug.Log("Fly");
+            rigid.AddForce((Vector3.up * jumpHeight) - rigid.velocity, ForceMode.Impulse);
+            canJump = false;
+            cooldown = 0;
+        }
+        StartCoroutine("FlyCoolDown");
+
+        //Limit height
+        if(player.position.y > 100)
+        {
+            rigid.velocity = Vector3.down;
+            rigid.angularVelocity = Vector3.down;
         }
 
         //Interact
@@ -76,5 +94,17 @@ public class AirMovement : MonoBehaviour
 
     }
 
-
+    IEnumerator FlyCoolDown()
+    {
+        while(!canJump)
+        {
+            yield return new WaitForEndOfFrame();
+            cooldown += Time.deltaTime;
+            if(cooldown > 2)
+            {
+                canJump = true;
+                cooldown = 0;
+            }
+        }
+    }
 }
