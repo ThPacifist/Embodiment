@@ -26,7 +26,13 @@ public class LandMovement : MonoBehaviour
     public float speed = 10;
     public float jumpHeight = 2;
     //Private variables
+<<<<<<< Updated upstream
 
+=======
+    private float speed = 10;
+    private float jumpHeight = 2;
+    private bool catClimb = false;
+>>>>>>> Stashed changes
 
     //Things to do on awake
     private void Awake()
@@ -38,6 +44,7 @@ public class LandMovement : MonoBehaviour
     private void OnEnable()
     {
         input.Enable();
+        SpecialInteractions.Climb += Climb;
     }
 
     private void OnDisable()
@@ -48,32 +55,41 @@ public class LandMovement : MonoBehaviour
     //Gets called on each frame
     private void Update()
     {
-        //Movement for left and right
-        player.position += new Vector3(1, 0, 0) * input.LandMovement.Movement.ReadValue<float>() * speed * Time.deltaTime;
-
-        //Jump
-        if (input.LandMovement.Jump.ReadValue<float>() > 0 && isGrounded == true)
-        {
-            isGrounded = false;
-            rigid.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
-        }
-
-        //Interact
-        if (input.LandMovement.Interact.ReadValue<float>() > 0)
-        {
-            Interact();
-        }
-
-        //Embody
-        if (input.LandMovement.Embody.ReadValue<float>() > 0)
-        {
-            Embody();
-        }
-
         //Special interact
         if (input.LandMovement.Special.ReadValue<float>() > 0)
         {
             Special();
+        }
+
+        //When the cat is climbing it cannot do those
+        if (!catClimb)
+        {
+            //Jump
+            if (input.LandMovement.Jump.ReadValue<float>() > 0 && isGrounded == true)
+            {
+                isGrounded = false;
+                rigid.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+            }
+
+            //Interact
+            if (input.LandMovement.Interact.ReadValue<float>() > 0)
+            {
+                Interact();
+            }
+
+            //Embody
+            if (input.LandMovement.Embody.ReadValue<float>() > 0)
+            {
+                Embody();
+            }
+
+            //Movement for left and right
+            player.position += new Vector3(1, 0, 0) * input.LandMovement.Movement.ReadValue<float>() * speed * Time.deltaTime;
+
+        }
+        else
+        {
+            player.position += new Vector3(0, 1, 0) * input.LandMovement.Movement.ReadValue<float>() * speed * Time.deltaTime;
         }
 
         //Pause
@@ -88,5 +104,14 @@ public class LandMovement : MonoBehaviour
     private void OnCollisionStay(Collision collision)
     {
         isGrounded = true;
+    }
+
+    //When the cat starts climbing, things need to happen here
+    private void Climb()
+    {
+        if(catClimb)
+        {
+            catClimb = false;
+        }
     }
 }
