@@ -12,6 +12,13 @@ public class WaterMovement : MonoBehaviour
      * Add jump
      * Tweaks to the movement as the game goes on
      */
+    //Boolean variables
+    [SerializeField]
+    bool inWater = false;
+    [SerializeField]
+    bool onLand = false;
+    [SerializeField]
+    bool aboveWater = false;
 
     //Assets and public variables
     WaterControls input;
@@ -20,17 +27,23 @@ public class WaterMovement : MonoBehaviour
     public static Action Embody = delegate { };
     public static Action Special = delegate { };
     public static Action Pause = delegate { };
+    public Rigidbody rb;
 
+    public float speed = 10;
+    public float jumpHeight = 2;
     //Private variables
-    private float speed = 10;
-    private bool inWater = false;
-    private bool surface = false;
-    private bool onLand = false;
+
 
     //Things to do on awake
     private void Awake()
     {
         input = new WaterControls();
+        rb = this.GetComponent<Rigidbody>();
+
+        if(inWater)
+        {
+            rb.useGravity = false;
+        }
     }
 
     //Enable on enable and disable on disable
@@ -65,9 +78,10 @@ public class WaterMovement : MonoBehaviour
         player.position += a;
 
         //Jump
-        if (input.WaterMovement.Jump.ReadValue<float>() > 0 && surface)
+        if (input.WaterMovement.Jump.ReadValue<float>() > 0 && onLand)
         {
-            Debug.Log("Jump");
+            onLand = false;
+            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
         }
 
         //Interact
@@ -77,7 +91,7 @@ public class WaterMovement : MonoBehaviour
         }
 
         //Embody
-        if (input.WaterMovement.Embody.ReadValue<float>() > 0 && onLand)
+        if (input.WaterMovement.Embody.ReadValue<float>() > 0 && aboveWater)
         {
             Embody();
         }
@@ -97,11 +111,28 @@ public class WaterMovement : MonoBehaviour
     }
 
     //Check if they're on the ground
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (!inWater)
-        {
-            onLand = true;
-        }
+        inWater = true;
+        onLand = false;
+        aboveWater = false;
+        rb.useGravity = false;
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        inWater = false;
+        StartCoroutine(delayGravity());
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        onLand = true;
+        aboveWater = true;
+    }
+
+    IEnumerator delayGravity()
+    {
+        yield return new WaitForSeconds(2);
+        rb.useGravity = true;
     }
 }

@@ -9,6 +9,9 @@ public class Switch : MonoBehaviour
     [SerializeField]
     Transform button;
 
+    [SerializeField]
+    GameAction behavior; //behavior that is triggered when this switch is active
+
     public bool Light;
     public bool Medium;
     public bool Heavy;
@@ -17,8 +20,6 @@ public class Switch : MonoBehaviour
     Vector3 restPos;
 
     bool isTouching = false;
-
-    public static Action Activate = delegate { };
 
     bool active;
 
@@ -68,7 +69,7 @@ public class Switch : MonoBehaviour
 
         if(active)
         {
-            Activate();
+            behavior.Action();
         }
     }
 

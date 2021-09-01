@@ -23,10 +23,10 @@ public class LandMovement : MonoBehaviour
     public static Action Special = delegate { };
     public static Action Pause = delegate { };
     public bool isGrounded = false;
-
+    public float speed = 10;
+    public float jumpHeight = 2;
     //Private variables
-    private float speed = 10;
-    private float jumpHeight = 2;
+
 
     //Things to do on awake
     private void Awake()

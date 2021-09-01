@@ -22,10 +22,9 @@ public class AirMovement : MonoBehaviour
     public static Action Embody = delegate { };
     public static Action Special = delegate { };
     public static Action Pause = delegate { };
-
-    //Private variables
     private float speed = 10;
     private float jumpHeight = 3;
+    //Private variables
     public float cooldown;
     public bool canJump = true;
 
