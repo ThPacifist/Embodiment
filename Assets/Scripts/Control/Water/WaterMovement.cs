@@ -117,17 +117,23 @@ public class WaterMovement : MonoBehaviour
     //Check if they're on the ground
     private void OnTriggerEnter(Collider other)
     {
-        inWater = true;
-        onLand = false;
-        aboveWater = false;
-        rb.useGravity = false;
-        StartCoroutine(delayVelocity());
+        if (other.CompareTag("Water"))
+        {
+            inWater = true;
+            onLand = false;
+            aboveWater = false;
+            rb.useGravity = false;
+            StartCoroutine(delayVelocity());
+        }
     }
     private void OnTriggerExit(Collider other)
     {
-        inWater = false;
-        aboveWater = true;
-        StartCoroutine(delayGravity());
+        if (other.CompareTag("Water"))
+        {
+            inWater = false;
+            aboveWater = true;
+            StartCoroutine(delayGravity());
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
