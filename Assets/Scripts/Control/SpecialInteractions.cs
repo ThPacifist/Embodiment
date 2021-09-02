@@ -16,13 +16,15 @@ public class SpecialInteractions : MonoBehaviour
     //Public variables and assets
     public Transform player;
     public Transform attackBox;
-    public Transform box;
-    //public Transform 
     public static Action Climb = delegate { };
+    public static Action<Transform> SelectBox = delegate { };
 
     //Private variables
     private bool climb;
-    private Vector3 
+    private bool canHold;
+    private bool objectHeld;
+    private Transform box;
+    private Transform heldBox;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -59,10 +61,21 @@ public class SpecialInteractions : MonoBehaviour
                 break;
             case "Human":
                 //Hold box
-                //Check if box is in range
                 //Grab box (animation stuff, wait for later
-                //Attach box
-                box.parent = player;
+                if (canHold && !objectHeld)
+                {
+                    //Attach box
+                    box.parent = player;
+                    heldBox = box;
+                    objectHeld = true;
+                }
+                else if(objectHeld)
+                {
+                    //Drop box
+                    Debug.Log("Drop box");
+                    heldBox.parent = null;
+                    objectHeld = false;
+                }
                 break;
             case "Cat":
                 //Check whether to climb
@@ -85,11 +98,53 @@ public class SpecialInteractions : MonoBehaviour
     //Special for bat is to pick up very light boxes
     private void AirSpecial()
     {
-        //Check for a box nearby
+        if (canHold)
+        {
+            //Attach box to player
+            box.parent = player;
+        }
+    }
 
-        //Check if it is light
+    //Check for boxes
+    private void OnTriggerEnter(Collider other)
+    {
+        //Check if it is a box
+        if(other.CompareTag("LBox") || other.CompareTag("MBox") || other.CompareTag("HBox") && !objectHeld)
+        {
+            //See if the human can lift it
+            if (player.CompareTag("Human") && (other.CompareTag("LBox") || other.CompareTag("MBox")))
+            { 
+                box = other.transform;
+                SelectBox(other.transform);
+                canHold = true;
+            }
+            //See if the bat can lift it
+            else if (player.CompareTag("Bat") && (other.CompareTag("LBox")))
+            {
+                box = other.transform;
+                SelectBox(other.transform);
+                canHold = true;
+            }
+            //See if the human can push it
+            else if(player.CompareTag("Human") && (other.CompareTag("LBox") || other.CompareTag("MBox") || other.CompareTag("HBox")))
+            {
+                SelectBox(other.transform);
+                canHold = true;
+            }
+            //See if anyone can push it
+            else if(other.CompareTag("LBox") || other.CompareTag("MBox"))
+            {
+                SelectBox(other.transform);
+                canHold = true;
+            }
+        }
+    }
 
-        //Attach box to player
-        box.parent = player;
+    //Remove boxes from selection
+    private void OnTriggerExit(Collider other)
+    {
+        box = null;
+        SelectBox(null);
+
     }
 }

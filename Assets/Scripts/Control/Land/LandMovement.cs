@@ -25,14 +25,9 @@ public class LandMovement : MonoBehaviour
     public bool isGrounded = false;
     public float speed = 10;
     public float jumpHeight = 2;
+    
     //Private variables
-<<<<<<< Updated upstream
-
-=======
-    private float speed = 10;
-    private float jumpHeight = 2;
     private bool catClimb = false;
->>>>>>> Stashed changes
 
     //Things to do on awake
     private void Awake()
