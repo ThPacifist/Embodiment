@@ -31,6 +31,8 @@ public class WaterMovement : MonoBehaviour
 
     public float speed = 10;
     public float jumpHeight = 2;
+    public float velocityX;
+    public float velocityY;
     //Private variables
 
 
@@ -62,9 +64,11 @@ public class WaterMovement : MonoBehaviour
     {
         //Movement for left and right and up and down when in water
         Vector3 a = input.WaterMovement.Movement.ReadValue<Vector2>() * speed * Time.deltaTime;
+        velocityX = rb.velocity.x;
+        velocityY = rb.velocity.y;
 
         //If not in water don't allow vertical movement
-        if(!inWater)
+        if (!inWater)
         {
             a.y = 0;
         }
@@ -117,22 +121,32 @@ public class WaterMovement : MonoBehaviour
         onLand = false;
         aboveWater = false;
         rb.useGravity = false;
+        StartCoroutine(delayVelocity());
     }
     private void OnTriggerExit(Collider other)
     {
         inWater = false;
+        aboveWater = true;
         StartCoroutine(delayGravity());
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        onLand = true;
-        aboveWater = true;
+        if (aboveWater)
+        {
+            onLand = true;
+        }
     }
 
     IEnumerator delayGravity()
     {
         yield return new WaitForSeconds(2);
         rb.useGravity = true;
+    }
+
+    IEnumerator delayVelocity()
+    {
+        yield return new WaitForSeconds(1);
+        rb.velocity = Vector3.zero;
     }
 }
