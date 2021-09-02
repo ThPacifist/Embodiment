@@ -22,11 +22,12 @@ public class AirMovement : MonoBehaviour
     public static Action Embody = delegate { };
     public static Action Special = delegate { };
     public static Action Pause = delegate { };
+    public float cooldown = 0.1f;
+    public bool canJump = true;
+
+    //Private variables
     private float speed = 10;
     private float jumpHeight = 3;
-    //Private variables
-    public float cooldown;
-    public bool canJump = true;
 
     //Things to do on awake
     private void Awake()
@@ -56,9 +57,9 @@ public class AirMovement : MonoBehaviour
         {
             rigid.AddForce((Vector3.up * jumpHeight) - rigid.velocity, ForceMode.Impulse);
             canJump = false;
-            cooldown = 0;
+            StartCoroutine("FlyCoolDown");
         }
-        StartCoroutine("FlyCoolDown");
+
 
         //Limit height
         if(player.position.y > 100)
@@ -95,15 +96,7 @@ public class AirMovement : MonoBehaviour
 
     IEnumerator FlyCoolDown()
     {
-        while(!canJump)
-        {
-            yield return new WaitForEndOfFrame();
-            cooldown += Time.deltaTime;
-            if(cooldown > 2)
-            {
-                canJump = true;
-                cooldown = 0;
-            }
-        }
+        yield return new WaitForSeconds(0.1f);
+        canJump = true;
     }
 }

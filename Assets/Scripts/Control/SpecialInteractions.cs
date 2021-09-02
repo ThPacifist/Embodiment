@@ -7,11 +7,13 @@ using JetBrains.Annotations;
 public class SpecialInteractions : MonoBehaviour
 {
     //Initial code started by Jason on 9/1
-
+    //Picking up and dropping boxes done on by Jason 9/2
     /*
      * TODO:
      * Add cooldown to scratch
      */
+
+        //IMPORTANT: For any successfully executed special action set a cooldown time, unset special ready, and call the cooldown timer!!!
 
     //Public variables and assets
     public Transform player;
@@ -23,6 +25,8 @@ public class SpecialInteractions : MonoBehaviour
     private bool climb;
     private bool canHold;
     private bool objectHeld;
+    private bool specialReady = true;
+    private float cooldownTime;
     private Transform box;
     private Transform heldBox;
 
@@ -52,56 +56,89 @@ public class SpecialInteractions : MonoBehaviour
     //Special for human is to pick up boxes up to medium weight
     private void LandSpecial()
     {
-        switch(player.tag)
+        if (specialReady)
         {
-            case "Blob":
-                //Tendril swing
-                //Get direction of swingable object
-                //Add force in that direction
-                break;
-            case "Human":
-                //Hold box
-                //Grab box (animation stuff, wait for later
-                if (canHold && !objectHeld)
-                {
-                    //Attach box
-                    box.parent = player;
-                    heldBox = box;
-                    objectHeld = true;
-                }
-                else if(objectHeld)
-                {
-                    //Drop box
-                    Debug.Log("Drop box");
-                    heldBox.parent = null;
-                    objectHeld = false;
-                }
-                break;
-            case "Cat":
-                //Check whether to climb
-                if(climb)
-                {
-                    //Climb
-                    Climb();
-                }
-                else
-                {
-                    //Scratch
-                    //Play animation
-                    //Spawn hitbox
-                    Instantiate(attackBox, player.position + new Vector3(1, 0, 0), new Quaternion(0, 0, 0, 0), player);
-                }
-                break;
+            switch (player.tag)
+            {
+                case "Blob":
+                    //Tendril swing
+                    //Get direction of swingable object
+                    //Add force in that direction
+                    break;
+                case "Human":
+                    //Check if there is a box to hold or a box being held
+                    if (canHold && !objectHeld)
+                    {
+                        //Attach box
+                        box.parent = player;
+                        heldBox = box;
+                        objectHeld = true;
+                        //Cooldown
+                        cooldownTime = 1;
+                        specialReady = false;
+                        StartCoroutine("SpecialCoolDown");
+                    }
+                    else if (objectHeld)
+                    {
+                        //Drop box
+                        heldBox.parent = null;
+                        objectHeld = false;
+                        //Cooldown
+                        cooldownTime = 1;
+                        specialReady = false;
+                        StartCoroutine("SpecialCoolDown");
+                    }
+                    break;
+                case "Cat":
+                    //Check whether to climb
+                    if (climb)
+                    {
+                        //Climb
+                        Climb();
+                        //Cooldown
+                        cooldownTime = 1;
+                        specialReady = false;
+                        StartCoroutine("SpecialCoolDown");
+                    }
+                    else
+                    {
+                        //Spawn hitbox
+                        Instantiate(attackBox, player.position + new Vector3(1, 0, 0), new Quaternion(0, 0, 0, 0), player);
+                        //Cooldown
+                        cooldownTime = 1;
+                        specialReady = false;
+                        StartCoroutine("SpecialCoolDown");
+                    }
+                    break;
+            }
         }
     }
 
     //Special for bat is to pick up very light boxes
     private void AirSpecial()
     {
-        if (canHold)
+        if (specialReady)
         {
-            //Attach box to player
-            box.parent = player;
+            if (canHold && !objectHeld)
+            {
+                //Attach box
+                box.parent = player;
+                heldBox = box;
+                objectHeld = true;
+                cooldownTime = 1;
+                specialReady = false;
+                StartCoroutine("SpecialCoolDown");
+            }
+            else if (objectHeld)
+            {
+                //Drop box
+                Debug.Log("Drop box");
+                heldBox.parent = null;
+                objectHeld = false;
+                cooldownTime = 1;
+                specialReady = false;
+                StartCoroutine("SpecialCoolDown");
+            }
         }
     }
 
@@ -145,6 +182,13 @@ public class SpecialInteractions : MonoBehaviour
     {
         box = null;
         SelectBox(null);
+        canHold = false;
+    }
 
+    //Special cooldown
+    IEnumerator SpecialCoolDown()
+    {
+        yield return new WaitForSeconds(cooldownTime);
+        specialReady = true;
     }
 }
