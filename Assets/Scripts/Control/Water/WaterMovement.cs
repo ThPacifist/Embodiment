@@ -6,7 +6,8 @@ using System;
 public class WaterMovement : MonoBehaviour
 {
     //Initial code by Jason on 8/27
-    //Water gated stated added by Jason on 8/31
+    //Water gated states variables added by Jason on 8/31
+    //Changed to velocity based by Jason on 9/3
     /*
      * TODO:
      * Add jump
@@ -23,6 +24,7 @@ public class WaterMovement : MonoBehaviour
     //Assets and public variables
     WaterControls input;
     public Transform player;
+    public Rigidbody rigid;
     public static Action Interact = delegate { };
     public static Action Embody = delegate { };
     public static Action Special = delegate { };
@@ -67,19 +69,23 @@ public class WaterMovement : MonoBehaviour
         velocityX = rb.velocity.x;
         velocityY = rb.velocity.y;
 
-        //If not in water don't allow vertical movement
+       //Movement 
+        if (input.WaterMovement.Movement.ReadValue<float>() != 0)
+        {
+            rigid.velocity += (Vector3.right * input.WaterMovement.Movement.ReadValue<float>() * speed) - rigid.velocity;
+        }
+
+    //If not in water don't allow vertical movement
         if (!inWater)
         {
-            a.y = 0;
+            rigid.velocity = new Vector3(rigid.velocity.x, 0, 0);
         }
 
         //If on land slow down movement
         if(onLand)
         {
-            a.x *= 0.5f;
+            rigid.velocity *= 0.5f;
         }
-
-        player.position += a;
 
         //Jump
         if (input.WaterMovement.Jump.ReadValue<float>() > 0 && onLand)

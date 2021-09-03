@@ -8,6 +8,7 @@ public class AirMovement : MonoBehaviour
     //Initial code added on 8/27 by Jason 
     //Jumpng added on 8/30 by Jason
     //Basic functionality finished on 8/31 by Jason
+    //Changed to velocity based movement by Jason on 9/3
     /*
      * TODO:
      * Make it float on water
@@ -23,11 +24,11 @@ public class AirMovement : MonoBehaviour
     public static Action Special = delegate { };
     public static Action Pause = delegate { };
     public float cooldown = 0.1f;
-    public bool canJump = true;
 
     //Private variables
     private float speed = 10;
-    private float jumpHeight = 3;
+    private float jumpHeight = 5;
+    private bool canJump = true;
 
     //Things to do on awake
     private void Awake()
@@ -50,7 +51,10 @@ public class AirMovement : MonoBehaviour
     private void Update()
     {
         //Movement for left and right
-        player.position += new Vector3(1, 0, 0) * input.AirMovement.Movement.ReadValue<float>() * speed * Time.deltaTime;
+        if (input.AirMovement.Movement.ReadValue<float>() != 0)
+        {
+            rigid.velocity += (Vector3.right * input.AirMovement.Movement.ReadValue<float>() * speed) - new Vector3(rigid.velocity.x, 0, 0);
+        }
 
         //Jump
         if (input.AirMovement.Fly.ReadValue<float>() > 0 && canJump)

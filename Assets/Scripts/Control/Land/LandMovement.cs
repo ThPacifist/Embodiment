@@ -8,7 +8,8 @@ public class LandMovement : MonoBehaviour
 {
     //Initial code added by Jason on 8/26
     //Jump added by Jason on 8/30
-    /*
+    //Changed to velocity based movement by Jason on 9/3
+    /* 
      * TODO:
      * Make it float on water
      * Tweaks to movement as the game goes on
@@ -22,12 +23,12 @@ public class LandMovement : MonoBehaviour
     public static Action Embody = delegate { };
     public static Action Special = delegate { };
     public static Action Pause = delegate { };
-    public bool isGrounded = false;
-    public float speed = 10;
+    public float speed;
     public float jumpHeight = 2;
     
     //Private variables
     private bool catClimb = false;
+    private bool isGrounded = false;
 
     //Things to do on awake
     private void Awake()
@@ -63,7 +64,7 @@ public class LandMovement : MonoBehaviour
             if (input.LandMovement.Jump.ReadValue<float>() > 0 && isGrounded == true)
             {
                 isGrounded = false;
-                rigid.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+                rigid.AddForce((Vector3.up * jumpHeight) - new Vector3(0, rigid.velocity.y, 0), ForceMode.Impulse);
             }
 
             //Interact
@@ -79,7 +80,10 @@ public class LandMovement : MonoBehaviour
             }
 
             //Movement for left and right
-            player.position += new Vector3(1, 0, 0) * input.LandMovement.Movement.ReadValue<float>() * speed * Time.deltaTime;
+            if (input.LandMovement.Movement.ReadValue<float>() != 0)
+            {
+                rigid.velocity += (Vector3.right * input.LandMovement.Movement.ReadValue<float>() * speed) - new Vector3(rigid.velocity.x, 0, 0);
+            }
 
         }
         else
