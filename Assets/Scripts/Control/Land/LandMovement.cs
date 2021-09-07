@@ -102,9 +102,11 @@ public class LandMovement : MonoBehaviour
     //Check if they're on the ground
     private void OnCollisionStay(Collision collision)
     {
-        isGrounded = true;
+        if (collision.collider.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
     }
-
     private void OnCollisionExit(Collision collision)
     {
         isGrounded = false;
