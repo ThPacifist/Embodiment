@@ -105,6 +105,11 @@ public class LandMovement : MonoBehaviour
         isGrounded = true;
     }
 
+    private void OnCollisionExit(Collision collision)
+    {
+        isGrounded = false;
+    }
+
     //When the cat starts climbing, things need to happen here
     private void Climb()
     {

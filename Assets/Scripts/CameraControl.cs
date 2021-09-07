@@ -101,14 +101,14 @@ public class CameraControl : MonoBehaviour
         {
             if(player.position.x < center.x)
             {
-                CenterCamera();
+                CenterCamera("x");
             }
         }
         else if(posX == "-x")
         {
             if(player.position.x > center.x)
             {
-                CenterCamera();
+                CenterCamera("x");
             }
         }
     }
@@ -119,14 +119,14 @@ public class CameraControl : MonoBehaviour
         {
             if(player.position.y < center.y)
             {
-                CenterCamera();
+                CenterCamera("y");
             }
         }
         else if(posY == "-y")
         {
             if(player.position.y > center.y)
             {
-                CenterCamera();
+                CenterCamera("y");
             }
         }
     }
