@@ -18,6 +18,7 @@ public class LandMovement : MonoBehaviour
     //Assets and public variables
     LandControls input;
     public Transform player;
+    public Transform attackBox;
     public Rigidbody rigid;
     public static Action Interact = delegate { };
     public static Action Embody = delegate { };
@@ -25,8 +26,9 @@ public class LandMovement : MonoBehaviour
     public static Action Pause = delegate { };
     public float speed;
     public float jumpHeight = 2;
-    
+
     //Private variables
+    private Vector3 look;
     private bool catClimb = false;
     private bool isGrounded = false;
 
@@ -83,6 +85,14 @@ public class LandMovement : MonoBehaviour
             if (input.LandMovement.Movement.ReadValue<float>() != 0)
             {
                 rigid.velocity += (Vector3.right * input.LandMovement.Movement.ReadValue<float>() * speed) - new Vector3(rigid.velocity.x, 0, 0);
+                if(input.LandMovement.Movement.ReadValue<float>() > 0)
+                {
+                    attackBox.position = player.position + new Vector3(1, 0, 0);
+                }
+                else
+                {
+                    attackBox.position = player.position + new Vector3(-1, 0, 0);
+                }
             }
 
         }

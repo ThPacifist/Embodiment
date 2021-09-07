@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using JetBrains.Annotations;
+using System.Security.Cryptography;
 
 public class SpecialInteractions : MonoBehaviour
 {
@@ -10,14 +11,14 @@ public class SpecialInteractions : MonoBehaviour
     //Picking up and dropping boxes done on by Jason 9/2
     /*
      * TODO:
-     * Add cooldown to scratch
+     * 
      */
 
         //IMPORTANT: For any successfully executed special action set a cooldown time, unset special ready, and call the cooldown timer!!!
 
     //Public variables and assets
     public Transform player;
-    public Transform attackBox;
+    public GameObject attackBox;
     public static Action Climb = delegate { };
     public static Action<Transform> SelectBox = delegate { };
 
@@ -26,9 +27,11 @@ public class SpecialInteractions : MonoBehaviour
     private bool canHold;
     private bool objectHeld;
     private bool specialReady = true;
+    private float timeElapsed;
     private float cooldownTime;
     private Transform box;
     private Transform heldBox;
+    private Vector3 direction;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -44,6 +47,7 @@ public class SpecialInteractions : MonoBehaviour
         LandMovement.Special -= LandSpecial;
         AirMovement.Special -= AirSpecial;
     }
+
 
     //Special for fish is going to be written by Benathen
     private void WaterSpecial()
@@ -103,7 +107,8 @@ public class SpecialInteractions : MonoBehaviour
                     else
                     {
                         //Spawn hitbox
-                        Instantiate(attackBox, player.position + new Vector3(1, 0, 0), new Quaternion(0, 0, 0, 0), player);
+                        attackBox.SetActive(true);
+                        StartCoroutine("DeleteBox");
                         //Cooldown
                         cooldownTime = 1;
                         specialReady = false;
@@ -190,5 +195,12 @@ public class SpecialInteractions : MonoBehaviour
     {
         yield return new WaitForSeconds(cooldownTime);
         specialReady = true;
+    }
+
+    //Disable hitbox
+    IEnumerator DeleteBox()
+    {
+        yield return new WaitForSeconds(cooldownTime);
+        attackBox.SetActive(false);
     }
 }

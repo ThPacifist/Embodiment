@@ -9,7 +9,7 @@ public class PlayerAttackBox : MonoBehaviour
     //Code added by Jason on 9/1
 
     //Public variables and assets
-    public Transform hitbox;
+    public GameObject hitbox;
 
     //Private variables
     private float timeElapsed;
@@ -27,7 +27,7 @@ public class PlayerAttackBox : MonoBehaviour
         timeElapsed += Time.deltaTime;
         if(timeElapsed > 1)
         {
-            Destroy(hitbox.gameObject);
+            hitbox.SetActive(false);
         }
     }
 }
