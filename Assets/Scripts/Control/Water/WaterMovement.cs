@@ -149,13 +149,13 @@ public class WaterMovement : MonoBehaviour
             onLand = true;
         }
     }
-
+    //Delays the activation of gravity to give illusion of jumping out of the water
     IEnumerator delayGravity()
     {
         yield return new WaitForSeconds(2);
         rb.useGravity = true;
     }
-
+    //Delays the reduce of velocity to give the illusion of friction when jumping in water
     IEnumerator delayVelocity()
     {
         yield return new WaitForSeconds(1);

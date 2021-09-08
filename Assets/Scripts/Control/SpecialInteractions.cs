@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 
 public class SpecialInteractions : MonoBehaviour
 {
+    //Fish Tail spin Interaction done by Benathen 9/7
     //Initial code started by Jason on 9/1
     //Picking up and dropping boxes done on by Jason 9/2
     /*
@@ -32,6 +33,7 @@ public class SpecialInteractions : MonoBehaviour
     private Transform box;
     private Transform heldBox;
     private Vector3 direction;
+    Switch lever;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -52,7 +54,18 @@ public class SpecialInteractions : MonoBehaviour
     //Special for fish is going to be written by Benathen
     private void WaterSpecial()
     {
-
+        if (specialReady)
+        {
+            if (lever != null)
+            {
+                //Activate the lever
+                lever.Interact();
+                //Cooldown
+                cooldownTime = 2;
+                specialReady = false;
+                StartCoroutine(SpecialCoolDown());
+            }
+        }
     }
 
     //Special for blob is tendril grab and swing
@@ -180,6 +193,11 @@ public class SpecialInteractions : MonoBehaviour
                 canHold = true;
             }
         }
+        //Check if it is a switch
+        else if(other.CompareTag("Lever"))
+        {
+            lever = other.GetComponent<Switch>();
+        }
     }
 
     //Remove boxes from selection
@@ -188,6 +206,7 @@ public class SpecialInteractions : MonoBehaviour
         box = null;
         SelectBox(null);
         canHold = false;
+        lever = null;
     }
 
     //Special cooldown

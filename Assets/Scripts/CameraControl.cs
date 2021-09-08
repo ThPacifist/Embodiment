@@ -42,7 +42,7 @@ public class CameraControl : MonoBehaviour
             }
         }
     }
-
+    //Centers the camera along the specific axis or both
     void CenterCamera(string change = "all")
     {
         if (change == "all")
@@ -58,7 +58,8 @@ public class CameraControl : MonoBehaviour
             cam.transform.position = new Vector3(cam.transform.position.x, player.position.y, cam.transform.position.z);
         }
     }
-
+    //Checks the x and y position of the the edges of the camera
+    //Then calls the respective readjust function
     bool CheckPosX()
     {
         if(cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, cam.pixelHeight, 0)).x > topRight.transform.position.x)
@@ -76,7 +77,6 @@ public class CameraControl : MonoBehaviour
             return true;
         }
     }
-
     bool CheckPosY()
     {
         if(cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, cam.pixelHeight, 0)).y > topRight.transform.position.y)
@@ -94,7 +94,7 @@ public class CameraControl : MonoBehaviour
             return true;
         }
     }
-
+    //Checks when the player moves away from the center after the camera has stopped
     void ReAdjustX(string posX)
     {
         if(posX == "+x")
@@ -112,7 +112,6 @@ public class CameraControl : MonoBehaviour
             }
         }
     }
-
     void ReAdjustY(string posY)
     {
         if(posY == "+y")
@@ -130,7 +129,7 @@ public class CameraControl : MonoBehaviour
             }
         }
     }
-
+    //Draws lines from and around the emptys to help mark the borders and the emptys
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -140,5 +139,9 @@ public class CameraControl : MonoBehaviour
         //Bottom Left Lines
         Gizmos.DrawLine(botLeft.transform.position, new Vector3(botLeft.transform.position.x, topRight.transform.position.y, 0));
         Gizmos.DrawLine(botLeft.transform.position, new Vector3(topRight.transform.position.x, botLeft.transform.position.y, 0));
+        //Empty Indicators
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(botLeft.transform.position, 1.5f);
+        Gizmos.DrawWireSphere(topRight.transform.position, 1.5f);
     }
 }

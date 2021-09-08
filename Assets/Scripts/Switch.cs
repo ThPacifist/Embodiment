@@ -75,12 +75,17 @@ public class Switch : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        isTouching = true;
+        if (Medium || Heavy)
+        {
+            isTouching = true;
+        }
     }
-
     private void OnCollisionExit(Collision collision)
     {
-        isTouching = false;
+        if (Medium || Heavy)
+        {
+            isTouching = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -88,22 +93,27 @@ public class Switch : MonoBehaviour
         if (Light || Lever)
         {
             LandMovement.Interact += Interact;
-            WaterMovement.Interact += Interact;
             AirMovement.Interact += Interact;
         }
+        else if(Light)
+        {
+            WaterMovement.Interact += Interact;
+        }
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (Light || Lever)
         {
             LandMovement.Interact -= Interact;
-            WaterMovement.Interact -= Interact;
             AirMovement.Interact = Interact;
+        }
+        else if(Light)
+        {
+            WaterMovement.Interact -= Interact;
         }
     }
 
-    private void Interact()
+    public void Interact()
     {
         active = true;
     }
