@@ -24,13 +24,11 @@ public class WaterMovement : MonoBehaviour
     //Assets and public variables
     WaterControls input;
     public Transform player;
-    public Rigidbody rigid;
+    public Rigidbody2D rb;
     public static Action Interact = delegate { };
     public static Action Embody = delegate { };
     public static Action Special = delegate { };
     public static Action Pause = delegate { };
-    public Rigidbody rb;
-
     public float speed = 10;
     public float jumpHeight = 2;
     public float velocityX;
@@ -42,11 +40,11 @@ public class WaterMovement : MonoBehaviour
     private void Awake()
     {
         input = new WaterControls();
-        rb = this.GetComponent<Rigidbody>();
+        rb = this.GetComponent<Rigidbody2D>();
 
         if(inWater)
         {
-            rb.useGravity = false;
+            rb.gravityScale = 0;
         }
     }
 
@@ -65,33 +63,32 @@ public class WaterMovement : MonoBehaviour
     private void Update()
     {
         //Movement for left and right and up and down when in water
-        Vector3 a = input.WaterMovement.Movement.ReadValue<Vector2>() * speed * Time.deltaTime;
+        Vector2 a = input.WaterMovement.Movement.ReadValue<Vector2>() * speed * Time.deltaTime;
         velocityX = rb.velocity.x;
         velocityY = rb.velocity.y;
 
        //Movement 
-        if (input.WaterMovement.Movement.ReadValue<float>() != 0)
+        if (input.WaterMovement.Movement.ReadValue<Vector2>() != Vector2.zero)
         {
-            rigid.velocity += (Vector3.right * input.WaterMovement.Movement.ReadValue<float>() * speed) - rigid.velocity;
+            rb.velocity += (Vector2.right * input.WaterMovement.Movement.ReadValue<Vector2>() * speed) - rb.velocity;
         }
 
     //If not in water don't allow vertical movement
         if (!inWater)
         {
-            rigid.velocity = new Vector3(rigid.velocity.x, 0, 0);
+            //rb.velocity = new Vector2(rb.velocity.x, 0);
         }
 
         //If on land slow down movement
         if(onLand)
         {
-            rigid.velocity *= 0.5f;
+            rb.velocity *= 0.5f;
         }
 
         //Jump
         if (input.WaterMovement.Jump.ReadValue<float>() > 0 && onLand)
         {
-            onLand = false;
-            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+            rb.AddForce((Vector2.up * jumpHeight) - rb.velocity, ForceMode2D.Impulse);
         }
 
         //Interact
@@ -121,18 +118,18 @@ public class WaterMovement : MonoBehaviour
     }
 
     //Check if they're on the ground
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Water"))
         {
             inWater = true;
             onLand = false;
             aboveWater = false;
-            rb.useGravity = false;
+            rb.gravityScale = 0;
             StartCoroutine(delayVelocity());
         }
     }
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Water"))
         {
@@ -142,23 +139,28 @@ public class WaterMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (aboveWater)
         {
             onLand = true;
         }
     }
+    void OnCollisionExit2D(Collision2D other)
+    {
+        onLand = false;
+    }
+
     //Delays the activation of gravity to give illusion of jumping out of the water
     IEnumerator delayGravity()
     {
         yield return new WaitForSeconds(2);
-        rb.useGravity = true;
+        rb.gravityScale = 1;
     }
     //Delays the reduce of velocity to give the illusion of friction when jumping in water
     IEnumerator delayVelocity()
     {
         yield return new WaitForSeconds(1);
-        rb.velocity = Vector3.zero;
+        rb.velocity = Vector2.zero;
     }
 }
