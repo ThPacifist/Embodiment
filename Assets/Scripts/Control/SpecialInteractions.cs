@@ -208,6 +208,9 @@ public class SpecialInteractions : MonoBehaviour
             box = null;
             SelectBox(null);
             canHold = false;
+        }
+        else if(other.CompareTag("Lever"))
+        {
             lever = null;
         }
     }
