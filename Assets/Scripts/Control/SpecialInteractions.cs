@@ -203,19 +203,13 @@ public class SpecialInteractions : MonoBehaviour
     //Remove boxes from selection
     private void OnTriggerExit2D(Collider2D other)
     {
-<<<<<<< Updated upstream
-        box = null;
-        SelectBox(null);
-        canHold = false;
-        lever = null;
-=======
         if (other.CompareTag("HBox") || other.CompareTag("MBox") || other.CompareTag("LBox"))
         {
             box = null;
             SelectBox(null);
             canHold = false;
+            lever = null;
         }
->>>>>>> Stashed changes
     }
 
     //Special cooldown
