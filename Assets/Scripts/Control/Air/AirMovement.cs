@@ -18,7 +18,7 @@ public class AirMovement : MonoBehaviour
     //Assets and public variables
     AirControls input;
     public Transform player;
-    public Rigidbody rigid;
+    public Rigidbody2D rigid;
     public static Action Interact = delegate { };
     public static Action Embody = delegate { };
     public static Action Special = delegate { };
@@ -26,7 +26,7 @@ public class AirMovement : MonoBehaviour
     public float cooldown = 0.1f;
 
     //Private variables
-    private float speed = 10;
+    private float speed = 5;
     private float jumpHeight = 5;
     private bool canJump = true;
 
@@ -53,29 +53,21 @@ public class AirMovement : MonoBehaviour
         //Movement for left and right
         if (input.AirMovement.Movement.ReadValue<float>() != 0)
         {
-            rigid.velocity += (Vector3.right * input.AirMovement.Movement.ReadValue<float>() * speed) - new Vector3(rigid.velocity.x, 0, 0);
-        }
-
-        //Jump
-        if (input.AirMovement.Fly.ReadValue<float>() > 0 && canJump)
-        {
-            rigid.AddForce((Vector3.up * jumpHeight) - rigid.velocity, ForceMode.Impulse);
-            canJump = false;
-            StartCoroutine("FlyCoolDown");
-        }
-
-
-        //Limit height
-        if(player.position.y > 100)
-        {
-            rigid.velocity = Vector3.down;
-            rigid.angularVelocity = Vector3.down;
+            rigid.velocity += (Vector2.right * input.AirMovement.Movement.ReadValue<float>() * speed) - new Vector2(rigid.velocity.x, 0);
         }
 
         //Interact
         if (input.AirMovement.Interact.ReadValue<float>() > 0)
         {
             Interact();
+        }
+
+        //Jump
+        if (input.AirMovement.Fly.ReadValue<float>() > 0 && canJump)
+        {
+            rigid.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rigid.velocity.y), ForceMode2D.Impulse);
+            canJump = false;
+            StartCoroutine("FlyCoolDown");
         }
 
         //Embody
@@ -98,6 +90,7 @@ public class AirMovement : MonoBehaviour
 
     }
 
+    //Cooldown for jumping in midair
     IEnumerator FlyCoolDown()
     {
         yield return new WaitForSeconds(0.1f);

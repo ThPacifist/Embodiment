@@ -9,7 +9,7 @@ public class ControlMovement : MonoBehaviour
     //Initial code finished on 8/30 by Jason
     /*
      * TODO:
-     * Add script to change bodies
+     * Change models with the change
      */
     //Assets and Public Variables
     public Transform player;
@@ -33,7 +33,7 @@ public class ControlMovement : MonoBehaviour
     }
 
     //Change transformTarget when entering the triggers
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if(transformTarget == "None")
         {
@@ -45,7 +45,7 @@ public class ControlMovement : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if(other.tag == transformTarget)
         {

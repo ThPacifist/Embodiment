@@ -19,18 +19,19 @@ public class LandMovement : MonoBehaviour
     LandControls input;
     public Transform player;
     public Transform attackBox;
-    public Rigidbody rigid;
+    public Rigidbody2D rigid;
     public static Action Interact = delegate { };
     public static Action Embody = delegate { };
     public static Action Special = delegate { };
     public static Action Pause = delegate { };
     public float speed;
-    public float jumpHeight = 2;
+    public float jumpHeight;
 
     //Private variables
-    private Vector3 look;
+    private Vector2 look;
     private bool catClimb = false;
     private bool isGrounded = false;
+    private bool pushing = false;
 
     //Things to do on awake
     private void Awake()
@@ -59,14 +60,25 @@ public class LandMovement : MonoBehaviour
             Special();
         }
 
+        //Jump
+        if (input.LandMovement.Jump.ReadValue<float>() > 0 && isGrounded == true)
+        {
+            isGrounded = false;
+            catClimb = false;
+            rigid.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rigid.velocity.y), ForceMode2D.Impulse);
+        }
+
         //When the cat is climbing it cannot do those
         if (!catClimb)
         {
-            //Jump
-            if (input.LandMovement.Jump.ReadValue<float>() > 0 && isGrounded == true)
+            //When anyone is pushing, it can only move and interact
+            if (!pushing)
             {
-                isGrounded = false;
-                rigid.AddForce((Vector3.up * jumpHeight) - new Vector3(0, rigid.velocity.y, 0), ForceMode.Impulse);
+                //Embody
+                if (input.LandMovement.Embody.ReadValue<float>() > 0)
+                {
+                    Embody();
+                }
             }
 
             //Interact
@@ -75,16 +87,12 @@ public class LandMovement : MonoBehaviour
                 Interact();
             }
 
-            //Embody
-            if (input.LandMovement.Embody.ReadValue<float>() > 0)
-            {
-                Embody();
-            }
-
             //Movement for left and right
             if (input.LandMovement.Movement.ReadValue<float>() != 0)
             {
-                rigid.velocity += (Vector3.right * input.LandMovement.Movement.ReadValue<float>() * speed) - new Vector3(rigid.velocity.x, 0, 0);
+                //Movement algorithm
+                rigid.velocity += (Vector2.right * input.LandMovement.Movement.ReadValue<float>() * speed) - new Vector2(rigid.velocity.x, 0);
+                //Which direction should the cat attack go
                 if(input.LandMovement.Movement.ReadValue<float>() > 0)
                 {
                     attackBox.position = player.position + new Vector3(1, 0, 0);
@@ -96,6 +104,7 @@ public class LandMovement : MonoBehaviour
             }
 
         }
+        //Climb
         else
         {
             player.position += new Vector3(0, 1, 0) * input.LandMovement.Movement.ReadValue<float>() * speed * Time.deltaTime;
@@ -110,16 +119,19 @@ public class LandMovement : MonoBehaviour
     }
 
     //Check if they're on the ground
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Ground"))
         {
             isGrounded = true;
         }
     }
-    private void OnCollisionExit(Collision collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        isGrounded = false;
+        if (collision.collider.CompareTag("Gound"))
+        {
+            isGrounded = false;
+        }
     }
 
     //When the cat starts climbing, things need to happen here
@@ -128,6 +140,10 @@ public class LandMovement : MonoBehaviour
         if(catClimb)
         {
             catClimb = false;
+        }
+        else
+        {
+            catClimb = true;
         }
     }
 }

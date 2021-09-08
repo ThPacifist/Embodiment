@@ -161,7 +161,7 @@ public class SpecialInteractions : MonoBehaviour
     }
 
     //Check for boxes
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         //Check if it is a box
         if(other.CompareTag("LBox") || other.CompareTag("MBox") || other.CompareTag("HBox") && !objectHeld)
@@ -201,12 +201,21 @@ public class SpecialInteractions : MonoBehaviour
     }
 
     //Remove boxes from selection
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
+<<<<<<< Updated upstream
         box = null;
         SelectBox(null);
         canHold = false;
         lever = null;
+=======
+        if (other.CompareTag("HBox") || other.CompareTag("MBox") || other.CompareTag("LBox"))
+        {
+            box = null;
+            SelectBox(null);
+            canHold = false;
+        }
+>>>>>>> Stashed changes
     }
 
     //Special cooldown
