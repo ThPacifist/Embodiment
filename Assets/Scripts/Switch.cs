@@ -12,15 +12,15 @@ public class Switch : MonoBehaviour
     [SerializeField]
     GameAction behavior; //behavior that is triggered when this switch is active
 
+    //Public Variables
     public bool Light;
     public bool Medium;
     public bool Heavy;
     public bool Lever;
 
-    Vector3 restPos;
-
+    //Private Variables
+    public Vector3 restPos;
     bool isTouching = false;
-
     bool active;
 
     /* Light Buttons:
@@ -54,7 +54,7 @@ public class Switch : MonoBehaviour
         {
             if(!isTouching)
             {
-                this.gameObject.transform.position = restPos;
+                resetButton();
                 active = false;
             }
         }
@@ -116,5 +116,13 @@ public class Switch : MonoBehaviour
     public void Interact()
     {
         active = true;
+    }
+
+    void resetButton()
+    {
+        if(this.gameObject.transform.position.y > restPos.y)
+        {
+            this.gameObject.transform.position += new Vector3 (0, Time.deltaTime, 0);
+        }
     }
 }
