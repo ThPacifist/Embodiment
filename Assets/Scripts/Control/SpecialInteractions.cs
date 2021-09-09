@@ -198,6 +198,11 @@ public class SpecialInteractions : MonoBehaviour
         {
             lever = other.GetComponent<Switch>();
         }
+        //Check if it is a cat climb wall
+        else if(other.CompareTag("Climb"))
+        {
+            climb = true;
+        }
     }
 
     //Remove boxes from selection
@@ -212,6 +217,14 @@ public class SpecialInteractions : MonoBehaviour
         else if(other.CompareTag("Lever"))
         {
             lever = null;
+        }
+        else if(other.CompareTag("Climb"))
+        {
+            if (climb)
+            {
+                Climb();
+                climb = false;
+            }
         }
     }
 

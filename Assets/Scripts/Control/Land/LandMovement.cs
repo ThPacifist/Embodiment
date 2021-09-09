@@ -65,6 +65,7 @@ public class LandMovement : MonoBehaviour
         {
             isGrounded = false;
             catClimb = false;
+            rigid.gravityScale = 1;
             rigid.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rigid.velocity.y), ForceMode2D.Impulse);
         }
 
@@ -140,10 +141,12 @@ public class LandMovement : MonoBehaviour
         if(catClimb)
         {
             catClimb = false;
+            rigid.gravityScale = 1;
         }
         else
         {
             catClimb = true;
+            rigid.gravityScale = 0;
         }
     }
 }
