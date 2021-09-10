@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 103826798}
   - component: {fileID: 103826797}
   m_Layer: 0
-  m_Name: Cube (13)
+  m_Name: Platform
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,8 +245,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103826796}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.32, y: 3.747, z: -0.5529693}
-  m_LocalScale: {x: 7.9220037, y: 0.114, z: 1}
+  m_LocalPosition: {x: 27.41, y: 1.19, z: -0.5529693}
+  m_LocalScale: {x: 6.661613, y: 0.114, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 18
@@ -387,7 +387,7 @@ MonoBehaviour:
   player: {fileID: 135167158}
   rb: {fileID: 135167154}
   speed: 5
-  jumpHeight: 5
+  jumpHeight: 8
   velocityX: 0
   velocityY: 0
 --- !u!50 &135167154
@@ -516,7 +516,7 @@ MonoBehaviour:
   attackBox: {fileID: 2912986105079937746, guid: 1e32536678f63824792a70bc6451e620, type: 3}
   rigid: {fileID: 135167154}
   speed: 5
-  jumpHeight: 5
+  jumpHeight: 8
 --- !u!114 &135167160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,7 +943,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634650403}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.9329, y: 2.46, z: -0.5529693}
+  m_LocalPosition: {x: 11.9329, y: 2.38, z: -0.5529693}
   m_LocalScale: {x: 7.9220037, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1189,7 +1189,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713032440}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.02, y: 3.47, z: -0.5529693}
+  m_LocalPosition: {x: 12.02, y: 3.26, z: -0.5529693}
   m_LocalScale: {x: 1.3728832, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1910,6 +1910,7 @@ MonoBehaviour:
   Heavy: 1
   Lever: 0
   isTouching: 0
+  active: 0
 --- !u!61 &1714956710
 BoxCollider2D:
   m_ObjectHideFlags: 0

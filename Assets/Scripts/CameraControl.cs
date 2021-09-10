@@ -144,4 +144,13 @@ public class CameraControl : MonoBehaviour
         Gizmos.DrawWireSphere(botLeft.transform.position, 1.5f);
         Gizmos.DrawWireSphere(topRight.transform.position, 1.5f);
     }
+
+    public void ChangeCamPos(Vector3 newCamPos, Vector3 newBotLeft, Vector3 newTopRight)
+    {
+        cam.transform.position = newCamPos;
+
+        botLeft.transform.position = newBotLeft;
+
+        topRight.transform.position = newTopRight;
+    }
 }
