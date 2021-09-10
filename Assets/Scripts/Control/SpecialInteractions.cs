@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using JetBrains.Annotations;
 using System.Security.Cryptography;
+using UnityEngine.UIElements;
 
 public class SpecialInteractions : MonoBehaviour
 {
@@ -88,6 +89,15 @@ public class SpecialInteractions : MonoBehaviour
                     {
                         //Attach box
                         box.parent = player;
+                        if(box.position.x > player.position.x)
+                        {
+                            direction = new Vector3(-1, 0, 0);
+                        }
+                        else
+                        {
+                            direction = new Vector3(1, 0, 0);
+                        }
+                        box.position = player.position + direction;
                         heldBox = box;
                         objectHeld = true;
                         //Cooldown
@@ -141,6 +151,7 @@ public class SpecialInteractions : MonoBehaviour
             {
                 //Attach box
                 box.parent = player;
+                box.position = player.position - new Vector3(0, 1, 0);
                 heldBox = box;
                 objectHeld = true;
                 cooldownTime = 1;
@@ -167,14 +178,14 @@ public class SpecialInteractions : MonoBehaviour
         if(other.CompareTag("LBox") || other.CompareTag("MBox") || other.CompareTag("HBox") && !objectHeld)
         {
             //See if the human can lift it
-            if (player.CompareTag("Human") && (other.CompareTag("LBox") || other.CompareTag("MBox")))
+            if (player.CompareTag("Human") && (other.CompareTag("LBox") || other.CompareTag("MBox")) && (player.position.y > other.transform.position.y - 0.25 && player.position.y < other.transform.position.y + 0.25))
             { 
                 box = other.transform;
                 SelectBox(other.transform);
                 canHold = true;
             }
             //See if the bat can lift it
-            else if (player.CompareTag("Bat") && (other.CompareTag("LBox")))
+            else if (player.CompareTag("Bat") && (other.CompareTag("LBox")) && player.position.y > other.transform.position.y + 0.5)
             {
                 box = other.transform;
                 SelectBox(other.transform);

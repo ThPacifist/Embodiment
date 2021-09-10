@@ -96,11 +96,11 @@ public class LandMovement : MonoBehaviour
                 //Which direction should the cat attack go
                 if(input.LandMovement.Movement.ReadValue<float>() > 0)
                 {
-                    attackBox.position = player.position + new Vector3(1, 0, 0);
+                    attackBox.position = player.position + new Vector3(1, 0.5f, 0);
                 }
                 else
                 {
-                    attackBox.position = player.position + new Vector3(-1, 0, 0);
+                    attackBox.position = player.position + new Vector3(-1, 0.5f, 0);
                 }
             }
 
