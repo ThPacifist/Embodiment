@@ -129,7 +129,7 @@ public class LandMovement : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Gound"))
+        if (collision.collider.CompareTag("Ground"))
         {
             isGrounded = false;
         }

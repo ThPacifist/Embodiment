@@ -70,7 +70,7 @@ public class WaterMovement : MonoBehaviour
        //Movement 
         if (input.WaterMovement.Movement.ReadValue<Vector2>() != Vector2.zero)
         {
-            rb.velocity += (Vector2.right * input.WaterMovement.Movement.ReadValue<Vector2>() * speed) - rb.velocity;
+            rb.velocity += (Vector2.right * input.WaterMovement.Movement.ReadValue<Vector2>() * speed) - new Vector2(rb.velocity.x, 0);
         }
 
     //If not in water don't allow vertical movement

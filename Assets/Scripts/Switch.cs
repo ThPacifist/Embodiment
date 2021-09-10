@@ -19,9 +19,9 @@ public class Switch : MonoBehaviour
     public bool Lever;
 
     //Private Variables
-    public Vector3 restPos;
-    bool isTouching = false;
-    bool active;
+    Vector3 restPos;
+    public bool isTouching = false;
+    public bool active;
 
     /* Light Buttons:
      * - Press the interact button to activate the button
@@ -54,14 +54,14 @@ public class Switch : MonoBehaviour
         {
             if(!isTouching)
             {
-                resetButton();
                 active = false;
+                resetButton();
             }
         }
 
         if(Heavy || Medium)
         {
-            if(this.gameObject.transform.position != restPos)
+            if(this.gameObject.transform.position.y < restPos.y)
             {
                 active = true;
             }
@@ -69,18 +69,18 @@ public class Switch : MonoBehaviour
 
         if(active)
         {
-            behavior.Action();
+            //behavior.Action();
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         if (Medium || Heavy)
         {
             isTouching = true;
         }
     }
-    private void OnCollisionExit(Collision collision)
+    private void OnCollisionExit2D(Collision2D other)
     {
         if (Medium || Heavy)
         {
@@ -88,7 +88,7 @@ public class Switch : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (Light || Lever)
         {
@@ -100,7 +100,7 @@ public class Switch : MonoBehaviour
             WaterMovement.Interact += Interact;
         }
     }
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (Light || Lever)
         {
@@ -120,9 +120,9 @@ public class Switch : MonoBehaviour
 
     void resetButton()
     {
-        if(this.gameObject.transform.position.y > restPos.y)
+        if(this.gameObject.transform.position.y < restPos.y)
         {
-            this.gameObject.transform.position += new Vector3 (0, Time.deltaTime, 0);
+            this.gameObject.transform.position += new Vector3 (0, Time.deltaTime, 0) * 0.3f;
         }
     }
 }
