@@ -21,6 +21,7 @@ public class SpecialInteractions : MonoBehaviour
     //Public variables and assets
     public Transform player;
     public GameObject attackBox;
+    public GameObject lamp;
     public static Action Climb = delegate { };
     public static Action<Transform> SelectBox = delegate { };
 
@@ -35,6 +36,7 @@ public class SpecialInteractions : MonoBehaviour
     private Transform heldBox;
     private Vector3 direction;
     Switch lever;
+    bool inRange;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -80,6 +82,10 @@ public class SpecialInteractions : MonoBehaviour
             {
                 case "Blob":
                     //Tendril swing
+                    if(inRange)
+                    {
+
+                    }
                     //Get direction of swingable object
                     //Add force in that direction
                     break;
@@ -214,6 +220,11 @@ public class SpecialInteractions : MonoBehaviour
         {
             climb = true;
         }
+        //Check if it is swingable object
+        else if(other.CompareTag("Swing"))
+        {
+            inRange = true;
+        }
     }
 
     //Remove boxes from selection
@@ -236,6 +247,10 @@ public class SpecialInteractions : MonoBehaviour
                 Climb();
                 climb = false;
             }
+        }
+        else if(other.CompareTag("Swing"))
+        {
+
         }
     }
 
