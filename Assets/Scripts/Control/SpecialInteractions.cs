@@ -22,6 +22,8 @@ public class SpecialInteractions : MonoBehaviour
     public Transform player;
     public GameObject attackBox;
     public GameObject lamp;
+    public GameObject tendril;
+    public HingeJoint2D tendSeg;
     public static Action Climb = delegate { };
     public static Action<Transform> SelectBox = delegate { };
 
@@ -37,6 +39,7 @@ public class SpecialInteractions : MonoBehaviour
     private Vector3 direction;
     Switch lever;
     bool inRange;
+    bool isAttached;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -52,7 +55,6 @@ public class SpecialInteractions : MonoBehaviour
         LandMovement.Special -= LandSpecial;
         AirMovement.Special -= AirSpecial;
     }
-
 
     //Special for fish is going to be written by Benathen
     private void WaterSpecial()
@@ -84,10 +86,12 @@ public class SpecialInteractions : MonoBehaviour
                     //Tendril swing
                     if(inRange)
                     {
-
+                        ShootTentril();
                     }
-                    //Get direction of swingable object
-                    //Add force in that direction
+                    
+                    //init Cooldown
+                    StartCoroutine("SpecialCoolDown");
+
                     break;
                 case "Human":
                     //Check if there is a box to hold or a box being held
@@ -224,6 +228,7 @@ public class SpecialInteractions : MonoBehaviour
         else if(other.CompareTag("Swing"))
         {
             inRange = true;
+            lamp = other.gameObject;
         }
     }
 
@@ -250,7 +255,12 @@ public class SpecialInteractions : MonoBehaviour
         }
         else if(other.CompareTag("Swing"))
         {
-
+            if (!isAttached)
+            {
+                inRange = false;
+                lamp = null;
+                //tendril.transform.LookAt(null);
+            }
         }
     }
 
@@ -266,5 +276,54 @@ public class SpecialInteractions : MonoBehaviour
     {
         yield return new WaitForSeconds(cooldownTime);
         attackBox.SetActive(false);
+    }
+
+    void ShootTentril()
+    {
+        if (!tendSeg.isActiveAndEnabled)
+        {
+            Debug.Log("Shoot Tendril");
+            /*LeanTween.scaleZ(tendril, spring.distance, 2);
+            LeanTween.moveLocalY(tendril, spring.distance / 2, 2);*/
+            tendSeg.enabled = true;
+            tendSeg.connectedAnchor = tendSeg.transform.InverseTransformPoint(lamp.transform.position);
+            LeanTween.scale(tendril, Vector3.one, 1);
+            isAttached = true;
+
+            //Cooldown
+            cooldownTime = 0.3f;
+            specialReady = false;
+        }
+        else
+        {
+            Debug.Log("Retract Tendril");
+            /*LeanTween.scaleZ(tendril, 1, 2);
+            LeanTween.moveLocalY(tendril, 0.5f, 2);*/
+            tendSeg.enabled = false;
+            tendSeg.connectedAnchor = Vector2.zero;
+            LeanTween.scale(tendril, Vector3.zero, 1);
+            isAttached = false;
+
+            //Cooldown
+            cooldownTime = 0.5f;
+            specialReady = false;
+        }
+
+        void ScaleAround(GameObject target, Vector3 pivot, Vector3 newScale)
+        {
+            Vector3 A = target.transform.localPosition;
+            Vector3 B = pivot;
+
+            Vector3 C = A - B; // diff from object pivot to desired pivot/origin
+
+            float RS = newScale.x / target.transform.localScale.x; // relative scale factor
+
+            // calc final position post-scale
+            Vector3 FP = B + C * RS;
+
+            // finally, actually perform the scale/translation
+            target.transform.localScale = newScale;
+            target.transform.localPosition = FP;
+        }
     }
 }

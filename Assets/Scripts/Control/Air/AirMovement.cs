@@ -24,10 +24,10 @@ public class AirMovement : MonoBehaviour
     public static Action Special = delegate { };
     public static Action Pause = delegate { };
     public float cooldown = 0.1f;
+    public float speed = 5;
+    public float jumpHeight = 5;
 
     //Private variables
-    private float speed = 5;
-    private float jumpHeight = 5;
     private bool canJump = true;
 
     //Things to do on awake
