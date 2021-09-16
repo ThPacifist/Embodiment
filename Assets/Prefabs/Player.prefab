@@ -720,6 +720,7 @@ GameObject:
   - component: {fileID: 4819060323485262865}
   - component: {fileID: 4819060323485262864}
   - component: {fileID: 135167153}
+  - component: {fileID: 8069979182591699773}
   m_Layer: 0
   m_Name: Player
   m_TagString: Blob
@@ -923,7 +924,7 @@ MonoBehaviour:
   attackBox: {fileID: 8031588383664005418}
   lamp: {fileID: 0}
   tendril: {fileID: 4819060322346752198}
-  tendSeg: {fileID: 4819060323059177558}
+  spring: {fileID: 8069979182591699773}
 --- !u!114 &135167153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -954,6 +955,26 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!231 &8069979182591699773
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819060323485262873}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 4.7763166
+  m_DampingRatio: 0
+  m_Frequency: 10
 --- !u!1 &4819060323632476173
 GameObject:
   m_ObjectHideFlags: 0

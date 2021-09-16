@@ -23,7 +23,7 @@ public class SpecialInteractions : MonoBehaviour
     public GameObject attackBox;
     public GameObject lamp;
     public GameObject tendril;
-    public HingeJoint2D tendSeg;
+    public SpringJoint2D spring;
     public static Action Climb = delegate { };
     public static Action<Transform> SelectBox = delegate { };
 
@@ -280,14 +280,16 @@ public class SpecialInteractions : MonoBehaviour
 
     void ShootTentril()
     {
-        if (!tendSeg.isActiveAndEnabled)
+        if (!spring.isActiveAndEnabled)
         {
             Debug.Log("Shoot Tendril");
             /*LeanTween.scaleZ(tendril, spring.distance, 2);
-            LeanTween.moveLocalY(tendril, spring.distance / 2, 2);*/
+            LeanTween.moveLocalY(tendril, spring.distance / 2, 2);
             tendSeg.enabled = true;
             tendSeg.connectedAnchor = tendSeg.transform.InverseTransformPoint(lamp.transform.position);
-            LeanTween.scale(tendril, Vector3.one, 1);
+            LeanTween.scale(tendril, Vector3.one, 1);*/
+            spring.enabled = true;
+            spring.connectedAnchor = lamp.transform.position;
             isAttached = true;
 
             //Cooldown
@@ -298,10 +300,12 @@ public class SpecialInteractions : MonoBehaviour
         {
             Debug.Log("Retract Tendril");
             /*LeanTween.scaleZ(tendril, 1, 2);
-            LeanTween.moveLocalY(tendril, 0.5f, 2);*/
+            LeanTween.moveLocalY(tendril, 0.5f, 2);
             tendSeg.enabled = false;
             tendSeg.connectedAnchor = Vector2.zero;
-            LeanTween.scale(tendril, Vector3.zero, 1);
+            LeanTween.scale(tendril, Vector3.zero, 1);*/
+            spring.enabled = true;
+            spring.connectedAnchor = Vector2.zero;
             isAttached = false;
 
             //Cooldown
