@@ -93,6 +93,7 @@ public class LandMovement : MonoBehaviour
             {
                 //Movement algorithm
                 rigid.velocity += (Vector2.right * input.LandMovement.Movement.ReadValue<float>() * speed) - new Vector2(rigid.velocity.x, 0);
+
                 //Which direction should the cat attack go
                 if(input.LandMovement.Movement.ReadValue<float>() > 0)
                 {

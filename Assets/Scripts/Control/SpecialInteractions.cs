@@ -304,7 +304,7 @@ public class SpecialInteractions : MonoBehaviour
             tendSeg.enabled = false;
             tendSeg.connectedAnchor = Vector2.zero;
             LeanTween.scale(tendril, Vector3.zero, 1);*/
-            spring.enabled = true;
+            spring.enabled = false;
             spring.connectedAnchor = Vector2.zero;
             isAttached = false;
 

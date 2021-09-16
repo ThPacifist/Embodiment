@@ -100,7 +100,40 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "MovementController",
+                    "name": "Keyboard",
+                    "id": "9a88ee09-6c37-4208-957e-a61bd215f10f",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "c0c621a4-fbbd-46b7-9435-39a36cfd09e2",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "0737a925-aa8f-4764-aed9-819f9b1b3336",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Controller",
                     "id": "422fff57-09cb-460b-9b6f-1f4179bc1fdf",
                     "path": "1DAxis",
                     "interactions": "",
@@ -113,7 +146,7 @@
                 {
                     "name": "negative",
                     "id": "492c2024-c7ca-478e-b060-6a416d1a2156",
-                    "path": "<Joystick>/stick/left",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -124,43 +157,10 @@
                 {
                     "name": "positive",
                     "id": "56dd8094-5832-470d-a14a-0c925e7a4042",
-                    "path": "<Joystick>/stick/right",
+                    "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Movement",
-                    "id": "9a88ee09-6c37-4208-957e-a61bd215f10f",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "c0c621a4-fbbd-46b7-9435-39a36cfd09e2",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "0737a925-aa8f-4764-aed9-819f9b1b3336",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
