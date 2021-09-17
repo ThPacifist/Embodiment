@@ -13,6 +13,12 @@ public class ControlMovement : MonoBehaviour
      */
     //Assets and Public Variables
     public Transform player;
+    public MeshFilter playerModel;
+    public Mesh blobModel;
+    public Mesh humanModel;
+    public Mesh batModel;
+    public Mesh fishModel;
+    public Mesh catModel;
 
     //Private variables
     private string transformTarget = "None";
@@ -60,6 +66,7 @@ public class ControlMovement : MonoBehaviour
         {
             case "Human":
                 //Change to human body
+                playerModel.sharedMesh = humanModel;
                 //Change tag
                 player.tag = "Human";
                 //Change movement script
@@ -69,6 +76,7 @@ public class ControlMovement : MonoBehaviour
                 break;
             case "Cat":
                 //Change to cat body
+                playerModel.sharedMesh = catModel;
                 //Change tag
                 player.tag = "Cat";
                 //Change movement script
@@ -78,6 +86,7 @@ public class ControlMovement : MonoBehaviour
                 break;
             case "Bat":
                 //Change to fish body
+                playerModel.sharedMesh = batModel;
                 //Change tag
                 player.tag = "Bat";
                 //Change movement script
@@ -87,6 +96,7 @@ public class ControlMovement : MonoBehaviour
                 break;
             case "Fish":
                 //Change to fish body
+                playerModel.sharedMesh = fishModel;
                 //Change tag
                 player.tag = "Fish";
                 //Change movement script
@@ -98,6 +108,7 @@ public class ControlMovement : MonoBehaviour
                 if(!player.CompareTag("Blob"))
                 {
                     //Drop current body
+                    playerModel.sharedMesh = blobModel;
                     //Change tag
                     player.tag = "Blob";
                     //Change movement script
