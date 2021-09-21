@@ -58,7 +58,6 @@ public class Switch : MonoBehaviour
                 resetButton();
             }
         }
-
         if(Heavy || Medium)
         {
             if(this.gameObject.transform.position.y < restPos.y)
@@ -90,26 +89,22 @@ public class Switch : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (Light || Lever)
+        if (GameAction.PlayerTags(other.tag))
         {
-            LandMovement.Interact += Interact;
-            AirMovement.Interact += Interact;
-        }
-        else if(Light)
-        {
-            WaterMovement.Interact += Interact;
+            if (Light || Lever)
+            {
+                PlyController.Interact += Interact;
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (Light || Lever)
+        if (GameAction.PlayerTags(other.tag))
         {
-            LandMovement.Interact -= Interact;
-            AirMovement.Interact = Interact;
-        }
-        else if(Light)
-        {
-            WaterMovement.Interact -= Interact;
+            if (Light || Lever)
+            {
+                PlyController.Interact -= Interact;
+            }
         }
     }
 

@@ -56,7 +56,6 @@ public class PlyController : MonoBehaviour
         {
             Interact();
         }
-
         ///Movement for Fish
         if (player.CompareTag("Fish"))
         {
@@ -82,6 +81,14 @@ public class PlyController : MonoBehaviour
             if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
             {
                 rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed) - new Vector2(rb.velocity.x, 0);
+                if(rb.velocity.x > 0)
+                {
+
+                }
+                else if(rb.velocity.x < 0)
+                {
+
+                }
             }
         }
 
@@ -221,5 +228,18 @@ public class PlyController : MonoBehaviour
             catClimb = true;
             rb.gravityScale = 0;
         }
+    }
+
+    //Delays the activation of gravity to give illusion of jumping out of the water
+    IEnumerator delayGravity()
+    {
+        yield return new WaitForSeconds(2);
+        rb.gravityScale = 1;
+    }
+    //Delays the reduce of velocity to give the illusion of friction when jumping in water
+    IEnumerator delayVelocity()
+    {
+        yield return new WaitForSeconds(1);
+        rb.velocity = Vector2.zero;
     }
 }

@@ -44,9 +44,6 @@ public class SpecialInteractions : MonoBehaviour
     //Enable on enable and disable on disable
     private void OnEnable()
     {
-        WaterMovement.Special += WaterSpecial;
-        LandMovement.Special += LandSpecial;
-        AirMovement.Special += AirSpecial;
         PlyController.Special += WaterSpecial;
         PlyController.Special += LandSpecial;
         PlyController.Special += AirSpecial;
@@ -54,9 +51,6 @@ public class SpecialInteractions : MonoBehaviour
 
     private void OnDisable()
     {
-        WaterMovement.Special -= WaterSpecial;
-        LandMovement.Special -= LandSpecial;
-        AirMovement.Special -= AirSpecial;
         PlyController.Special -= WaterSpecial;
         PlyController.Special -= LandSpecial;
         PlyController.Special -= AirSpecial;

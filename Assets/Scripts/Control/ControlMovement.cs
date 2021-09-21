@@ -13,13 +13,8 @@ public class ControlMovement : MonoBehaviour
      */
     //Assets and Public Variables
     public Transform player;
-    public MeshFilter playerModel;
-    public Mesh blobModel;
-    public Mesh humanModel;
-    public Mesh batModel;
-    public Mesh fishModel;
-    public Mesh catModel;
     public PlyController plyCntrl;
+    public Animator animPly;
 
     //Private variables
     private string transformTarget = "None";
@@ -63,7 +58,7 @@ public class ControlMovement : MonoBehaviour
         {
             case "Human":
                 //Change to human body
-                playerModel.sharedMesh = humanModel;
+                animPly.SetBool("Human", true);
                 //Change tag
                 player.tag = "Human";
                 //Change movement
@@ -71,8 +66,8 @@ public class ControlMovement : MonoBehaviour
                 plyCntrl.jumpHeight = 5;
                 break;
             case "Cat":
-                //Change to cat body
-                playerModel.sharedMesh = catModel;
+                //Change to cat bod
+                //animPly.SetBool("Cat", true);
                 //Change tag
                 player.tag = "Cat";
                 //Change movement
@@ -80,8 +75,8 @@ public class ControlMovement : MonoBehaviour
                 plyCntrl.jumpHeight = 5;
                 break;
             case "Bat":
-                //Change to fish body
-                playerModel.sharedMesh = batModel;
+                //Change to bat body
+                animPly.SetBool("Bat", true);
                 //Change tag
                 player.tag = "Bat";
                 //Change movement
@@ -90,7 +85,7 @@ public class ControlMovement : MonoBehaviour
                 break;
             case "Fish":
                 //Change to fish body
-                playerModel.sharedMesh = fishModel;
+                //animPly.SetBool("Fish", true);
                 //Change tag
                 player.tag = "Fish";
                 //Change movement
@@ -101,7 +96,7 @@ public class ControlMovement : MonoBehaviour
                 if(!player.CompareTag("Blob"))
                 {
                     //Drop current body
-                    playerModel.sharedMesh = blobModel;
+                    animPly.SetBool(player.gameObject.tag, false);
                     //Change tag
                     player.tag = "Blob";
                     //Change movement

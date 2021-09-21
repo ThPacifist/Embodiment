@@ -8,4 +8,32 @@ public class GameAction : MonoBehaviour
     {
 
     }
+
+    public static bool PlayerTags(string tag)
+    {
+        if (tag == "Blob")
+        {
+            return true;
+        }
+        else if (tag == "Human")
+        {
+            return true;
+        }
+        else if (tag == "Bat")
+        {
+            return true;
+        }
+        else if (tag == "Fish")
+        {
+            return true;
+        }
+        else if (tag == "Human")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
