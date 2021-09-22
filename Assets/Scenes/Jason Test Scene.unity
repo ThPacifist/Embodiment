@@ -160,11 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b4398234a19afe48bf44caac98355a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 389735390}
-  attackBox: {fileID: 6536344074997656368}
-  rigid: {fileID: 389735394}
-  speed: 5
-  jumpHeight: 5
 --- !u!61 &389735387
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -267,9 +262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7605368ab6450442a70336f30928eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 389735390}
-  rigid: {fileID: 389735394}
-  cooldown: 0
 --- !u!114 &389735392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,15 +274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1bcda8a8ea8ae04ea307b31ea9b9373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inWater: 0
-  onLand: 0
-  aboveWater: 0
-  player: {fileID: 389735390}
-  rb: {fileID: 0}
-  speed: 10
-  jumpHeight: 2
-  velocityX: 0
-  velocityY: 0
 --- !u!114 &389735393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,6 +287,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 389735390}
+  plyCntrl: {fileID: 0}
+  animPly: {fileID: 0}
 --- !u!50 &389735394
 Rigidbody2D:
   serializedVersion: 4
@@ -340,6 +325,8 @@ MonoBehaviour:
   player: {fileID: 389735390}
   attackBox: {fileID: 6867305413512461988}
   lamp: {fileID: 0}
+  tendril: {fileID: 0}
+  spring: {fileID: 0}
 --- !u!1 &848577180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1321,6 +1308,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &2598827211510012007
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2598827210204006946, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598827210204006946, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598827210204006946, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598827210204006946, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598827210204006946, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598827210204006946, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598827210204006946, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598827210204006946, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598827210204006946, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598827210204006946, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598827210204006946, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598827210204006947, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_Name
+      value: UI
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: feeb614f732172a45ab20468284d94c5, type: 3}
 --- !u!4 &6536344074997656368
 Transform:
   m_ObjectHideFlags: 0

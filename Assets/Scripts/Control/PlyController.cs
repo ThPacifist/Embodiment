@@ -126,10 +126,7 @@ public class PlyController : MonoBehaviour
         }
 
         //Pause
-        if (PlyCtrl.Player.Pause.ReadValue<float>() > 0)
-        {
-            Pause();
-        }
+        PlyCtrl.Player.Pause.performed += _ => Pause();
     }
 
     //Check if they're on the ground

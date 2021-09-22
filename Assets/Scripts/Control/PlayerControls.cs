@@ -72,7 +72,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""a617b517-1265-4bc7-8844-ba4dfbf36b64"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(pressPoint=0.5)""
                 }
             ],
             ""bindings"": [
@@ -234,7 +234,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""7fd18050-93c8-4342-a12d-a9cfda31f3cc"",
                     ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(pressPoint=0.5)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
@@ -245,7 +245,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""f8dd41f0-3c0c-4a0f-b2c9-d93718d58d48"",
                     ""path"": ""<Gamepad>/start"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(pressPoint=0.5)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
