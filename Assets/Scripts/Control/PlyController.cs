@@ -52,16 +52,10 @@ public class PlyController : MonoBehaviour
         velocityY = rb.velocity.y;
 
         //Activates Special
-        if(PlyCtrl.Player.Special.ReadValue<float>() > 0)
-        {
-            Special();
-        }
+        PlyCtrl.Player.Special.performed += _ => Special();
 
         //Activates Interact
-        if (PlyCtrl.Player.Interact.ReadValue<float>() > 0)
-        {
-            Interact();
-        }
+        PlyCtrl.Player.Interact.performed += _ => Interact();
 
         ///Movement for Fish
         if (player.CompareTag("Fish"))
@@ -99,18 +93,24 @@ public class PlyController : MonoBehaviour
         }
 
         //Jump
+        PlyCtrl.Player.Jump.performed += _ => Jump();
+
+        //Embody
+        PlyCtrl.Player.Embody.performed += _ => Embody();
+
+        //Pause
+        PlyCtrl.Player.Pause.performed += _ => Pause();
+    }
+
+    private void Jump()
+    {
         if (player.CompareTag("Bat"))
         {
-            if (PlyCtrl.Player.Jump.ReadValue<float>() > 0 && canJump)
-            {
-                rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
-                canJump = false;
-                StartCoroutine(FlyCoolDown());
-            }
+            rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
         }
         else
         {
-            if (PlyCtrl.Player.Jump.ReadValue<float>() > 0 && isGrounded)
+            if (isGrounded)
             {
                 isGrounded = false;
                 //catClimb = false;
@@ -118,15 +118,6 @@ public class PlyController : MonoBehaviour
                 rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
             }
         }
-
-        //Embody
-        if (PlyCtrl.Player.Embody.ReadValue<float>() > 0)
-        {
-            Embody();
-        }
-
-        //Pause
-        PlyCtrl.Player.Pause.performed += _ => Pause();
     }
 
     //Check if they're on the ground
