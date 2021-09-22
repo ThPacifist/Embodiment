@@ -17,6 +17,9 @@ public class PlyController : MonoBehaviour
     public float speed;
     public float jumpHeight;
 
+    public float velocityX;
+    public float velocityY;
+
     //Private Variables
     private bool catClimb = false;
     public bool isGrounded = false;
@@ -45,6 +48,9 @@ public class PlyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        velocityX = rb.velocity.x;
+        velocityY = rb.velocity.y;
+
         //Activates Special
         if(PlyCtrl.Player.Special.ReadValue<float>() > 0)
         {
@@ -56,6 +62,7 @@ public class PlyController : MonoBehaviour
         {
             Interact();
         }
+
         ///Movement for Fish
         if (player.CompareTag("Fish"))
         {
@@ -70,8 +77,7 @@ public class PlyController : MonoBehaviour
             {
                 if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                 {
-                    rb.velocity *= 0.5f;
-                    rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed) - new Vector2(rb.velocity.x, 0);
+                    rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.5f) - new Vector2(rb.velocity.x, 0);
                 }
             }
         }

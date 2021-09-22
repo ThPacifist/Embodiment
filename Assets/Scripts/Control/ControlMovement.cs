@@ -15,6 +15,7 @@ public class ControlMovement : MonoBehaviour
     public Transform player;
     public PlyController plyCntrl;
     public Animator animPly;
+    public GameObject target;
 
     //Private variables
     private string transformTarget = "None";
@@ -38,8 +39,10 @@ public class ControlMovement : MonoBehaviour
             if (other.tag == "Human" || other.tag == "Cat" || other.tag == "Bat" || other.tag == "Fish")
             {
                 transformTarget = "None";
+                target = null;
             }
             transformTarget = other.tag;
+            target = other.gameObject;
         }
     }
 
@@ -68,6 +71,7 @@ public class ControlMovement : MonoBehaviour
             case "Cat":
                 //Change to cat bod
                 //animPly.SetBool("Cat", true);
+                Debug.Log("Change to Cat");
                 //Change tag
                 player.tag = "Cat";
                 //Change movement
@@ -86,11 +90,12 @@ public class ControlMovement : MonoBehaviour
             case "Fish":
                 //Change to fish body
                 //animPly.SetBool("Fish", true);
+                Debug.Log("Change to Fish");
                 //Change tag
                 player.tag = "Fish";
                 //Change movement
                 plyCntrl.speed = 5;
-                plyCntrl.jumpHeight = 5;
+                plyCntrl.jumpHeight = 8;
                 break;
             default:
                 if(!player.CompareTag("Blob"))
@@ -101,7 +106,7 @@ public class ControlMovement : MonoBehaviour
                     player.tag = "Blob";
                     //Change movement
                     plyCntrl.speed = 5;
-                    plyCntrl.jumpHeight = 5;
+                    plyCntrl.jumpHeight = 8;
                 }
                 break;
         }
