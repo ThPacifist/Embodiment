@@ -94,7 +94,7 @@ public class ControlMovement : MonoBehaviour
                 //Change tag
                 player.tag = "Fish";
                 //Change movement
-                plyCntrl.speed = 5;
+                plyCntrl.speed = 7;
                 plyCntrl.jumpHeight = 8;
                 break;
             default:

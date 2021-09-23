@@ -64,10 +64,17 @@ public class PlyController : MonoBehaviour
             {
                 if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
                 {
-                    rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<Vector2>() * speed) - new Vector2(rb.velocity.x, 0);
+                    rb.velocity += (Vector2.one * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed) - new Vector2(rb.velocity.x, rb.velocity.y);
                 }
             }
             else if (isGrounded)
+            {
+                if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+                {
+                    rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.3f) - new Vector2(rb.velocity.x, 0);
+                }
+            }
+            else
             {
                 if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                 {
@@ -91,7 +98,6 @@ public class PlyController : MonoBehaviour
                 }
             }
         }
-
         //Jump
         PlyCtrl.Player.Jump.performed += _ => Jump();
 
@@ -143,7 +149,8 @@ public class PlyController : MonoBehaviour
             if (other.CompareTag("Water"))
             {
                 inWater = true;
-                aboveWater = false;
+                rb.gravityScale = 0.1f;
+                //aboveWater = false;
             }
         }
         else if (player.CompareTag("Blob"))
@@ -155,7 +162,10 @@ public class PlyController : MonoBehaviour
         }
         else
         {
-            //All other forms sink and die
+            if (other.CompareTag("Water"))
+            {
+                player.gameObject.SetActive(false);
+            }
         }
 
         //If the Trigger is Death, kill the player
@@ -188,7 +198,8 @@ public class PlyController : MonoBehaviour
             if (other.CompareTag("Water"))
             {
                 inWater = false;
-                aboveWater = true;
+                rb.gravityScale = 1;
+                //aboveWater = true;
             }
         }
         else if (player.CompareTag("Blob"))
@@ -231,7 +242,7 @@ public class PlyController : MonoBehaviour
         rb.gravityScale = 1;
     }
     //Delays the reduce of velocity to give the illusion of friction when jumping in water
-    IEnumerator delayVelocity()
+    IEnumerator SimulateFriction()
     {
         yield return new WaitForSeconds(1);
         rb.velocity = Vector2.zero;

@@ -240,7 +240,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "2D Vector",
+                    "name": "Keyboard",
                     "id": "b3c02fbb-b082-4b3c-97e7-ca05de403fdb",
                     "path": "2DVector",
                     "interactions": "",
@@ -295,7 +295,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "2D Vector",
+                    "name": "Controller",
                     "id": "47e54b57-5955-47b7-bf07-9d22dd2a41cd",
                     "path": "2DVector",
                     "interactions": "",
@@ -308,7 +308,7 @@
                 {
                     "name": "up",
                     "id": "e6509ac8-7983-4dbe-9849-2792d35cdbfd",
-                    "path": "<Joystick>/stick/up",
+                    "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -319,7 +319,7 @@
                 {
                     "name": "down",
                     "id": "eb8a8ec9-b08b-4a9c-a86a-f6428fdccba0",
-                    "path": "<Joystick>/stick/down",
+                    "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -330,7 +330,7 @@
                 {
                     "name": "left",
                     "id": "52490022-9b31-4a86-9fad-7405e260b187",
-                    "path": "<Joystick>/stick/left",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -341,7 +341,7 @@
                 {
                     "name": "right",
                     "id": "1f149eea-21d6-4cdf-83e3-32509401b077",
-                    "path": "<Joystick>/stick/right",
+                    "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

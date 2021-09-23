@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
+    [SerializeField]
     CheckpointController ChckCntrl;
+    [SerializeField]
+    public bool playerIsHere = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,9 +22,9 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.name == "Player")
+        if(GameAction.PlayerTags(collision.tag))
         {
-
+            playerIsHere = true;
         }
     }
 }
