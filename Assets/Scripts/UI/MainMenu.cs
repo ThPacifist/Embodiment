@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -15,6 +16,9 @@ public class MainMenu : MonoBehaviour
     public string newGameSecne;
     public Transform[] menuButtons;
     public Transform[] settingsButtons;
+    public GameObject settingsButton;
+    public GameObject menuButton;
+    public EventSystem eventS;
 
     //Private variable
 
@@ -45,6 +49,7 @@ public class MainMenu : MonoBehaviour
         {
             menuButtons[i].gameObject.SetActive(false);
         }
+        eventS.SetSelectedGameObject(menuButton);
     }
 
     //Quit Game
@@ -66,5 +71,6 @@ public class MainMenu : MonoBehaviour
         {
             settingsButtons[i].gameObject.SetActive(false);
         }
+        eventS.SetSelectedGameObject(settingsButton);
     }
 }
