@@ -711,7 +711,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4819060323485262879}
   - component: {fileID: 741335704}
-  - component: {fileID: 4819060323485262874}
+  - component: {fileID: 1720524858}
   - component: {fileID: 4819060323485262875}
   - component: {fileID: 4819060323351451821}
   - component: {fileID: 4819060323485262866}
@@ -793,8 +793,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &4819060323485262874
-BoxCollider2D:
+--- !u!70 &1720524858
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -807,18 +807,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.12, y: 6.77}
-    newSize: {x: 8.12, y: 6.77}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 7.9302225, y: 6.689458}
-  m_EdgeRadius: 0
+  m_Size: {x: 8.12, y: 6.7699995}
+  m_Direction: 0
 --- !u!50 &4819060323485262875
 Rigidbody2D:
   serializedVersion: 4
@@ -856,7 +846,11 @@ MonoBehaviour:
   attackBox: {fileID: 7678000444253303998}
   rb: {fileID: 4819060323485262875}
   speed: 5
-  jumpHeight: 5
+  jumpHeight: 8
+  velocityX: 0
+  velocityY: 0
+  amplitude: 0.5
+  frequency: 1
   isGrounded: 0
   inWater: 0
   aboveWater: 0

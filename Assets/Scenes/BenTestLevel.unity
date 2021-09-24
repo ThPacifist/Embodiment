@@ -3145,27 +3145,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &1720524850 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4819060323485262873, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-  m_PrefabInstance: {fileID: 4819060323351451817}
-  m_PrefabAsset: {fileID: 0}
---- !u!70 &1720524858
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1720524850}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 8.12, y: 6.7699995}
-  m_Direction: 0
 --- !u!1 &1767954173
 GameObject:
   m_ObjectHideFlags: 0
@@ -3940,8 +3919,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4819060323351451821, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: jumpHeight
-      value: 8
+      propertyPath: amplitude
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819060323351451821, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
+      propertyPath: frequency
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4819060323485262873, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_Name
@@ -3991,6 +3974,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4819060323485262874, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}

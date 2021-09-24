@@ -16,15 +16,21 @@ public class PlyController : MonoBehaviour
     public static Action Pause = delegate { };
     public float speed;
     public float jumpHeight;
-
     public float velocityX;
     public float velocityY;
+    public float amplitude = 0.5f;
+    public float frequency = 1f;
 
     //Private Variables
     private bool catClimb = false;
     public bool isGrounded = false;
     private bool pushing = false;
     private bool canJump = true;
+    bool swim = false;
+
+    // Position Storage Variables
+    public Vector3 posOffset = new Vector3();
+    Vector3 tempPos = new Vector3();
 
     [SerializeField]
     bool inWater = false;
@@ -62,7 +68,7 @@ public class PlyController : MonoBehaviour
         {
             if (inWater)
             {
-                if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
+                if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero && swim)
                 {
                     rb.velocity += (Vector2.one * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed) - new Vector2(rb.velocity.x, rb.velocity.y);
                 }
@@ -106,6 +112,15 @@ public class PlyController : MonoBehaviour
 
         //Pause
         PlyCtrl.Player.Pause.performed += _ => Pause();
+
+        if(player.CompareTag("Blob") && inWater)
+        {
+            // Float up/down with a Sin()
+            tempPos = posOffset;
+            tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * frequency) * amplitude;
+
+            transform.position = tempPos;
+        }
     }
 
     private void Jump()
@@ -116,7 +131,7 @@ public class PlyController : MonoBehaviour
         }
         else
         {
-            if (isGrounded)
+            if (isGrounded || inWater)
             {
                 isGrounded = false;
                 //catClimb = false;
@@ -149,7 +164,7 @@ public class PlyController : MonoBehaviour
             if (other.CompareTag("Water"))
             {
                 inWater = true;
-                rb.gravityScale = 0.1f;
+                StartCoroutine(SimulateFriction("Fish"));
                 //aboveWater = false;
             }
         }
@@ -158,6 +173,8 @@ public class PlyController : MonoBehaviour
             if (other.CompareTag("Water"))
             {
                 //Makes Blob float
+                StartCoroutine(SimulateFriction("Blob"));
+                inWater = true;
             }
         }
         else
@@ -198,6 +215,7 @@ public class PlyController : MonoBehaviour
             if (other.CompareTag("Water"))
             {
                 inWater = false;
+                swim = false;
                 rb.gravityScale = 1;
                 //aboveWater = true;
             }
@@ -235,16 +253,21 @@ public class PlyController : MonoBehaviour
         }
     }
 
-    //Delays the activation of gravity to give illusion of jumping out of the water
-    IEnumerator delayGravity()
-    {
-        yield return new WaitForSeconds(2);
-        rb.gravityScale = 1;
-    }
     //Delays the reduce of velocity to give the illusion of friction when jumping in water
-    IEnumerator SimulateFriction()
+    IEnumerator SimulateFriction(string form)
     {
-        yield return new WaitForSeconds(1);
-        rb.velocity = Vector2.zero;
+        if (form == "Fish")
+        {
+            rb.gravityScale = 0.1f;
+            yield return new WaitForSeconds(1);
+            swim = true;
+        }
+        else if (form == "Blob")
+        {
+            rb.gravityScale = 0f;
+            yield return new WaitForSeconds(0.1f);
+            rb.velocity = Vector2.zero;
+            posOffset = transform.position;
+        }
     }
 }
