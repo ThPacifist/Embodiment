@@ -38,11 +38,14 @@ public class SpecialInteractions : MonoBehaviour
     private bool specialReady = true;
     private float timeElapsed;
     private float cooldownTime;
-    private Transform box;
+    public Transform box;
     private Transform heldBox;
     private Vector3 direction;
     Switch lever;
     public bool inRange;
+
+    [SerializeField]
+    Transform heldPos;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -80,15 +83,15 @@ public class SpecialInteractions : MonoBehaviour
 
         if(objectHeld)
         {
-            box.position = player.position + direction;
+            box.position = heldPos.position;
 
             if (plyRb.velocity.x > 0)
             {
-
+                heldPos.position = new Vector2(Mathf.Abs(heldPos.position.x), heldPos.position.y);
             }
             else if(plyRb.velocity.x < 0)
             {
-
+                heldPos.position *= new Vector2(-1, 1);
             }    
         }
     }
@@ -132,7 +135,7 @@ public class SpecialInteractions : MonoBehaviour
                     if (canHold && !objectHeld)
                     {
                         //Attach box
-                        box.parent = player;
+                        //box.parent = player;
                         if(box.position.x > player.position.x) //Box is to the right
                         {
                             direction = new Vector3(1, 0, 0);
@@ -209,7 +212,7 @@ public class SpecialInteractions : MonoBehaviour
         if(other.CompareTag("LBox") || other.CompareTag("MBox") || other.CompareTag("HBox") && !objectHeld)
         {
             //See if the human can lift it
-            if (player.CompareTag("Human") && (other.CompareTag("LBox") || other.CompareTag("MBox")) && (player.position.y > other.transform.position.y - 0.25 && player.position.y < other.transform.position.y + 0.25))
+            if (player.CompareTag("Human") && (other.CompareTag("LBox") || other.CompareTag("MBox")) /*&& (player.position.y > other.transform.position.y - 0.25 && player.position.y < other.transform.position.y + 0.25)*/)
             { 
                 box = other.transform;
                 SelectBox(other.transform);

@@ -41,11 +41,9 @@ public class ControlMovement : MonoBehaviour
         {
             if (other.tag == "Human" || other.tag == "Cat" || other.tag == "Bat" || other.tag == "Fish")
             {
-                transformTarget = "None";
-                target = null;
+                transformTarget = other.tag;
+                target = other.gameObject;
             }
-            transformTarget = other.tag;
-            target = other.gameObject;
         }
     }
 
