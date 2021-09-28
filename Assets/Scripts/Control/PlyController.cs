@@ -10,6 +10,7 @@ public class PlyController : MonoBehaviour
     public Transform player;
     public Transform attackBox;
     public Rigidbody2D rb;
+    public SpriteRenderer plySprite;
     public static Action Interact = delegate { };
     public static Action Embody = delegate { };
     public static Action Special = delegate { };
@@ -105,16 +106,17 @@ public class PlyController : MonoBehaviour
             else if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
             {
                 rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed) - new Vector2(rb.velocity.x, 0);
-                if(rb.velocity.x > 0)
-                {
-
-                }
-                else if(rb.velocity.x < 0)
-                {
-
-                }
+            }
+            if (rb.velocity.x > 0 && PlyCtrl.Player.Movement.ReadValue<float>() > 0)
+            {
+                plySprite.flipX = true;
+            }
+            else if (rb.velocity.x < 0 && PlyCtrl.Player.Movement.ReadValue<float>() < 0)
+            {
+                plySprite.flipX = false;
             }
         }
+
         //Jump
         PlyCtrl.Player.Jump.performed += _ => Jump();
 

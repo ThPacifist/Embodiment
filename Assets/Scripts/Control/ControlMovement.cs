@@ -93,7 +93,7 @@ public class ControlMovement : MonoBehaviour
                 case "Cat":
                     //Change to cat bod
                     //animPly.SetBool("Cat", true);
-                    Debug.Log("Change to Cat");
+                    animPly.SetBool("Cat", true);
                     //Change tag
                     player.tag = "Cat";
                     //Change movement
@@ -116,7 +116,7 @@ public class ControlMovement : MonoBehaviour
                 case "Fish":
                     //Change to fish body
                     //animPly.SetBool("Fish", true);
-                    Debug.Log("Change to Fish");
+                    animPly.SetBool("Fish", true);
                     //Change tag
                     player.tag = "Fish";
                     //Change movement

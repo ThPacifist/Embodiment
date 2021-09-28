@@ -133,13 +133,13 @@ public class SpecialInteractions : MonoBehaviour
                     {
                         //Attach box
                         box.parent = player;
-                        if(box.position.x > player.position.x)
-                        {
-                            direction = new Vector3(-1, 0, 0);
-                        }
-                        else
+                        if(box.position.x > player.position.x) //Box is to the right
                         {
                             direction = new Vector3(1, 0, 0);
+                        }
+                        else //Box is to the left
+                        {
+                            direction = new Vector3(-1, 0, 0);
                         }
                         box.position = player.position + direction;
                         heldBox = box;
