@@ -20,12 +20,16 @@ public class SpecialInteractions : MonoBehaviour
 
     //Public variables and assets
     public Transform player;
+    public Rigidbody2D plyRb;
+    public Collider2D plyCol;
     public GameObject attackBox;
     public GameObject lamp;
     public GameObject tendril;
     public SpringJoint2D spring;
     public static Action Climb = delegate { };
     public static Action<Transform> SelectBox = delegate { };
+    public LineRenderer lineRender;
+    public bool isAttached;
 
     //Private variables
     private bool climb;
@@ -38,8 +42,7 @@ public class SpecialInteractions : MonoBehaviour
     private Transform heldBox;
     private Vector3 direction;
     Switch lever;
-    bool inRange;
-    bool isAttached;
+    public bool inRange;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -54,6 +57,40 @@ public class SpecialInteractions : MonoBehaviour
         PlyController.Special -= WaterSpecial;
         PlyController.Special -= LandSpecial;
         PlyController.Special -= AirSpecial;
+    }
+
+    private void Start()
+    {
+        lineRender.positionCount = 2;
+        lineRender.SetPosition(0, player.position);
+        lineRender.SetPosition(1, player.position);
+        lineRender.startColor = Color.black;
+        lineRender.startColor = Color.gray;
+        lineRender.startWidth = 0.5f;
+        lineRender.endWidth = 0.1f;
+    }
+
+    private void Update()
+    {
+        lineRender.SetPosition(0, player.position);
+        if (!isAttached)
+        {
+            lineRender.SetPosition(1, player.position);
+        }
+
+        if(objectHeld)
+        {
+            box.position = player.position + direction;
+
+            if (plyRb.velocity.x > 0)
+            {
+
+            }
+            else if(plyRb.velocity.x < 0)
+            {
+
+            }    
+        }
     }
 
     //Special for fish is going to be written by Benathen
@@ -88,9 +125,6 @@ public class SpecialInteractions : MonoBehaviour
                     {
                         ShootTentril();
                     }
-                    
-                    //init Cooldown
-                    StartCoroutine("SpecialCoolDown");
 
                     break;
                 case "Human":
@@ -127,26 +161,13 @@ public class SpecialInteractions : MonoBehaviour
                     }
                     break;
                 case "Cat":
-                    //Check whether to climb
-                    if (climb)
-                    {
-                        //Climb
-                        Climb();
-                        //Cooldown
-                        cooldownTime = 1;
-                        specialReady = false;
-                        StartCoroutine("SpecialCoolDown");
-                    }
-                    else
-                    {
-                        //Spawn hitbox
-                        attackBox.SetActive(true);
-                        StartCoroutine("DeleteBox");
-                        //Cooldown
-                        cooldownTime = 1;
-                        specialReady = false;
-                        StartCoroutine("SpecialCoolDown");
-                    }
+                    //Spawn hitbox
+                    attackBox.SetActive(true);
+                    StartCoroutine("DeleteBox");
+                    //Cooldown
+                    cooldownTime = 1;
+                    specialReady = false;
+                    StartCoroutine("SpecialCoolDown");
                     break;
             }
         }
@@ -278,7 +299,7 @@ public class SpecialInteractions : MonoBehaviour
         attackBox.SetActive(false);
     }
 
-    void ShootTentril()
+    public void ShootTentril()
     {
         if (!spring.isActiveAndEnabled)
         {
@@ -290,11 +311,13 @@ public class SpecialInteractions : MonoBehaviour
             LeanTween.scale(tendril, Vector3.one, 1);*/
             spring.enabled = true;
             spring.connectedAnchor = lamp.transform.position;
+            lineRender.SetPosition(1, lamp.transform.position);
             isAttached = true;
 
             //Cooldown
             cooldownTime = 0.3f;
             specialReady = false;
+
         }
         else
         {
@@ -306,11 +329,14 @@ public class SpecialInteractions : MonoBehaviour
             LeanTween.scale(tendril, Vector3.zero, 1);*/
             spring.enabled = false;
             spring.connectedAnchor = Vector2.zero;
+            lineRender.SetPosition(1, Vector3.zero);
             isAttached = false;
 
             //Cooldown
             cooldownTime = 0.5f;
             specialReady = false;
         }
+        //init Cooldown
+        StartCoroutine("SpecialCoolDown");
     }
 }

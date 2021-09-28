@@ -119,5 +119,9 @@ public class Switch : MonoBehaviour
         {
             this.gameObject.transform.position += new Vector3 (0, Time.deltaTime, 0) * 0.3f;
         }
+        else if(this.gameObject.transform.position.y > restPos.y)
+        {
+            this.gameObject.transform.position -= new Vector3(0, Time.deltaTime, 0) * 0.3f;
+        }
     }
 }
