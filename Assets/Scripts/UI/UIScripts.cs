@@ -44,7 +44,7 @@ public class UIScripts : MonoBehaviour
     //Do at start
     private void Start()
     {
-        Cursor.visible = false;
+        //Cursor.visible = false;
     }
 
     //Switch from settings to menu or back

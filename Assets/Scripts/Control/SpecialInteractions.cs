@@ -38,14 +38,16 @@ public class SpecialInteractions : MonoBehaviour
     private bool specialReady = true;
     private float timeElapsed;
     private float cooldownTime;
-    public Transform box;
-    private Transform heldBox;
+    Rigidbody2D box;
+    private Rigidbody2D heldBox;
     private Vector3 direction;
     Switch lever;
-    public bool inRange;
+    bool inRange;
 
     [SerializeField]
-    Transform heldPos;
+    Transform HheldPos;
+    [SerializeField]
+    Transform BheldPos;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -83,16 +85,30 @@ public class SpecialInteractions : MonoBehaviour
 
         if(objectHeld)
         {
-            box.position = heldPos.position;
-
-            if (plyRb.velocity.x > 0)
+            if (player.tag == "Human")
             {
-                heldPos.position = new Vector2(Mathf.Abs(heldPos.position.x), heldPos.position.y);
+                heldBox.transform.position = HheldPos.transform.position;
+                if (PlyController.Right)
+                {
+                    HheldPos.transform.localPosition = new Vector2(Mathf.Abs(HheldPos.transform.localPosition.x), HheldPos.transform.localPosition.y);
+                }
+                else if (PlyController.Left)
+                {
+                    HheldPos.transform.localPosition = new Vector2(Mathf.Abs(HheldPos.transform.localPosition.x) * -1, HheldPos.transform.localPosition.y);
+                }
             }
-            else if(plyRb.velocity.x < 0)
+            else if(player.tag == "Bat")
             {
-                heldPos.position *= new Vector2(-1, 1);
-            }    
+                heldBox.transform.position = BheldPos.transform.position;
+                /*if (PlyController.Right)
+                {
+                    BheldPos.transform.localPosition = new Vector2(Mathf.Abs(BheldPos.transform.localPosition.x), BheldPos.transform.localPosition.y);
+                }
+                else if (PlyController.Left)
+                {
+                    BheldPos.transform.localPosition = new Vector2(Mathf.Abs(BheldPos.transform.localPosition.x) * -1, BheldPos.transform.localPosition.y);
+                }*/
+            }
         }
     }
 
@@ -134,29 +150,27 @@ public class SpecialInteractions : MonoBehaviour
                     //Check if there is a box to hold or a box being held
                     if (canHold && !objectHeld)
                     {
-                        //Attach box
-                        //box.parent = player;
-                        if(box.position.x > player.position.x) //Box is to the right
+                        if (box != null)
                         {
-                            direction = new Vector3(1, 0, 0);
+                            //Attach box
+                            box.transform.parent = player;
+                            //box.position = heldPos.position;
+                            heldBox = box;
+                            heldBox.gravityScale = 0;
+                            objectHeld = true;
+                            //Cooldown
+                            cooldownTime = 1;
+                            specialReady = false;
+                            StartCoroutine("SpecialCoolDown");
                         }
-                        else //Box is to the left
-                        {
-                            direction = new Vector3(-1, 0, 0);
-                        }
-                        box.position = player.position + direction;
-                        heldBox = box;
-                        objectHeld = true;
-                        //Cooldown
-                        cooldownTime = 1;
-                        specialReady = false;
-                        StartCoroutine("SpecialCoolDown");
                     }
                     else if (objectHeld)
                     {
                         //Drop box
-                        heldBox.parent = null;
                         objectHeld = false;
+                        heldBox.transform.parent = null;
+                        heldBox.gravityScale = 1;
+                        heldBox = null;
                         //Cooldown
                         cooldownTime = 1;
                         specialReady = false;
@@ -184,20 +198,27 @@ public class SpecialInteractions : MonoBehaviour
             if (canHold && !objectHeld)
             {
                 //Attach box
-                box.parent = player;
-                box.position = player.position - new Vector3(0, 1, 0);
-                heldBox = box;
-                objectHeld = true;
-                cooldownTime = 1;
-                specialReady = false;
-                StartCoroutine("SpecialCoolDown");
+                if (box != null)
+                {
+                    box.transform.parent = player;
+                    box.position = player.position - new Vector3(0, 1, 0);
+                    heldBox = box;
+                    heldBox.gravityScale = 0;
+                    objectHeld = true;
+                    //Cooldown
+                    cooldownTime = 1;
+                    specialReady = false;
+                    StartCoroutine("SpecialCoolDown");
+                }
             }
             else if (objectHeld)
             {
                 //Drop box
                 Debug.Log("Drop box");
-                heldBox.parent = null;
+                heldBox.transform.parent = null;
+                heldBox.gravityScale = 1;
                 objectHeld = false;
+                //Cooldown
                 cooldownTime = 1;
                 specialReady = false;
                 StartCoroutine("SpecialCoolDown");
@@ -212,16 +233,17 @@ public class SpecialInteractions : MonoBehaviour
         if(other.CompareTag("LBox") || other.CompareTag("MBox") || other.CompareTag("HBox") && !objectHeld)
         {
             //See if the human can lift it
-            if (player.CompareTag("Human") && (other.CompareTag("LBox") || other.CompareTag("MBox")) /*&& (player.position.y > other.transform.position.y - 0.25 && player.position.y < other.transform.position.y + 0.25)*/)
+            if (player.CompareTag("Human") && (other.CompareTag("LBox") || other.CompareTag("MBox")) && (player.position.x < other.transform.position.x || player.position.x > other.transform.position.x)
+                /*(player.position.y > other.transform.position.y - 0.25 && player.position.y < other.transform.position.y + 0.25)*/)
             { 
-                box = other.transform;
+                box = other.attachedRigidbody;
                 SelectBox(other.transform);
                 canHold = true;
             }
             //See if the bat can lift it
             else if (player.CompareTag("Bat") && (other.CompareTag("LBox")) && player.position.y > other.transform.position.y + 0.5)
             {
-                box = other.transform;
+                box = other.attachedRigidbody;
                 SelectBox(other.transform);
                 canHold = true;
             }

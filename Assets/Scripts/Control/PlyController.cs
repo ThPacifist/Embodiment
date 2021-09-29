@@ -28,14 +28,16 @@ public class PlyController : MonoBehaviour
     private bool pushing = false;
     private bool canJump = true;
     bool swim = false;
-    RaycastHit2D[] rayInfoR = new RaycastHit2D[4];
-    RaycastHit2D[] rayInfoL = new RaycastHit2D[4];
+    bool hittingWall;
     Vector2 catDir;
 
-    // Position Storage Variables
-    Vector3 posOffset = new Vector3();
-    public float tempPos;
-    float index;
+    static bool right;
+    static bool left;
+
+    public static bool Right
+    { get { return right; } }
+    public static bool Left
+    { get { return left; } }
 
     [SerializeField]
     bool inWater = false;
@@ -103,17 +105,21 @@ public class PlyController : MonoBehaviour
                     rb.velocity += (Vector2.up * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed * 0.5f) - new Vector2(0, rb.velocity.y);
                 }
             }
-            else if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+            else if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && !hittingWall)
             {
                 rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed) - new Vector2(rb.velocity.x, 0);
             }
-            if (rb.velocity.x > 0 && PlyCtrl.Player.Movement.ReadValue<float>() > 0)
+            if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
             {
                 plySprite.flipX = true;
+                right = true;
+                left = false;
             }
-            else if (rb.velocity.x < 0 && PlyCtrl.Player.Movement.ReadValue<float>() < 0)
+            else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
             {
                 plySprite.flipX = false;
+                left = true;
+                right = false;
             }
         }
 
@@ -164,14 +170,27 @@ public class PlyController : MonoBehaviour
     //Check if they're on the ground
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Ground") && !inWater)
+        if(collision.gameObject.CompareTag("Wall"))
         {
-            isGrounded = true;
+            Debug.Log("Hitting Wall");
+            hittingWall = true;
+        }
+        else
+        {
+            if ((!inWater))
+            {
+                isGrounded = true;
+                hittingWall = false;
+            }
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            hittingWall = false;
+        }
+        else if(collision.gameObject.CompareTag("Ground") && !inWater)
         {
             isGrounded = false;
         }
