@@ -139,9 +139,11 @@ public class CameraControl : MonoBehaviour
         //Bottom Left Lines
         Gizmos.DrawLine(botLeft.transform.position, new Vector3(botLeft.transform.position.x, topRight.transform.position.y, 0));
         Gizmos.DrawLine(botLeft.transform.position, new Vector3(topRight.transform.position.x, botLeft.transform.position.y, 0));
-        //Empty Indicators
+        //BotLeft Indicator
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(botLeft.transform.position, 1.5f);
+        //TopRight Indicator
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(topRight.transform.position, 1.5f);
     }
 }

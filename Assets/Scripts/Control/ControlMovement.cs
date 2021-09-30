@@ -84,7 +84,7 @@ public class ControlMovement : MonoBehaviour
                     player.tag = "Human";
                     //Change movement
                     plyCntrl.speed = 5;
-                    plyCntrl.jumpHeight = 5;
+                    plyCntrl.jumpHeight = 8;
                     //Remove skeleton
                     removeSkeleton();
                     break;
@@ -96,18 +96,17 @@ public class ControlMovement : MonoBehaviour
                     player.tag = "Cat";
                     //Change movement
                     plyCntrl.speed = 5;
-                    plyCntrl.jumpHeight = 5;
+                    plyCntrl.jumpHeight = 8;
                     removeSkeleton();
                     break;
                 case "Bat":
-                    Debug.LogFormat("Bat transform");
                     //Change to bat body
                     animPly.SetBool("Bat", true);
                     //Change tag
                     player.tag = "Bat";
                     //Change movement
                     plyCntrl.speed = 5;
-                    plyCntrl.jumpHeight = 5;
+                    plyCntrl.jumpHeight = 8;
                     //Remove skeleton
                     removeSkeleton();
                     break;
@@ -126,7 +125,6 @@ public class ControlMovement : MonoBehaviour
                 default:
                     if (!player.CompareTag("Blob"))
                     {
-                        Debug.Log("Blob transformation");
                         //Drop current body
                         animPly.SetBool(player.gameObject.tag, false);
                         //Change tag

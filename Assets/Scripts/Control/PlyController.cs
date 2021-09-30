@@ -30,6 +30,7 @@ public class PlyController : MonoBehaviour
     bool swim = false;
     bool hittingWall;
     Vector2 catDir;
+    Vector2 waterSurface;
 
     static bool right;
     static bool left;
@@ -86,12 +87,36 @@ public class PlyController : MonoBehaviour
                 {
                     rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.3f) - new Vector2(rb.velocity.x, 0);
                 }
+                if(PlyCtrl.Player.Movement.ReadValue<float>() > 0)
+                {
+                    plySprite.flipX = true;
+                    right = true;
+                    left = false;
+                }
+                else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
+                {
+                    plySprite.flipX = false;
+                    left = true;
+                    right = false;
+                }
             }
             else
             {
                 if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                 {
                     rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.5f) - new Vector2(rb.velocity.x, 0);
+                }
+                if(PlyCtrl.Player.Movement.ReadValue<float>() > 0)
+                {
+                    plySprite.flipX = true;
+                    right = true;
+                    left = false;
+                }
+                else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
+                {
+                    plySprite.flipX = false;
+                    left = true;
+                    right = false;
                 }
             }
         }
@@ -139,6 +164,11 @@ public class PlyController : MonoBehaviour
             tempPos = amplitude * Mathf.Sin(omega*index);
 
             transform.position += new Vector3 (0, tempPos, 0);
+            if(player.position.y < waterSurface.y)
+            {
+                float dist = Vector2.Distance(new Vector2(0, player.position.y), new Vector2(0, waterSurface.y));
+                rb.velocity = new Vector2(rb.velocity.x, dist);
+            }
         }*/
     }
 
@@ -161,7 +191,6 @@ public class PlyController : MonoBehaviour
                     spcInter.ShootTentril();
                 }
                 isGrounded = false;
-                rb.gravityScale = 1;
                 rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
             }
         }
@@ -172,12 +201,12 @@ public class PlyController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Wall"))
         {
-            Debug.Log("Hitting Wall");
+            if(!inWater)
             hittingWall = true;
         }
         else
         {
-            if ((!inWater))
+            if (!inWater)
             {
                 isGrounded = true;
                 hittingWall = false;
@@ -212,7 +241,7 @@ public class PlyController : MonoBehaviour
             {
                 //Makes Blob float
                 StartCoroutine(SimulateFriction("Blob"));
-                Debug.Log("max: " + other.bounds.max);
+                waterSurface = other.bounds.max;
             }
         }
         else if(player.CompareTag("Cat"))
@@ -278,6 +307,7 @@ public class PlyController : MonoBehaviour
             {
                 //Blob jumps out of water
                 inWater = false;
+                rb.gravityScale = 1;
             }
         }
         else if (player.CompareTag("Cat"))
@@ -324,10 +354,10 @@ public class PlyController : MonoBehaviour
         }
         else if (form == "Blob")
         {
-            rb.gravityScale = 0f;
-            yield return new WaitForSeconds(0.2f);
+            rb.gravityScale = 0.01f;
+            yield return new WaitForSeconds(0.7f);
             inWater = true;
-            rb.velocity = Vector2.zero;
+            //rb.velocity = Vector2.zero;
         }
     }
 }

@@ -328,7 +328,6 @@ public class SpecialInteractions : MonoBehaviour
     {
         if (!spring.isActiveAndEnabled)
         {
-            Debug.Log("Shoot Tendril");
             /*LeanTween.scaleZ(tendril, spring.distance, 2);
             LeanTween.moveLocalY(tendril, spring.distance / 2, 2);
             tendSeg.enabled = true;
@@ -346,7 +345,6 @@ public class SpecialInteractions : MonoBehaviour
         }
         else
         {
-            Debug.Log("Retract Tendril");
             /*LeanTween.scaleZ(tendril, 1, 2);
             LeanTween.moveLocalY(tendril, 0.5f, 2);
             tendSeg.enabled = false;
