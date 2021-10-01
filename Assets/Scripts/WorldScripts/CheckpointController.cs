@@ -11,7 +11,7 @@ public class CheckpointController : MonoBehaviour
  */
 
     //Pubilc variables
-    public Checkpoint[] checkpoints;
+    public Transform[] checkpoints;
     public Transform player;
     public int toCheckpoint = 0;
 
@@ -32,23 +32,16 @@ public class CheckpointController : MonoBehaviour
     //Update
     private void Update()
     {
-        for(int i = 0; i < checkpoints.Length; i++)
-        {
-            if(checkpoints[i].playerIsHere)
-            {
-                toCheckpoint = i;
-            }
-        }
-
         if(toCheckpoint != previousCheckpoint)
         {
-            player.position = checkpoints[toCheckpoint].transform.position;
+            player.position = checkpoints[toCheckpoint].position;
             previousCheckpoint = toCheckpoint;
         }
 
         if(!player.gameObject.activeSelf)
         {
             MoveToCheckpoint(previousCheckpoint);
+            player.gameObject.SetActive(true);
         }
     }
 
