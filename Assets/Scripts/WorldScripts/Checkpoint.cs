@@ -1,30 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Checkpoint : MonoBehaviour
 {
-    [SerializeField]
-    CheckpointController ChckCntrl;
-    [SerializeField]
-    public bool playerIsHere = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //Public variables and assets
+    public static Action<int> newCheckpoint = delegate { };
+    public int ckptNum;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //Private variables
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    //When the player enters the trigger set the checkpoint
+    public void OnTriggerEnter2D(Collider other)
     {
-        if(GameAction.PlayerTags(collision.tag))
+        if (other.CompareTag("Player"))
         {
-            playerIsHere = true;
+            newCheckpoint(ckptNum);
         }
     }
 }
