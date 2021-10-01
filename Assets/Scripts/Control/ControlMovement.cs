@@ -15,6 +15,7 @@ public class ControlMovement : MonoBehaviour
     public Transform heldSkeleton;
     public Transform player;
     public PlyController plyCntrl;
+    public Collider2D plyCol;
     public Animator animPly;
     public GameObject target;
 
@@ -119,6 +120,7 @@ public class ControlMovement : MonoBehaviour
                     //Change movement
                     plyCntrl.speed = 7;
                     plyCntrl.jumpHeight = 8;
+                    plyCol.density = 1.31f;
                     //Remove skeleton
                     removeSkeleton();
                     break;
@@ -132,6 +134,7 @@ public class ControlMovement : MonoBehaviour
                         //Change movement
                         plyCntrl.speed = 5;
                         plyCntrl.jumpHeight = 8;
+                        plyCol.density = 1;
                     }
                     break;
             }

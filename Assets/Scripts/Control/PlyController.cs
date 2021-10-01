@@ -76,7 +76,7 @@ public class PlyController : MonoBehaviour
         {
             if (inWater)
             {
-                if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero && swim)
+                if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
                 {
                     rb.velocity += (Vector2.one * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed) - new Vector2(rb.velocity.x, rb.velocity.y);
                 }
@@ -232,7 +232,6 @@ public class PlyController : MonoBehaviour
             if (other.CompareTag("Water"))
             {
                 inWater = true;
-                StartCoroutine(SimulateFriction("Fish"));
             }
         }
         else if (player.CompareTag("Blob"))
@@ -240,8 +239,7 @@ public class PlyController : MonoBehaviour
             if (other.CompareTag("Water"))
             {
                 //Makes Blob float
-                StartCoroutine(SimulateFriction("Blob"));
-                waterSurface = other.bounds.max;
+                inWater = true;
             }
         }
         else if(player.CompareTag("Cat"))
@@ -340,24 +338,6 @@ public class PlyController : MonoBehaviour
         {
             catClimb = true;
             rb.gravityScale = 0;
-        }
-    }
-
-    //Delays the reduce of velocity to give the illusion of friction when jumping in water
-    IEnumerator SimulateFriction(string form)
-    {
-        if (form == "Fish")
-        {
-            rb.gravityScale = 0.1f;
-            yield return new WaitForSeconds(1);
-            swim = true;
-        }
-        else if (form == "Blob")
-        {
-            rb.gravityScale = 0.01f;
-            yield return new WaitForSeconds(0.7f);
-            inWater = true;
-            //rb.velocity = Vector2.zero;
         }
     }
 }
