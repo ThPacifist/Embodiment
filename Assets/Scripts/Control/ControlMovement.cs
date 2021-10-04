@@ -15,7 +15,7 @@ public class ControlMovement : MonoBehaviour
     public Transform heldSkeleton;
     public Transform player;
     public PlyController plyCntrl;
-    public Collider2D plyCol;
+    public CapsuleCollider2D plyCol;
     public Animator animPly;
     public GameObject target;
 
@@ -86,18 +86,26 @@ public class ControlMovement : MonoBehaviour
                     //Change movement
                     plyCntrl.speed = 5;
                     plyCntrl.jumpHeight = 8;
+                    //Change Collider
+                    plyCol.direction = CapsuleDirection2D.Vertical;
+                    plyCol.offset = new Vector2(-0.0238f, 0.0030f);
+                    plyCol.size = new Vector2(0.9682f, 4.0357f);
                     //Remove skeleton
                     removeSkeleton();
                     break;
                 case "Cat":
                     //Change to cat bod
-                    //animPly.SetBool("Cat", true);
                     animPly.SetBool("Cat", true);
                     //Change tag
                     player.tag = "Cat";
                     //Change movement
                     plyCntrl.speed = 5;
                     plyCntrl.jumpHeight = 8;
+                    //Change Collider
+                    plyCol.direction = CapsuleDirection2D.Horizontal;
+                    plyCol.offset = new Vector2(0.1528f, -0.0274f);
+                    plyCol.size = new Vector2(2.2813f, 1.5845f);
+                    //Remove skeleton
                     removeSkeleton();
                     break;
                 case "Bat":
@@ -108,6 +116,10 @@ public class ControlMovement : MonoBehaviour
                     //Change movement
                     plyCntrl.speed = 5;
                     plyCntrl.jumpHeight = 8;
+                    //Change Collider
+                    plyCol.direction = CapsuleDirection2D.Vertical;
+                    plyCol.offset = new Vector2(0.0047f, -0.0903f);
+                    plyCol.size = new Vector2(0.6879f, 1.7104f);
                     //Remove skeleton
                     removeSkeleton();
                     break;
@@ -121,6 +133,10 @@ public class ControlMovement : MonoBehaviour
                     plyCntrl.speed = 7;
                     plyCntrl.jumpHeight = 8;
                     plyCol.density = 1.31f;
+                    //Change Collider
+                    plyCol.direction = CapsuleDirection2D.Horizontal;
+                    plyCol.offset = new Vector2(0.0037f, 0.3573f);
+                    plyCol.size = new Vector2(3.5232f, 0.8149f);
                     //Remove skeleton
                     removeSkeleton();
                     break;
@@ -135,6 +151,10 @@ public class ControlMovement : MonoBehaviour
                         plyCntrl.speed = 5;
                         plyCntrl.jumpHeight = 8;
                         plyCol.density = 1;
+                        //Change Collider
+                        plyCol.direction = CapsuleDirection2D.Horizontal;
+                        plyCol.offset = new Vector2(-0.0523f, -0.1200f);
+                        plyCol.size = new Vector2(1.4153f, 0.9959f);
                     }
                     break;
             }
