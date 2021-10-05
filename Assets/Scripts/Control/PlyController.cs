@@ -17,10 +17,6 @@ public class PlyController : MonoBehaviour
     public static Action Pause = delegate { };
     public float speed;
     public float jumpHeight;
-    public float velocityX;
-    public float velocityY;
-    public float amplitude = 0.5f;
-    public float omega = 1f;
 
     //Private Variables
     private bool catClimb = false;
@@ -62,9 +58,6 @@ public class PlyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        velocityX = rb.velocity.x;
-        velocityY = rb.velocity.y;
-
         //Activates Special
         PlyCtrl.Player.Special.performed += _ => Special();
 
@@ -156,20 +149,6 @@ public class PlyController : MonoBehaviour
 
         //Pause
         PlyCtrl.Player.Pause.performed += _ => Pause();
-
-        /*if(player.CompareTag("Blob") && inWater)
-        {
-            index += Time.deltaTime;
-            // Float up/down with a Sin()
-            tempPos = amplitude * Mathf.Sin(omega*index);
-
-            transform.position += new Vector3 (0, tempPos, 0);
-            if(player.position.y < waterSurface.y)
-            {
-                float dist = Vector2.Distance(new Vector2(0, player.position.y), new Vector2(0, waterSurface.y));
-                rb.velocity = new Vector2(rb.velocity.x, dist);
-            }
-        }*/
     }
 
     private void Jump()

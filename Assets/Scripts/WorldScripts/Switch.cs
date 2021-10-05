@@ -22,6 +22,7 @@ public class Switch : MonoBehaviour
     Vector3 restPos;
     public bool isTouching = false;
     public bool active;
+    bool b;
 
     /* Light Buttons:
      * - Press the interact button to activate the button
@@ -56,19 +57,15 @@ public class Switch : MonoBehaviour
             {
                 active = false;
                 resetButton();
+                behavior.Action(true);
             }
         }
         if(Heavy || Medium)
         {
             if(this.gameObject.transform.position.y < restPos.y)
             {
-                active = true;
+                behavior.Action(false);
             }
-        }
-
-        if(active)
-        {
-            //behavior.Action();
         }
     }
 
@@ -93,6 +90,7 @@ public class Switch : MonoBehaviour
         {
             if (Light || Lever)
             {
+                b = true;
                 PlyController.Interact += Interact;
             }
         }
@@ -103,6 +101,7 @@ public class Switch : MonoBehaviour
         {
             if (Light || Lever)
             {
+                b = false;
                 PlyController.Interact -= Interact;
             }
         }
@@ -110,7 +109,7 @@ public class Switch : MonoBehaviour
 
     public void Interact()
     {
-        active = true;
+        behavior.Action();
     }
 
     void resetButton()
@@ -119,9 +118,9 @@ public class Switch : MonoBehaviour
         {
             this.gameObject.transform.position += new Vector3 (0, Time.deltaTime, 0) * 0.3f;
         }
-        else if(this.gameObject.transform.position.y > restPos.y)
+        /*else if(this.gameObject.transform.position.y > restPos.y)
         {
             this.gameObject.transform.position -= new Vector3(0, Time.deltaTime, 0) * 0.3f;
-        }
+        }*/
     }
 }

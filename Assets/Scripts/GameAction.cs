@@ -8,6 +8,10 @@ public class GameAction : MonoBehaviour
     {
 
     }
+    public virtual void Action (bool b)
+    {
+
+    }
 
     public static bool PlayerTags(string tag)
     {
