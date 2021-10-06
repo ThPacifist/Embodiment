@@ -17,7 +17,7 @@ public class CheckpointController : MonoBehaviour
     public int toCheckpoint = 0;
 
     //Private variables
-    private int previousCheckpoint = 0;
+    public int previousCheckpoint = 0;
 
     //Enable on enable and disable on disable
     private void OnEnable()

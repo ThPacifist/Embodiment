@@ -15,7 +15,7 @@ public class Checkpoint : MonoBehaviour
     //When the player enters the trigger set the checkpoint
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Blob") ||other.CompareTag("Fish") ||other.CompareTag("Human") ||other.CompareTag("Cat") ||other.CompareTag("Bat"))
         {
             newCheckpoint(ckptNum);
         }
