@@ -12,8 +12,6 @@ public class UIScripts : MonoBehaviour
     //Made the pause mnu open and close with the button on 9/22 by Jason
     /*
      * TODO:
-     * Make controller stuff work
-     * Make the buttons do stuff
      */
 
     //Public variables and assets

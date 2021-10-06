@@ -9,7 +9,6 @@ public class MainMenu : MonoBehaviour
     //Created by Jason on 9/14
     /*
      * TODO:
-     * Add direct functionality to these buttons
      */
 
      //Public variables and assets

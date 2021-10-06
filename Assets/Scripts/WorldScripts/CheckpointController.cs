@@ -27,7 +27,7 @@ public class CheckpointController : MonoBehaviour
 
     private void OnDisable()
     {
-        
+        Checkpoint.newCheckpoint -= UpdateCheckpoint;
     }
 
     //Update
