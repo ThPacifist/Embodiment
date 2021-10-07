@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 6655466848533876394}
   - component: {fileID: 6583283431253665130}
   - component: {fileID: 2039941556895689844}
+  - component: {fileID: 5608620438157831128}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Cat
@@ -231,3 +232,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5868459, y: 1.4370193}
   m_EdgeRadius: 0
+--- !u!114 &5608620438157831128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8626122902446743755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833d107f7f0318e48ba943a3e4c43217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeleton: {fileID: 8175639994752756732}
+  spawnPoint: {fileID: 0}
+  changeLocationAtStart: 0

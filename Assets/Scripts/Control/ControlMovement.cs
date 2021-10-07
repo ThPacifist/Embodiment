@@ -16,6 +16,7 @@ public class ControlMovement : MonoBehaviour
     public Transform player;
     public PlyController plyCntrl;
     public CapsuleCollider2D plyCol;
+    public CircleCollider2D cirCol;
     public Animator animPly;
     public GameObject target;
 
@@ -197,5 +198,10 @@ public class ControlMovement : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         wait = false;
+    }
+
+    void ExpandCollider()
+    {
+
     }
 }

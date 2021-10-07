@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373430571}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -1.16, z: 0}
+  m_LocalPosition: {x: -0, y: -1.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4819060323485262879}
@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1651337004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.95, y: 0.56, z: 0}
+  m_LocalPosition: {x: 1.67, y: 0.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4819060323485262879}
@@ -780,6 +780,7 @@ GameObject:
   - component: {fileID: 8069979182591699773}
   - component: {fileID: 366513243}
   - component: {fileID: 1263926257}
+  - component: {fileID: 1189157438}
   m_Layer: 0
   m_Name: Player
   m_TagString: Blob
@@ -909,6 +910,7 @@ MonoBehaviour:
   attackBox: {fileID: 7678000444253303998}
   rb: {fileID: 4819060323485262875}
   plySprite: {fileID: 741335704}
+  plyAnim: {fileID: 366513243}
   speed: 5
   jumpHeight: 10
   isGrounded: 0
@@ -930,6 +932,7 @@ MonoBehaviour:
   player: {fileID: 4819060323485262879}
   plyCntrl: {fileID: 4819060323351451821}
   plyCol: {fileID: 1720524858}
+  cirCol: {fileID: 1189157438}
   animPly: {fileID: 366513243}
   target: {fileID: 0}
 --- !u!114 &4819060323485262864
@@ -1122,6 +1125,22 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!58 &1189157438
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819060323485262873}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.0001
 --- !u!1 &4819060323632476173
 GameObject:
   m_ObjectHideFlags: 0

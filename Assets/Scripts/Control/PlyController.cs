@@ -11,6 +11,7 @@ public class PlyController : MonoBehaviour
     public Transform attackBox;
     public Rigidbody2D rb;
     public SpriteRenderer plySprite;
+    public Animator plyAnim;
     public static Action Interact = delegate { };
     public static Action Embody = delegate { };
     public static Action Special = delegate { };
@@ -21,12 +22,9 @@ public class PlyController : MonoBehaviour
     //Private Variables
     private bool catClimb = false;
     public bool isGrounded = false;
-    private bool pushing = false;
     private bool canJump = true;
-    bool swim = false;
     bool hittingWall;
     Vector2 catDir;
-    Vector2 waterSurface;
 
     static bool right;
     static bool left;
@@ -149,13 +147,24 @@ public class PlyController : MonoBehaviour
 
         //Pause
         PlyCtrl.Player.Pause.performed += _ => Pause();
+
+        if (spcInter.isAttached)
+        {
+            plyAnim.SetBool("Swing", true);
+        }
+        else
+        {
+            plyAnim.SetBool("Swing", false);
+        }
     }
 
     private void Jump()
     {
-        if (player.CompareTag("Bat"))
+        if (player.CompareTag("Bat") && canJump)
         {
+            canJump = false;
             rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
+            StartCoroutine(FlyCoolDown());
         }
         else if(player.CompareTag("Cat") && catClimb)
         {
@@ -269,7 +278,6 @@ public class PlyController : MonoBehaviour
             if (other.CompareTag("Water"))
             {
                 inWater = false;
-                swim = false;
                 rb.gravityScale = 1;
             }
         }
