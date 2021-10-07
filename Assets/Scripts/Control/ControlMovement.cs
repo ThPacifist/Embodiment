@@ -35,6 +35,21 @@ public class ControlMovement : MonoBehaviour
         PlyController.Embody -= Embody;
     }
 
+    private void Start()
+    {
+        if(player.tag == "Blob")
+        {
+            //Change movement
+            plyCntrl.speed = 5;
+            plyCntrl.jumpHeight = 13;
+            plyCol.density = 1;
+            //Change Collider
+            plyCol.direction = CapsuleDirection2D.Horizontal;
+            plyCol.offset = new Vector2(-0.0523f, -0.1200f);
+            plyCol.size = new Vector2(1.4153f, 0.9959f);
+        }
+    }
+
     //Change transformTarget when entering the triggers
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -85,7 +100,7 @@ public class ControlMovement : MonoBehaviour
                     player.tag = "Human";
                     //Change movement
                     plyCntrl.speed = 5;
-                    plyCntrl.jumpHeight = 8;
+                    plyCntrl.jumpHeight = 35;
                     //Change Collider
                     plyCol.direction = CapsuleDirection2D.Vertical;
                     plyCol.offset = new Vector2(-0.0238f, 0.0030f);
@@ -99,8 +114,8 @@ public class ControlMovement : MonoBehaviour
                     //Change tag
                     player.tag = "Cat";
                     //Change movement
-                    plyCntrl.speed = 5;
-                    plyCntrl.jumpHeight = 8;
+                    plyCntrl.speed = 7;
+                    plyCntrl.jumpHeight = 40;
                     //Change Collider
                     plyCol.direction = CapsuleDirection2D.Horizontal;
                     plyCol.offset = new Vector2(0.1528f, -0.0274f);
@@ -131,7 +146,7 @@ public class ControlMovement : MonoBehaviour
                     player.tag = "Fish";
                     //Change movement
                     plyCntrl.speed = 7;
-                    plyCntrl.jumpHeight = 8;
+                    plyCntrl.jumpHeight = 21;
                     plyCol.density = 1.31f;
                     //Change Collider
                     plyCol.direction = CapsuleDirection2D.Horizontal;
@@ -149,7 +164,7 @@ public class ControlMovement : MonoBehaviour
                         player.tag = "Blob";
                         //Change movement
                         plyCntrl.speed = 5;
-                        plyCntrl.jumpHeight = 8;
+                        plyCntrl.jumpHeight = 13;
                         plyCol.density = 1;
                         //Change Collider
                         plyCol.direction = CapsuleDirection2D.Horizontal;

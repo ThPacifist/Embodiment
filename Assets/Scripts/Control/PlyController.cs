@@ -178,12 +178,7 @@ public class PlyController : MonoBehaviour
     //Check if they're on the ground
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Wall"))
-        {
-            if(!inWater)
-            hittingWall = true;
-        }
-        else
+        if(!collision.gameObject.CompareTag("Wall"))
         {
             if (!inWater)
             {
