@@ -17,11 +17,15 @@ public class Switch : MonoBehaviour
     public bool Medium;
     public bool Heavy;
     public bool Lever;
+    public bool weight;
+    public bool plate;
+    public int reqWeight;
 
     //Private Variables
     Vector3 restPos;
     public bool isTouching = false;
     public bool active;
+    private int currentWeight = 0;
     bool b;
 
     /* Light Buttons:
@@ -40,6 +44,12 @@ public class Switch : MonoBehaviour
 
     /* Lever:
      * - Can be toggled on/off like a lever
+     */
+
+    /* Weight:
+     * - Needs a certain weight to be on it before it is triggered
+     * - Public variable weight needs to be set to 1, 2, or 3 for light boxes - heavy boxes
+     * - Plate bool makes it need that specific weight, if more is added, it doesn't work
      */
 
     // Start is called before the first frame update
@@ -66,10 +76,24 @@ public class Switch : MonoBehaviour
         {
             if(this.gameObject.transform.position.y < restPos.y) //If the position of the button is less than its rest position, activate the behavior
             {
+                if (weight)
+                {
+                    if(plate && currentWeight == reqWeight)
+                    {
+                        behavior.Action(false);
+                    }
+                    else if(currentWeight >= reqWeight)
+                    {
+                        behavior.Action(false);
+                    }
+                }
                 //Calls the behavior's action function with a bool parameter
-                    //For right now it calls the DisableSprites action function, which disables the sprite
-                        //It does this by using the passed in bool, to toggle the sprite
-                behavior.Action(false);
+                //For right now it calls the DisableSprites action function, which disables the sprite
+                //It does this by using the passed in bool, to toggle the sprite
+                else
+                {
+                    behavior.Action(false);
+                }
             }
         }
     }
@@ -79,6 +103,24 @@ public class Switch : MonoBehaviour
         if (Medium || Heavy)
         {
             isTouching = true;
+            if (weight)
+            {
+                switch(other.gameObject.tag)
+                {
+                    case "LBox":
+                        currentWeight = 1;
+                        break;
+                    case "MBox":
+                        currentWeight = 2;
+                        break;
+                    case "HBox":
+                        currentWeight = 1;
+                        break;
+                    default:
+                        currentWeight = 0;
+                        break;
+                }
+            }
         }
     }
     private void OnCollisionExit2D(Collision2D other)
@@ -86,6 +128,10 @@ public class Switch : MonoBehaviour
         if (Medium || Heavy)
         {
             isTouching = false;
+            if(weight && !GameAction.PlayerTags(other.gameObject.tag))
+            {
+                currentWeight = 0;
+            }
         }
     }
     //When the player gets in range of a light button or a lever, it subscribes the interact function here to the interact action
