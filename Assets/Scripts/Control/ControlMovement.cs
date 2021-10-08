@@ -191,6 +191,8 @@ public class ControlMovement : MonoBehaviour
     {
         heldSkeleton.parent = null;
         heldSkeleton.gameObject.SetActive(true);
+        heldSkeleton = null;
+        transformTarget = null;
     }
 
     //Don't transform for the rest of this frame
