@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class GameAction : MonoBehaviour
 {
+    /*
+     * Use this as a parent class
+     * Using this script, we can control say, the switch scripts behavior that it triggers
+     * Doing it this way allows us give the button different things it can trigger
+     *      Like have a subclass that triggers an animation,
+     *          Disables a script,
+     *          Other types of behavior.
+     *          
+     * This allows us easily give scripts triggerable behaviors
+     */
+
     public virtual void Action ()
     {
 

@@ -7,11 +7,11 @@ public class DisableSprite : GameAction
     public GameObject Sprite;
     public override void Action()
     {
-        Toggle();
+        Toggle();// Toggles the sprite between off and on
     }
     public override void Action(bool b)
     {
-        Toggle(b);
+        Toggle(b);// Using the passed in bool, toggles the sprite on and off
     }
 
     void Toggle()

@@ -10,7 +10,7 @@ public class Switch : MonoBehaviour
     Transform button;
 
     [SerializeField]
-    GameAction behavior; //behavior that is triggered when this switch is active
+    GameAction behavior; //behavior that is triggered when the switch is active
 
     //Public Variables
     public bool Light;
@@ -53,17 +53,22 @@ public class Switch : MonoBehaviour
     {
         if (Heavy)
         {
-            if(!isTouching)
+            if(!isTouching)// If there is not an object touching the button, move button to its original position
             {
-                active = false;
                 resetButton();
+                //Calls the behavior's action function with a bool parameter
+                    //For right now it calls the DisableSprites action function, which re-enables the sprite
+                        //It does this by using the passed in bool, to toggle the sprite
                 behavior.Action(true);
             }
         }
-        if(Heavy || Medium)
+        if(Heavy || Medium)// If either the heavy or medium bool is true
         {
-            if(this.gameObject.transform.position.y < restPos.y)
+            if(this.gameObject.transform.position.y < restPos.y) //If the position of the button is less than its rest position, activate the behavior
             {
+                //Calls the behavior's action function with a bool parameter
+                    //For right now it calls the DisableSprites action function, which disables the sprite
+                        //It does this by using the passed in bool, to toggle the sprite
                 behavior.Action(false);
             }
         }
@@ -83,7 +88,7 @@ public class Switch : MonoBehaviour
             isTouching = false;
         }
     }
-
+    //When the player gets in range of a light button or a lever, it subscribes the interact function here to the interact action
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (GameAction.PlayerTags(other.tag))
@@ -109,18 +114,17 @@ public class Switch : MonoBehaviour
 
     public void Interact()
     {
+        //This version of the behavior action call, calls the DisableSprite action function without the parameter
+            //This intern calls a function which disables the sprite but without passing in a bool
         behavior.Action();
     }
 
+    //Returns the button to its starting position, which is its resting position
     void resetButton()
     {
         if(this.gameObject.transform.position.y < restPos.y)
         {
             this.gameObject.transform.position += new Vector3 (0, Time.deltaTime, 0) * 0.3f;
         }
-        /*else if(this.gameObject.transform.position.y > restPos.y)
-        {
-            this.gameObject.transform.position -= new Vector3(0, Time.deltaTime, 0) * 0.3f;
-        }*/
     }
 }
