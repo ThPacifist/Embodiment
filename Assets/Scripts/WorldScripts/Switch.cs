@@ -65,7 +65,7 @@ public class Switch : MonoBehaviour
     {
         if (Heavy)
         {
-            if(!isTouching)// If there is not an object touching the button, move button to its original position
+            if(!isTouching || !active)// If there is not an object touching the button, move button to its original position
             {
                 resetButton();
                 //Calls the behavior's action function with a bool parameter
@@ -83,10 +83,12 @@ public class Switch : MonoBehaviour
                     if(plate && currentWeight == reqWeight)
                     {
                         behavior.Action(false);
+                        active = true;
                     }
                     else if(currentWeight >= reqWeight)
                     {
                         behavior.Action(false);
+                        active = true;
                     }
                 }
                 //Calls the behavior's action function with a bool parameter
@@ -95,6 +97,7 @@ public class Switch : MonoBehaviour
                 else
                 {
                     behavior.Action(false);
+                    active = true;
                 }
             }
         }
@@ -116,7 +119,7 @@ public class Switch : MonoBehaviour
                         currentWeight = 2;
                         break;
                     case "HBox":
-                        currentWeight = 1;
+                        currentWeight = 3;
                         break;
                     default:
                         currentWeight = 0;
@@ -129,6 +132,7 @@ public class Switch : MonoBehaviour
     {
         if (Medium || Heavy)
         {
+            active = false;
             isTouching = false;
             if(weight && !GameAction.PlayerTags(other.gameObject.tag))
             {
@@ -172,7 +176,11 @@ public class Switch : MonoBehaviour
     {
         if(this.gameObject.transform.position.y < restPos.y)
         {
-            this.gameObject.transform.position += new Vector3 (0, Time.deltaTime, 0) * 0.3f;
+            this.gameObject.transform.position += new Vector3 (0, Time.deltaTime, 0) * 10;
+        }
+        if(this.gameObject.transform.position.y > restPos.y)
+        {
+            this.gameObject.transform.position = restPos;
         }
         else if(this.gameObject.transform.position.y > restPos.y)
         {
