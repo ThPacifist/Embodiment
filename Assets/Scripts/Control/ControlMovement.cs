@@ -42,7 +42,7 @@ public class ControlMovement : MonoBehaviour
         {
             //Change movement
             plyCntrl.speed = 5;
-            plyCntrl.jumpHeight = 13;
+            plyCntrl.jumpHeight = 10;
             plyCol.density = 1;
             //Change Collider
             plyCol.direction = CapsuleDirection2D.Horizontal;

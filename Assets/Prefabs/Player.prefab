@@ -886,7 +886,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
   m_Mass: 1.196718
-  m_LinearDrag: 2
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -912,7 +912,7 @@ MonoBehaviour:
   plySprite: {fileID: 741335704}
   plyAnim: {fileID: 366513243}
   speed: 5
-  jumpHeight: 13
+  jumpHeight: 10
   isGrounded: 0
   inWater: 0
   spcInter: {fileID: 4819060323485262864}
@@ -958,6 +958,7 @@ MonoBehaviour:
   isAttached: 0
   HheldPos: {fileID: 1651337005}
   BheldPos: {fileID: 1373430572}
+  indicatorPrefab: {fileID: 4573899549758092126, guid: b483489a74087404ab3868bfe458d05e, type: 3}
 --- !u!114 &135167153
 MonoBehaviour:
   m_ObjectHideFlags: 0

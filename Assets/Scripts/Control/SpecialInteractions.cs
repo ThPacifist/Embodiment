@@ -160,6 +160,7 @@ public class SpecialInteractions : MonoBehaviour
                             //box.position = heldPos.position;
                             heldBox = box;
                             heldBox.gravityScale = 0;
+                            heldBox.freezeRotation = true;
                             objectHeld = true;
                             //Cooldown
                             cooldownTime = 1;
@@ -173,6 +174,7 @@ public class SpecialInteractions : MonoBehaviour
                         objectHeld = false;
                         heldBox.transform.parent = null;
                         heldBox.gravityScale = 1;
+                        heldBox.freezeRotation = false;
                         heldBox = null;
                         //Cooldown
                         cooldownTime = 1;
@@ -278,7 +280,7 @@ public class SpecialInteractions : MonoBehaviour
         {
             inRange = true;
             lamp = other.gameObject;
-            indicatorPrefabClone = Instantiate(indicatorPrefab, other.transform.position, Quaternion.identity);
+            CreateIndicator(other.transform.position);
         }
     }
 
@@ -313,7 +315,7 @@ public class SpecialInteractions : MonoBehaviour
             }
         }
 
-        Destroy(indicatorPrefab);
+        DestroyIndicator();
     }
 
     //Special cooldown
@@ -373,7 +375,13 @@ public class SpecialInteractions : MonoBehaviour
     {
         if(indicatorPrefabClone == null)
         {
-
+            indicatorPrefabClone = Instantiate(indicatorPrefab, pos, Quaternion.identity);
         }
+    }
+
+    void DestroyIndicator()
+    {
+        Destroy(indicatorPrefabClone);
+        indicatorPrefabClone = null;
     }
 }
