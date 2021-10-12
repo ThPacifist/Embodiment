@@ -82,6 +82,7 @@ public class UIScripts : MonoBehaviour
     //Activates whenever the ui is active
     private void onUIEnter()
     {
+        Debug.Log("Paused");
         //Make the cursor and UI visible, and turn time off
         Cursor.visible = true;
         UI.SetActive(true);
@@ -91,6 +92,7 @@ public class UIScripts : MonoBehaviour
     //Goes whenever the ui is made not active
     public void onUIExit()
     {
+        Debug.Log("Unpause");
         //Make the cursor and UI invisible, start time, and switch to the regular menu from settings
         Cursor.visible = false;
         if (showSettings)
@@ -104,17 +106,24 @@ public class UIScripts : MonoBehaviour
     //Pause and unpause
     public void pause()
     {
-        //If it is paused, unpause
-        if (paused)
+        //Wait before pausing again
+        if (canPause)
         {
-            onUIExit();
-            paused = false;
-        }
-        //If it isn't paused, pause
-        else
-        {
-            onUIEnter();
-            paused = true;
+            //Wait before next pause
+            canPause = false;
+            StartCoroutine(waitAFrame());
+            //If it is paused, unpause
+            if (paused)
+            {
+                onUIExit();
+                paused = false;
+            }
+            //If it isn't paused, pause
+            else
+            {
+                onUIEnter();
+                paused = true;
+            }
         }
     }
 
@@ -131,6 +140,13 @@ public class UIScripts : MonoBehaviour
     {
         //Save game
         Application.Quit();
+    }
+
+    //Don't pause for the rest of this frame
+    IEnumerator waitAFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        canPause = true;
     }
 
 }
