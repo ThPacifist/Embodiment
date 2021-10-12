@@ -23,7 +23,6 @@ public class PlyController : MonoBehaviour
     private bool catClimb = false;
     public bool isGrounded = false;
     private bool canJump = true;
-    bool hittingWall;
     Vector2 catDir;
 
     static bool right;
@@ -36,6 +35,10 @@ public class PlyController : MonoBehaviour
 
     [SerializeField]
     bool inWater = false;
+
+    public bool InWater
+    { get { return inWater; } }
+
     [SerializeField]
     SpecialInteractions spcInter;
 
@@ -121,10 +124,11 @@ public class PlyController : MonoBehaviour
                     rb.velocity += (Vector2.up * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed * 0.5f) - new Vector2(0, rb.velocity.y);
                 }
             }
-            else if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && !hittingWall)
+            else if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
             {
                 rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed) - new Vector2(rb.velocity.x, 0);
             }
+
             if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
             {
                 plySprite.flipX = true;
@@ -137,6 +141,11 @@ public class PlyController : MonoBehaviour
                 left = true;
                 right = false;
             }
+        }
+
+        if (PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded)
+        {
+            rb.velocity *= Vector2.up;
         }
 
         //Jump
@@ -192,7 +201,6 @@ public class PlyController : MonoBehaviour
             if (!inWater)
             {
                 isGrounded = true;
-                hittingWall = false;
             }
         }
     }
@@ -200,7 +208,7 @@ public class PlyController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            hittingWall = false;
+
         }
         else if(collision.gameObject.CompareTag("Ground") && !inWater)
         {

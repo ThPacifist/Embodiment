@@ -23,8 +23,8 @@ public class GameAction : MonoBehaviour
     {
 
     }
-
-    public static bool PlayerTags(string tag)
+    //Checks if the the inputed tag is any of the player's tag
+    public static bool PlayerTags(string tag) //Use this to check for the player if using the tag
     {
         if (tag == "Blob")
         {

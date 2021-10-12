@@ -21,7 +21,7 @@ public class Skeleton : MonoBehaviour
     //Check if it has entered a killzone
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Death") || other.CompareTag("Water"))
+        if(other.CompareTag("Death") || other.CompareTag("Water") || other.CompareTag("Shrieker"))
         {
             skeleton.position = spawnPoint.position;
         }

@@ -8,6 +8,8 @@ public class Switch : MonoBehaviour
 {
     [SerializeField]
     Transform button;
+    [SerializeField]
+    GameObject buttonBase;
 
     [SerializeField]
     GameAction behavior; //behavior that is triggered when the switch is active
@@ -74,7 +76,7 @@ public class Switch : MonoBehaviour
         }
         if(Heavy || Medium)// If either the heavy or medium bool is true
         {
-            if(this.gameObject.transform.position.y < restPos.y) //If the position of the button is less than its rest position, activate the behavior
+            if(this.gameObject.transform.position.y < buttonBase.transform.position.y) //If the position of the button is less than its rest position, activate the behavior
             {
                 if (weight)
                 {
@@ -171,6 +173,10 @@ public class Switch : MonoBehaviour
         if(this.gameObject.transform.position.y < restPos.y)
         {
             this.gameObject.transform.position += new Vector3 (0, Time.deltaTime, 0) * 0.3f;
+        }
+        else if(this.gameObject.transform.position.y > restPos.y)
+        {
+            this.gameObject.transform.position -= new Vector3(0, Time.deltaTime, 0) * 0.3f;
         }
     }
 }

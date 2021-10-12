@@ -48,6 +48,9 @@ public class SpecialInteractions : MonoBehaviour
     Transform HheldPos;
     [SerializeField]
     Transform BheldPos;
+    [SerializeField]
+    GameObject indicatorPrefab;
+    GameObject indicatorPrefabClone;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -275,6 +278,7 @@ public class SpecialInteractions : MonoBehaviour
         {
             inRange = true;
             lamp = other.gameObject;
+            indicatorPrefabClone = Instantiate(indicatorPrefab, other.transform.position, Quaternion.identity);
         }
     }
 
@@ -308,6 +312,8 @@ public class SpecialInteractions : MonoBehaviour
                 //tendril.transform.LookAt(null);
             }
         }
+
+        Destroy(indicatorPrefab);
     }
 
     //Special cooldown
@@ -361,5 +367,13 @@ public class SpecialInteractions : MonoBehaviour
         }
         //init Cooldown
         StartCoroutine("SpecialCoolDown");
+    }
+
+    void CreateIndicator(Vector3 pos)
+    {
+        if(indicatorPrefabClone == null)
+        {
+
+        }
     }
 }

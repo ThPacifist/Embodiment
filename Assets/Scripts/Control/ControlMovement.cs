@@ -85,94 +85,102 @@ public class ControlMovement : MonoBehaviour
             heldSkeleton = null;
         }
         */
-        if (!wait)
+        if (!wait) //If the allotted 
         {
             wait = true;
-            if(heldSkeleton != null)
+            if (!plyCntrl.InWater)
             {
-                replaceSkeleton();
-            }
-            switch (transformTarget)
-            {
-                case "Human":
-                    //Change to human body
-                    animPly.SetBool("Human", true);
-                    //Change tag
-                    player.tag = "Human";
-                    //Change movement
-                    plyCntrl.speed = 5;
-                    plyCntrl.jumpHeight = 35;
-                    //Change Collider
-                    plyCol.direction = CapsuleDirection2D.Vertical;
-                    plyCol.offset = new Vector2(-0.0238f, 0.0030f);
-                    plyCol.size = new Vector2(0.9682f, 4.0357f);
-                    //Remove skeleton
-                    removeSkeleton();
-                    break;
-                case "Cat":
-                    //Change to cat bod
-                    animPly.SetBool("Cat", true);
-                    //Change tag
-                    player.tag = "Cat";
-                    //Change movement
-                    plyCntrl.speed = 7;
-                    plyCntrl.jumpHeight = 40;
-                    //Change Collider
-                    plyCol.direction = CapsuleDirection2D.Horizontal;
-                    plyCol.offset = new Vector2(0.1528f, -0.0274f);
-                    plyCol.size = new Vector2(2.2813f, 1.5845f);
-                    //Remove skeleton
-                    removeSkeleton();
-                    break;
-                case "Bat":
-                    //Change to bat body
-                    animPly.SetBool("Bat", true);
-                    //Change tag
-                    player.tag = "Bat";
-                    //Change movement
-                    plyCntrl.speed = 5;
-                    plyCntrl.jumpHeight = 8;
-                    //Change Collider
-                    plyCol.direction = CapsuleDirection2D.Vertical;
-                    plyCol.offset = new Vector2(0.0047f, -0.0903f);
-                    plyCol.size = new Vector2(0.6879f, 1.7104f);
-                    //Remove skeleton
-                    removeSkeleton();
-                    break;
-                case "Fish":
-                    //Change to fish body
-                    //animPly.SetBool("Fish", true);
-                    animPly.SetBool("Fish", true);
-                    //Change tag
-                    player.tag = "Fish";
-                    //Change movement
-                    plyCntrl.speed = 7;
-                    plyCntrl.jumpHeight = 21;
-                    plyCol.density = 1.31f;
-                    //Change Collider
-                    plyCol.direction = CapsuleDirection2D.Horizontal;
-                    plyCol.offset = new Vector2(0.0037f, 0.3573f);
-                    plyCol.size = new Vector2(3.5232f, 0.8149f);
-                    //Remove skeleton
-                    removeSkeleton();
-                    break;
-                default:
-                    if (!player.CompareTag("Blob"))
-                    {
-                        //Drop current body
-                        animPly.SetBool(player.gameObject.tag, false);
+                if (heldSkeleton != null)
+                {
+                    replaceSkeleton();
+                }
+                switch (transformTarget)
+                {
+                    case "Human":
+                        //Change to human body
+                        animPly.SetBool("Human", true);
                         //Change tag
-                        player.tag = "Blob";
+                        player.tag = "Human";
                         //Change movement
                         plyCntrl.speed = 5;
-                        plyCntrl.jumpHeight = 13;
-                        plyCol.density = 1;
+                        plyCntrl.jumpHeight = 32;
+                        //Change Collider
+                        plyCol.direction = CapsuleDirection2D.Vertical;
+                        plyCol.offset = new Vector2(-0.0238f, 0.0030f);
+                        plyCol.size = new Vector2(0.9682f, 4.0357f);
+                        //Remove skeleton
+                        removeSkeleton();
+                        break;
+                    case "Cat":
+                        //Change to cat bod
+                        animPly.SetBool("Cat", true);
+                        //Change tag
+                        player.tag = "Cat";
+                        //Change movement
+                        plyCntrl.speed = 7;
+                        plyCntrl.jumpHeight = 32;
                         //Change Collider
                         plyCol.direction = CapsuleDirection2D.Horizontal;
-                        plyCol.offset = new Vector2(-0.0523f, -0.1200f);
-                        plyCol.size = new Vector2(1.4153f, 0.9959f);
-                    }
-                    break;
+                        plyCol.offset = new Vector2(0.1528f, -0.0274f);
+                        plyCol.size = new Vector2(2.2813f, 1.5845f);
+                        //Remove skeleton
+                        removeSkeleton();
+                        break;
+                    case "Bat":
+                        //Change to bat body
+                        animPly.SetBool("Bat", true);
+                        //Change tag
+                        player.tag = "Bat";
+                        //Change movement
+                        plyCntrl.speed = 5;
+                        plyCntrl.jumpHeight = 8;
+                        //Change Collider
+                        plyCol.direction = CapsuleDirection2D.Vertical;
+                        plyCol.offset = new Vector2(0.0047f, -0.0903f);
+                        plyCol.size = new Vector2(0.6879f, 1.7104f);
+                        //Remove skeleton
+                        removeSkeleton();
+                        break;
+                    case "Fish":
+                        //Change to fish body
+                        //animPly.SetBool("Fish", true);
+                        animPly.SetBool("Fish", true);
+                        //Change tag
+                        player.tag = "Fish";
+                        //Change movement
+                        plyCntrl.speed = 7;
+                        plyCntrl.jumpHeight = 21;
+                        plyCol.density = 1.31f;
+                        //Change Collider
+                        plyCol.direction = CapsuleDirection2D.Horizontal;
+                        plyCol.offset = new Vector2(0.0037f, 0.3573f);
+                        plyCol.size = new Vector2(3.5232f, 0.8149f);
+                        //Remove skeleton
+                        removeSkeleton();
+                        break;
+                    default://Unembodies the player from its current skeleton
+                        if (!player.CompareTag("Blob"))
+                        {
+                            //Drop current body
+                            animPly.SetBool(player.gameObject.tag, false);
+                            //Change tag
+                            player.tag = "Blob";
+                            //Change movement
+                            plyCntrl.speed = 5;
+                            plyCntrl.jumpHeight = 10;
+                            plyCol.density = 1;
+                            //Change Collider
+                            plyCol.direction = CapsuleDirection2D.Horizontal;
+                            plyCol.offset = new Vector2(-0.0523f, -0.1200f);
+                            plyCol.size = new Vector2(1.4153f, 0.9959f);
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                //Visual indication of unemboding goes here
+                Debug.Log("Cannot Unembody in Water");
             }
             StartCoroutine(waitAFrame());
         }
@@ -205,5 +213,11 @@ public class ControlMovement : MonoBehaviour
     void ExpandCollider()
     {
 
+    }
+    //Used For ShriekerField script to remove skeleton from player
+    public void DestorySkeleton()
+    {
+        transformTarget = "None";
+        Embody();
     }
 }
