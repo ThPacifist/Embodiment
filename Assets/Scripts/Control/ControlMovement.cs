@@ -15,6 +15,7 @@ public class ControlMovement : MonoBehaviour
     public Transform heldSkeleton;
     public Transform player;
     public PlyController plyCntrl;
+    public SpecialInteractions spIntr;
     public CapsuleCollider2D plyCol;
     public CircleCollider2D cirCol;
     public Animator animPly;
@@ -88,7 +89,7 @@ public class ControlMovement : MonoBehaviour
         if (!wait) //If the allotted 
         {
             wait = true;
-            if (!plyCntrl.InWater)
+            if (!plyCntrl.InWater && !spIntr.ObjectHeld)
             {
                 if (heldSkeleton != null)
                 {
@@ -177,10 +178,14 @@ public class ControlMovement : MonoBehaviour
                         break;
                 }
             }
-            else
+            else if(plyCntrl.InWater)
             {
-                //Visual indication of unemboding goes here
+                //indication of unemboding goes here
                 Debug.Log("Cannot Unembody in Water");
+            }
+            else if(spIntr.ObjectHeld)
+            {
+                Debug.Log("Cannot Unembody while holding a box");
             }
             StartCoroutine(waitAFrame());
         }

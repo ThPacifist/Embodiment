@@ -74,6 +74,7 @@ public class PlyController : MonoBehaviour
                 {
                     rb.velocity += (Vector2.one * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed) - new Vector2(rb.velocity.x, rb.velocity.y);
                 }
+
                 if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
                 {
                     plySprite.flipX = true;

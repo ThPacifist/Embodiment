@@ -43,14 +43,22 @@ public class SpecialInteractions : MonoBehaviour
     private Vector3 direction;
     Switch lever;
     bool inRange;
+    Collider2D[] cols = new Collider2D[2];
 
     [SerializeField]
     Transform HheldPos;
     [SerializeField]
+    BoxCollider2D HCol;
+    [SerializeField]
     Transform BheldPos;
+    [SerializeField]
+    BoxCollider2D BCol;
     [SerializeField]
     GameObject indicatorPrefab;
     GameObject indicatorPrefabClone;
+
+    public bool ObjectHeld
+    { get { return objectHeld; } }
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -76,6 +84,9 @@ public class SpecialInteractions : MonoBehaviour
         lineRender.startColor = Color.gray;
         lineRender.startWidth = 0.5f;
         lineRender.endWidth = 0.1f;
+
+        HCol.enabled = false;
+        BCol.enabled = false;
     }
 
     private void Update()
@@ -157,11 +168,15 @@ public class SpecialInteractions : MonoBehaviour
                         {
                             //Attach box
                             box.transform.parent = player;
-                            //box.position = heldPos.position;
                             heldBox = box;
                             heldBox.gravityScale = 0;
                             heldBox.freezeRotation = true;
                             objectHeld = true;
+                            foreach (Collider2D col in cols)
+                            {
+                                col.enabled = false;
+                            }
+                            HCol.enabled = true;
                             //Cooldown
                             cooldownTime = 1;
                             specialReady = false;
@@ -176,6 +191,11 @@ public class SpecialInteractions : MonoBehaviour
                         heldBox.gravityScale = 1;
                         heldBox.freezeRotation = false;
                         heldBox = null;
+                        foreach (Collider2D col in cols)
+                        {
+                            col.enabled = true;
+                        }
+                        HCol.enabled = false;
                         //Cooldown
                         cooldownTime = 1;
                         specialReady = false;
@@ -210,6 +230,11 @@ public class SpecialInteractions : MonoBehaviour
                     heldBox = box;
                     heldBox.gravityScale = 0;
                     objectHeld = true;
+                    foreach (Collider2D col in cols)
+                    {
+                        col.enabled = false;
+                    }
+                    BCol.enabled = true;
                     //Cooldown
                     cooldownTime = 1;
                     specialReady = false;
@@ -223,6 +248,11 @@ public class SpecialInteractions : MonoBehaviour
                 heldBox.transform.parent = null;
                 heldBox.gravityScale = 1;
                 objectHeld = false;
+                foreach (Collider2D col in cols)
+                {
+                    col.enabled = true;
+                }
+                BCol.enabled = false;
                 //Cooldown
                 cooldownTime = 1;
                 specialReady = false;
@@ -244,6 +274,8 @@ public class SpecialInteractions : MonoBehaviour
                 box = other.attachedRigidbody;
                 SelectBox(other.transform);
                 canHold = true;
+                other.attachedRigidbody.GetAttachedColliders(cols);
+                CreateIndicator(other.gameObject.transform.position);
             }
             //See if the bat can lift it
             else if (player.CompareTag("Bat") && (other.CompareTag("LBox")) && player.position.y > other.transform.position.y + 0.5)
@@ -251,6 +283,8 @@ public class SpecialInteractions : MonoBehaviour
                 box = other.attachedRigidbody;
                 SelectBox(other.transform);
                 canHold = true;
+                other.attachedRigidbody.GetAttachedColliders(cols);
+                CreateIndicator(other.gameObject.transform.position);
             }
             //See if the human can push it
             else if(player.CompareTag("Human") && (other.CompareTag("LBox") || other.CompareTag("MBox") || other.CompareTag("HBox")))
@@ -276,7 +310,7 @@ public class SpecialInteractions : MonoBehaviour
             climb = true;
         }
         //Check if it is swingable object
-        else if(other.CompareTag("Swing"))
+        else if(player.CompareTag("Blob") && other.CompareTag("Swing"))
         {
             inRange = true;
             lamp = other.gameObject;
