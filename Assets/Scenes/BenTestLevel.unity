@@ -51915,37 +51915,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &802861737 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1651337004, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-  m_PrefabInstance: {fileID: 4819060323351451817}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &802861739
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 802861737}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &901583023
 GameObject:
   m_ObjectHideFlags: 0
@@ -53503,17 +53472,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78e6416d072a134dba3d66b487b064a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1189157429 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4819060323485262864, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-  m_PrefabInstance: {fileID: 4819060323351451817}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189157427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82e2d66772e11e6449efda5d9f883dcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1293823613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53601,37 +53559,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1528844990 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1373430571, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-  m_PrefabInstance: {fileID: 4819060323351451817}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &1528844991
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1528844990}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &1617172003
 GameObject:
   m_ObjectHideFlags: 0
@@ -54195,14 +54122,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fish
       objectReference: {fileID: 0}
-    - target: {fileID: 5304152994894480340, guid: 0846855d70e67634399bd5797debb06e, type: 3}
-      propertyPath: m_Mass
-      value: 0.1648902
-      objectReference: {fileID: 0}
-    - target: {fileID: 5304152994894480340, guid: 0846855d70e67634399bd5797debb06e, type: 3}
-      propertyPath: m_UseAutoMass
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0846855d70e67634399bd5797debb06e, type: 3}
 --- !u!1001 &4819060323351451817
@@ -54212,18 +54131,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4819060323485262864, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: BCol
-      value: 
-      objectReference: {fileID: 1528844991}
-    - target: {fileID: 4819060323485262864, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: HCol
-      value: 
-      objectReference: {fileID: 802861739}
-    - target: {fileID: 4819060323485262866, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: spIntr
-      value: 
-      objectReference: {fileID: 1189157429}
     - target: {fileID: 4819060323485262873, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_Name
       value: Player
