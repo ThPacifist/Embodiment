@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class CheckpointController : MonoBehaviour
 {
-    //Created by Jason on 9/10
-    //Updated by Jason on 10/1
-
-/*
- * TODO:
- */
-
+    /*
+     * Description:
+     * This script sends the player to the previous checkpoint when needed by other scripts
+     */
     //Pubilc variables
     public Transform[] checkpoints;
     public Transform player;

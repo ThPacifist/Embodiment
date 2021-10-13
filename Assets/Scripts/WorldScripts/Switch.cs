@@ -6,6 +6,13 @@ using System;
 
 public class Switch : MonoBehaviour
 {
+    /*
+     * Description:
+     * Handles buttons, weighted buttons, weight plates, levers of all kinds
+     * Plates cannot be light or a lever (should be heavy, but can sometimes be medium
+     * It must be light, medium, heavy, or a lever no matter what
+     * If you want it to be weighted set the reqWeight to the weight (1 is light, 2 is medium, 3 is heavy)
+     */
     [SerializeField]
     Transform button;
     [SerializeField]
@@ -103,11 +110,14 @@ public class Switch : MonoBehaviour
         }
     }
 
+    //Medium and heavy enter
     private void OnCollisionEnter2D(Collision2D other)
     {
+        //Check if the button is medium/heavy
         if (Medium || Heavy)
         {
             isTouching = true;
+            //Get weight of object weighing the button down
             if (weight)
             {
                 switch(other.gameObject.tag)
@@ -128,10 +138,13 @@ public class Switch : MonoBehaviour
             }
         }
     }
+    //Exit for medium and heavy
     private void OnCollisionExit2D(Collision2D other)
     {
+        //Check if the button is medium/heavy
         if (Medium || Heavy)
         {
+            //Not active, nothing is touching it, reset weight
             active = false;
             isTouching = false;
             if(weight && !GameAction.PlayerTags(other.gameObject.tag))
@@ -143,8 +156,10 @@ public class Switch : MonoBehaviour
     //When the player gets in range of a light button or a lever, it subscribes the interact function here to the interact action
     private void OnTriggerEnter2D(Collider2D other)
     {
+        //Check if it is a player that touched it
         if (GameAction.PlayerTags(other.tag))
         {
+            //Check if it is light or a lever
             if (Light || Lever)
             {
                 b = true;
@@ -154,8 +169,10 @@ public class Switch : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D other)
     {
+        //Check if it is a player that stopped touching it
         if (GameAction.PlayerTags(other.tag))
         {
+            //Check if the button is light or a lever
             if (Light || Lever)
             {
                 b = false;
@@ -174,10 +191,12 @@ public class Switch : MonoBehaviour
     //Returns the button to its starting position, which is its resting position
     void resetButton()
     {
+        //Send the button up when it is inactive
         if(this.gameObject.transform.position.y < restPos.y)
         {
             this.gameObject.transform.position += new Vector3 (0, Time.deltaTime, 0) * 10;
         }
+        //Send the button down if it gets too high
         if(this.gameObject.transform.position.y > restPos.y)
         {
             this.gameObject.transform.position = restPos;
