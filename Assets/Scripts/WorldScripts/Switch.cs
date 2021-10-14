@@ -86,8 +86,9 @@ public class Switch : MonoBehaviour
         }
         if(Heavy || Medium)// If either the heavy or medium bool is true
         {
-            if(this.gameObject.transform.position.y < buttonBase.transform.position.y) //If the position of the button is less than its rest position, activate the behavior
+            if(this.gameObject.transform.position.y < buttonBase.GetComponent<Collider2D>().bounds.max.y) //If the position of the button is less than its rest position, activate the behavior
             {
+                Debug.Log("Is Less than base position");
                 if (weight)
                 {
                     if(plate && currentWeight == reqWeight)

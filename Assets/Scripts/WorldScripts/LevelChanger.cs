@@ -6,6 +6,15 @@ using UnityEngine.SceneManagement;
 public class LevelChanger : MonoBehaviour
 {
     public string newSceneName;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(GameAction.PlayerTags(collision.tag))
+        {
+            ChangeLevel();
+        }
+    }
+
     public void ChangeLevel()
     {
         StartCoroutine(ChangeLevelIE());

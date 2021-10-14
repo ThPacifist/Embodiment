@@ -57,6 +57,9 @@ public class SpecialInteractions : MonoBehaviour
     GameObject indicatorPrefab;
     GameObject indicatorPrefabClone;
 
+    /*[SerializeField]
+    FixedJoint2D fixedJ;*/
+
     public bool ObjectHeld
     { get { return objectHeld; } }
 
@@ -172,6 +175,9 @@ public class SpecialInteractions : MonoBehaviour
                             heldBox.gravityScale = 0;
                             heldBox.freezeRotation = true;
                             objectHeld = true;
+                            /*fixedJ.enabled = true;
+                            fixedJ.connectedBody = heldBox;
+                            heldBox.transform.position = HheldPos.transform.position;*/
                             foreach (Collider2D col in cols)
                             {
                                 col.enabled = false;
