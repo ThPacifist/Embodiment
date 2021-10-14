@@ -90,101 +90,112 @@ public class ControlMovement : MonoBehaviour
             wait = true;
             if (!plyCntrl.InWater && !spIntr.ObjectHeld)
             {
-                if (heldSkeleton != null)
+                if (true)
                 {
-                    replaceSkeleton();
-                }
-                switch (transformTarget)
-                {
-                    case "Human":
-                        //Change to human body
-                        animPly.SetBool("Human", true);
-                        //Change tag
-                        player.tag = "Human";
-                        //Change movement
-                        plyCntrl.speed = 5;
-                        plyCntrl.jumpHeight = 32;
-                        //Change Collider
-                        plyCol.direction = CapsuleDirection2D.Vertical;
-                        plyCol.offset = new Vector2(-0.0238f, 0.0030f);
-                        plyCol.size = new Vector2(0.9682f, 4.0357f);
-                        //Remove skeleton
-                        removeSkeleton();
-                        break;
-                    case "Cat":
-                        //Change to cat bod
-                        animPly.SetBool("Cat", true);
-                        //Change tag
-                        player.tag = "Cat";
-                        //Change movement
-                        plyCntrl.speed = 7;
-                        plyCntrl.jumpHeight = 32;
-                        //Change Collider
-                        plyCol.direction = CapsuleDirection2D.Horizontal;
-                        plyCol.offset = new Vector2(0.1528f, -0.0274f);
-                        plyCol.size = new Vector2(2.2813f, 1.5845f);
-                        //Remove skeleton
-                        removeSkeleton();
-                        break;
-                    case "Bat":
-                        //Change to bat body
-                        animPly.SetBool("Bat", true);
-                        //Change tag
-                        player.tag = "Bat";
-                        //Change movement
-                        plyCntrl.speed = 5;
-                        plyCntrl.jumpHeight = 8;
-                        //Change Collider
-                        plyCol.direction = CapsuleDirection2D.Vertical;
-                        plyCol.offset = new Vector2(0.0047f, -0.0903f);
-                        plyCol.size = new Vector2(0.6879f, 1.7104f);
-                        //Remove skeleton
-                        removeSkeleton();
-                        break;
-                    case "Fish":
-                        //Change to fish body
-                        //animPly.SetBool("Fish", true);
-                        animPly.SetBool("Fish", true);
-                        //Change tag
-                        player.tag = "Fish";
-                        //Change movement
-                        plyCntrl.speed = 7;
-                        plyCntrl.jumpHeight = 21;
-                        plyCol.density = 1.31f;
-                        //Change Collider
-                        plyCol.direction = CapsuleDirection2D.Horizontal;
-                        plyCol.offset = new Vector2(0, 0);
-                        plyCol.size = new Vector2(3.523f, 0.782f);
-                        //Remove skeleton
-                        removeSkeleton();
-                        break;
-                    default://Unembodies the player from its current skeleton
-                        if (!player.CompareTag("Blob"))
-                        {
-                            //Drop current body
-                            animPly.SetBool(player.gameObject.tag, false);
+                    if(CheckSpace())
+                    {
+                        Debug.Log("Not Enought Space");
+                    }
+                    else
+                    {
+                        Debug.Log("There is enough space");
+                    }
+                    if (heldSkeleton != null)
+                    {
+                        replaceSkeleton();
+                    }
+                    switch (transformTarget)
+                    {
+                        case "Human":
+                            //Change to human body
+                            animPly.SetBool("Human", true);
                             //Change tag
-                            player.tag = "Blob";
+                            player.tag = "Human";
                             //Change movement
                             plyCntrl.speed = 5;
-                            plyCntrl.jumpHeight = 10;
-                            plyCol.density = 1;
+                            plyCntrl.jumpHeight = 32;
+                            //Change Collider
+                            plyCol.direction = CapsuleDirection2D.Vertical;
+                            plyCol.offset = new Vector2(-0.0238f, 0.0030f);
+                            plyCol.size = new Vector2(0.9682f, 4.0357f);
+                            //Remove skeleton
+                            removeSkeleton();
+                            break;
+                        case "Cat":
+                            //Change to cat bod
+                            animPly.SetBool("Cat", true);
+                            //Change tag
+                            player.tag = "Cat";
+                            //Change movement
+                            plyCntrl.speed = 7;
+                            plyCntrl.jumpHeight = 32;
                             //Change Collider
                             plyCol.direction = CapsuleDirection2D.Horizontal;
-                            plyCol.offset = new Vector2(-0.0523f, -0.1200f);
-                            plyCol.size = new Vector2(1.4153f, 0.9959f);
-                        }
-                        break;
+                            plyCol.offset = new Vector2(0.1528f, -0.0274f);
+                            plyCol.size = new Vector2(2.2813f, 1.5845f);
+                            //Remove skeleton
+                            removeSkeleton();
+                            break;
+                        case "Bat":
+                            //Change to bat body
+                            animPly.SetBool("Bat", true);
+                            //Change tag
+                            player.tag = "Bat";
+                            //Change movement
+                            plyCntrl.speed = 5;
+                            plyCntrl.jumpHeight = 8;
+                            //Change Collider
+                            plyCol.direction = CapsuleDirection2D.Vertical;
+                            plyCol.offset = new Vector2(0.0047f, -0.0903f);
+                            plyCol.size = new Vector2(0.6879f, 1.7104f);
+                            //Remove skeleton
+                            removeSkeleton();
+                            break;
+                        case "Fish":
+                            //Change to fish body
+                            //animPly.SetBool("Fish", true);
+                            animPly.SetBool("Fish", true);
+                            //Change tag
+                            player.tag = "Fish";
+                            //Change movement
+                            plyCntrl.speed = 7;
+                            plyCntrl.jumpHeight = 21;
+                            plyCol.density = 1.31f;
+                            //Change Collider
+                            plyCol.direction = CapsuleDirection2D.Horizontal;
+                            plyCol.offset = new Vector2(0, 0);
+                            plyCol.size = new Vector2(3.523f, 0.782f);
+                            //Remove skeleton
+                            removeSkeleton();
+                            break;
+                        default://Unembodies the player from its current skeleton
+                            if (!player.CompareTag("Blob"))
+                            {
+                                //Drop current body
+                                animPly.SetBool(player.gameObject.tag, false);
+                                //Change tag
+                                player.tag = "Blob";
+                                //Change movement
+                                plyCntrl.speed = 5;
+                                plyCntrl.jumpHeight = 10;
+                                plyCol.density = 1;
+                                //Change Collider
+                                plyCol.direction = CapsuleDirection2D.Horizontal;
+                                plyCol.offset = new Vector2(-0.0523f, -0.1200f);
+                                plyCol.size = new Vector2(1.4153f, 0.9959f);
+                            }
+                            break;
+                    }
                 }
-            }
-            else if(plyCntrl.InWater)
-            {
-                //indication of unemboding goes here
-                Debug.Log("Cannot Unembody in Water");
-            }
-            else if(spIntr.ObjectHeld)
-            {
-                Debug.Log("Cannot Unembody while holding a box");
+                else if (plyCntrl.InWater)
+                {
+                    //indication of unemboding goes here
+                    Debug.Log("Cannot Unembody in Water");
+                }
+                else if (spIntr.ObjectHeld)
+                {
+                    Debug.Log("Cannot Unembody while holding a box");
+                }
             }
             StartCoroutine(waitAFrame());
         }
@@ -201,7 +212,16 @@ public class ControlMovement : MonoBehaviour
     //Replace skeleton
     private void replaceSkeleton()
     {
-        heldSkeleton.position = player.position;
+        int x;
+        if(PlyController.Right)
+        {
+            x = 1;
+        }
+        else
+        {
+            x = -1;
+        }
+        heldSkeleton.position = new Vector2(player.position.x+x, player.position.y+0.5f);
         heldSkeleton.parent = null;
         heldSkeleton.gameObject.SetActive(true);
         heldSkeleton = null;
@@ -219,5 +239,19 @@ public class ControlMovement : MonoBehaviour
     {
         transformTarget = "None";
         Embody();
+    }
+
+    bool CheckSpace()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector2.up);// max height 4.2f, max forward 2
+
+        if (hit.distance <= 4.2)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }
