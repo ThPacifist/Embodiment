@@ -74,6 +74,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 6303674869034216968}
   buttonBase: {fileID: 6303674870544144431}
+  spring: {fileID: 267487907}
   behavior: {fileID: 1926095996}
   Light: 0
   Medium: 0
@@ -82,6 +83,7 @@ MonoBehaviour:
   weight: 0
   plate: 0
   reqWeight: 0
+  springPos: {x: 0, y: 0}
   isTouching: 0
   active: 0
 --- !u!50 &6303674869034216969
@@ -168,6 +170,8 @@ GameObject:
   - component: {fileID: 6303674870544144418}
   - component: {fileID: 1926095996}
   - component: {fileID: 471598561}
+  - component: {fileID: 267487908}
+  - component: {fileID: 267487907}
   m_Layer: 0
   m_Name: TestButton
   m_TagString: Untagged
@@ -197,7 +201,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6303674870544144431}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -268,7 +272,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: d40e95517b7d4d54c881353ea6ec61ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -280,3 +284,44 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &267487908
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6303674870544144431}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!231 &267487907
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6303674870544144431}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 6303674869034216969}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: -0.3}
+  m_ConnectedAnchor: {x: 0.011034489, y: -0.971}
+  m_AutoConfigureDistance: 1
+  m_Distance: 0.005
+  m_DampingRatio: 1
+  m_Frequency: 1

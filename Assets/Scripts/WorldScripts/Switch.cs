@@ -17,6 +17,8 @@ public class Switch : MonoBehaviour
     Transform button;
     [SerializeField]
     GameObject buttonBase;
+    [SerializeField]
+    SpringJoint2D spring;
 
     [SerializeField]
     GameAction behavior; //behavior that is triggered when the switch is active
@@ -29,6 +31,7 @@ public class Switch : MonoBehaviour
     public bool weight;
     public bool plate;
     public int reqWeight;
+    public Vector2 springPos;
 
     //Private Variables
     Vector3 restPos;
@@ -70,11 +73,11 @@ public class Switch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        springPos = spring.anchor;
         if (Heavy)
         {
             if(!isTouching || !active)// If there is not an object touching the button, move button to its original position
             {
-                resetButton();
                 //Calls the behavior's action function with a bool parameter
                     //For right now it calls the DisableSprites action function, which re-enables the sprite
                         //It does this by using the passed in bool, to toggle the sprite
@@ -186,24 +189,5 @@ public class Switch : MonoBehaviour
         //This version of the behavior action call, calls the DisableSprite action function without the parameter
             //This intern calls a function which disables the sprite but without passing in a bool
         behavior.Action();
-    }
-
-    //Returns the button to its starting position, which is its resting position
-    void resetButton()
-    {
-        //Send the button up when it is inactive
-        if(this.gameObject.transform.position.y < restPos.y)
-        {
-            this.gameObject.transform.position += new Vector3 (0, Time.deltaTime, 0) * 10;
-        }
-        //Send the button down if it gets too high
-        if(this.gameObject.transform.position.y > restPos.y)
-        {
-            this.gameObject.transform.position = restPos;
-        }
-        else if(this.gameObject.transform.position.y > restPos.y)
-        {
-            this.gameObject.transform.position -= new Vector3(0, Time.deltaTime, 0) * 0.3f;
-        }
     }
 }

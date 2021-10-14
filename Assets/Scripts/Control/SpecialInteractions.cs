@@ -377,7 +377,7 @@ public class SpecialInteractions : MonoBehaviour
             LeanTween.scale(tendril, Vector3.one, 1);*/
             spring.enabled = true;
             spring.connectedAnchor = lamp.transform.position;
-            lineRender.SetPosition(1, lamp.transform.position);
+            lineRender.SetPosition(1, new Vector2(lamp.transform.position.x, lamp.transform.position.y));
             isAttached = true;
 
             //Cooldown

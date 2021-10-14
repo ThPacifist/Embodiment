@@ -17,7 +17,6 @@ public class ControlMovement : MonoBehaviour
     public PlyController plyCntrl;
     public SpecialInteractions spIntr;
     public CapsuleCollider2D plyCol;
-    public CircleCollider2D cirCol;
     public Animator animPly;
     public GameObject target;
 
@@ -154,8 +153,8 @@ public class ControlMovement : MonoBehaviour
                         plyCol.density = 1.31f;
                         //Change Collider
                         plyCol.direction = CapsuleDirection2D.Horizontal;
-                        plyCol.offset = new Vector2(0.0037f, 0.3573f);
-                        plyCol.size = new Vector2(3.5232f, 0.8149f);
+                        plyCol.offset = new Vector2(0, 0);
+                        plyCol.size = new Vector2(3.523f, 0.782f);
                         //Remove skeleton
                         removeSkeleton();
                         break;
@@ -202,6 +201,7 @@ public class ControlMovement : MonoBehaviour
     //Replace skeleton
     private void replaceSkeleton()
     {
+        heldSkeleton.position = player.position;
         heldSkeleton.parent = null;
         heldSkeleton.gameObject.SetActive(true);
         heldSkeleton = null;
@@ -213,11 +213,6 @@ public class ControlMovement : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         wait = false;
-    }
-
-    void ExpandCollider()
-    {
-
     }
     //Used For ShriekerField script to remove skeleton from player
     public void DestorySkeleton()
