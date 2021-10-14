@@ -171,6 +171,7 @@ public class SpecialInteractions : MonoBehaviour
                         {
                             //Attach box
                             box.transform.parent = player;
+                            box.GetAttachedColliders(cols);
                             heldBox = box;
                             heldBox.gravityScale = 0;
                             heldBox.freezeRotation = true;
@@ -233,6 +234,7 @@ public class SpecialInteractions : MonoBehaviour
                 {
                     box.transform.parent = player;
                     box.position = player.position - new Vector3(0, 1, 0);
+                    box.GetAttachedColliders(cols);
                     heldBox = box;
                     heldBox.gravityScale = 0;
                     objectHeld = true;
@@ -280,7 +282,6 @@ public class SpecialInteractions : MonoBehaviour
                 box = other.attachedRigidbody;
                 SelectBox(other.transform);
                 canHold = true;
-                other.attachedRigidbody.GetAttachedColliders(cols);
                 CreateIndicator(other.gameObject.transform.position);
             }
             //See if the bat can lift it
@@ -289,7 +290,6 @@ public class SpecialInteractions : MonoBehaviour
                 box = other.attachedRigidbody;
                 SelectBox(other.transform);
                 canHold = true;
-                other.attachedRigidbody.GetAttachedColliders(cols);
                 CreateIndicator(other.gameObject.transform.position);
             }
             //See if the human can push it
