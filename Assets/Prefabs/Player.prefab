@@ -159,6 +159,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myColliderInput: {fileID: 2083120153341714083}
+  tileMap: {fileID: 0}
+  safe: 0
 --- !u!61 &2083120153341714083
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1061,7 +1063,7 @@ MonoBehaviour:
   plyCol: {fileID: 1720524858}
   animPly: {fileID: 366513243}
   target: {fileID: 0}
-  emField: {fileID: 0}
+  emField: {fileID: 6005473104013902345}
 --- !u!114 &4819060323485262864
 MonoBehaviour:
   m_ObjectHideFlags: 0
