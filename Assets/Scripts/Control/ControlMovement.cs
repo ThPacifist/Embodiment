@@ -24,6 +24,8 @@ public class ControlMovement : MonoBehaviour
     private string transformTarget = "None";
     private bool wait = false;
 
+    [SerializeField]
+    EmbodyField emField;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -85,28 +87,20 @@ public class ControlMovement : MonoBehaviour
             heldSkeleton = null;
         }
         */
-        if (!wait) //If the allotted 
+        if (!wait) //If the allotted time has pass
         {
             wait = true;
             if (!plyCntrl.InWater && !spIntr.ObjectHeld)
             {
-                if (true)
+                if (heldSkeleton != null)
                 {
-                    if(CheckSpace())
-                    {
-                        Debug.Log("Not Enought Space");
-                    }
-                    else
-                    {
-                        Debug.Log("There is enough space");
-                    }
-                    if (heldSkeleton != null)
-                    {
-                        replaceSkeleton();
-                    }
-                    switch (transformTarget)
-                    {
-                        case "Human":
+                    replaceSkeleton();
+                }
+                switch (transformTarget)
+                {
+                    case "Human":
+                        if (emField.CheckSpace())
+                        {
                             //Change to human body
                             animPly.SetBool("Human", true);
                             //Change tag
@@ -120,8 +114,15 @@ public class ControlMovement : MonoBehaviour
                             plyCol.size = new Vector2(0.9682f, 4.0357f);
                             //Remove skeleton
                             removeSkeleton();
-                            break;
-                        case "Cat":
+                        }
+                        else
+                        {
+                            Debug.Log("Not Enough Space");
+                        }
+                        break;
+                    case "Cat":
+                        if (emField.CheckSpace())
+                        {
                             //Change to cat bod
                             animPly.SetBool("Cat", true);
                             //Change tag
@@ -135,8 +136,15 @@ public class ControlMovement : MonoBehaviour
                             plyCol.size = new Vector2(2.2813f, 1.5845f);
                             //Remove skeleton
                             removeSkeleton();
-                            break;
-                        case "Bat":
+                        }
+                        else
+                        {
+                            Debug.Log("Not Enough Space");
+                        }
+                        break;
+                    case "Bat":
+                        if (emField.CheckSpace())
+                        {
                             //Change to bat body
                             animPly.SetBool("Bat", true);
                             //Change tag
@@ -150,8 +158,15 @@ public class ControlMovement : MonoBehaviour
                             plyCol.size = new Vector2(0.6879f, 1.7104f);
                             //Remove skeleton
                             removeSkeleton();
-                            break;
-                        case "Fish":
+                        }
+                        else
+                        {
+                            Debug.Log("Not Enough Space");
+                        }
+                        break;
+                    case "Fish":
+                        if (emField.CheckSpace())
+                        {
                             //Change to fish body
                             //animPly.SetBool("Fish", true);
                             animPly.SetBool("Fish", true);
@@ -167,35 +182,39 @@ public class ControlMovement : MonoBehaviour
                             plyCol.size = new Vector2(3.523f, 0.782f);
                             //Remove skeleton
                             removeSkeleton();
-                            break;
-                        default://Unembodies the player from its current skeleton
-                            if (!player.CompareTag("Blob"))
-                            {
-                                //Drop current body
-                                animPly.SetBool(player.gameObject.tag, false);
-                                //Change tag
-                                player.tag = "Blob";
-                                //Change movement
-                                plyCntrl.speed = 5;
-                                plyCntrl.jumpHeight = 10;
-                                plyCol.density = 1;
-                                //Change Collider
-                                plyCol.direction = CapsuleDirection2D.Horizontal;
-                                plyCol.offset = new Vector2(-0.0523f, -0.1200f);
-                                plyCol.size = new Vector2(1.4153f, 0.9959f);
-                            }
-                            break;
-                    }
+                        }
+                        else
+                        {
+                            Debug.Log("Not Enough Space");
+                        }
+                        break;
+                    default://Unembodies the player from its current skeleton
+                        if (!player.CompareTag("Blob"))
+                        {
+                            //Drop current body
+                            animPly.SetBool(player.gameObject.tag, false);
+                            //Change tag
+                            player.tag = "Blob";
+                            //Change movement
+                            plyCntrl.speed = 5;
+                            plyCntrl.jumpHeight = 10;
+                            plyCol.density = 1;
+                            //Change Collider
+                            plyCol.direction = CapsuleDirection2D.Horizontal;
+                            plyCol.offset = new Vector2(-0.0523f, -0.1200f);
+                            plyCol.size = new Vector2(1.4153f, 0.9959f);
+                        }
+                        break;
                 }
-                else if (plyCntrl.InWater)
-                {
-                    //indication of unemboding goes here
-                    Debug.Log("Cannot Unembody in Water");
-                }
-                else if (spIntr.ObjectHeld)
-                {
-                    Debug.Log("Cannot Unembody while holding a box");
-                }
+            }
+            else if (plyCntrl.InWater)
+            {
+                //indication of unemboding goes here
+                Debug.Log("Cannot Unembody in Water");
+            }
+            else if (spIntr.ObjectHeld)
+            {
+                Debug.Log("Cannot Unembody while holding a box");
             }
             StartCoroutine(waitAFrame());
         }
@@ -221,7 +240,7 @@ public class ControlMovement : MonoBehaviour
         {
             x = -1;
         }
-        heldSkeleton.position = new Vector2(player.position.x+x, player.position.y+0.5f);
+        heldSkeleton.position = new Vector2(player.position.x, player.position.y+1);
         heldSkeleton.parent = null;
         heldSkeleton.gameObject.SetActive(true);
         heldSkeleton = null;
@@ -243,9 +262,15 @@ public class ControlMovement : MonoBehaviour
 
     bool CheckSpace()
     {
-        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector2.up);// max height 4.2f, max forward 2
+        ContactFilter2D filter = new ContactFilter2D();
+        RaycastHit2D[] hit = new RaycastHit2D[3];
+        Physics2D.Raycast(this.transform.position, Vector2.up, filter.NoFilter(), hit, 4.2f);// max height 4.2f, max forward 2
+        Debug.Log("Point of Contact: " + hit[2].point);
 
-        if (hit.distance <= 4.2)
+        float dist = Vector2.Distance(this.transform.position, hit[2].point);
+        Debug.Log("Distance of ray: " + dist);
+
+        if (dist <= 4.2)
         {
             return false;
         }
