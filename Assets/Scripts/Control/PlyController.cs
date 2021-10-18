@@ -56,25 +56,40 @@ public class PlyController : MonoBehaviour
         PlyCtrl.Disable();
     }
 
-    // Update is called once per frame
-    void Update()
+    //Start is called at the start of this script
+    private void Start()
     {
-        //Activates Special
-        PlyCtrl.Player.Special.performed += _ => Special();
+        //Spceial Interact
+        PlyCtrl.Player.Special.performed += _ => SpecialS();
 
-        //Activates Interact
-        PlyCtrl.Player.Interact.performed += _ => Interact();
+        //Regular interact
+        PlyCtrl.Player.Interact.performed += _ => InteractI();
 
-        ///Movement for Fish
+        //Jump
+        PlyCtrl.Player.Jump.performed += _ => Jump();
+
+        //Embody
+        PlyCtrl.Player.Embody.performed += _ => EmbodyE();
+
+        //Pause
+        PlyCtrl.Player.Pause.performed += _ => Pause();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {   
+        //Movement for Fish
         if (player.CompareTag("Fish"))
         {
+            //Movement when in water
             if (inWater)
             {
+                //Move when the player is pressing buttons
                 if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
                 {
                     rb.velocity += (Vector2.one * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed) - new Vector2(rb.velocity.x, rb.velocity.y);
                 }
-
+                //Set facing direction
                 if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
                 {
                     plySprite.flipX = true;
@@ -88,12 +103,15 @@ public class PlyController : MonoBehaviour
                     right = false;
                 }
             }
+            //Movement when on the ground
             else if (isGrounded)
             {
+                //Move when the player is pressing buttons
                 if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                 {
                     rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.3f) - new Vector2(rb.velocity.x, 0);
                 }
+                //Set facing direction
                 if(PlyCtrl.Player.Movement.ReadValue<float>() > 0)
                 {
                     plySprite.flipX = true;
@@ -109,10 +127,12 @@ public class PlyController : MonoBehaviour
             }
             else
             {
+                //Move when the player is pressing the direction
                 if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                 {
                     rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.5f) - new Vector2(rb.velocity.x, 0);
                 }
+                //Set facing direction
                 if(PlyCtrl.Player.Movement.ReadValue<float>() > 0)
                 {
                     plySprite.flipX = true;
@@ -129,7 +149,7 @@ public class PlyController : MonoBehaviour
         }
         else
         {
-            //Movement
+            //Cat climb movement
             if(player.CompareTag("Cat") && catClimb)
             {
                 if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y > 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y < 0)
@@ -137,11 +157,12 @@ public class PlyController : MonoBehaviour
                     rb.velocity += (Vector2.up * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed * 0.5f) - new Vector2(0, rb.velocity.y);
                 }
             }
+            //Regular grounded movement
             else if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
             {
                 rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed) - new Vector2(rb.velocity.x, 0);
             }
-
+            //Set facing direction
             if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
             {
                 plySprite.flipX = true;
@@ -156,20 +177,6 @@ public class PlyController : MonoBehaviour
             }
         }
 
-        if (PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded)
-        {
-            rb.velocity *= Vector2.up;
-        }
-
-        //Jump
-        PlyCtrl.Player.Jump.performed += _ => Jump();
-
-        //Embody
-        PlyCtrl.Player.Embody.performed += _ => Embody();
-
-        //Pause
-        PlyCtrl.Player.Pause.performed += _ => Pause();
-
         if (spcInter.isAttached)
         {
             plyAnim.SetBool("Swing", true);
@@ -180,29 +187,64 @@ public class PlyController : MonoBehaviour
         }
     }
 
+    //Special check
+    private void SpecialS()
+    {
+        if(Time.timeScale > 0)
+        {
+            Special();
+        }
+    }
+
+    //Interact check
+    private void InteractI()
+    {
+        if (Time.timeScale > 0)
+        {
+            Interact();
+        }
+    }
+
+    //Jump
     private void Jump()
     {
-        if (player.CompareTag("Bat") && canJump)
+        //If time is moving, do something
+        if (Time.timeScale > 0)
         {
-            canJump = false;
-            rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
-            StartCoroutine(FlyCoolDown());
-        }
-        else if(player.CompareTag("Cat") && catClimb)
-        {
-            rb.AddForce((catDir * jumpHeight) - new Vector2(rb.velocity.x, 0), ForceMode2D.Impulse);
-        }
-        else
-        {
-            if (isGrounded || inWater || spcInter.isAttached)
+            //Fly when bat
+            if (player.CompareTag("Bat") && canJump)
             {
-                if(spcInter.isAttached)
-                {
-                    spcInter.ShootTentril();
-                }
-                isGrounded = false;
+                canJump = false;
                 rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
+                StartCoroutine(FlyCoolDown());
             }
+            //Side jump when climbing
+            else if (player.CompareTag("Cat") && catClimb)
+            {
+                rb.AddForce((catDir * jumpHeight) - new Vector2(rb.velocity.x, 0), ForceMode2D.Impulse);
+            }
+            //Regular jump when appropriate
+            else
+            {
+                if (isGrounded || inWater || spcInter.isAttached)
+                {
+                    if (spcInter.isAttached)
+                    {
+                        spcInter.ShootTentril();
+                    }
+                    isGrounded = false;
+                    rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
+                }
+            }
+        }
+    }
+
+    //Embody check
+    private void EmbodyE()
+    {
+        if (Time.timeScale > 0)
+        {
+            Embody();
         }
     }
 
@@ -217,6 +259,8 @@ public class PlyController : MonoBehaviour
             }
         }
     }
+
+    //Check for when a collision is exited
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
@@ -229,6 +273,7 @@ public class PlyController : MonoBehaviour
         }
     }
 
+    //Check when a trigger is entered
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (player.CompareTag("Fish"))
@@ -275,6 +320,8 @@ public class PlyController : MonoBehaviour
             player.gameObject.SetActive(false);
         }
     }
+
+    //Check for when the player stays in a trigger
     private void OnTriggerStay2D(Collider2D other)
     {
         if (player.CompareTag("Fish"))
@@ -292,6 +339,8 @@ public class PlyController : MonoBehaviour
             }
         }
     }
+
+    //Check for when the trigger is exited
     private void OnTriggerExit2D(Collider2D other)
     {
         if (player.CompareTag("Fish"))
