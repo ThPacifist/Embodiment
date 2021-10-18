@@ -177,6 +177,11 @@ public class PlyController : MonoBehaviour
             }
         }
 
+        if(PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded)
+        {
+            rb.velocity *= Vector2.up;
+        }
+
         if (spcInter.isAttached)
         {
             plyAnim.SetBool("Swing", true);

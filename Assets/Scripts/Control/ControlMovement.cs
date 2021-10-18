@@ -99,7 +99,7 @@ public class ControlMovement : MonoBehaviour
                 switch (transformTarget)
                 {
                     case "Human":
-                        if (emField.CheckSpace())
+                        if (emField.CheckSpace())//Checks if there is enough space
                         {
                             //Change to human body
                             animPly.SetBool("Human", true);
@@ -121,7 +121,7 @@ public class ControlMovement : MonoBehaviour
                         }
                         break;
                     case "Cat":
-                        if (emField.CheckSpace())
+                        if (emField.CheckSpace())//Checks if there is enough space
                         {
                             //Change to cat bod
                             animPly.SetBool("Cat", true);
@@ -143,7 +143,7 @@ public class ControlMovement : MonoBehaviour
                         }
                         break;
                     case "Bat":
-                        if (emField.CheckSpace())
+                        if (emField.CheckSpace())//Checks if there is enough space
                         {
                             //Change to bat body
                             animPly.SetBool("Bat", true);
@@ -165,7 +165,7 @@ public class ControlMovement : MonoBehaviour
                         }
                         break;
                     case "Fish":
-                        if (emField.CheckSpace())
+                        if (emField.CheckSpace())//Checks if there is enough space
                         {
                             //Change to fish body
                             //animPly.SetBool("Fish", true);
@@ -258,25 +258,5 @@ public class ControlMovement : MonoBehaviour
     {
         transformTarget = "None";
         Embody();
-    }
-
-    bool CheckSpace()
-    {
-        ContactFilter2D filter = new ContactFilter2D();
-        RaycastHit2D[] hit = new RaycastHit2D[3];
-        Physics2D.Raycast(this.transform.position, Vector2.up, filter.NoFilter(), hit, 4.2f);// max height 4.2f, max forward 2
-        Debug.Log("Point of Contact: " + hit[2].point);
-
-        float dist = Vector2.Distance(this.transform.position, hit[2].point);
-        Debug.Log("Distance of ray: " + dist);
-
-        if (dist <= 4.2)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
     }
 }
