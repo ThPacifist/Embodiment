@@ -376,14 +376,9 @@ public class SpecialInteractions : MonoBehaviour
     {
         if (!spring.isActiveAndEnabled)
         {
-            /*LeanTween.scaleZ(tendril, spring.distance, 2);
-            LeanTween.moveLocalY(tendril, spring.distance / 2, 2);
-            tendSeg.enabled = true;
-            tendSeg.connectedAnchor = tendSeg.transform.InverseTransformPoint(lamp.transform.position);
-            LeanTween.scale(tendril, Vector3.one, 1);*/
             spring.enabled = true;
             spring.connectedAnchor = lamp.transform.position;
-            lineRender.SetPosition(1, new Vector2(lamp.transform.position.x, lamp.transform.position.y));
+            lineRender.SetPosition(1, new Vector3(lamp.transform.position.x, lamp.transform.position.y, player.position.z));
             isAttached = true;
 
             //Cooldown
@@ -393,14 +388,9 @@ public class SpecialInteractions : MonoBehaviour
         }
         else
         {
-            /*LeanTween.scaleZ(tendril, 1, 2);
-            LeanTween.moveLocalY(tendril, 0.5f, 2);
-            tendSeg.enabled = false;
-            tendSeg.connectedAnchor = Vector2.zero;
-            LeanTween.scale(tendril, Vector3.zero, 1);*/
             spring.enabled = false;
             spring.connectedAnchor = Vector2.zero;
-            lineRender.SetPosition(1, Vector3.zero);
+            lineRender.SetPosition(1, player.position);
             isAttached = false;
 
             //Cooldown

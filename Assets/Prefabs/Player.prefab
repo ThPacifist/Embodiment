@@ -1039,9 +1039,12 @@ MonoBehaviour:
   rb: {fileID: 4819060323485262875}
   plySprite: {fileID: 741335704}
   plyAnim: {fileID: 366513243}
+  capCollider: {fileID: 1720524858}
   speed: 5
   jumpHeight: 10
-  isGrounded: 0
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
   inWater: 0
   spcInter: {fileID: 4819060323485262864}
 --- !u!114 &4819060323485262866

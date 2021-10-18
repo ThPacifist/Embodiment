@@ -12,6 +12,7 @@ public class PlyController : MonoBehaviour
     public Rigidbody2D rb;
     public SpriteRenderer plySprite;
     public Animator plyAnim;
+    public CapsuleCollider2D capCollider; 
     public static Action Interact = delegate { };
     public static Action Embody = delegate { };
     public static Action Special = delegate { };
@@ -19,9 +20,11 @@ public class PlyController : MonoBehaviour
     public float speed;
     public float jumpHeight;
 
+    [SerializeField]
+    LayerMask groundLayerMask;
+
     //Private Variables
     private bool catClimb = false;
-    public bool isGrounded = false;
     private bool canJump = true;
     Vector2 catDir;
 
@@ -104,7 +107,7 @@ public class PlyController : MonoBehaviour
                 }
             }
             //Movement when on the ground
-            else if (isGrounded)
+            else if (isGrounded())
             {
                 //Move when the player is pressing buttons
                 if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
@@ -182,7 +185,7 @@ public class PlyController : MonoBehaviour
             }
         }
 
-        if(PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded)
+        if(PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded())
         {
             rb.velocity *= Vector2.up;
         }
@@ -236,13 +239,12 @@ public class PlyController : MonoBehaviour
             //Regular jump when appropriate
             else
             {
-                if (isGrounded || inWater || spcInter.isAttached)
+                if (isGrounded() || inWater || spcInter.isAttached)
                 {
                     if (spcInter.isAttached)
                     {
                         spcInter.ShootTentril();
                     }
-                    isGrounded = false;
                     rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
                 }
             }
@@ -261,26 +263,26 @@ public class PlyController : MonoBehaviour
     //Check if they're on the ground
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if(!collision.gameObject.CompareTag("Wall"))
+        /*if(!collision.gameObject.CompareTag("Wall"))
         {
             if (!inWater)
             {
                 isGrounded = true;
             }
-        }
+        }*/
     }
 
     //Check for when a collision is exited
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Wall"))
+        /*if (collision.gameObject.CompareTag("Wall"))
         {
 
         }
         else if(collision.gameObject.CompareTag("Ground") && !inWater)
         {
             isGrounded = false;
-        }
+        }*/
     }
 
     //Check when a trigger is entered
@@ -341,13 +343,6 @@ public class PlyController : MonoBehaviour
                 inWater = true;
             }
         }
-        else if (player.CompareTag("Blob"))
-        {
-            if (other.CompareTag("Water"))
-            {
-                //Keep Blob afloat
-            }
-        }
     }
 
     //Check for when the trigger is exited
@@ -377,6 +372,16 @@ public class PlyController : MonoBehaviour
                 Climb();
             }
         }
+    }
+
+    bool isGrounded()
+    {
+        float extraDist = 0.1f;
+        RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.size, capCollider.direction, 0f, Vector2.down, 
+            capCollider.bounds.extents.y + extraDist, groundLayerMask);
+
+        Debug.Log(hit.collider);
+        return hit.collider != null;
     }
 
     /* Bat */
