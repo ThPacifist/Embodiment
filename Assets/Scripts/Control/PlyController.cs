@@ -155,6 +155,11 @@ public class PlyController : MonoBehaviour
                 if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y > 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y < 0)
                 {
                     rb.velocity += (Vector2.up * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed * 0.5f) - new Vector2(0, rb.velocity.y);
+                    if(rb.velocity.y > 0.5)
+                    {
+                        Debug.Log(rb.velocity.y);
+                        rb.velocity = new Vector2(0, rb.velocity.y);
+                    }
                 }
             }
             //Regular grounded movement
