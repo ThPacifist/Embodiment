@@ -155,12 +155,12 @@ public class PlyController : MonoBehaviour
             //Cat climb movement
             if(player.CompareTag("Cat") && catClimb)
             {
-                if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y > 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y < 0)
+                if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
                 {
-                    rb.velocity += (Vector2.up * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed * 0.5f) - new Vector2(0, rb.velocity.y);
-                    if(rb.velocity.y > 0.5)
+                    rb.velocity += (new Vector2(1, 1) * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed * 0.5f) - new Vector2(0, rb.velocity.y);
+                    //Stop leteral movement while moving up
+                    if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y > 0)
                     {
-                        Debug.Log(rb.velocity.y);
                         rb.velocity = new Vector2(0, rb.velocity.y);
                     }
                 }
@@ -184,12 +184,14 @@ public class PlyController : MonoBehaviour
                 right = false;
             }
         }
-
+        
+        //Remove momentum while on ground
         if(PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded())
         {
-            rb.velocity *= Vector2.up;
+            rb.velocity *= new Vector2(0.5f, 1);
         }
 
+        //Check if the blob is attached
         if (spcInter.isAttached)
         {
             plyAnim.SetBool("Swing", true);
