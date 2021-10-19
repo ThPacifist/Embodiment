@@ -44,7 +44,7 @@ public class ControlMovement : MonoBehaviour
         {
             //Change movement
             plyCntrl.speed = 5;
-            plyCntrl.jumpHeight = 10;
+            plyCntrl.jumpHeight = 10.7f;
             plyCol.density = 1;
             //Change Collider
             plyCol.direction = CapsuleDirection2D.Horizontal;
@@ -197,7 +197,7 @@ public class ControlMovement : MonoBehaviour
                             player.tag = "Blob";
                             //Change movement
                             plyCntrl.speed = 5;
-                            plyCntrl.jumpHeight = 10;
+                            plyCntrl.jumpHeight = 10.7f;
                             plyCol.density = 1;
                             //Change Collider
                             plyCol.direction = CapsuleDirection2D.Horizontal;
@@ -240,7 +240,9 @@ public class ControlMovement : MonoBehaviour
         {
             x = -1;
         }
-        heldSkeleton.position = new Vector2(player.position.x, player.position.y+1);
+
+        Vector3 curPos = new Vector3(player.position.x, player.position.y + 1, 0);
+        heldSkeleton.position = curPos;
         heldSkeleton.parent = null;
         heldSkeleton.gameObject.SetActive(true);
         heldSkeleton = null;
@@ -258,5 +260,20 @@ public class ControlMovement : MonoBehaviour
     {
         transformTarget = "None";
         Embody();
+    }
+
+    private void OnDrawGizmos()
+    {
+        //Area Player occupies in Grid
+        Vector3Int topLeft = Vector3Int.FloorToInt(new Vector3(plyCol.bounds.min.x, plyCol.bounds.max.y+1, 0));
+        Vector3Int topRight = Vector3Int.FloorToInt(plyCol.bounds.max + new Vector3(1, 1, 0));
+        Vector3Int botRight = Vector3Int.FloorToInt(new Vector3 (plyCol.bounds.max.x+1, plyCol.bounds.min.y, 0));
+        Vector3Int botLeft = Vector3Int.FloorToInt(plyCol.bounds.min);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(topRight, botRight);
+        Gizmos.DrawLine(botRight, botLeft);
+        Gizmos.DrawLine(botLeft, topLeft);
+        Gizmos.DrawLine(topLeft, topRight);
     }
 }
