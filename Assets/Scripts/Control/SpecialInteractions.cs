@@ -20,6 +20,7 @@ public class SpecialInteractions : MonoBehaviour
 
     //Public variables and assets
     public Transform player;
+    public PlyController plyCntrl;
     public Rigidbody2D plyRb;
     public Collider2D plyCol;
     public GameObject attackBox;
@@ -30,6 +31,8 @@ public class SpecialInteractions : MonoBehaviour
     public static Action<Transform> SelectBox = delegate { };
     public LineRenderer lineRender;
     public bool isAttached;
+    public float angle;
+    public float maxAngle;
 
     //Private variables
     private bool climb;
@@ -80,6 +83,8 @@ public class SpecialInteractions : MonoBehaviour
 
     private void Start()
     {
+        spring.enabled = false;
+
         lineRender.positionCount = 2;
         lineRender.SetPosition(0, player.position);//Starting Position of Tendril Line
         lineRender.SetPosition(1, player.position);//Ending Position of Tendril Line
@@ -97,7 +102,24 @@ public class SpecialInteractions : MonoBehaviour
         lineRender.SetPosition(0, player.position);
         if (!isAttached)
         {
+            plyCntrl.move = true;
             lineRender.SetPosition(1, player.position);
+        }
+        else
+        {
+            Vector2 targetDir = player.position - lamp.transform.position;
+            angle = Vector2.Angle(targetDir, Vector2.down);
+            float signedAngle = Vector2.SignedAngle(targetDir, Vector2.down);
+            if (angle > maxAngle)
+            {
+                plyCntrl.move = false;
+            }
+            else
+            {
+                plyCntrl.move = true;
+            }
+            Quaternion rotation = Quaternion.Euler(0, 0, -signedAngle);
+            this.transform.rotation = rotation;
         }
 
         if(objectHeld)
@@ -384,13 +406,14 @@ public class SpecialInteractions : MonoBehaviour
             //Cooldown
             cooldownTime = 0.3f;
             specialReady = false;
-
         }
         else
         {
             spring.enabled = false;
             spring.connectedAnchor = Vector2.zero;
             lineRender.SetPosition(1, player.position);
+            Quaternion rotation = Quaternion.Euler(0, 0, 0);
+            this.transform.rotation = rotation;
             isAttached = false;
 
             //Cooldown

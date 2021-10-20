@@ -19,6 +19,7 @@ public class PlyController : MonoBehaviour
     public static Action Pause = delegate { };
     public float speed;
     public float jumpHeight;
+    public bool move = true;
 
     [SerializeField]
     LayerMask groundLayerMask;
@@ -80,119 +81,85 @@ public class PlyController : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {   
-        //Movement for Fish
-        if (player.CompareTag("Fish"))
+    {
+        if (move)
         {
-            //Movement when in water
-            if (inWater)
+            //Movement for Fish
+            if (player.CompareTag("Fish"))
             {
-                //Move when the player is pressing buttons
-                if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
+                //Movement when in water
+                if (inWater)
                 {
-                    rb.velocity += (Vector2.one * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed) - new Vector2(rb.velocity.x, rb.velocity.y);
+                    //Move when the player is pressing buttons
+                    if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
+                    {
+                        rb.velocity += (Vector2.one * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed) - new Vector2(rb.velocity.x, rb.velocity.y);
+                    }
                 }
-                //Set facing direction
-                if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
+                //Movement when on the ground
+                else if (isGrounded())
                 {
-                    plySprite.flipX = true;
-                    right = true;
-                    left = false;
+                    //Move when the player is pressing buttons
+                    if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+                    {
+                        rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.3f) - new Vector2(rb.velocity.x, 0);
+                    }
                 }
-                else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
+                else
                 {
-                    plySprite.flipX = false;
-                    left = true;
-                    right = false;
-                }
-            }
-            //Movement when on the ground
-            else if (isGrounded())
-            {
-                //Move when the player is pressing buttons
-                if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
-                {
-                    rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.3f) - new Vector2(rb.velocity.x, 0);
-                }
-                //Set facing direction
-                if(PlyCtrl.Player.Movement.ReadValue<float>() > 0)
-                {
-                    plySprite.flipX = true;
-                    right = true;
-                    left = false;
-                }
-                else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
-                {
-                    plySprite.flipX = false;
-                    left = true;
-                    right = false;
+                    //Move when the player is pressing the direction
+                    if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+                    {
+                        rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.5f) - new Vector2(rb.velocity.x, 0);
+                    }
                 }
             }
             else
             {
-                //Move when the player is pressing the direction
-                if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+                //Cat climb movement
+                if (player.CompareTag("Cat") && catClimb)
                 {
-                    rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.5f) - new Vector2(rb.velocity.x, 0);
+                    if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
+                    {
+                        rb.velocity += (new Vector2(1, 1) * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed * 0.5f) - new Vector2(rb.velocity.x, rb.velocity.y);
+                        //Keep gravity while moving other directions
+                        //Stop leteral movement and gravity while moving up
+                        if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y > 0)
+                        {
+                            rb.velocity = new Vector2(0, rb.velocity.y);
+                            rb.gravityScale = 0;
+                        }
+                        else if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y > 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x != 0)
+                        {
+                            rb.gravityScale = 1;
+                        }
+                    }
                 }
-                //Set facing direction
-                if(PlyCtrl.Player.Movement.ReadValue<float>() > 0)
+                //Regular grounded movement
+                else if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                 {
-                    plySprite.flipX = true;
-                    right = true;
-                    left = false;
+                    rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed) - new Vector2(rb.velocity.x, 0);
                 }
-                else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
-                {
-                    plySprite.flipX = false;
-                    left = true;
-                    right = false;
-                }
+
             }
         }
-        else
+
+        //Set facing direction
+        if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
         {
-            //Cat climb movement
-            if(player.CompareTag("Cat") && catClimb)
-            {
-                if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
-                {
-                    rb.velocity += (new Vector2(1, 1) * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed * 0.5f) - new Vector2(rb.velocity.x, rb.velocity.y);
-                    //Keep gravity while moving other directions
-                    //Stop leteral movement and gravity while moving up
-                    if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y > 0)
-                    {
-                        rb.velocity = new Vector2(0, rb.velocity.y);
-                        rb.gravityScale = 0;
-                    }
-                    else if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y > 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x != 0)
-                    {
-                        rb.gravityScale = 1;
-                    }
-                }
-            }
-            //Regular grounded movement
-            else if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
-            {
-                rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed) - new Vector2(rb.velocity.x, 0);
-            }
-            //Set facing direction
-            if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
-            {
-                plySprite.flipX = true;
-                right = true;
-                left = false;
-            }
-            else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
-            {
-                plySprite.flipX = false;
-                left = true;
-                right = false;
-            }
+            plySprite.flipX = true;
+            right = true;
+            left = false;
         }
-        
+        else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
+        {
+            plySprite.flipX = false;
+            left = true;
+            right = false;
+        }
+
         //Remove momentum while on ground
-        if(PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded())
+        if (PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded())
         {
             rb.velocity *= new Vector2(0.5f, 1);
         }
