@@ -157,11 +157,17 @@ public class PlyController : MonoBehaviour
             {
                 if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
                 {
-                    rb.velocity += (new Vector2(1, 1) * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed * 0.5f) - new Vector2(0, rb.velocity.y);
-                    //Stop leteral movement while moving up
+                    rb.velocity += (new Vector2(1, 1) * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed * 0.5f) - new Vector2(rb.velocity.x, rb.velocity.y);
+                    //Keep gravity while moving other directions
+                    //Stop leteral movement and gravity while moving up
                     if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y > 0)
                     {
                         rb.velocity = new Vector2(0, rb.velocity.y);
+                        rb.gravityScale = 0;
+                    }
+                    else if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y > 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x != 0)
+                    {
+                        rb.gravityScale = 1;
                     }
                 }
             }
@@ -290,6 +296,7 @@ public class PlyController : MonoBehaviour
     //Check when a trigger is entered
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Entered " + other.tag);
         if (player.CompareTag("Fish"))
         {
             if (other.CompareTag("Water"))
@@ -305,21 +312,15 @@ public class PlyController : MonoBehaviour
                 inWater = true;
             }
         }
+        
         else if(player.CompareTag("Cat"))
         {
             if(other.CompareTag("Climb"))
             {
-                Climb();
-                if(rb.velocity.x > 0)
-                {
-                    catDir = Vector2.left;
-                }
-                else
-                {
-                    catDir = Vector2.right;
-                }
+                catClimb = true;
             }
         }
+        
         else
         {
             if (other.CompareTag("Water"))
@@ -350,6 +351,7 @@ public class PlyController : MonoBehaviour
     //Check for when the trigger is exited
     private void OnTriggerExit2D(Collider2D other)
     {
+        Debug.Log("Exited " + other.tag);
         if (player.CompareTag("Fish"))
         {
             if (other.CompareTag("Water"))
@@ -371,7 +373,8 @@ public class PlyController : MonoBehaviour
         {
             if (other.CompareTag("Climb"))
             {
-                Climb();
+                catClimb = false;
+                rb.gravityScale = 1;
             }
         }
     }
