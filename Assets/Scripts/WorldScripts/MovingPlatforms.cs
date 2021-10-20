@@ -57,4 +57,20 @@ public class MovingPlatforms : GameAction
         }    
         
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(GameAction.PlayerTags(collision.collider.tag))
+        {
+            collision.transform.SetParent(platform);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (GameAction.PlayerTags(collision.collider.tag))
+        {
+            collision.transform.SetParent(null);
+        }
+    }
 }

@@ -192,7 +192,7 @@ public class PlyController : MonoBehaviour
         }
         
         //Remove momentum while on ground
-        if(PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded())
+        if(PlyCtrl.Player.Movement.ReadValue<float>() == 0 && !isGrounded())
         {
             rb.velocity *= new Vector2(0.5f, 1);
         }
@@ -236,7 +236,7 @@ public class PlyController : MonoBehaviour
             if (player.CompareTag("Bat") && canJump)
             {
                 canJump = false;
-                rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
+                rb.AddForce((Vector2.up * 15) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
                 StartCoroutine(FlyCoolDown());
             }
             //Side jump when climbing
@@ -379,6 +379,7 @@ public class PlyController : MonoBehaviour
         }
     }
 
+    //Checks if the player is on the ground
     bool isGrounded()
     {
         float extraDist = 0.1f;
@@ -387,6 +388,30 @@ public class PlyController : MonoBehaviour
 
         Debug.Log(hit.collider);
         return hit.collider != null;
+    }
+    //Use this version to differentiate what type of jumpable it is
+    bool isGrounded(string tag)
+    {
+        float extraDist = 0.1f;
+        RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.size, capCollider.direction, 0f, Vector2.down,
+            capCollider.bounds.extents.y + extraDist, groundLayerMask);
+
+        Debug.Log(hit.collider);
+        if (hit.collider != null)
+        {
+            if(hit.collider.CompareTag(tag))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /* Bat */
