@@ -192,7 +192,7 @@ public class PlyController : MonoBehaviour
         }
         
         //Remove momentum while on ground
-        if(PlyCtrl.Player.Movement.ReadValue<float>() == 0 && !isGrounded())
+        if(PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded())
         {
             rb.velocity *= new Vector2(0.5f, 1);
         }
