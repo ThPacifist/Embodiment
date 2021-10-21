@@ -19,6 +19,7 @@ public class ControlMovement : MonoBehaviour
     public CapsuleCollider2D plyCol;
     public Animator animPly;
     public GameObject target;
+    public bool safe = true;
 
     //Private variables
     private string transformTarget = "None";

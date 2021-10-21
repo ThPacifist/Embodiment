@@ -54396,7 +54396,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 1
-  m_Offset: {x: 21.926243, y: 0}
+  m_Offset: {x: 27.8511, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -54407,7 +54407,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 97.79551, y: 32.865112}
+  m_Size: {x: 85.94579, y: 32.865112}
   m_EdgeRadius: 0
 --- !u!66 &1849374775
 CompositeCollider2D:
@@ -54433,16 +54433,16 @@ CompositeCollider2D:
         Y: -164325568
       - X: 708239707
         Y: 164325568
-      - X: -269715104
+      - X: -151217952
         Y: 164325275
-      - X: -269714811
+      - X: -151217659
         Y: -164325568
   m_CompositePaths:
     m_Paths:
     - - {x: 70.823944, y: -16.432556}
       - {x: 70.823944, y: 16.432556}
-      - {x: -26.97151, y: 16.432497}
-      - {x: -26.971453, y: -16.432556}
+      - {x: -15.121796, y: 16.432497}
+      - {x: -15.121737, y: -16.432556}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &1849374776
@@ -54554,6 +54554,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6303674869034217076, guid: 550da5b7498a17740a448490084b2025, type: 3}
       propertyPath: behavior
+      value: 
+      objectReference: {fileID: 67430614}
+    - target: {fileID: 6303674869034217076, guid: 550da5b7498a17740a448490084b2025, type: 3}
+      propertyPath: behaviors.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303674869034217076, guid: 550da5b7498a17740a448490084b2025, type: 3}
+      propertyPath: behaviors.Array.data[0]
       value: 
       objectReference: {fileID: 67430614}
     - target: {fileID: 6303674870544144421, guid: 550da5b7498a17740a448490084b2025, type: 3}
