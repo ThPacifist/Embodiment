@@ -88,10 +88,7 @@ public class SpecialInteractions : MonoBehaviour
         lineRender.positionCount = 2;
         lineRender.SetPosition(0, player.position);//Starting Position of Tendril Line
         lineRender.SetPosition(1, player.position);//Ending Position of Tendril Line
-        lineRender.startColor = Color.black;
-        lineRender.startColor = Color.gray;
-        lineRender.startWidth = 0.5f;
-        lineRender.endWidth = 0.1f;
+        lineRender.enabled = true;
 
         HCol.enabled = false;
         BCol.enabled = false;
