@@ -75,7 +75,8 @@ MonoBehaviour:
   button: {fileID: 6303674869034216968}
   buttonBase: {fileID: 6303674870544144431}
   spring: {fileID: 267487907}
-  behavior: {fileID: 1926095996}
+  behaviors:
+  - {fileID: 1926095996}
   Light: 0
   Medium: 0
   Heavy: 1
@@ -83,7 +84,6 @@ MonoBehaviour:
   weight: 0
   plate: 0
   reqWeight: 0
-  springPos: {x: 0, y: 0}
   isTouching: 0
   active: 0
 --- !u!50 &6303674869034216969
@@ -320,7 +320,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.3}
-  m_ConnectedAnchor: {x: 0.011034489, y: -0.971}
+  m_ConnectedAnchor: {x: 0.011034012, y: -0.97102344}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 1
