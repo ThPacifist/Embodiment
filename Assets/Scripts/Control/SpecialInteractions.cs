@@ -106,15 +106,16 @@ public class SpecialInteractions : MonoBehaviour
         {
             Vector2 targetDir = player.position - lamp.transform.position;
             angle = Vector2.Angle(targetDir, Vector2.down);
-            float signedAngle = Vector2.SignedAngle(targetDir, Vector2.down);
             if (angle > maxAngle)
             {
+                Debug.Log("Angle exceeds max angle");
                 plyCntrl.move = false;
             }
             else
             {
                 plyCntrl.move = true;
             }
+            float signedAngle = Vector2.SignedAngle(targetDir, Vector2.down);
             Quaternion rotation = Quaternion.Euler(0, 0, -signedAngle);
             this.transform.rotation = rotation;
         }
@@ -301,7 +302,7 @@ public class SpecialInteractions : MonoBehaviour
                 box = other.attachedRigidbody;
                 SelectBox(other.transform);
                 canHold = true;
-                CreateIndicator(other.gameObject.transform.position);
+                CreateIndicator(other.gameObject.transform);
             }
             //See if the bat can lift it
             else if (player.CompareTag("Bat") && (other.CompareTag("LBox")) && player.position.y > other.transform.position.y + 0.5)
@@ -309,7 +310,7 @@ public class SpecialInteractions : MonoBehaviour
                 box = other.attachedRigidbody;
                 SelectBox(other.transform);
                 canHold = true;
-                CreateIndicator(other.gameObject.transform.position);
+                CreateIndicator(other.gameObject.transform);
             }
             //See if the human can push it
             else if(player.CompareTag("Human") && (other.CompareTag("LBox") || other.CompareTag("MBox") || other.CompareTag("HBox")))
@@ -339,7 +340,7 @@ public class SpecialInteractions : MonoBehaviour
         {
             inRange = true;
             lamp = other.gameObject;
-            CreateIndicator(other.transform.position);
+            CreateIndicator(other.transform);
         }
     }
 
@@ -421,11 +422,11 @@ public class SpecialInteractions : MonoBehaviour
         StartCoroutine("SpecialCoolDown");
     }
 
-    void CreateIndicator(Vector3 pos)
+    void CreateIndicator(Transform pos)
     {
         if(indicatorPrefabClone == null)
         {
-            indicatorPrefabClone = Instantiate(indicatorPrefab, pos, Quaternion.identity);
+            indicatorPrefabClone = Instantiate(indicatorPrefab, pos);
         }
     }
 

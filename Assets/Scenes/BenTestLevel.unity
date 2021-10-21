@@ -194,7 +194,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -54207,6 +54207,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 267487907, guid: 550da5b7498a17740a448490084b2025, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0.011034012
+      objectReference: {fileID: 0}
     - target: {fileID: 6303674869034217075, guid: 550da5b7498a17740a448490084b2025, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -54428,74 +54432,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Parameters.alignment
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Parameters.textureMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Parameters.numCapVertices
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Positions.Array.data[0].y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Positions.Array.data[1].x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Parameters.numCornerVertices
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Parameters.colorGradient.key1.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Parameters.colorGradient.key1.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Parameters.colorGradient.key1.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
-      value: 0.6998223
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 0.23711425
-      objectReference: {fileID: 0}
-    - target: {fileID: 1263926257, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
-      value: 0.05154639
-      objectReference: {fileID: 0}
     - target: {fileID: 4819060323485262873, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_Name
       value: Player
