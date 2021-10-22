@@ -147,13 +147,13 @@ public class PlyController : MonoBehaviour
         //Set facing direction
         if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
         {
-            plySprite.flipX = true;
+            this.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             right = true;
             left = false;
         }
         else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
         {
-            plySprite.flipX = false;
+            this.gameObject.transform.localScale = new Vector3(1, 1, 1);
             left = true;
             right = false;
         }
@@ -358,9 +358,17 @@ public class PlyController : MonoBehaviour
     //Checks if the player is on the ground
     bool isGrounded()
     {
-        float extraDist = 0.1f;
+        float dist = 0.4f;
         RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.size, capCollider.direction, 0f, Vector2.down, 
-            capCollider.bounds.extents.y + extraDist, groundLayerMask);
+            dist, groundLayerMask);
+
+        //Bug Fixing Code: Do Not Delete
+        /*if (hit.collider != null)
+        {
+            Debug.DrawLine(hit.centroid + new Vector2(capCollider.bounds.extents.x, 0), hit.centroid - new Vector2(capCollider.bounds.extents.x, 0));
+            Debug.DrawLine(hit.centroid + new Vector2 (0, capCollider.bounds.extents.y), hit.centroid - new Vector2(0, capCollider.bounds.extents.y));
+            Time.timeScale = 0;
+        }*/
 
         Debug.Log(hit.collider);
         return hit.collider != null;

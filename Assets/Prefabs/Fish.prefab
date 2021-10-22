@@ -213,7 +213,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 0.1473751
+  m_Mass: 0.1969834
   m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -235,8 +235,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00000004987566, y: -0.42}
-  m_Size: {x: 1.0791188, y: 0.14049532}
+  m_Offset: {x: -0.000000037383472, y: -0.31359532}
+  m_Size: {x: 1.1893219, y: 0.17089655}
   m_Direction: 1
 --- !u!61 &9039985466883334235
 BoxCollider2D:
@@ -251,7 +251,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.02446729, y: 0.18694079}
+  m_Offset: {x: 0.02446729, y: 0.26674426}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -262,7 +262,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.572678, y: 1.4254954}
+  m_Size: {x: 1.572678, y: 1.2658885}
   m_EdgeRadius: 0
 --- !u!114 &9039985466883334208
 MonoBehaviour:
