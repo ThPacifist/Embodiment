@@ -305,7 +305,7 @@ public class SpecialInteractions : MonoBehaviour
                 CreateIndicator(other.gameObject.transform);
             }
             //See if the bat can lift it
-            else if (player.CompareTag("Bat") && (other.CompareTag("LBox")) && (plyCol.bounds.min.y < other.bounds.max.y && plyCol.bounds.min.y > other.bounds.max.y - 1 ))
+            else if (player.CompareTag("Bat") && (other.CompareTag("LBox")) && CheckBoundsForBat(other.attachedRigidbody))
             {
                 box = other.attachedRigidbody;
                 SelectBox(other.transform);
@@ -436,9 +436,40 @@ public class SpecialInteractions : MonoBehaviour
         indicatorPrefabClone = null;
     }
 
-    /*bool CheckBounds()
+    //Checks if player is within the created box to see if bat is above box
+    bool CheckBoundsForBat(Rigidbody2D rb)
     {
-        ply
+        Collider2D OuterCol;
+        Collider2D InnerCol;
+        Collider2D[] cols = new Collider2D[2];
+        rb.GetAttachedColliders(cols);
 
-    }*/
+        if(cols[0].isTrigger)
+        {
+            OuterCol = cols[0];
+            InnerCol = cols[1];
+        }
+        else
+        {
+            OuterCol = cols[1];
+            InnerCol = cols[0];
+        }
+
+        Vector2 plyPoint = new Vector2(plyCol.bounds.center.x, plyCol.bounds.min.y);
+
+        Vector2 tR = new Vector2(InnerCol.bounds.max.x, OuterCol.bounds.max.y);
+        Vector2 bL = new Vector2(InnerCol.bounds.min.x, InnerCol.bounds.max.y);
+
+        Debug.DrawLine(tR, bL);
+
+        if(plyPoint.x < tR.x && plyPoint.x > bL.x && plyPoint.y < tR.y && plyPoint.y > bL.y - 0.01f)
+        {
+            Debug.Log("Inside Bounds");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
