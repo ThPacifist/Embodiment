@@ -203,14 +203,14 @@ public class PlyController : MonoBehaviour
             if (player.CompareTag("Bat") && canJump)
             {
                 canJump = false;
-                rb.AddForce((Vector2.up * 15) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
+                rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
                 StartCoroutine(FlyCoolDown());
             }
             //Side jump when climbing
             else if (player.CompareTag("Cat") && catClimb)
             {
                 Debug.Log("Jump");
-                rb.AddForce((catDir * jumpHeight) - new Vector2(rb.velocity.x, 0), ForceMode2D.Impulse);
+                rb.AddForce((catDir * 25) - new Vector2(rb.velocity.x, 0), ForceMode2D.Impulse);
             }
             //Regular jump when appropriate
             else
@@ -286,6 +286,14 @@ public class PlyController : MonoBehaviour
             if(other.CompareTag("Climb"))
             {
                 catClimb = true;
+                if(rb.velocity.x > 0)
+                {
+                    catDir = Vector2.left;
+                }
+                else
+                {
+                    catDir = Vector2.right;
+                }
             }
         }
         
