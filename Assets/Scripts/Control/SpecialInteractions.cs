@@ -125,14 +125,14 @@ public class SpecialInteractions : MonoBehaviour
             if (player.tag == "Human")
             {
                 heldBox.transform.position = HheldPos.transform.position;
-                if (PlyController.Right)
+                /*if (PlyController.Right)
                 {
                     HheldPos.transform.localPosition = new Vector2(Mathf.Abs(HheldPos.transform.localPosition.x), HheldPos.transform.localPosition.y);
                 }
                 else if (PlyController.Left)
                 {
                     HheldPos.transform.localPosition = new Vector2(Mathf.Abs(HheldPos.transform.localPosition.x) * -1, HheldPos.transform.localPosition.y);
-                }
+                }*/
             }
             else if(player.tag == "Bat")
             {
@@ -232,7 +232,7 @@ public class SpecialInteractions : MonoBehaviour
                 case "Cat":
                     //Spawn hitbox
                     attackBox.SetActive(true);
-                    StartCoroutine("DeleteBox");
+                    StartCoroutine(DeleteBox());
                     //Cooldown
                     cooldownTime = 1;
                     specialReady = false;
@@ -305,7 +305,7 @@ public class SpecialInteractions : MonoBehaviour
                 CreateIndicator(other.gameObject.transform);
             }
             //See if the bat can lift it
-            else if (player.CompareTag("Bat") && (other.CompareTag("LBox")) && player.position.y > other.transform.position.y + 0.5)
+            else if (player.CompareTag("Bat") && (other.CompareTag("LBox")) && (plyCol.bounds.min.y < other.bounds.max.y && plyCol.bounds.min.y > other.bounds.max.y - 1 ))
             {
                 box = other.attachedRigidbody;
                 SelectBox(other.transform);
@@ -435,4 +435,10 @@ public class SpecialInteractions : MonoBehaviour
         Destroy(indicatorPrefabClone);
         indicatorPrefabClone = null;
     }
+
+    /*bool CheckBounds()
+    {
+        ply
+
+    }*/
 }

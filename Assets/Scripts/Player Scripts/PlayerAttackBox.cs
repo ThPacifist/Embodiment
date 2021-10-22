@@ -10,6 +10,7 @@ public class PlayerAttackBox : MonoBehaviour
 
     //Public variables and assets
     public GameObject hitbox;
+    public float duration;
 
     //Private variables
     private float timeElapsed;
@@ -17,7 +18,7 @@ public class PlayerAttackBox : MonoBehaviour
     //Runs the timer
     private void Update()
     {
-        StartCoroutine("DeleteBox");
+        StartCoroutine(DeleteBox());
     }
 
     //Timer before it disappears
@@ -25,9 +26,10 @@ public class PlayerAttackBox : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         timeElapsed += Time.deltaTime;
-        if(timeElapsed > 1)
+        if(timeElapsed > duration)
         {
             hitbox.SetActive(false);
+            timeElapsed = 0;
         }
     }
 }
