@@ -19,7 +19,7 @@ public class ControlMovement : MonoBehaviour
     public CapsuleCollider2D plyCol;
     public Animator animPly;
     public GameObject target;
-    public bool safe = true;
+    public bool canEmbody = true;
 
     //Private variables
     private string transformTarget = "None";
@@ -55,6 +55,11 @@ public class ControlMovement : MonoBehaviour
                 target = other.gameObject;
             }
         }
+
+        if(other.CompareTag("Embody"))
+        {
+            canEmbody = false;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -63,6 +68,11 @@ public class ControlMovement : MonoBehaviour
         {
             transformTarget = "None";
             target = null;
+        }
+
+        if (other.CompareTag("Embody"))
+        {
+            canEmbody = true;
         }
     }
 
@@ -81,7 +91,7 @@ public class ControlMovement : MonoBehaviour
         if (!wait) //If the allotted time has pass
         {
             wait = true;
-            if (!plyCntrl.InWater && !spIntr.ObjectHeld)
+            if (!plyCntrl.InWater && !spIntr.ObjectHeld && canEmbody)
             {
                 if (heldSkeleton != null)
                 {

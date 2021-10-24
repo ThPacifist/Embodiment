@@ -306,7 +306,7 @@ public class PlyController : MonoBehaviour
         }
 
         //If the Trigger is Death, kill the player
-        if(other.CompareTag("Death"))
+        if(other.CompareTag("Death") || other.CompareTag("Skeleton"))
         {
             player.gameObject.SetActive(false);
         }

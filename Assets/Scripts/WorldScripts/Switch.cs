@@ -38,6 +38,7 @@ public class Switch : MonoBehaviour
     public bool active;
     private int currentWeight = 0;
     bool b;
+    public float dist;
 
     /* Light Buttons:
      * - Press the interact button to activate the button
@@ -72,6 +73,7 @@ public class Switch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        dist = Vector2.Distance(this.gameObject.transform.position, spring.transform.position);
         if (Heavy)
         {
             if(!isTouching || !active)// If there is not an object touching the button, move button to its original position
@@ -84,7 +86,7 @@ public class Switch : MonoBehaviour
         }
         if(Heavy || Medium)// If either the heavy or medium bool is true
         {
-            if(this.gameObject.transform.position.y < buttonBase.GetComponent<Collider2D>().bounds.max.y) //If the position of the button is less than its rest position, activate the behavior
+            if(dist < 0.3f) //If the position of the button is less than its rest position, activate the behavior
             {
                 if (weight)
                 {
