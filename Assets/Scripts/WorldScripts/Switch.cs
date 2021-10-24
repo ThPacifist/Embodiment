@@ -73,6 +73,7 @@ public class Switch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Gets the distance between the button and the base
         dist = Vector2.Distance(this.gameObject.transform.position, spring.transform.position);
         if (Heavy)
         {

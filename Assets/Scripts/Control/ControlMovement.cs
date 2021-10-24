@@ -100,7 +100,7 @@ public class ControlMovement : MonoBehaviour
                 switch (transformTarget)
                 {
                     case "Human":
-                        if (emField.CheckSpace())//Checks if there is enough space
+                        if (emField.CheckSpace())//Checks if there is enough space relative to the embody field attached to the player
                         {
                             //Change to human body
                             animPly.SetBool("Human", true);
@@ -122,7 +122,7 @@ public class ControlMovement : MonoBehaviour
                         }
                         break;
                     case "Cat":
-                        if (emField.CheckSpace())//Checks if there is enough space
+                        if (emField.CheckSpace())//Checks if there is enough space relative to the embody field attached to the player
                         {
                             //Change to cat bod
                             animPly.SetBool("Cat", true);
@@ -144,7 +144,7 @@ public class ControlMovement : MonoBehaviour
                         }
                         break;
                     case "Bat":
-                        if (emField.CheckSpace())//Checks if there is enough space
+                        if (emField.CheckSpace())//Checks if there is enough space relative to the embody field attached to the player
                         {
                             //Change to bat body
                             animPly.SetBool("Bat", true);
@@ -166,7 +166,7 @@ public class ControlMovement : MonoBehaviour
                         }
                         break;
                     case "Fish":
-                        if (emField.CheckSpace())//Checks if there is enough space
+                        if (emField.CheckSpace())//Checks if there is enough space relative to the embody field attached to the player
                         {
                             //Change to fish body
                             //animPly.SetBool("Fish", true);

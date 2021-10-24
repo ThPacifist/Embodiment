@@ -97,8 +97,11 @@ public class SpecialInteractions : MonoBehaviour
         }
         else
         {
+            //Gets the vector that starts from the lamp position and goes to the player position
             Vector2 targetDir = player.position - lamp.transform.position;
+            //Calculates the angle between the player and the lamp
             angle = Vector2.Angle(targetDir, Vector2.down);
+            //Checks if the current angle is less than the max and disables movement
             if (angle > maxAngle)
             {
                 Debug.Log("Angle exceeds max angle");
@@ -108,7 +111,9 @@ public class SpecialInteractions : MonoBehaviour
             {
                 plyCntrl.move = true;
             }
+            //Gets the angle of the player again, except returns negative angle when the player is to the right of the swing
             float signedAngle = Vector2.SignedAngle(targetDir, Vector2.down);
+            //Changes the player's rotation to be relative to the swing
             Quaternion rotation = Quaternion.Euler(0, 0, -signedAngle);
             this.transform.rotation = rotation;
         }
@@ -118,26 +123,10 @@ public class SpecialInteractions : MonoBehaviour
             if (player.tag == "Human")
             {
                 heldBox.transform.position = HheldPos.transform.position;
-                /*if (PlyController.Right)
-                {
-                    HheldPos.transform.localPosition = new Vector2(Mathf.Abs(HheldPos.transform.localPosition.x), HheldPos.transform.localPosition.y);
-                }
-                else if (PlyController.Left)
-                {
-                    HheldPos.transform.localPosition = new Vector2(Mathf.Abs(HheldPos.transform.localPosition.x) * -1, HheldPos.transform.localPosition.y);
-                }*/
             }
             else if(player.tag == "Bat")
             {
                 heldBox.transform.position = BheldPos.transform.position;
-                /*if (PlyController.Right)
-                {
-                    BheldPos.transform.localPosition = new Vector2(Mathf.Abs(BheldPos.transform.localPosition.x), BheldPos.transform.localPosition.y);
-                }
-                else if (PlyController.Left)
-                {
-                    BheldPos.transform.localPosition = new Vector2(Mathf.Abs(BheldPos.transform.localPosition.x) * -1, BheldPos.transform.localPosition.y);
-                }*/
             }
         }
     }
@@ -370,6 +359,7 @@ public class SpecialInteractions : MonoBehaviour
         attackBox.SetActive(false);
     }
 
+    //Creates the tentacle between the lamp and the player
     public void ShootTentril()
     {
         if (!spring.isActiveAndEnabled)
@@ -400,6 +390,7 @@ public class SpecialInteractions : MonoBehaviour
         StartCoroutine("SpecialCoolDown");
     }
 
+    //Creation and Destruction the indicator animation prefav
     void CreateIndicator(Transform pos)
     {
         if(indicatorPrefabClone == null)
@@ -407,7 +398,6 @@ public class SpecialInteractions : MonoBehaviour
             indicatorPrefabClone = Instantiate(indicatorPrefab, pos);
         }
     }
-
     void DestroyIndicator()
     {
         Destroy(indicatorPrefabClone);
@@ -422,6 +412,7 @@ public class SpecialInteractions : MonoBehaviour
         Collider2D[] cols = new Collider2D[2];
         rb.GetAttachedColliders(cols);
 
+        //Checks if the first col in the array is the trigger
         if(cols[0].isTrigger)
         {
             OuterCol = cols[0];

@@ -147,13 +147,13 @@ public class PlyController : MonoBehaviour
         //Set facing direction
         if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
         {
-            this.gameObject.transform.localScale = new Vector3(-1* Mathf.Abs(transform.localScale.x), 1, 1);
+            this.gameObject.transform.localScale = new Vector3(-1* Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.x));
             right = true;
             left = false;
         }
         else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
         {
-            this.gameObject.transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), 1, 1);
+            this.gameObject.transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.x));
             left = true;
             right = false;
         }
