@@ -25119,7 +25119,7 @@ GameObject:
   - component: {fileID: 146518101}
   - component: {fileID: 146518100}
   - component: {fileID: 146518105}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube1
   m_TagString: LBox
   m_Icon: {fileID: 0}
@@ -26516,7 +26516,7 @@ GameObject:
   - component: {fileID: 520705159}
   m_Layer: 0
   m_Name: ElectricSensor
-  m_TagString: Death
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28063,7 +28063,7 @@ GameObject:
   - component: {fileID: 831523317}
   - component: {fileID: 831523316}
   - component: {fileID: 831523315}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube3
   m_TagString: LBox
   m_Icon: {fileID: 0}
@@ -28877,7 +28877,7 @@ GameObject:
   - component: {fileID: 1154330401}
   - component: {fileID: 1154330400}
   - component: {fileID: 1154330399}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube2
   m_TagString: LBox
   m_Icon: {fileID: 0}
@@ -31587,11 +31587,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4819060323485262879, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.33
+      value: 152.4
       objectReference: {fileID: 0}
     - target: {fileID: 4819060323485262879, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 172.83
+      value: 153
       objectReference: {fileID: 0}
     - target: {fileID: 4819060323485262879, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -31929,8 +31929,8 @@ MonoBehaviour:
   points:
   - {fileID: 511646597}
   - {fileID: 1740046491}
-  waitTime: 2.5
-  speed: 1
+  waitTime: 3.5
+  speed: 0.5
   moving: 1
 --- !u!4 &1890476623
 Transform:
