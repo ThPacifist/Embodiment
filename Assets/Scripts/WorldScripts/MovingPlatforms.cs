@@ -15,6 +15,7 @@ public class MovingPlatforms : GameAction
     //Public variables and assets
     public Transform platform;
     public Transform[] points;
+    public float waitTime;
     public float speed;
     public bool moving;
 
@@ -53,11 +54,24 @@ public class MovingPlatforms : GameAction
                 currentPos = 0;
                 //Set to move towards the endpoint
                 moveTowards = Mathf.Abs(moveTowards - 1);
+                //Stop
+                moving = false;
+                StartCoroutine("wait");
+                Debug.Log(moving);
             }
         }    
         
     }
 
+    //Wait after hitting an end point
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(waitTime);
+        moving = true;
+        Debug.Log(moving);
+    }
+
+    //Move stuff with it that is touchng it
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(GameAction.PlayerTags(collision.collider.tag))
@@ -66,6 +80,7 @@ public class MovingPlatforms : GameAction
         }
     }
 
+    //Don't move stuff with it that isn't touching it
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (GameAction.PlayerTags(collision.collider.tag))
