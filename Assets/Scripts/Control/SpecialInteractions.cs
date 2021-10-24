@@ -46,22 +46,17 @@ public class SpecialInteractions : MonoBehaviour
     private Vector3 direction;
     Switch lever;
     bool inRange;
-    Collider2D[] cols = new Collider2D[2];
 
     [SerializeField]
     Transform HheldPos;
     [SerializeField]
-    BoxCollider2D HCol;
-    [SerializeField]
     Transform BheldPos;
-    [SerializeField]
-    BoxCollider2D BCol;
     [SerializeField]
     GameObject indicatorPrefab;
     GameObject indicatorPrefabClone;
 
-    /*[SerializeField]
-    FixedJoint2D fixedJ;*/
+    [SerializeField]
+    FixedJoint2D fixedJ;
 
     public bool ObjectHeld
     { get { return objectHeld; } }
@@ -84,14 +79,12 @@ public class SpecialInteractions : MonoBehaviour
     private void Start()
     {
         spring.enabled = false;
+        fixedJ.enabled = false;
 
         lineRender.positionCount = 2;
         lineRender.SetPosition(0, player.position);//Starting Position of Tendril Line
         lineRender.SetPosition(1, player.position);//Ending Position of Tendril Line
         lineRender.enabled = true;
-
-        HCol.enabled = false;
-        BCol.enabled = false;
     }
 
     private void Update()
@@ -190,20 +183,14 @@ public class SpecialInteractions : MonoBehaviour
                         if (box != null)
                         {
                             //Attach box
-                            box.transform.parent = player;
-                            box.GetAttachedColliders(cols);
+                            //box.transform.parent = player;
                             heldBox = box;
-                            heldBox.gravityScale = 0;
-                            heldBox.freezeRotation = true;
+                            //heldBox.gravityScale = 0;
+                            //heldBox.freezeRotation = true;
                             objectHeld = true;
-                            /*fixedJ.enabled = true;
+                            fixedJ.enabled = true;
                             fixedJ.connectedBody = heldBox;
-                            heldBox.transform.position = HheldPos.transform.position;*/
-                            foreach (Collider2D col in cols)
-                            {
-                                col.enabled = false;
-                            }
-                            HCol.enabled = true;
+                            heldBox.transform.position = HheldPos.transform.position;
                             //Cooldown
                             cooldownTime = 1;
                             specialReady = false;
@@ -214,15 +201,12 @@ public class SpecialInteractions : MonoBehaviour
                     {
                         //Drop box
                         objectHeld = false;
-                        heldBox.transform.parent = null;
-                        heldBox.gravityScale = 1;
-                        heldBox.freezeRotation = false;
+                        //heldBox.transform.parent = null;
+                        //heldBox.gravityScale = 1;
+                        //heldBox.freezeRotation = false;
+                        fixedJ.enabled = false;
+                        fixedJ.connectedBody = null;
                         heldBox = null;
-                        foreach (Collider2D col in cols)
-                        {
-                            col.enabled = true;
-                        }
-                        HCol.enabled = false;
                         //Cooldown
                         cooldownTime = 1;
                         specialReady = false;
@@ -252,17 +236,13 @@ public class SpecialInteractions : MonoBehaviour
                 //Attach box
                 if (box != null)
                 {
-                    box.transform.parent = player;
-                    box.position = player.position - new Vector3(0, 1, 0);
-                    box.GetAttachedColliders(cols);
+                    //box.transform.parent = player;
                     heldBox = box;
-                    heldBox.gravityScale = 0;
+                    //heldBox.gravityScale = 0;
                     objectHeld = true;
-                    foreach (Collider2D col in cols)
-                    {
-                        col.enabled = false;
-                    }
-                    BCol.enabled = true;
+                    fixedJ.enabled = true;
+                    fixedJ.connectedBody = heldBox;
+                    heldBox.transform.position = BheldPos.transform.position;
                     //Cooldown
                     cooldownTime = 1;
                     specialReady = false;
@@ -273,14 +253,12 @@ public class SpecialInteractions : MonoBehaviour
             {
                 //Drop box
                 Debug.Log("Drop box");
-                heldBox.transform.parent = null;
-                heldBox.gravityScale = 1;
+                //heldBox.transform.parent = null;
+                //heldBox.gravityScale = 1;
                 objectHeld = false;
-                foreach (Collider2D col in cols)
-                {
-                    col.enabled = true;
-                }
-                BCol.enabled = false;
+                fixedJ.enabled = false;
+                fixedJ.connectedBody = null;
+                heldBox = null;
                 //Cooldown
                 cooldownTime = 1;
                 specialReady = false;

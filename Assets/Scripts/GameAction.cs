@@ -42,7 +42,7 @@ public class GameAction : MonoBehaviour
         {
             return true;
         }
-        else if (tag == "Human")
+        else if (tag == "Cat")
         {
             return true;
         }

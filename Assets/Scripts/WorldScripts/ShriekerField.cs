@@ -8,12 +8,16 @@ public class ShriekerField : MonoBehaviour
     GameAction behavior;
 
     //If the player is this field, destory the skeleton
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if(GameAction.PlayerTags(other.tag))//If it's the player
         {
-            DestroySkeleton(other.GetComponent<ControlMovement>());
-            //Destroy Skeleton
+            Debug.Log("Player is " + other.tag);
+            if (other.GetComponent<ControlMovement>().heldSkeleton != null)
+            {
+                DestroySkeleton(other.GetComponent<ControlMovement>());
+                //Destroy Skeleton
+            }
 
             //Any other behavior
             //behavior.Action();
@@ -22,6 +26,7 @@ public class ShriekerField : MonoBehaviour
 
     void DestroySkeleton(ControlMovement ply)
     {
+        Debug.Log("This is the Shrieker . " + ply);
         ply.DestorySkeleton();
     }
 }
