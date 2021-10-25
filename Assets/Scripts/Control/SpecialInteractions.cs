@@ -33,19 +33,18 @@ public class SpecialInteractions : MonoBehaviour
     public bool isAttached;
     public float angle;
     public float maxAngle;
+    public bool objectHeld;
 
     //Private variables
     private bool climb;
     private bool canHold;
-    private bool objectHeld;
     private bool specialReady = true;
     private float timeElapsed;
     private float cooldownTime;
     Rigidbody2D box;
     private Rigidbody2D heldBox;
-    private Vector3 direction;
     Switch lever;
-    bool inRange;
+    string boxTag;
 
     [SerializeField]
     Transform HheldPos;
@@ -154,13 +153,14 @@ public class SpecialInteractions : MonoBehaviour
                     break;
                 case "Human":
                     //Check if there is a box to hold or a box being held
-                    if (canHold && !objectHeld)
+                    if (box != null && !objectHeld)
                     {
-                        if (box != null)
+                        if (boxTag == "LBox" || boxTag == "MBox")
                         {
                             //Attach box
                             //box.transform.parent = player;
                             heldBox = box;
+                            heldBox.sharedMaterial.friction = 0;
                             //heldBox.gravityScale = 0;
                             //heldBox.freezeRotation = true;
                             objectHeld = true;
@@ -177,6 +177,7 @@ public class SpecialInteractions : MonoBehaviour
                     {
                         //Drop box
                         objectHeld = false;
+                        heldBox.sharedMaterial.friction = 0.6f;
                         //heldBox.transform.parent = null;
                         //heldBox.gravityScale = 1;
                         //heldBox.freezeRotation = false;
@@ -207,10 +208,10 @@ public class SpecialInteractions : MonoBehaviour
     {
         if (specialReady)
         {
-            if (canHold && !objectHeld)
+            //Attach box
+            if (box != null && !objectHeld)
             {
-                //Attach box
-                if (box != null)
+                if (boxTag == "LBox")
                 {
                     //box.transform.parent = player;
                     heldBox = box;
@@ -246,39 +247,8 @@ public class SpecialInteractions : MonoBehaviour
     //Check for boxes
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Check if it is a box
-        if(other.CompareTag("LBox") || other.CompareTag("MBox") || other.CompareTag("HBox") && !objectHeld)
-        {
-            //See if the human can lift it
-            if (player.CompareTag("Human") && (other.CompareTag("LBox") || other.CompareTag("MBox")) && (player.position.x < other.transform.position.x || player.position.x > other.transform.position.x)
-                /*(player.position.y > other.transform.position.y - 0.25 && player.position.y < other.transform.position.y + 0.25)*/)
-            { 
-                box = other.attachedRigidbody;
-                SelectBox(other.transform);
-                canHold = true;
-            }
-            //See if the bat can lift it
-            else if (player.CompareTag("Bat") && (other.CompareTag("LBox")) && CheckBoundsForBat(other.attachedRigidbody))
-            {
-                box = other.attachedRigidbody;
-                SelectBox(other.transform);
-                canHold = true;
-            }
-            //See if the human can push it
-            else if(player.CompareTag("Human") && (other.CompareTag("LBox") || other.CompareTag("MBox") || other.CompareTag("HBox")))
-            {
-                SelectBox(other.transform);
-                canHold = true;
-            }
-            //See if anyone can push it
-            else if(other.CompareTag("LBox") || other.CompareTag("MBox"))
-            {
-                SelectBox(other.transform);
-                canHold = true;
-            }
-        }
         //Check if it is a switch
-        else if(other.CompareTag("Lever"))
+        if(other.CompareTag("Lever"))
         {
             lever = other.GetComponent<Switch>();
         }
@@ -287,27 +257,20 @@ public class SpecialInteractions : MonoBehaviour
         {
             climb = true;
         }
-        //Check if it is swingable object
-        /*
-        else if(player.CompareTag("Blob") && other.CompareTag("Swing"))
-        {
-            inRange = true;
-            lamp = other.gameObject;           
-        }
-        */
     }
+    //Sets the value of the lamp
+    public void SetSwingerGameObject(GameObject value) { lamp = value; }
 
-    public void SetSwingerGameObject(GameObject value) { lamp = value; Debug.Log("set"); }
+    //Sets the value of the held box
+    public void SetHeldBox(Rigidbody2D rb, string inputTag) 
+    { 
+        box = rb;
+        boxTag = inputTag;
+    }
     //Remove boxes from selection
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("HBox") || other.CompareTag("MBox") || other.CompareTag("LBox"))
-        {
-            box = null;
-            SelectBox(null);
-            canHold = false;
-        }
-        else if(other.CompareTag("Lever"))
+        if(other.CompareTag("Lever"))
         {
             lever = null;
         }
@@ -323,9 +286,7 @@ public class SpecialInteractions : MonoBehaviour
         {
             if (!isAttached)
             {
-                inRange = false;
                 lamp = null;
-                //tendril.transform.LookAt(null);
             }
         }
 
@@ -385,43 +346,5 @@ public class SpecialInteractions : MonoBehaviour
     {
         Destroy(indicatorPrefabClone);
         indicatorPrefabClone = null;
-    }
-
-    //Checks if player is within the created box to see if bat is above box
-    bool CheckBoundsForBat(Rigidbody2D rb)
-    {
-        Collider2D OuterCol;
-        Collider2D InnerCol;
-        Collider2D[] cols = new Collider2D[2];
-        rb.GetAttachedColliders(cols);
-
-        //Checks if the first col in the array is the trigger
-        if(cols[0].isTrigger)
-        {
-            OuterCol = cols[0];
-            InnerCol = cols[1];
-        }
-        else
-        {
-            OuterCol = cols[1];
-            InnerCol = cols[0];
-        }
-
-        Vector2 plyPoint = new Vector2(plyCol.bounds.center.x, plyCol.bounds.min.y);
-
-        Vector2 tR = new Vector2(InnerCol.bounds.max.x, OuterCol.bounds.max.y);
-        Vector2 bL = new Vector2(InnerCol.bounds.min.x, InnerCol.bounds.max.y);
-
-        Debug.DrawLine(tR, bL);
-
-        if(plyPoint.x < tR.x && plyPoint.x > bL.x && plyPoint.y < tR.y && plyPoint.y > bL.y - 0.01f)
-        {
-            Debug.Log("Inside Bounds");
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 }

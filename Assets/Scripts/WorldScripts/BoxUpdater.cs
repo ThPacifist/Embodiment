@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class BoxUpdater : MonoBehaviour
 {
-    /*public Rigidbody2D[] lightB;
-    public Rigidbody2D[] mediumB;
-    public Rigidbody2D[] heavyB;*/
-
     public PlyController plyCntrl;
     public Rigidbody2D Rb;
     public GameObject player;

@@ -5,20 +5,24 @@ using UnityEngine;
 public class SwingerVisuals : MonoBehaviour
 {
     public GameObject indicator;
-    public SpecialInteractions temp;
+    [SerializeField]
+    SpecialInteractions interaction;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.name);
-        temp = collision.GetComponent<SpecialInteractions>() as SpecialInteractions;
-        if (temp != null)
-            temp.SetSwingerGameObject(gameObject);
-        indicator.SetActive(true);
+        if (collision.CompareTag("Blob"))
+        {
+            interaction = collision.GetComponent<SpecialInteractions>();
+            if (interaction != null)
+                interaction.SetSwingerGameObject(gameObject);
+            indicator.SetActive(true);
+        }
 
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        temp = null;
+        interaction = null;
         indicator.SetActive(false);
     }
 }

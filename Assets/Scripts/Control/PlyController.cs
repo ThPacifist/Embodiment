@@ -147,7 +147,7 @@ public class PlyController : MonoBehaviour
         {
             if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
             {
-                rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.5f, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.3f, ForceMode2D.Impulse);
             }
         }
 
@@ -273,7 +273,6 @@ public class PlyController : MonoBehaviour
     //Check when a trigger is entered
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Entered " + other.tag);
         if (player.CompareTag("Fish"))
         {
             if (other.CompareTag("Water"))
@@ -289,7 +288,6 @@ public class PlyController : MonoBehaviour
                 inWater = true;
             }
         }
-        
         else if(player.CompareTag("Cat"))
         {
             if(other.CompareTag("Climb"))
@@ -305,7 +303,6 @@ public class PlyController : MonoBehaviour
                 }
             }
         }
-        
         else
         {
             if (other.CompareTag("Water"))

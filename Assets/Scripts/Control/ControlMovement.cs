@@ -41,7 +41,7 @@ public class ControlMovement : MonoBehaviour
 
     private void Start()
     {
-        Embody("Blob");
+        Embody(this.tag);
     }
 
     //Change transformTarget when entering the triggers

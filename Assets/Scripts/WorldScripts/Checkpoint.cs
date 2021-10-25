@@ -20,7 +20,7 @@ public class Checkpoint : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         //If a player enters the checkpoint send the number of the checkpoint to the controller
-        if (other.CompareTag("Blob") ||other.CompareTag("Fish") ||other.CompareTag("Human") ||other.CompareTag("Cat") ||other.CompareTag("Bat"))
+        if (GameAction.PlayerTags(other.tag))
         {
             newCheckpoint(ckptNum);
         }
