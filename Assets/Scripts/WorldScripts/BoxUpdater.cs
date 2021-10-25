@@ -18,6 +18,11 @@ public class BoxUpdater : MonoBehaviour
         PlyController.Embody -= CheckPlayer;
     }
 
+    private void Awake()
+    {
+        Rb.sharedMaterial.friction = 0.6f;
+    }
+
     void CheckPlayer()
     {
         if(player.CompareTag("Blob"))

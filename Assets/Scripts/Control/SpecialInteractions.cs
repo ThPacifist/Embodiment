@@ -42,7 +42,7 @@ public class SpecialInteractions : MonoBehaviour
     private float timeElapsed;
     private float cooldownTime;
     Rigidbody2D box;
-    private Rigidbody2D heldBox;
+    public Rigidbody2D heldBox;
     Switch lever;
     string boxTag;
 

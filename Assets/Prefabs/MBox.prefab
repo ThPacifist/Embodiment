@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Indicator: {fileID: 4486800918592813696}
+  boxUpdate: {fileID: 0}
   interaction: {fileID: 0}
 --- !u!61 &881155967
 BoxCollider2D:
@@ -168,7 +169,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 89386729541824717}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 106becf9026d67242abeb02b36a87570, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

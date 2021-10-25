@@ -42,6 +42,7 @@ public class BoxTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        interaction.SetHeldBox(null, "");
         interaction = null;
         Indicator.SetActive(false);
     }
