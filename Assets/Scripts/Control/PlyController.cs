@@ -143,6 +143,13 @@ public class PlyController : MonoBehaviour
 
             }
         }
+        else if(spcInter.isAttached)
+        {
+            if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+            {
+                rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.5f, ForceMode2D.Impulse);
+            }
+        }
 
         //Set facing direction
         if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)

@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 366513243}
   - component: {fileID: 1263926257}
   - component: {fileID: 1189157436}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Blob
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ MonoBehaviour:
   plyCol: {fileID: 1720524858}
   animPly: {fileID: 366513243}
   target: {fileID: 0}
-  safe: 1
+  canEmbody: 1
   emField: {fileID: 6005473104013902345}
 --- !u!114 &4819060323485262864
 MonoBehaviour:
@@ -339,7 +339,6 @@ MonoBehaviour:
   maxAngle: 45
   HheldPos: {fileID: 1651337005}
   BheldPos: {fileID: 1373430572}
-  indicatorPrefab: {fileID: 4573899549758092126, guid: b483489a74087404ab3868bfe458d05e, type: 3}
   fixedJ: {fileID: 1189157436}
 --- !u!114 &135167153
 MonoBehaviour:

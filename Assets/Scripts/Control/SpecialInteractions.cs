@@ -82,7 +82,7 @@ public class SpecialInteractions : MonoBehaviour
         lineRender.positionCount = 2;
         lineRender.SetPosition(0, player.position);//Starting Position of Tendril Line
         lineRender.SetPosition(1, player.position);//Ending Position of Tendril Line
-        lineRender.enabled = true;
+        lineRender.enabled = false;
     }
 
     private void Update()
@@ -95,20 +95,9 @@ public class SpecialInteractions : MonoBehaviour
         }
         else
         {
+            plyCntrl.move = false;
             //Gets the vector that starts from the lamp position and goes to the player position
             Vector2 targetDir = player.position - lamp.transform.position;
-            //Calculates the angle between the player and the lamp
-            angle = Vector2.Angle(targetDir, Vector2.down);
-            //Checks if the current angle is less than the max and disables movement
-            if (angle > maxAngle)
-            {
-                Debug.Log("Angle exceeds max angle");
-                plyCntrl.move = false;
-            }
-            else
-            {
-                plyCntrl.move = true;
-            }
             //Gets the angle of the player again, except returns negative angle when the player is to the right of the swing
             float signedAngle = Vector2.SignedAngle(targetDir, Vector2.down);
             //Changes the player's rotation to be relative to the swing
@@ -362,6 +351,7 @@ public class SpecialInteractions : MonoBehaviour
     {
         if (!spring.isActiveAndEnabled)
         {
+            lineRender.enabled = true;
             spring.enabled = true;
             spring.connectedAnchor = lamp.transform.position;
             lineRender.SetPosition(1, new Vector3(lamp.transform.position.x, lamp.transform.position.y, player.position.z));
@@ -376,6 +366,7 @@ public class SpecialInteractions : MonoBehaviour
             spring.enabled = false;
             spring.connectedAnchor = Vector2.zero;
             lineRender.SetPosition(1, player.position);
+            lineRender.enabled = false;
             Quaternion rotation = Quaternion.Euler(0, 0, 0);
             this.transform.rotation = rotation;
             isAttached = false;
