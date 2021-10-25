@@ -50,9 +50,7 @@ public class SpecialInteractions : MonoBehaviour
     [SerializeField]
     Transform HheldPos;
     [SerializeField]
-    Transform BheldPos;
-    [SerializeField]
-    GameObject indicatorPrefab;
+    Transform BheldPos;   
     GameObject indicatorPrefabClone;
 
     [SerializeField]
@@ -159,7 +157,7 @@ public class SpecialInteractions : MonoBehaviour
             {
                 case "Blob":
                     //Tendril swing
-                    if(inRange)
+                    if(lamp != null)
                     {
                         ShootTentril();
                     }
@@ -269,7 +267,6 @@ public class SpecialInteractions : MonoBehaviour
                 box = other.attachedRigidbody;
                 SelectBox(other.transform);
                 canHold = true;
-                CreateIndicator(other.gameObject.transform);
             }
             //See if the bat can lift it
             else if (player.CompareTag("Bat") && (other.CompareTag("LBox")) && CheckBoundsForBat(other.attachedRigidbody))
@@ -277,7 +274,6 @@ public class SpecialInteractions : MonoBehaviour
                 box = other.attachedRigidbody;
                 SelectBox(other.transform);
                 canHold = true;
-                CreateIndicator(other.gameObject.transform);
             }
             //See if the human can push it
             else if(player.CompareTag("Human") && (other.CompareTag("LBox") || other.CompareTag("MBox") || other.CompareTag("HBox")))
@@ -303,14 +299,16 @@ public class SpecialInteractions : MonoBehaviour
             climb = true;
         }
         //Check if it is swingable object
+        /*
         else if(player.CompareTag("Blob") && other.CompareTag("Swing"))
         {
             inRange = true;
-            lamp = other.gameObject;
-            CreateIndicator(other.transform);
+            lamp = other.gameObject;           
         }
+        */
     }
 
+    public void SetSwingerGameObject(GameObject value) { lamp = value; Debug.Log("set"); }
     //Remove boxes from selection
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -391,13 +389,7 @@ public class SpecialInteractions : MonoBehaviour
     }
 
     //Creation and Destruction the indicator animation prefav
-    void CreateIndicator(Transform pos)
-    {
-        if(indicatorPrefabClone == null)
-        {
-            indicatorPrefabClone = Instantiate(indicatorPrefab, pos);
-        }
-    }
+   
     void DestroyIndicator()
     {
         Destroy(indicatorPrefabClone);
