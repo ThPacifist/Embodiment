@@ -76,7 +76,7 @@ public class BoxUpdater : MonoBehaviour
             }
             else if (this.CompareTag("HBox"))
             {
-                Rb.mass = 160;
+                Rb.mass = 130;
             }
         }
         else if (tag == "Cat")
