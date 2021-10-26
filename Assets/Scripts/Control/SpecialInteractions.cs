@@ -84,7 +84,7 @@ public class SpecialInteractions : MonoBehaviour
         lineRender.enabled = false;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         lineRender.SetPosition(0, player.position);
         if (!isAttached)
@@ -310,6 +310,7 @@ public class SpecialInteractions : MonoBehaviour
     //Creates the tentacle between the lamp and the player
     public void ShootTentril()
     {
+        Debug.Log("Spring on" + spring.isActiveAndEnabled);
         if (!spring.isActiveAndEnabled)
         {
             lineRender.enabled = true;
