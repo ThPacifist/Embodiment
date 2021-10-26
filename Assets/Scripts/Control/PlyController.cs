@@ -28,6 +28,7 @@ public class PlyController : MonoBehaviour
     private bool catClimb = false;
     private bool canJump = true;
     Vector2 catDir;
+    AudioManager audioManager;
 
     static bool right;
     static bool left;
@@ -63,6 +64,7 @@ public class PlyController : MonoBehaviour
     //Start is called at the start of this script
     private void Start()
     {
+        audioManager = GameObject.FindObjectOfType<AudioManager>();
         //Spceial Interact
         PlyCtrl.Player.Special.performed += _ => SpecialS();
 
@@ -173,6 +175,16 @@ public class PlyController : MonoBehaviour
             rb.velocity *= new Vector2(0.5f, 1);
         }
 
+        //Animation Block
+        if(PlyCtrl.Player.Movement.ReadValue<float>() != 0 && isGrounded())
+        {
+            plyAnim.SetBool("Walking", true);
+        }
+        else
+        {
+            plyAnim.SetBool("Walking", false);
+        }
+
         //Check if the blob is attached
         if (spcInter.isAttached)
         {
@@ -182,6 +194,8 @@ public class PlyController : MonoBehaviour
         {
             plyAnim.SetBool("Swing", false);
         }
+
+        //Sounds
     }
 
     //Special check

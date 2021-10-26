@@ -37,10 +37,10 @@ public class AudioManager : MonoBehaviour
         foreach (Sound s in sounds) //Init each sound - give it a source and init that source to make it playable
         {
             GameObject gObject = new GameObject();
-            gObject.name = s.name;
             s.source = gObject.AddComponent<AudioSource>();
-            s.source.clip = gObject.GetComponent<AudioSource>().clip;
-            s.source.loop = gObject.GetComponent<AudioSource>().loop;
+            gObject.name = s.clip.name;
+            s.source.clip = s.clip;
+            s.source.loop = s.loop;
 
             gObject.transform.parent = this.transform;
 

@@ -45,6 +45,7 @@ public class SpecialInteractions : MonoBehaviour
     public Rigidbody2D heldBox;
     Switch lever;
     string boxTag;
+    AudioManager audioManager;
 
     [SerializeField]
     Transform HheldPos;
@@ -75,6 +76,8 @@ public class SpecialInteractions : MonoBehaviour
 
     private void Start()
     {
+        audioManager = GameObject.FindObjectOfType<AudioManager>();
+
         spring.enabled = false;
         fixedJ.enabled = false;
 
@@ -160,7 +163,6 @@ public class SpecialInteractions : MonoBehaviour
                             //Attach box
                             //box.transform.parent = player;
                             heldBox = box;
-                            heldBox.sharedMaterial.friction = 0;
                             //heldBox.gravityScale = 0;
                             //heldBox.freezeRotation = true;
                             objectHeld = true;
@@ -177,7 +179,6 @@ public class SpecialInteractions : MonoBehaviour
                     {
                         //Drop box
                         objectHeld = false;
-                        heldBox.sharedMaterial.friction = 0.6f;
                         //heldBox.transform.parent = null;
                         //heldBox.gravityScale = 1;
                         //heldBox.freezeRotation = false;
@@ -311,6 +312,7 @@ public class SpecialInteractions : MonoBehaviour
     public void ShootTentril()
     {
         Debug.Log("Spring on" + spring.isActiveAndEnabled);
+        audioManager.Play("Swing", true);
         if (!spring.isActiveAndEnabled)
         {
             lineRender.enabled = true;
