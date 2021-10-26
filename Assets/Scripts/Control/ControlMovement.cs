@@ -39,7 +39,7 @@ public class ControlMovement : MonoBehaviour
         PlyController.Embody -= Embody;
     }
 
-    private void Start()
+    private void Awake()
     {
         Embody(this.tag);
     }
@@ -103,7 +103,7 @@ public class ControlMovement : MonoBehaviour
                         if (emField.CheckSpace())//Checks if there is enough space relative to the embody field attached to the player
                         {
                             //Change to human body
-                            animPly.SetBool("Human", true);
+                            animPly.SetTrigger("Human");
                             //Change tag
                             player.tag = "Human";
                             //Change movement
@@ -125,7 +125,7 @@ public class ControlMovement : MonoBehaviour
                         if (emField.CheckSpace())//Checks if there is enough space relative to the embody field attached to the player
                         {
                             //Change to cat bod
-                            animPly.SetBool("Cat", true);
+                            animPly.SetTrigger("Cat");
                             //Change tag
                             player.tag = "Cat";
                             //Change movement
@@ -147,7 +147,7 @@ public class ControlMovement : MonoBehaviour
                         if (emField.CheckSpace())//Checks if there is enough space relative to the embody field attached to the player
                         {
                             //Change to bat body
-                            animPly.SetBool("Bat", true);
+                            animPly.SetTrigger("Bat");
                             //Change tag
                             player.tag = "Bat";
                             //Change movement
@@ -170,7 +170,7 @@ public class ControlMovement : MonoBehaviour
                         {
                             //Change to fish body
                             //animPly.SetBool("Fish", true);
-                            animPly.SetBool("Fish", true);
+                            animPly.SetTrigger("Fish");
                             //Change tag
                             player.tag = "Fish";
                             //Change movement
@@ -193,7 +193,7 @@ public class ControlMovement : MonoBehaviour
                         if (!player.CompareTag("Blob"))
                         {
                             //Drop current body
-                            animPly.SetBool(player.gameObject.tag, false);
+                            animPly.SetTrigger("Blob");
                             //Change tag
                             player.tag = "Blob";
                             //Change movement

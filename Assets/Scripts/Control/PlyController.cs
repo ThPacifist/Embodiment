@@ -179,10 +179,12 @@ public class PlyController : MonoBehaviour
         if(PlyCtrl.Player.Movement.ReadValue<float>() != 0 && isGrounded())
         {
             plyAnim.SetBool("Walking", true);
+            Debug.Log("The player is walking");
         }
         else
         {
             plyAnim.SetBool("Walking", false);
+            Debug.Log("The player is not walking");
         }
 
         //Check if the blob is attached
@@ -227,6 +229,7 @@ public class PlyController : MonoBehaviour
             {
                 canJump = false;
                 rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
+                plyAnim.SetTrigger("Flap");
                 StartCoroutine(FlyCoolDown());
             }
             //Side jump when climbing
@@ -347,7 +350,6 @@ public class PlyController : MonoBehaviour
     //Check for when the trigger is exited
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Exited " + other.tag);
         if (player.CompareTag("Fish"))
         {
             if (other.CompareTag("Water"))
@@ -390,7 +392,7 @@ public class PlyController : MonoBehaviour
             Time.timeScale = 0;
         }*/
 
-        Debug.Log(hit.collider);
+        //Debug.Log(hit.collider);
         return hit.collider != null;
     }
     //Use this version to differentiate what type of jumpable it is

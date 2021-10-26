@@ -311,7 +311,7 @@ public class SpecialInteractions : MonoBehaviour
     //Creates the tentacle between the lamp and the player
     public void ShootTentril()
     {
-        Debug.Log("Spring on " + spring.isActiveAndEnabled);
+        //Debug.Log("Spring on " + spring.isActiveAndEnabled);
         if (audioManager != null)
         {
             audioManager.Play("Swing", true);
