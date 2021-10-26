@@ -230,6 +230,10 @@ public class PlyController : MonoBehaviour
                 canJump = false;
                 rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
                 plyAnim.SetTrigger("Flap");
+                if (audioManager != null)
+                {
+                    audioManager.Play("wingFlap", true);
+                }
                 StartCoroutine(FlyCoolDown());
             }
             //Side jump when climbing
