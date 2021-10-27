@@ -25,7 +25,7 @@ public class PlyController : MonoBehaviour
     LayerMask groundLayerMask;
 
     //Private Variables
-    private bool catClimb = false;
+    public bool OnWall = false;
     private bool canJump = true;
     Vector2 catDir;
     AudioManager audioManager;
@@ -119,21 +119,15 @@ public class PlyController : MonoBehaviour
             else
             {
                 //Cat climb movement
-                if (player.CompareTag("Cat") && catClimb)
+                if (player.CompareTag("Cat") && OnWall)
                 {
+                    rb.gravityScale = 0;
+                    rb.AddForce(catDir, ForceMode2D.Impulse);
                     if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
                     {
-                        rb.velocity += (new Vector2(1, 1) * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed * 0.5f) - new Vector2(rb.velocity.x, rb.velocity.y);
-                        //Stop leteral movement and gravity while moving up
-                        if ((PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y > 0) && PlyCtrl.Player.Jump.ReadValue<float>() == 0)
+                        if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y != 0 )
                         {
-                            rb.velocity = new Vector2(0, rb.velocity.y);
-                            rb.gravityScale = 0;
-                        }
-                        //Keep gravity when moving in other directions
-                        else if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y > 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x != 0)
-                        {
-                            rb.gravityScale = 1;
+                            rb.velocity += (Vector2.up * PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y * speed * 0.5f) - new Vector2(0, rb.velocity.y);
                         }
                     }
                 }
@@ -141,6 +135,10 @@ public class PlyController : MonoBehaviour
                 else if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                 {
                     rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed) - new Vector2(rb.velocity.x, 0);
+                }
+                else
+                {
+                    rb.gravityScale = 1;
                 }
 
             }
@@ -153,38 +151,27 @@ public class PlyController : MonoBehaviour
             }
         }
 
-        //Set facing direction
-        if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
-        {
-            this.gameObject.transform.localScale = new Vector3(-1* Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y), 
-                Mathf.Abs(transform.localScale.z));
-            right = true;
-            left = false;
-        }
-        else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
-        {
-            this.gameObject.transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y), 
-                Mathf.Abs(transform.localScale.z));
-            left = true;
-            right = false;
-        }
-
         //Remove momentum while on ground
         if (PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded())
         {
             rb.velocity *= new Vector2(0.5f, 1);
         }
 
+        //Remove momentum while on wall
+        if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y == 0 && OnWall)
+        {
+            rb.velocity *= new Vector2(1, 0.5f);
+        }
+
         //Animation Block
-        if(PlyCtrl.Player.Movement.ReadValue<float>() != 0 && isGrounded())
+        #region Animation Block
+        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && isGrounded())
         {
             plyAnim.SetBool("Walking", true);
-            Debug.Log("The player is walking");
         }
         else
         {
             plyAnim.SetBool("Walking", false);
-            Debug.Log("The player is not walking");
         }
 
         //Check if the blob is attached
@@ -197,7 +184,46 @@ public class PlyController : MonoBehaviour
             plyAnim.SetBool("Swing", false);
         }
 
-        //Sounds
+        if (OnWall)
+        {
+            plyAnim.SetBool("Climb", true);
+        }
+        else
+        {
+            plyAnim.SetBool("Climb", false);
+        }
+
+        //Set facing direction
+        if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
+        {
+            this.gameObject.transform.localScale = new Vector3(-1 * Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y),
+                Mathf.Abs(transform.localScale.z));
+            right = true;
+            left = false;
+        }
+        else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
+        {
+            this.gameObject.transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y),
+                Mathf.Abs(transform.localScale.z));
+            left = true;
+            right = false;
+        }
+        //Set direction as cat on wall
+        if(OnWall && catDir == Vector2.right)
+        {
+            this.gameObject.transform.localScale = new Vector3(-1 * Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y),
+                Mathf.Abs(transform.localScale.z));
+            right = true;
+            left = false;
+        }
+        else if(OnWall && catDir == Vector2.left)
+        {
+            this.gameObject.transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y),
+                Mathf.Abs(transform.localScale.z));
+            left = true;
+            right = false;
+        }
+        #endregion
     }
 
     //Special check
@@ -237,10 +263,11 @@ public class PlyController : MonoBehaviour
                 StartCoroutine(FlyCoolDown());
             }
             //Side jump when climbing
-            else if (player.CompareTag("Cat") && catClimb)
+            else if (player.CompareTag("Cat") && OnWall)
             {
                 Debug.Log("Jump");
-                rb.AddForce((catDir * 25) - new Vector2(rb.velocity.x, 0), ForceMode2D.Impulse);
+                rb.AddForce((-catDir * 25) - new Vector2(rb.velocity.x, 0), ForceMode2D.Impulse);
+                catDir = -catDir;
             }
             //Regular jump when appropriate
             else
@@ -309,7 +336,7 @@ public class PlyController : MonoBehaviour
                 inWater = true;
             }
         }
-        else if(player.CompareTag("Cat"))
+        /*else if(player.CompareTag("Cat"))
         {
             if(other.CompareTag("Climb"))
             {
@@ -323,7 +350,7 @@ public class PlyController : MonoBehaviour
                     catDir = Vector2.right;
                 }
             }
-        }
+        }*/
         else
         {
             if (other.CompareTag("Water"))
@@ -371,14 +398,33 @@ public class PlyController : MonoBehaviour
                 rb.gravityScale = 1;
             }
         }
-        else if (player.CompareTag("Cat"))
+        /*else if (player.CompareTag("Cat"))
         {
             if (other.CompareTag("Climb"))
             {
                 catClimb = false;
                 rb.gravityScale = 1;
             }
+        }*/
+    }
+
+    public void SetCatOnWall(bool value, Vector2 direction) 
+    { 
+        OnWall = value;
+        catDir = direction;
+        
+        /*//"Rotating" the collider clockwise
+        if(value)
+        {
+            capCollider.direction = CapsuleDirection2D.Vertical;
+            capCollider.offset = new Vector2(0, 0);
+            capCollider.size = new Vector2(1.5f, 1.5f);
         }
+        //"Rotating" the collider back
+        else
+        {
+            StartCoroutine(DelayFlippingCat());
+        }*/
     }
 
     //Checks if the player is on the ground
@@ -432,9 +478,17 @@ public class PlyController : MonoBehaviour
         canJump = true;
     }
 
+    IEnumerator DelayFlippingCat()
+    {
+        yield return new WaitForSeconds(0.3f);
+        capCollider.direction = CapsuleDirection2D.Horizontal;
+        capCollider.offset = new Vector2(0, 0);
+        capCollider.size = new Vector2(1.5f, 1.5f);
+    }
+
     /* Cat */
     //When the cat starts climbing, things need to happen here
-    private void Climb()
+    /*private void Climb()
     {
         if (catClimb)
         {
@@ -446,5 +500,5 @@ public class PlyController : MonoBehaviour
             catClimb = true;
             rb.gravityScale = 0;
         }
-    }
+    }*/
 }

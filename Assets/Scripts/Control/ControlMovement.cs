@@ -130,11 +130,11 @@ public class ControlMovement : MonoBehaviour
                             player.tag = "Cat";
                             //Change movement
                             plyCntrl.speed = 7;
-                            plyCntrl.jumpHeight = 32;
+                            plyCntrl.jumpHeight = 20;
                             //Change Collider
                             plyCol.direction = CapsuleDirection2D.Horizontal;
                             plyCol.offset = new Vector2(0, 0);
-                            plyCol.size = new Vector2(2.135f, 1.584f);
+                            plyCol.size = new Vector2(1.5f, 1.5f);
                             //Remove skeleton
                             removeSkeleton();
                         }
@@ -263,7 +263,7 @@ public class ControlMovement : MonoBehaviour
                     //Change Collider
                     plyCol.direction = CapsuleDirection2D.Horizontal;
                     plyCol.offset = new Vector2(0, 0);
-                    plyCol.size = new Vector2(2.135f, 1.584f);
+                    plyCol.size = new Vector2(1.5f, 1.5f);
                     //Remove skeleton
                     removeSkeleton();
                 }
