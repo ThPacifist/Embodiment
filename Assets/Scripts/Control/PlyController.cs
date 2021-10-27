@@ -126,7 +126,7 @@ public class PlyController : MonoBehaviour
                     if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
                     {
                         //Checks if the player is pushing up or down
-                        if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y != 0 )
+                        if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y != 0)
                         {
                             rb.velocity += (Vector2.up * PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y * speed * 0.5f) - new Vector2(0, rb.velocity.y);
                             if (audioManager != null)
@@ -148,7 +148,7 @@ public class PlyController : MonoBehaviour
                             }
                         }
                     }
-                    else if(audioManager != null)
+                    else if (audioManager != null)
                     {
                         audioManager.Stop("catClimb");
                     }
@@ -160,6 +160,21 @@ public class PlyController : MonoBehaviour
                     if (audioManager != null)
                     {
                         audioManager.Stop("catClimb");
+                        if (player.tag == "Blob")
+                        {
+                            audioManager.Play("blobStep", true);
+                        }
+                        else
+                        {
+                            audioManager.Play("boneStep", true);
+                        }
+                    }
+                }
+                else
+                {
+                    if (audioManager != null)
+                    {
+                        audioManager.Stop("blobStep");
                     }
                 }
             }
@@ -178,6 +193,15 @@ public class PlyController : MonoBehaviour
             if (audioManager != null)
             {
                 audioManager.Stop("catClimb");
+            }
+        }
+
+        if(!isGrounded())
+        {
+            if (audioManager != null)
+            {
+                audioManager.Stop("blobStep");
+                audioManager.Stop("boneStep");
             }
         }
 
