@@ -15,6 +15,7 @@ public class CheckpointController : MonoBehaviour
 
     //Private variables
     public int previousCheckpoint = 0;
+    Animator plyAnim;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -25,6 +26,12 @@ public class CheckpointController : MonoBehaviour
     private void OnDisable()
     {
         Checkpoint.newCheckpoint -= UpdateCheckpoint;
+    }
+
+    private void Awake()
+    {
+        plyAnim = player.GetComponent<Animator>();
+        Debug.Log("Animator is " + plyAnim);
     }
 
     //Update
@@ -44,6 +51,7 @@ public class CheckpointController : MonoBehaviour
         {
             MoveToCheckpoint(previousCheckpoint);
             player.gameObject.SetActive(true);
+            plyAnim.SetTrigger(player.tag);
         }
     }
 
