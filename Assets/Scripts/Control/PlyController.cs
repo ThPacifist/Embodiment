@@ -302,31 +302,6 @@ public class PlyController : MonoBehaviour
         }
     }
 
-    //Check if they're on the ground
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        /*if(!collision.gameObject.CompareTag("Wall"))
-        {
-            if (!inWater)
-            {
-                isGrounded = true;
-            }
-        }*/
-    }
-
-    //Check for when a collision is exited
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        /*if (collision.gameObject.CompareTag("Wall"))
-        {
-
-        }
-        else if(collision.gameObject.CompareTag("Ground") && !inWater)
-        {
-            isGrounded = false;
-        }*/
-    }
-
     //Check when a trigger is entered
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -345,21 +320,6 @@ public class PlyController : MonoBehaviour
                 inWater = true;
             }
         }
-        /*else if(player.CompareTag("Cat"))
-        {
-            if(other.CompareTag("Climb"))
-            {
-                catClimb = true;
-                if(rb.velocity.x > 0)
-                {
-                    catDir = Vector2.left;
-                }
-                else
-                {
-                    catDir = Vector2.right;
-                }
-            }
-        }*/
         else
         {
             if (other.CompareTag("Water"))
@@ -421,19 +381,6 @@ public class PlyController : MonoBehaviour
     { 
         OnWall = value;
         catDir = direction;
-        
-        /*//"Rotating" the collider clockwise
-        if(value)
-        {
-            capCollider.direction = CapsuleDirection2D.Vertical;
-            capCollider.offset = new Vector2(0, 0);
-            capCollider.size = new Vector2(1.5f, 1.5f);
-        }
-        //"Rotating" the collider back
-        else
-        {
-            StartCoroutine(DelayFlippingCat());
-        }*/
     }
 
     //Checks if the player is on the ground
@@ -494,20 +441,4 @@ public class PlyController : MonoBehaviour
         capCollider.offset = new Vector2(0, 0);
         capCollider.size = new Vector2(1.5f, 1.5f);
     }
-
-    /* Cat */
-    //When the cat starts climbing, things need to happen here
-    /*private void Climb()
-    {
-        if (catClimb)
-        {
-            catClimb = false;
-            rb.gravityScale = 1;
-        }
-        else
-        {
-            catClimb = true;
-            rb.gravityScale = 0;
-        }
-    }*/
 }

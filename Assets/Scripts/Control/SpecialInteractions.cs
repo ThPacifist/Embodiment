@@ -252,11 +252,6 @@ public class SpecialInteractions : MonoBehaviour
         {
             lever = other.GetComponent<Switch>();
         }
-        //Check if it is a cat climb wall
-        /*else if(other.CompareTag("Climb"))
-        {
-            climb = true;
-        }*/
     }
     //Sets the value of the lamp
     public void SetSwingerGameObject(GameObject value) { lamp = value; }
@@ -274,21 +269,6 @@ public class SpecialInteractions : MonoBehaviour
         {
             lever = null;
         }
-        /*else if(other.CompareTag("Climb"))
-        {
-            if (climb)
-            {
-                Climb();
-                climb = false;
-            }
-        }
-        else if(other.CompareTag("Swing"))
-        {
-            if (!isAttached)
-            {
-                lamp = null;
-            }
-        }*/
     }
 
     //Special cooldown
