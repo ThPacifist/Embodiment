@@ -168,7 +168,7 @@ public class PlyController : MonoBehaviour
         {
             if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
             {
-                rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.3f, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.6f, ForceMode2D.Impulse);
             }
         }
         //If Cat is not on a wall
@@ -302,13 +302,14 @@ public class PlyController : MonoBehaviour
             //Regular jump when appropriate
             else
             {
-                if (isGrounded() || inWater || spcInter.isAttached)
+                if (isGrounded() || inWater)
                 {
-                    if (spcInter.isAttached)
-                    {
-                        spcInter.ShootTentril();
-                    }
                     rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
+                }
+                else if(spcInter.isAttached)
+                {
+                    spcInter.ShootTentril();
+                    rb.AddRelativeForce(rb.velocity, ForceMode2D.Impulse);
                 }
             }
         }
