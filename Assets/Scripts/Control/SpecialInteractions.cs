@@ -51,7 +51,6 @@ public class SpecialInteractions : MonoBehaviour
     Transform HheldPos;
     [SerializeField]
     Transform BheldPos;   
-    GameObject indicatorPrefabClone;
 
     [SerializeField]
     FixedJoint2D fixedJ;
@@ -87,7 +86,7 @@ public class SpecialInteractions : MonoBehaviour
         lineRender.enabled = false;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         lineRender.SetPosition(0, player.position);
         if (!isAttached)
@@ -254,10 +253,10 @@ public class SpecialInteractions : MonoBehaviour
             lever = other.GetComponent<Switch>();
         }
         //Check if it is a cat climb wall
-        else if(other.CompareTag("Climb"))
+        /*else if(other.CompareTag("Climb"))
         {
             climb = true;
-        }
+        }*/
     }
     //Sets the value of the lamp
     public void SetSwingerGameObject(GameObject value) { lamp = value; }
@@ -275,7 +274,7 @@ public class SpecialInteractions : MonoBehaviour
         {
             lever = null;
         }
-        else if(other.CompareTag("Climb"))
+        /*else if(other.CompareTag("Climb"))
         {
             if (climb)
             {
@@ -289,9 +288,7 @@ public class SpecialInteractions : MonoBehaviour
             {
                 lamp = null;
             }
-        }
-
-        DestroyIndicator();
+        }*/
     }
 
     //Special cooldown
@@ -344,13 +341,5 @@ public class SpecialInteractions : MonoBehaviour
         }
         //init Cooldown
         StartCoroutine("SpecialCoolDown");
-    }
-
-    //Creation and Destruction the indicator animation prefav
-   
-    void DestroyIndicator()
-    {
-        Destroy(indicatorPrefabClone);
-        indicatorPrefabClone = null;
     }
 }

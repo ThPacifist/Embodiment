@@ -125,9 +125,18 @@ public class PlyController : MonoBehaviour
                     rb.AddForce(catDir, ForceMode2D.Impulse);
                     if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
                     {
+                        //Checks if the player is pushing up or down
                         if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y != 0 )
                         {
                             rb.velocity += (Vector2.up * PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y * speed * 0.5f) - new Vector2(0, rb.velocity.y);
+                        }
+                        //Otherwise checks if they push left or right, meaning they can
+                        else
+                        {
+                            if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x != 0)
+                            {
+                                rb.velocity += (Vector2.right * PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x * speed * 0.5f) - new Vector2(rb.velocity.x, 0);
+                            }
                         }
                     }
                 }
@@ -136,11 +145,6 @@ public class PlyController : MonoBehaviour
                 {
                     rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed) - new Vector2(rb.velocity.x, 0);
                 }
-                else
-                {
-                    rb.gravityScale = 1;
-                }
-
             }
         }
         else if(spcInter.isAttached)
@@ -149,6 +153,11 @@ public class PlyController : MonoBehaviour
             {
                 rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.3f, ForceMode2D.Impulse);
             }
+        }
+        //If Cat is not on a wall
+        if(!OnWall)
+        {
+            rb.gravityScale = 1;
         }
 
         //Remove momentum while on ground

@@ -22,6 +22,7 @@ public class SwingerVisuals : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        interaction.SetSwingerGameObject(null);
         interaction = null;
         indicator.SetActive(false);
     }

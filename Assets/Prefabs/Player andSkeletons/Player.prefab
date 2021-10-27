@@ -168,7 +168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4819060323485262873}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.16, y: 4.26, z: -0.5529693}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7678000444253303998}
@@ -290,6 +290,7 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 8
+  OnWall: 0
   inWater: 0
   spcInter: {fileID: 4819060323485262864}
 --- !u!114 &4819060323485262866
@@ -337,6 +338,8 @@ MonoBehaviour:
   isAttached: 0
   angle: 0
   maxAngle: 45
+  objectHeld: 0
+  heldBox: {fileID: 0}
   HheldPos: {fileID: 1651337005}
   BheldPos: {fileID: 1373430572}
   fixedJ: {fileID: 1189157436}
@@ -531,7 +534,7 @@ FixedJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 26.87, y: 2.94}
+  m_ConnectedAnchor: {x: 0, y: 0}
   m_DampingRatio: 0
   m_Frequency: 0
 --- !u!1001 &4819060322301267564
