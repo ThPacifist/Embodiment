@@ -13,8 +13,12 @@ public class CheckpointController : MonoBehaviour
     public Transform player;
     public int toCheckpoint = 0;
 
+    [SerializeField]
+    TransitionController transCntrl;
+
     //Private variables
     public int previousCheckpoint = 0;
+    Animator plyAnim;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -25,6 +29,11 @@ public class CheckpointController : MonoBehaviour
     private void OnDisable()
     {
         Checkpoint.newCheckpoint -= UpdateCheckpoint;
+    }
+
+    private void Awake()
+    {
+        plyAnim = player.GetComponent<Animator>();
     }
 
     //Update
@@ -42,8 +51,7 @@ public class CheckpointController : MonoBehaviour
         */
         if(!player.gameObject.activeSelf)
         {
-            MoveToCheckpoint(previousCheckpoint);
-            player.gameObject.SetActive(true);
+            StartCoroutine(RespawnPlayer());
         }
     }
 
@@ -59,4 +67,16 @@ public class CheckpointController : MonoBehaviour
         previousCheckpoint = newPosition;
     }
 
+    IEnumerator RespawnPlayer()
+    {
+        transCntrl.SlideOut();
+        MoveToCheckpoint(previousCheckpoint);
+        player.gameObject.SetActive(true);
+        plyAnim.SetTrigger(player.tag);
+        while (!transCntrl.TriggerSlideIn)
+        {
+            yield return null;
+        }
+        transCntrl.SlideIn();
+    }
 }

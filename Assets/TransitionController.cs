@@ -8,9 +8,19 @@ public class TransitionController : MonoBehaviour
     [SerializeField]
     Animator transitionAnimator;
 
+    public bool TriggerSlideIn = false;
     public void BehaviorTrigger(int num)
     {
         behaviors[num].Action();
+    }
+
+    public void SlideOutTrigger()
+    {
+        TriggerSlideIn = true;
+    }
+    public void SlideInTrigger()
+    {
+        TriggerSlideIn = false;
     }
 
     public void FadeIn() 
@@ -23,6 +33,7 @@ public class TransitionController : MonoBehaviour
     }
     public void SlideIn() 
     {
+        Debug.Log("Slide in was triggered");
         transitionAnimator.SetTrigger("SlideIn");
     }
     public void SlideOut()
