@@ -159,6 +159,10 @@ public class SpecialInteractions : MonoBehaviour
                     {
                         if (boxTag == "LBox" || boxTag == "MBox")
                         {
+                            if (audioManager != null)
+                            {
+                                audioManager.Play("boxGrab", true);
+                            }
                             //Attach box
                             //box.transform.parent = player;
                             heldBox = box;
@@ -176,6 +180,10 @@ public class SpecialInteractions : MonoBehaviour
                     }
                     else if (objectHeld)
                     {
+                        if (audioManager != null)
+                        {
+                            audioManager.Play("boxGrab", true);
+                        }
                         //Drop box
                         objectHeld = false;
                         //heldBox.transform.parent = null;
@@ -213,6 +221,10 @@ public class SpecialInteractions : MonoBehaviour
             {
                 if (boxTag == "LBox")
                 {
+                    if (audioManager != null)
+                    {
+                        audioManager.Play("boxGrab", true);
+                    }
                     //box.transform.parent = player;
                     heldBox = box;
                     //heldBox.gravityScale = 0;
@@ -228,6 +240,10 @@ public class SpecialInteractions : MonoBehaviour
             }
             else if (objectHeld)
             {
+                if (audioManager != null)
+                {
+                    audioManager.Play("boxGrab", true);
+                }
                 //Drop box
                 Debug.Log("Drop box");
                 //heldBox.transform.parent = null;

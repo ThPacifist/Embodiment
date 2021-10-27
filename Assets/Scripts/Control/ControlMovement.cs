@@ -24,6 +24,7 @@ public class ControlMovement : MonoBehaviour
     //Private variables
     private string transformTarget = "None";
     private bool wait = false;
+    AudioManager audioManager;
 
     [SerializeField]
     EmbodyField emField;
@@ -39,7 +40,12 @@ public class ControlMovement : MonoBehaviour
         PlyController.Embody -= Embody;
     }
 
-    private void Awake()
+    private void Start()
+    {
+        audioManager = GameObject.FindObjectOfType<AudioManager>();
+    }
+
+        private void Awake()
     {
         Embody(this.tag);
     }
@@ -90,6 +96,10 @@ public class ControlMovement : MonoBehaviour
         */
         if (!wait) //If the allotted time has pass
         {
+            if (audioManager != null)
+            {
+                audioManager.Play("embody", true);
+            }
             wait = true;
             if (!plyCntrl.InWater && !spIntr.ObjectHeld && canEmbody)
             {

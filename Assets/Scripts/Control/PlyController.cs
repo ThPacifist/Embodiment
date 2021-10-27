@@ -129,21 +129,38 @@ public class PlyController : MonoBehaviour
                         if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y != 0 )
                         {
                             rb.velocity += (Vector2.up * PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y * speed * 0.5f) - new Vector2(0, rb.velocity.y);
+                            if (audioManager != null)
+                            {
+                                audioManager.Play("catClimb", true);
+                            }
                         }
                         //Otherwise checks if they push left or right, meaning they can
                         else
                         {
-                            if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x != 0)
+                            if (audioManager != null)
+                            {
+                                //Debug.Log("Inside if");
+                                audioManager.Stop("catClimb");
+                            }
+                            if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x != 0)
                             {
                                 rb.velocity += (Vector2.right * PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x * speed * 0.5f) - new Vector2(rb.velocity.x, 0);
                             }
                         }
+                    }
+                    else if(audioManager != null)
+                    {
+                        audioManager.Stop("catClimb");
                     }
                 }
                 //Regular grounded movement
                 else if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                 {
                     rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed) - new Vector2(rb.velocity.x, 0);
+                    if (audioManager != null)
+                    {
+                        audioManager.Stop("catClimb");
+                    }
                 }
             }
         }
@@ -158,6 +175,10 @@ public class PlyController : MonoBehaviour
         if(!OnWall)
         {
             rb.gravityScale = 1;
+            if (audioManager != null)
+            {
+                audioManager.Stop("catClimb");
+            }
         }
 
         //Remove momentum while on ground
@@ -309,6 +330,10 @@ public class PlyController : MonoBehaviour
         {
             if (other.CompareTag("Water"))
             {
+                if (audioManager != null)
+                {
+                    audioManager.Play("splash", true);
+                }
                 inWater = true;
             }
         }
@@ -317,6 +342,10 @@ public class PlyController : MonoBehaviour
             if (other.CompareTag("Water"))
             {
                 //Makes Blob float
+                if (audioManager != null)
+                {
+                    audioManager.Play("splash", true);
+                }
                 inWater = true;
             }
         }
