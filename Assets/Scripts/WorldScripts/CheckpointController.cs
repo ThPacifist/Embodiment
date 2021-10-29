@@ -34,6 +34,7 @@ public class CheckpointController : MonoBehaviour
     private void Awake()
     {
         plyAnim = player.GetComponent<Animator>();
+        Debug.Log("Animator is " + plyAnim);
     }
 
     //Update

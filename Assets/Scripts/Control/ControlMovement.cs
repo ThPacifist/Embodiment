@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using System;
 
 public class ControlMovement : MonoBehaviour
@@ -28,6 +29,8 @@ public class ControlMovement : MonoBehaviour
 
     [SerializeField]
     EmbodyField emField;
+    [SerializeField]
+    Tilemap tileMap;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -359,15 +362,6 @@ public class ControlMovement : MonoBehaviour
     //Replace skeleton
     private void replaceSkeleton()
     {
-        int x;
-        if(PlyController.Right)
-        {
-            x = 1;
-        }
-        else
-        {
-            x = -1;
-        }
 
         Vector3 curPos = new Vector3(player.position.x, player.position.y + 1, 0);
         heldSkeleton.position = curPos;
@@ -388,6 +382,25 @@ public class ControlMovement : MonoBehaviour
     {
         transformTarget = "None";
         Embody();
+    }
+
+    Vector2 PlaceSkeleton()
+    {
+        Vector2Int tR = Vector2Int.FloorToInt(plyCol.bounds.max + Vector3.one);
+        Vector2Int bL = Vector2Int.FloorToInt(plyCol.bounds.min + -Vector3.one);
+
+        for(int i = bL.x; i < tR.x; i++)
+        {
+            for(int j = bL.y; j < tR.y; j++)
+            {
+                if(!tileMap.GetTile(new Vector3Int(i, j, 0)))
+                {
+                    return new Vector2(i + 0.5f, 0.5f);
+                }
+            }
+        }
+        Debug.Log("Something has gone wrong in Control Movement");
+        return player.position;
     }
 
     private void OnDrawGizmos()

@@ -221,6 +221,12 @@ TextureImporter:
   - first:
       213: 3430909346946895184
     second: LabTileset-01_72
+  - first:
+      213: -1604940630182458714
+    second: LabTileset-01_73
+  - first:
+      213: 1259312664533639353
+    second: LabTileset-01_74
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1830,7 +1836,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1838,6 +1844,48 @@ TextureImporter:
       bones: []
       spriteID: 05d46519fd90d9f20800000000000000
       internalID: 3430909346946895184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabTileset-01_73
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6aa026c000b1ab9e0800000000000000
+      internalID: -1604940630182458714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LabTileset-01_74
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b0adae323af97110800000000000000
+      internalID: 1259312664533639353
       vertices: []
       indices: 
       edges: []

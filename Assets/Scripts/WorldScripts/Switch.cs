@@ -85,6 +85,7 @@ public class Switch : MonoBehaviour
                 ActivateBehavior(true);
             }
         }
+
         if(Heavy || Medium)// If either the heavy or medium bool is true
         {
             if(dist < 0.3f) //If the position of the button is less than its rest position, activate the behavior
@@ -101,6 +102,12 @@ public class Switch : MonoBehaviour
                         ActivateBehavior(false);
                         active = true;
                     }
+                }
+                else if(Medium)
+                {
+                    spring.autoConfigureConnectedAnchor = false;
+                    ActivateBehavior(false);
+                    active = true;
                 }
                 //Calls the behavior's action function with a bool parameter
                 //For right now it calls the DisableSprites action function, which disables the sprite
