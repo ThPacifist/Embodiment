@@ -14,6 +14,9 @@ public class CheckpointController : MonoBehaviour
     public int toCheckpoint = 0;
 
     [SerializeField]
+    PlyController plyCntrl;
+
+    [SerializeField]
     TransitionController transCntrl;
 
     //Private variables
@@ -24,11 +27,15 @@ public class CheckpointController : MonoBehaviour
     private void OnEnable()
     {
         Checkpoint.newCheckpoint += UpdateCheckpoint;
+        TransitionController.slideOutAction += RespawnPlayer;
+        TransitionController.slideInAction += EnableMovement;
     }
 
     private void OnDisable()
     {
         Checkpoint.newCheckpoint -= UpdateCheckpoint;
+        TransitionController.slideOutAction -= RespawnPlayer;
+        TransitionController.slideInAction -= EnableMovement;
     }
 
     private void Awake()
@@ -50,10 +57,10 @@ public class CheckpointController : MonoBehaviour
         }
         *
         */
-        if(!player.gameObject.activeSelf)
+        /*if(!player.gameObject.activeSelf)
         {
-            StartCoroutine(RespawnPlayer());
-        }
+            transCntrl.LevelWipe();
+        }*/
     }
 
     //Gets called whenever the player gets moved
@@ -68,16 +75,23 @@ public class CheckpointController : MonoBehaviour
         previousCheckpoint = newPosition;
     }
 
-    IEnumerator RespawnPlayer()
+    void RespawnPlayer()
     {
-        transCntrl.SlideOut();
+        plyCntrl.move = false;
         MoveToCheckpoint(previousCheckpoint);
         player.gameObject.SetActive(true);
         plyAnim.SetTrigger(player.tag);
-        while (!transCntrl.TriggerSlideIn)
-        {
-            yield return null;
-        }
-        transCntrl.SlideIn();
+    }
+
+    void EnableMovement()
+    {
+        StartCoroutine(Delay());
+    }
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(1);
+        plyCntrl.move = true;
+        Debug.DrawLine(player.position, player.position + Vector3.up, Color.white, 2f);
     }
 }

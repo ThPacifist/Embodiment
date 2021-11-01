@@ -17,6 +17,7 @@ public class PlyController : MonoBehaviour
     public static Action Embody = delegate { };
     public static Action Special = delegate { };
     public static Action Pause = delegate { };
+    public static Action Death = delegate { };
     public float speed;
     public float jumpHeight;
     public bool move = true;
@@ -382,10 +383,10 @@ public class PlyController : MonoBehaviour
             }
         }
 
-        //If the Trigger is Death, kill the player
+        //If the Trigger is Death, call Death delegate
         if(other.CompareTag("Death") || other.CompareTag("Skeleton"))
         {
-            player.gameObject.SetActive(false);
+            Death();
         }
     }
 
