@@ -432,6 +432,13 @@ public class PlyController : MonoBehaviour
         }*/
     }
 
+    //Kill from menu
+    public void MenuKill()
+    {
+        Debug.Log("Menu Kill called");
+        Death();
+    }
+
     public void SetCatOnWall(bool value, Vector2 direction) 
     { 
         OnWall = value;
