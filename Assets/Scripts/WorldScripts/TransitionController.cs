@@ -8,6 +8,7 @@ public class TransitionController : MonoBehaviour
     public GameAction[] behaviors;
     public static Action slideOutAction = delegate { };
     public static Action slideInAction = delegate { };
+    public static Action fadeOutAction = delegate { };
 
     [SerializeField]
     Animator transitionAnimator;
@@ -43,6 +44,11 @@ public class TransitionController : MonoBehaviour
         Debug.Log("Slide In Trigger");
         TriggerSlideIn = false;
         slideInAction();
+    }
+
+    public void FadeOutTrigger()
+    {
+        fadeOutAction();
     }
 
     public void FadeIn() 

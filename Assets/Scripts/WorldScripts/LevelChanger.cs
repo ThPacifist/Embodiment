@@ -7,11 +7,24 @@ public class LevelChanger : MonoBehaviour
 {
     public string newSceneName;
 
+    [SerializeField]
+    TransitionController transCntrl;
+
+    private void OnEnable()
+    {
+        TransitionController.fadeOutAction += ChangeLevel;
+    }
+
+    private void OnDisable()
+    {
+        TransitionController.fadeOutAction -= ChangeLevel;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(GameAction.PlayerTags(collision.tag))
         {
-            ChangeLevel();
+            transCntrl.FadeOut();
         }
     }
 
