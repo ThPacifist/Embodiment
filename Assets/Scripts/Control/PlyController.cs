@@ -248,21 +248,25 @@ public class PlyController : MonoBehaviour
             plyAnim.SetBool("Climb", false);
         }
 
-        //Set facing direction
-        if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
+        if (!spcInter.HboxHeld)
         {
-            this.gameObject.transform.localScale = new Vector3(-1 * Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y),
-                Mathf.Abs(transform.localScale.z));
-            right = true;
-            left = false;
+            //Set facing direction
+            if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
+            {
+                this.gameObject.transform.localScale = new Vector3(-1 * Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y),
+                    Mathf.Abs(transform.localScale.z));
+                right = true;
+                left = false;
+            }
+            else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
+            {
+                this.gameObject.transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y),
+                    Mathf.Abs(transform.localScale.z));
+                left = true;
+                right = false;
+            }
         }
-        else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
-        {
-            this.gameObject.transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y),
-                Mathf.Abs(transform.localScale.z));
-            left = true;
-            right = false;
-        }
+
         //Set direction as cat on wall
         if(OnWall && catDir == Vector2.right)
         {

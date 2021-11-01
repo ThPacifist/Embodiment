@@ -34,6 +34,7 @@ public class SpecialInteractions : MonoBehaviour
     public float angle;
     public float maxAngle;
     public bool objectHeld;
+    public bool HboxHeld;
 
     //Private variables
     private bool climb;
@@ -177,8 +178,24 @@ public class SpecialInteractions : MonoBehaviour
                             specialReady = false;
                             StartCoroutine("SpecialCoolDown");
                         }
+                        else if(boxTag == "HBox")
+                        {
+                            if (audioManager != null)
+                            {
+                                audioManager.Play("boxGrab", true);
+                            }
+                            //Attach Box
+                            HboxHeld = true;
+                            fixedJ.enabled = true;
+                            fixedJ.connectedBody = box;
+
+                            //Cooldown
+                            cooldownTime = 1;
+                            specialReady = false;
+                            StartCoroutine("SpecialCoolDown");
+                        }
                     }
-                    else if (objectHeld)
+                    else if (objectHeld || HboxHeld)
                     {
                         if (audioManager != null)
                         {
@@ -186,6 +203,7 @@ public class SpecialInteractions : MonoBehaviour
                         }
                         //Drop box
                         objectHeld = false;
+                        HboxHeld = false;
                         //heldBox.transform.parent = null;
                         //heldBox.gravityScale = 1;
                         //heldBox.freezeRotation = false;

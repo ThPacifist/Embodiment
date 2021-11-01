@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3654394875351953065
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3654394875351953071}
+  - component: {fileID: 3654394875351953070}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3654394875351953071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3654394875351953065}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.2970829, y: 1.3719281, z: -8.133791}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3654394875351953070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3654394875351953065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da703c03f2862d24fbb7e39a33ca8649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTutorial: 0
+  mixerGroup: {fileID: 0}
+  sounds:
+  - name: Swing
+    clip: {fileID: 8300000, guid: 9cae3f0c548d0c14abad8a8f41159c99, type: 3}
+    volume: 0.297
+    pitch: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: wingFlap
+    clip: {fileID: 8300000, guid: e068465547a4d81469a13d10fe19867a, type: 3}
+    volume: 0.297
+    pitch: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: blobStep
+    clip: {fileID: 8300000, guid: d3b83e881b677844db83fcfa243f38ae, type: 3}
+    volume: 0.297
+    pitch: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: boneStep
+    clip: {fileID: 8300000, guid: 4ba9e0342c7cba04f9ff752114e9a5ad, type: 3}
+    volume: 0.297
+    pitch: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: boxGrab
+    clip: {fileID: 8300000, guid: 5fb365470925e254791928ddde80b62d, type: 3}
+    volume: 0.297
+    pitch: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: catClimb
+    clip: {fileID: 8300000, guid: 5f7935b9bae42db4aa9c69e6d9d5d00e, type: 3}
+    volume: 0.297
+    pitch: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: embody
+    clip: {fileID: 8300000, guid: 1fb9bea55ac9e2745b19ec784c61ac7f, type: 3}
+    volume: 0.297
+    pitch: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: unEmbody
+    clip: {fileID: 8300000, guid: 44928a0dca4f14b42b00d06adcff106e, type: 3}
+    volume: 0.297
+    pitch: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: splash
+    clip: {fileID: 8300000, guid: f721fbaf17de9c44285e9cf6f36a3c2d, type: 3}
+    volume: 0.297
+    pitch: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  fadingSounds: []
