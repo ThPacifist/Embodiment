@@ -142,6 +142,15 @@ public class UIScripts : MonoBehaviour
         Application.Quit();
     }
 
+    //Restart Level
+    public void restartLevel()
+    {
+        //Reload the scene
+        Scene scene = SceneManager.GetActiveScene(); 
+        SceneManager.LoadScene(scene.name);
+        Time.timeScale = 1;
+    }
+
     //Don't pause for the rest of this frame
     IEnumerator waitAFrame()
     {
