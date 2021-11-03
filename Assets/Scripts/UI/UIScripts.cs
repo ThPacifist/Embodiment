@@ -8,10 +8,10 @@ using UnityEngine.EventSystems;
 
 public class UIScripts : MonoBehaviour
 {
-    //Script created on 9/20 by Jason
-    //Made the pause mnu open and close with the button on 9/22 by Jason
     /*
-     * TODO:
+     * Description:
+     * This script controls (most) button presses for the pause menu.
+     * Restart from checkpoint is the only exception and is controlled from PlyController
      */
 
     //Public variables and assets
@@ -82,7 +82,6 @@ public class UIScripts : MonoBehaviour
     //Activates whenever the ui is active
     private void onUIEnter()
     {
-        Debug.Log("Paused");
         //Make the cursor and UI visible, and turn time off
         Cursor.visible = true;
         UI.SetActive(true);
@@ -92,7 +91,6 @@ public class UIScripts : MonoBehaviour
     //Goes whenever the ui is made not active
     public void onUIExit()
     {
-        Debug.Log("Unpause");
         //Make the cursor and UI invisible, start time, and switch to the regular menu from settings
         Cursor.visible = false;
         if (showSettings)
@@ -106,24 +104,18 @@ public class UIScripts : MonoBehaviour
     //Pause and unpause
     public void pause()
     {
-        //Wait before pausing again
-        if (canPause)
+
+        //If it is paused, unpause
+        if (paused)
         {
-            //Wait before next pause
-            canPause = false;
-            StartCoroutine(waitAFrame());
-            //If it is paused, unpause
-            if (paused)
-            {
-                onUIExit();
-                paused = false;
-            }
-            //If it isn't paused, pause
-            else
-            {
-                onUIEnter();
-                paused = true;
-            }
+            onUIExit();
+            paused = false;
+        }
+        //If it isn't paused, pause
+        else
+        {
+            onUIEnter();
+            paused = true;
         }
     }
 
@@ -150,12 +142,4 @@ public class UIScripts : MonoBehaviour
         SceneManager.LoadScene(scene.name);
         Time.timeScale = 1;
     }
-
-    //Don't pause for the rest of this frame
-    IEnumerator waitAFrame()
-    {
-        yield return new WaitForEndOfFrame();
-        canPause = true;
-    }
-
 }

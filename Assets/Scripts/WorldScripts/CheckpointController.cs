@@ -8,6 +8,7 @@ public class CheckpointController : MonoBehaviour
      * Description:
      * This script sends the player to the previous checkpoint when needed by other scripts
      */
+
     //Pubilc variables
     public Transform[] checkpoints;
     public Transform player;
@@ -38,43 +39,43 @@ public class CheckpointController : MonoBehaviour
         TransitionController.slideInAction -= EnableMovement;
     }
 
+    //Do when awake
     private void Awake()
     {
         plyAnim = player.GetComponent<Animator>();
-        Debug.Log("Animator is " + plyAnim);
+        //Debug.Log("Animator is " + plyAnim);
     }
 
     //Update
-    private void Update()
+    //Debug mode change checkpoints, add slashes to * for testing
+    /*
+     *
+    private void FixedUpdate()
     {
-        //Debug mode change checkpoints, add slashes to * for testing
-        /*
-         *
         if(toCheckpoint != previousCheckpoint)
         {
             player.position = checkpoints[toCheckpoint].position;
             previousCheckpoint = toCheckpoint;
         }
-        *
-        */
-        /*if(!player.gameObject.activeSelf)
-        {
-            transCntrl.LevelWipe();
-        }*/
     }
+    *
+    */
 
-    //Gets called whenever the player gets moved
+    //Gets called whenever the player gets moved to a new checkpoint
     public void MoveToCheckpoint(int newPosition)
     {
         player.position = checkpoints[newPosition].transform.position;
     }
 
-    //Update checkpoint number
+    //Update checkpoint number when a new checkpoint is touched
     public void UpdateCheckpoint(int newPosition)
     {
+        //if (newPosition > previousCheckpoint)
         previousCheckpoint = newPosition;
     }
 
+    //When the player dies move them to their last checkpoint,
+    //disable movement, and play a screen transition
     void RespawnPlayer()
     {
         plyCntrl.move = false;
@@ -83,11 +84,13 @@ public class CheckpointController : MonoBehaviour
         plyAnim.SetTrigger(player.tag);
     }
 
+    //When ready re-enable movement for the player after a delay
     void EnableMovement()
     {
         StartCoroutine(Delay());
     }
 
+    //Wait a second, and turn on movement
     IEnumerator Delay()
     {
         yield return new WaitForSeconds(1);
