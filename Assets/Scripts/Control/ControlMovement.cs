@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System;
 
+
+struct ColliderInfo
+{
+    public Vector2 size;
+    public Vector2 offset;
+    public CapsuleDirection2D direction;
+}
+
 public class ControlMovement : MonoBehaviour
 {
     //Started on 8/27 by Jason
@@ -26,6 +34,11 @@ public class ControlMovement : MonoBehaviour
     private string transformTarget = "None";
     private bool wait = false;
     AudioManager audioManager;
+    ColliderInfo Blob;
+    ColliderInfo Human;
+    ColliderInfo Cat;
+    ColliderInfo Fish;
+    ColliderInfo Bat;
 
     [SerializeField]
     EmbodyField emField;
@@ -48,9 +61,29 @@ public class ControlMovement : MonoBehaviour
         audioManager = GameObject.FindObjectOfType<AudioManager>();
     }
 
-        private void Awake()
+    private void Awake()
     {
         Embody(this.tag);
+
+        Blob.direction = CapsuleDirection2D.Horizontal;
+        Blob.offset = new Vector2(6.838e-09f, 0.057f);
+        Blob.size = new Vector2(1.830f, 1.366f);
+
+        Human.direction = CapsuleDirection2D.Vertical;
+        Human.offset = new Vector2(0, 0);
+        Human.size = new Vector2(0.950f, 3.380f);
+
+        Cat.direction = CapsuleDirection2D.Horizontal;
+        Cat.offset = new Vector2(0, 0);
+        Cat.size = new Vector2(1.5f, 1.5f);
+
+        Bat.direction = CapsuleDirection2D.Vertical;
+        Bat.offset = new Vector2(0, 0);
+        Bat.size = new Vector2(0.6879f, 1.742f);
+
+        Fish.direction = CapsuleDirection2D.Horizontal;
+        Fish.offset = new Vector2(0, 0);
+        Fish.size = new Vector2(2.447f, 0.782f);
     }
 
     //Change transformTarget when entering the triggers
@@ -401,6 +434,11 @@ public class ControlMovement : MonoBehaviour
         }
         Debug.Log("Something has gone wrong in Control Movement");
         return player.position;
+    }
+
+    void ChangeForm(ColliderInfo from, ColliderInfo to)
+    {
+
     }
 
     private void OnDrawGizmos()

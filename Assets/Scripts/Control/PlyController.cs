@@ -28,6 +28,8 @@ public class PlyController : MonoBehaviour
     //Private Variables
     public bool OnWall = false;
     private bool canJump = true;
+    bool delayGroundCheck;
+    bool isJumping;
     Vector2 catDir;
     AudioManager audioManager;
 
@@ -218,7 +220,6 @@ public class PlyController : MonoBehaviour
             rb.velocity *= new Vector2(1, 0.5f);
         }
 
-        //Animation Block
         #region Animation Block
         if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && isGrounded())
         {
@@ -227,6 +228,11 @@ public class PlyController : MonoBehaviour
         else
         {
             plyAnim.SetBool("Walking", false);
+        }
+
+        if (isGrounded())
+        {
+            plyAnim.SetBool("isJumping", false);
         }
 
         //Check if the blob is attached
@@ -324,7 +330,6 @@ public class PlyController : MonoBehaviour
             //Side jump when climbing
             else if (player.CompareTag("Cat") && OnWall)
             {
-                Debug.Log("Jump");
                 rb.AddForce((-catDir * 25) - new Vector2(rb.velocity.x, 0), ForceMode2D.Impulse);
                 catDir = -catDir;
             }
@@ -334,6 +339,7 @@ public class PlyController : MonoBehaviour
                 if (isGrounded() || inWater)
                 {
                     rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
+
                 }
                 else if(spcInter.isAttached)
                 {
@@ -341,6 +347,12 @@ public class PlyController : MonoBehaviour
                     rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
                 }
             }
+            if (!delayGroundCheck)
+            {
+                plyAnim.SetTrigger("takeOff");
+            }
+            plyAnim.SetBool("isJumping", true);
+            DelayGroundCheck();
         }
     }
 
@@ -452,44 +464,16 @@ public class PlyController : MonoBehaviour
     //Checks if the player is on the ground
     bool isGrounded()
     {
-        float dist = 0.4f;
+        float dist = 0.05f;
         RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.size, capCollider.direction, 0f, Vector2.down, 
             dist, groundLayerMask);
-
-        //Bug Fixing Code: Do Not Delete
-        /*if (hit.collider != null)
+        if (!delayGroundCheck)
         {
-            Debug.DrawLine(hit.centroid + new Vector2(capCollider.bounds.extents.x, 0), hit.centroid - new Vector2(capCollider.bounds.extents.x, 0));
-            Debug.DrawLine(hit.centroid + new Vector2 (0, capCollider.bounds.extents.y), hit.centroid - new Vector2(0, capCollider.bounds.extents.y));
-            Time.timeScale = 0;
-        }*/
-
-        //Debug.Log(hit.collider);
-        return hit.collider != null;
-    }
-    //Use this version to differentiate what type of jumpable it is
-    bool isGrounded(string tag)
-    {
-        float extraDist = 0.1f;
-        RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.size, capCollider.direction, 0f, Vector2.down,
-            capCollider.bounds.extents.y + extraDist, groundLayerMask);
-
-        Debug.Log(hit.collider);
-        if (hit.collider != null)
-        {
-            if(hit.collider.CompareTag(tag))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            //Debug.Log(hit.collider);
+            return hit.collider != null;
         }
         else
-        {
             return false;
-        }
     }
 
     /* Bat */
@@ -500,11 +484,29 @@ public class PlyController : MonoBehaviour
         canJump = true;
     }
 
-    IEnumerator DelayFlippingCat()
+    void DelayGroundCheck()
     {
-        yield return new WaitForSeconds(0.3f);
-        capCollider.direction = CapsuleDirection2D.Horizontal;
-        capCollider.offset = new Vector2(0, 0);
-        capCollider.size = new Vector2(1.5f, 1.5f);
+        StartCoroutine(DelayGroundCheckIE());
+    }
+
+    IEnumerator DelayGroundCheckIE()
+    {
+        Debug.Log("Inside Delay Check");
+        delayGroundCheck = true;
+        yield return new WaitForSeconds(0.5f);
+        delayGroundCheck = false;
+    }
+
+    //Used for bug testing
+    private void OnDrawGizmos()
+    {
+        float dist = 0.05f;
+        RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.size, capCollider.direction, 0f, Vector2.down,
+            dist, groundLayerMask);
+
+        Gizmos.DrawLine(hit.centroid + new Vector2(capCollider.bounds.extents.x, 0), 
+            hit.centroid - new Vector2(capCollider.bounds.extents.x, 0));
+        Gizmos.DrawLine(hit.centroid + new Vector2(0, capCollider.bounds.extents.y), 
+            hit.centroid - new Vector2(0, capCollider.bounds.extents.y));
     }
 }
