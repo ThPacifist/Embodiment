@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 6334512087517610322}
   - component: {fileID: 6334512087517610325}
   - component: {fileID: 6334512087517610286}
+  - component: {fileID: 8178181231400853014}
   m_Layer: 3
   m_Name: Bat_Skeleton
   m_TagString: Bat
@@ -228,6 +229,20 @@ MonoBehaviour:
   spawnPoint: {fileID: 3474031023142172677}
   changeLocationAtStart: 0
   waterKill: 1
+--- !u!114 &8178181231400853014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6334512087517610324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 361c2548b17e36e479675b095ce06d1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 6334512087517610321}
+  activeAtStart: 1
 --- !u!1 &6334512087713951515
 GameObject:
   m_ObjectHideFlags: 0

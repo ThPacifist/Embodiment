@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 9039985466883334236}
   - component: {fileID: 9039985466883334235}
   - component: {fileID: 9039985466883334208}
+  - component: {fileID: 6045874339169610375}
   m_Layer: 3
   m_Name: Fish_Skelton
   m_TagString: Fish
@@ -280,6 +281,20 @@ MonoBehaviour:
   spawnPoint: {fileID: 9039985467013064025}
   changeLocationAtStart: 0
   waterKill: 1
+--- !u!114 &6045874339169610375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9039985466883334234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 361c2548b17e36e479675b095ce06d1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 9039985466883334239}
+  activeAtStart: 1
 --- !u!1 &9039985467013064024
 GameObject:
   m_ObjectHideFlags: 0

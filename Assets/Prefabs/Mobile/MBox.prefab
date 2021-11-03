@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 89386729541824715}
   - component: {fileID: 89386729541824716}
   - component: {fileID: 89386729541824694}
+  - component: {fileID: 684078079557576539}
   m_Layer: 3
   m_Name: MBox
   m_TagString: MBox
@@ -222,6 +223,20 @@ MonoBehaviour:
   plyCntrl: {fileID: 0}
   Rb: {fileID: 89386729541824716}
   player: {fileID: 0}
+--- !u!114 &684078079557576539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89386729541824717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 361c2548b17e36e479675b095ce06d1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 89386729541824695}
+  activeAtStart: 1
 --- !u!1001 &89386730502261214
 PrefabInstance:
   m_ObjectHideFlags: 0
