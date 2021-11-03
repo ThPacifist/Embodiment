@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using System;
 
 
-struct ColliderInfo
+public struct ColliderInfo
 {
     public Vector2 size;
     public Vector2 offset;
@@ -63,15 +63,13 @@ public class ControlMovement : MonoBehaviour
 
     private void Awake()
     {
-        Embody(this.tag);
-
         Blob.direction = CapsuleDirection2D.Horizontal;
-        Blob.offset = new Vector2(6.838e-09f, 0.057f);
+        Blob.offset = new Vector2(0, 0);
         Blob.size = new Vector2(1.830f, 1.366f);
 
         Human.direction = CapsuleDirection2D.Vertical;
         Human.offset = new Vector2(0, 0);
-        Human.size = new Vector2(0.950f, 3.380f);
+        Human.size = new Vector2(0.950f, 2.807f);
 
         Cat.direction = CapsuleDirection2D.Horizontal;
         Cat.offset = new Vector2(0, 0);
@@ -84,6 +82,8 @@ public class ControlMovement : MonoBehaviour
         Fish.direction = CapsuleDirection2D.Horizontal;
         Fish.offset = new Vector2(0, 0);
         Fish.size = new Vector2(2.447f, 0.782f);
+
+        Embody(this.tag);
     }
 
     //Change transformTarget when entering the triggers
@@ -130,6 +130,7 @@ public class ControlMovement : MonoBehaviour
             heldSkeleton = null;
         }
         */
+        emField.CheckSpace(Vector3.up, Bat);
         if (!wait) //If the allotted time has pass
         {
             if (audioManager != null)
@@ -146,7 +147,7 @@ public class ControlMovement : MonoBehaviour
                 switch (transformTarget)
                 {
                     case "Human":
-                        if (emField.CheckSpace())//Checks if there is enough space relative to the embody field attached to the player
+                        if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Human))//Checks if there is enough space relative to the embody field attached to the player
                         {
                             //Change to human body
                             animPly.SetTrigger("Human");
@@ -156,9 +157,9 @@ public class ControlMovement : MonoBehaviour
                             plyCntrl.speed = 5;
                             plyCntrl.jumpHeight = 27;
                             //Change Collider
-                            plyCol.direction = CapsuleDirection2D.Vertical;
-                            plyCol.offset = new Vector2(0, 0);
-                            plyCol.size = new Vector2(0.950f, 3.380f);
+                            plyCol.direction = Human.direction;
+                            plyCol.offset = Human.offset;
+                            plyCol.size = Human.size;
                             //Remove skeleton
                             removeSkeleton();
                         }
@@ -168,7 +169,7 @@ public class ControlMovement : MonoBehaviour
                         }
                         break;
                     case "Cat":
-                        if (emField.CheckSpace())//Checks if there is enough space relative to the embody field attached to the player
+                        if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Cat))//Checks if there is enough space relative to the embody field attached to the player
                         {
                             //Change to cat bod
                             animPly.SetTrigger("Cat");
@@ -178,9 +179,9 @@ public class ControlMovement : MonoBehaviour
                             plyCntrl.speed = 7;
                             plyCntrl.jumpHeight = 20;
                             //Change Collider
-                            plyCol.direction = CapsuleDirection2D.Horizontal;
-                            plyCol.offset = new Vector2(0, 0);
-                            plyCol.size = new Vector2(1.5f, 1.5f);
+                            plyCol.direction = Cat.direction;
+                            plyCol.offset = Cat.offset;
+                            plyCol.size = Cat.size;
                             //Remove skeleton
                             removeSkeleton();
                         }
@@ -190,7 +191,7 @@ public class ControlMovement : MonoBehaviour
                         }
                         break;
                     case "Bat":
-                        if (emField.CheckSpace())//Checks if there is enough space relative to the embody field attached to the player
+                        if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Bat))//Checks if there is enough space relative to the embody field attached to the player
                         {
                             //Change to bat body
                             animPly.SetTrigger("Bat");
@@ -200,9 +201,9 @@ public class ControlMovement : MonoBehaviour
                             plyCntrl.speed = 5;
                             plyCntrl.jumpHeight = 10;
                             //Change Collider
-                            plyCol.direction = CapsuleDirection2D.Vertical;
-                            plyCol.offset = new Vector2(0, 0);
-                            plyCol.size = new Vector2(0.6879f, 1.742f);
+                            plyCol.direction = Bat.direction;
+                            plyCol.offset = Bat.offset;
+                            plyCol.size = Bat.size;
                             //Remove skeleton
                             removeSkeleton();
                         }
@@ -212,7 +213,7 @@ public class ControlMovement : MonoBehaviour
                         }
                         break;
                     case "Fish":
-                        if (emField.CheckSpace())//Checks if there is enough space relative to the embody field attached to the player
+                        if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Fish))//Checks if there is enough space relative to the embody field attached to the player
                         {
                             //Change to fish body
                             //animPly.SetBool("Fish", true);
@@ -224,9 +225,9 @@ public class ControlMovement : MonoBehaviour
                             plyCntrl.jumpHeight = 13.8f;
                             plyCol.density = 1.31f;
                             //Change Collider
-                            plyCol.direction = CapsuleDirection2D.Horizontal;
-                            plyCol.offset = new Vector2(0, 0);
-                            plyCol.size = new Vector2(2.447f, 0.782f);
+                            plyCol.direction = Fish.direction;
+                            plyCol.offset = Fish.offset;
+                            plyCol.size = Fish.size;
                             //Remove skeleton
                             removeSkeleton();
                         }
@@ -247,9 +248,9 @@ public class ControlMovement : MonoBehaviour
                             plyCntrl.jumpHeight = 18.1f;
                             plyCol.density = 1;
                             //Change Collider
-                            plyCol.direction = CapsuleDirection2D.Horizontal;
-                            plyCol.offset = new Vector2(6.838e-09f, 0.057f);
-                            plyCol.size = new Vector2(1.830f, 1.366f);
+                            plyCol.direction = Blob.direction;
+                            plyCol.offset = Blob.offset;
+                            plyCol.size = Blob.size;
                         }
                         break;
                 }
@@ -275,7 +276,7 @@ public class ControlMovement : MonoBehaviour
         switch (form)
         {
             case "Human":
-                if (emField.CheckSpace())//Checks if there is enough space
+                if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Human))//Checks if there is enough space
                 {
                     //Change to human body
                     animPly.SetBool("Human", true);
@@ -285,9 +286,9 @@ public class ControlMovement : MonoBehaviour
                     plyCntrl.speed = 5;
                     plyCntrl.jumpHeight = 27;
                     //Change Collider
-                    plyCol.direction = CapsuleDirection2D.Vertical;
-                    plyCol.offset = new Vector2(0, 0);
-                    plyCol.size = new Vector2(0.950f, 3.380f);
+                    plyCol.direction = Human.direction;
+                    plyCol.offset = Human.offset;
+                    plyCol.size = Human.size;
                     //Remove skeleton
                     removeSkeleton();
                 }
@@ -297,7 +298,7 @@ public class ControlMovement : MonoBehaviour
                 }
                 break;
             case "Cat":
-                if (emField.CheckSpace())//Checks if there is enough space
+                if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Cat))//Checks if there is enough space
                 {
                     //Change to cat bod
                     animPly.SetBool("Cat", true);
@@ -307,9 +308,9 @@ public class ControlMovement : MonoBehaviour
                     plyCntrl.speed = 7;
                     plyCntrl.jumpHeight = 32;
                     //Change Collider
-                    plyCol.direction = CapsuleDirection2D.Horizontal;
-                    plyCol.offset = new Vector2(0, 0);
-                    plyCol.size = new Vector2(1.5f, 1.5f);
+                    plyCol.direction = Cat.direction;
+                    plyCol.offset = Cat.offset;
+                    plyCol.size = Cat.size;
                     //Remove skeleton
                     removeSkeleton();
                 }
@@ -319,7 +320,7 @@ public class ControlMovement : MonoBehaviour
                 }
                 break;
             case "Bat":
-                if (emField.CheckSpace())//Checks if there is enough space
+                if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Bat))//Checks if there is enough space
                 {
                     //Change to bat body
                     animPly.SetBool("Bat", true);
@@ -329,9 +330,9 @@ public class ControlMovement : MonoBehaviour
                     plyCntrl.speed = 5;
                     plyCntrl.jumpHeight = 10;
                     //Change Collider
-                    plyCol.direction = CapsuleDirection2D.Vertical;
-                    plyCol.offset = new Vector2(0, 0);
-                    plyCol.size = new Vector2(0.6879f, 1.742f);
+                    plyCol.direction = Bat.direction;
+                    plyCol.offset = Bat.offset;
+                    plyCol.size = Bat.size;
                     //Remove skeleton
                     removeSkeleton();
                 }
@@ -341,7 +342,7 @@ public class ControlMovement : MonoBehaviour
                 }
                 break;
             case "Fish":
-                if (emField.CheckSpace())//Checks if there is enough space
+                if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Fish))//Checks if there is enough space
                 {
                     //Change to fish body
                     //animPly.SetBool("Fish", true);
@@ -353,9 +354,9 @@ public class ControlMovement : MonoBehaviour
                     plyCntrl.jumpHeight = 13.8f;
                     plyCol.density = 1.31f;
                     //Change Collider
-                    plyCol.direction = CapsuleDirection2D.Horizontal;
-                    plyCol.offset = new Vector2(0, 0);
-                    plyCol.size = new Vector2(2.447f, 0.782f);
+                    plyCol.direction = Fish.direction;
+                    plyCol.offset = Fish.offset;
+                    plyCol.size = Fish.size;
                     //Remove skeleton
                     removeSkeleton();
                 }
@@ -376,9 +377,9 @@ public class ControlMovement : MonoBehaviour
                     plyCntrl.jumpHeight = 18.1f;
                     plyCol.density = 1;
                     //Change Collider
-                    plyCol.direction = CapsuleDirection2D.Horizontal;
-                    plyCol.offset = new Vector2(6.838e-09f, 0.057f);
-                    plyCol.size = new Vector2(1.830f, 1.366f);
+                    plyCol.direction = Blob.direction;
+                    plyCol.offset = Blob.offset;
+                    plyCol.size = Blob.size;
                 }
                 break;
         }
@@ -455,4 +456,6 @@ public class ControlMovement : MonoBehaviour
         Gizmos.DrawLine(botLeft, topLeft);
         Gizmos.DrawLine(topLeft, topRight);
     }
+
+    //player.position - new Vector2(0, plyCol.bounds.extents.y, 0), 
 }

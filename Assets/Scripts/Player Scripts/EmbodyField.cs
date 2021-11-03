@@ -11,20 +11,24 @@ public class EmbodyField : MonoBehaviour
     Tilemap tileMap;
 
     public bool safe = false;
+    Bounds nextBounds;
 
     private void Start()
     {
         //myColliderInput.enabled = false;
     }
 
-    public bool CheckSpace()
+    public bool CheckSpace(Vector3 floor, ColliderInfo to)
     {
         safe = true;
-        //Debug.Log(Vector2Int.FloorToInt(myColliderInput.bounds.min));
-        Vector2Int highBoundsInt = Vector2Int.FloorToInt(myColliderInput.bounds.max);
-        Vector2Int lowBoundsInt = Vector2Int.FloorToInt(myColliderInput.bounds.min);
 
-        for(int i = lowBoundsInt.x - 1 ; i < highBoundsInt.x + 1; i++)
+        nextBounds = new Bounds(floor + new Vector3(0, to.size.y / 2, 0), to.size);
+
+        Vector2Int highBoundsInt = Vector2Int.FloorToInt(nextBounds.max);
+        Vector2Int lowBoundsInt = Vector2Int.FloorToInt(nextBounds.min);
+
+
+        for (int i = lowBoundsInt.x; i < highBoundsInt.x + 1; i++)
         {
             for(int j = lowBoundsInt.y; j < highBoundsInt.y + 1; j++)
             {
@@ -32,11 +36,23 @@ public class EmbodyField : MonoBehaviour
                 if(tileMap.GetTile(new Vector3Int(i, j, 0)))
                 {
                     safe = false;
-                    //Debug.Log("This is not safe");
+                    Debug.Log("You hit: " + tileMap.GetTile(new Vector3Int(i, j, 0)));
                 }
             }
         }
 
         return safe;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector3Int highBoundsInt = Vector3Int.FloorToInt(nextBounds.max);
+        Vector3Int lowBoundsInt = Vector3Int.FloorToInt(nextBounds.min);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(highBoundsInt + new Vector3(1, 1, -1), new Vector3Int(highBoundsInt.x + 1, lowBoundsInt.y, -1));
+        Gizmos.DrawLine(new Vector3Int(highBoundsInt.x + 1, lowBoundsInt.y, -1), lowBoundsInt + new Vector3(0, 0, -1));
+        Gizmos.DrawLine(lowBoundsInt + new Vector3(0, 0, -1), new Vector3Int(lowBoundsInt.x, highBoundsInt.y + 1, -1));
+        Gizmos.DrawLine(new Vector3Int(lowBoundsInt.x, highBoundsInt.y + 1, -1), highBoundsInt + new Vector3(1, 1, -1));
     }
 }

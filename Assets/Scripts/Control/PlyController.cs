@@ -467,6 +467,7 @@ public class PlyController : MonoBehaviour
         float dist = 0.05f;
         RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.size, capCollider.direction, 0f, Vector2.down, 
             dist, groundLayerMask);
+
         if (!delayGroundCheck)
         {
             //Debug.Log(hit.collider);
@@ -491,7 +492,6 @@ public class PlyController : MonoBehaviour
 
     IEnumerator DelayGroundCheckIE()
     {
-        Debug.Log("Inside Delay Check");
         delayGroundCheck = true;
         yield return new WaitForSeconds(0.5f);
         delayGroundCheck = false;

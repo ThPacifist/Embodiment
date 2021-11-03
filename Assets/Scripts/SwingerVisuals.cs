@@ -18,12 +18,14 @@ public class SwingerVisuals : MonoBehaviour
                 interaction.SetSwingerGameObject(gameObject);
             indicator.SetActive(true);
         }
-
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        interaction.SetSwingerGameObject(null);
-        interaction = null;
-        indicator.SetActive(false);
+        if (interaction != null)
+        {
+            interaction.SetSwingerGameObject(null);
+            interaction = null;
+            indicator.SetActive(false);
+        }
     }
 }
