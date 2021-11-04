@@ -45,6 +45,7 @@ public class ControlMovement : MonoBehaviour
     [SerializeField]
     Tilemap tileMap;
 
+
     //Enable on enable and disable on disable
     private void OnEnable()
     {
@@ -155,7 +156,7 @@ public class ControlMovement : MonoBehaviour
                             player.tag = "Human";
                             //Change movement
                             plyCntrl.speed = 5;
-                            plyCntrl.jumpHeight = 27;
+                            plyCntrl.jumpHeight = 20.5f;
                             //Change Collider
                             plyCol.direction = Human.direction;
                             plyCol.offset = Human.offset;
@@ -416,6 +417,11 @@ public class ControlMovement : MonoBehaviour
     {
         transformTarget = "None";
         Embody();
+    }
+
+    public void SetEmbodyValues(SkeletonInfo skelo)
+    {
+
     }
 
     Vector2 PlaceSkeleton()

@@ -51,7 +51,7 @@ public class SpecialInteractions : MonoBehaviour
     [SerializeField]
     Transform HheldPos;
     [SerializeField]
-    Transform BheldPos;   
+    Transform BheldPos;
 
     [SerializeField]
     FixedJoint2D fixedJ;

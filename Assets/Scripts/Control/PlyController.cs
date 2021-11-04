@@ -234,6 +234,10 @@ public class PlyController : MonoBehaviour
         {
             plyAnim.SetBool("isJumping", false);
         }
+        else
+        {
+            plyAnim.SetBool("isJumping", true);
+        }
 
         //Check if the blob is attached
         if (spcInter.isAttached)
