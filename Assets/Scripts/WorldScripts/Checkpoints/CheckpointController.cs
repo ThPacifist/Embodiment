@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CheckpointController : MonoBehaviour
 {
@@ -10,9 +11,11 @@ public class CheckpointController : MonoBehaviour
      */
 
     //Pubilc variables
+
     public Transform[] checkpoints;
     public Transform player;
     public int toCheckpoint = 0;
+    public static Action RebuildData = delegate{ };
 
     [SerializeField]
     PlyController plyCntrl;
@@ -70,8 +73,11 @@ public class CheckpointController : MonoBehaviour
     //Update checkpoint number when a new checkpoint is touched
     public void UpdateCheckpoint(int newPosition)
     {
-        //if (newPosition > previousCheckpoint)
-        previousCheckpoint = newPosition;
+        if (newPosition > previousCheckpoint)
+        {
+            previousCheckpoint = newPosition;
+            RebuildData();
+        }
     }
 
     //When the player dies move them to their last checkpoint,

@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4909862592832104647}
   - component: {fileID: 4909862592832104644}
   - component: {fileID: 4909862592832108346}
-  - component: {fileID: 3493284641619711680}
+  - component: {fileID: 5018867996057913018}
   m_Layer: 3
   m_Name: LBox
   m_TagString: LBox
@@ -223,7 +223,7 @@ MonoBehaviour:
   plyCntrl: {fileID: 0}
   Rb: {fileID: 4909862592832104644}
   player: {fileID: 0}
---- !u!114 &3493284641619711680
+--- !u!114 &5018867996057913018
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -232,11 +232,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4909862592832104645}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 361c2548b17e36e479675b095ce06d1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e38272b9dd054f46ae2b93bba07b147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 4909862592832108347}
-  activeAtStart: 1
 --- !u!1001 &4909862593918285247
 PrefabInstance:
   m_ObjectHideFlags: 0

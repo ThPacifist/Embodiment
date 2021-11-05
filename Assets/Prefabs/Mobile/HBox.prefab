@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 8374081529948776976}
   - component: {fileID: 8374081529948776977}
   - component: {fileID: 8374081529948776983}
-  - component: {fileID: 1788271124245155038}
+  - component: {fileID: 2189420892443171811}
   m_Layer: 3
   m_Name: HBox
   m_TagString: HBox
@@ -223,7 +223,7 @@ MonoBehaviour:
   plyCntrl: {fileID: 0}
   Rb: {fileID: 8374081529948776977}
   player: {fileID: 0}
---- !u!114 &1788271124245155038
+--- !u!114 &2189420892443171811
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -232,11 +232,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8374081529948776974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 361c2548b17e36e479675b095ce06d1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e38272b9dd054f46ae2b93bba07b147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 8374081529948776980}
-  activeAtStart: 1
 --- !u!1001 &8374081530021098661
 PrefabInstance:
   m_ObjectHideFlags: 0
