@@ -242,8 +242,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0000000050437734, y: 0.04231024}
-  m_Size: {x: 2.1639361, y: 1.3994926}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1.83, y: 1.366}
   m_Direction: 1
 --- !u!50 &4819060323485262875
 Rigidbody2D:
@@ -334,15 +334,11 @@ MonoBehaviour:
   plyCol: {fileID: 1720524858}
   attackBox: {fileID: 8031588383664005418}
   lamp: {fileID: 0}
-  tendril: {fileID: 0}
   spring: {fileID: 8069979182591699773}
   lineRender: {fileID: 1263926257}
   isAttached: 0
-  angle: 0
-  maxAngle: 45
   objectHeld: 0
   HboxHeld: 0
-  heldBox: {fileID: 0}
   HheldPos: {fileID: 1651337005}
   BheldPos: {fileID: 1373430572}
   fixedJ: {fileID: 1189157436}
