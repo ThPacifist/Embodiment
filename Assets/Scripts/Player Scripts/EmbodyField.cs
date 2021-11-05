@@ -18,11 +18,11 @@ public class EmbodyField : MonoBehaviour
         //myColliderInput.enabled = false;
     }
 
-    public bool CheckSpace(Vector3 floor, ColliderInfo to)
+    public bool CheckSpace(Vector3 floor, SkeletonTrigger to)
     {
         safe = true;
 
-        nextBounds = new Bounds(floor + new Vector3(0, to.size.y / 2, 0), to.size);
+        nextBounds = new Bounds(floor + new Vector3(0, to.colliderSize.y / 2, 0), to.colliderSize);
 
         Vector2Int highBoundsInt = Vector2Int.FloorToInt(nextBounds.max);
         Vector2Int lowBoundsInt = Vector2Int.FloorToInt(nextBounds.min);

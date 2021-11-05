@@ -34,11 +34,8 @@ public class ControlMovement : MonoBehaviour
     private string transformTarget = "None";
     private bool wait = false;
     AudioManager audioManager;
-    ColliderInfo Blob;
-    ColliderInfo Human;
-    ColliderInfo Cat;
-    ColliderInfo Fish;
-    ColliderInfo Bat;
+
+    public SkeletonTrigger skeleton;
 
     [SerializeField]
     EmbodyField emField;
@@ -55,6 +52,7 @@ public class ControlMovement : MonoBehaviour
     private void OnDisable()
     {
         PlyController.Embody -= Embody;
+        PlyController.Embody -= Disembody;
     }
 
     private void Start()
@@ -64,325 +62,98 @@ public class ControlMovement : MonoBehaviour
 
     private void Awake()
     {
-        Blob.direction = CapsuleDirection2D.Horizontal;
-        Blob.offset = new Vector2(0, 0);
-        Blob.size = new Vector2(1.830f, 1.366f);
-
-        Human.direction = CapsuleDirection2D.Vertical;
-        Human.offset = new Vector2(0, 0);
-        Human.size = new Vector2(0.950f, 2.807f);
-
-        Cat.direction = CapsuleDirection2D.Horizontal;
-        Cat.offset = new Vector2(0, 0);
-        Cat.size = new Vector2(1.5f, 1.5f);
-
-        Bat.direction = CapsuleDirection2D.Vertical;
-        Bat.offset = new Vector2(0, 0);
-        Bat.size = new Vector2(0.6879f, 1.742f);
-
-        Fish.direction = CapsuleDirection2D.Horizontal;
-        Fish.offset = new Vector2(0, 0);
-        Fish.size = new Vector2(2.447f, 0.782f);
-
-        Embody(this.tag);
+        //Embody(this.tag);
     }
 
-    //Change transformTarget when entering the triggers
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(transformTarget == "None")
-        {
-            if (other.tag == "Human" || other.tag == "Cat" || other.tag == "Bat" || other.tag == "Fish")
-            {
-                transformTarget = other.tag;
-                target = other.gameObject;
-            }
-        }
-
-        if(other.CompareTag("Embody"))
-        {
-            canEmbody = false;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if(other.tag == transformTarget)
-        {
-            transformTarget = "None";
-            target = null;
-        }
-
-        if (other.CompareTag("Embody"))
-        {
-            canEmbody = true;
-        }
-    }
-
-    //When 'r' is pressed change skeletons, movement scripts, and tags to the new skeleton
-    private void Embody()
-    {
-        /*
-        //Drop current skeleton
-        if(heldSkeleton != null)
-        {
-            heldSkeleton.parent = null;
-            heldSkeleton.gameObject.SetActive(true);
-            heldSkeleton = null;
-        }
-        */
-        emField.CheckSpace(Vector3.up, Bat);
-        if (!wait) //If the allotted time has pass
-        {
-            if (audioManager != null)
-            {
-                audioManager.Play("embody", true);
-            }
-            wait = true;
-            if (!plyCntrl.InWater && !spIntr.ObjectHeld && canEmbody)
-            {
-                if (heldSkeleton != null)
-                {
-                    replaceSkeleton();
-                }
-                switch (transformTarget)
-                {
-                    case "Human":
-                        if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Human))//Checks if there is enough space relative to the embody field attached to the player
-                        {
-                            //Change to human body
-                            animPly.SetTrigger("Human");
-                            //Change tag
-                            player.tag = "Human";
-                            //Change movement
-                            plyCntrl.speed = 5;
-                            plyCntrl.jumpHeight = 20.5f;
-                            //Change Collider
-                            plyCol.direction = Human.direction;
-                            plyCol.offset = Human.offset;
-                            plyCol.size = Human.size;
-                            //Remove skeleton
-                            removeSkeleton();
-                        }
-                        else
-                        {
-                            Debug.Log("Not Enough Space");
-                        }
-                        break;
-                    case "Cat":
-                        if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Cat))//Checks if there is enough space relative to the embody field attached to the player
-                        {
-                            //Change to cat bod
-                            animPly.SetTrigger("Cat");
-                            //Change tag
-                            player.tag = "Cat";
-                            //Change movement
-                            plyCntrl.speed = 7;
-                            plyCntrl.jumpHeight = 20;
-                            //Change Collider
-                            plyCol.direction = Cat.direction;
-                            plyCol.offset = Cat.offset;
-                            plyCol.size = Cat.size;
-                            //Remove skeleton
-                            removeSkeleton();
-                        }
-                        else
-                        {
-                            Debug.Log("Not Enough Space");
-                        }
-                        break;
-                    case "Bat":
-                        if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Bat))//Checks if there is enough space relative to the embody field attached to the player
-                        {
-                            //Change to bat body
-                            animPly.SetTrigger("Bat");
-                            //Change tag
-                            player.tag = "Bat";
-                            //Change movement
-                            plyCntrl.speed = 5;
-                            plyCntrl.jumpHeight = 10;
-                            //Change Collider
-                            plyCol.direction = Bat.direction;
-                            plyCol.offset = Bat.offset;
-                            plyCol.size = Bat.size;
-                            //Remove skeleton
-                            removeSkeleton();
-                        }
-                        else
-                        {
-                            Debug.Log("Not Enough Space");
-                        }
-                        break;
-                    case "Fish":
-                        if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Fish))//Checks if there is enough space relative to the embody field attached to the player
-                        {
-                            //Change to fish body
-                            //animPly.SetBool("Fish", true);
-                            animPly.SetTrigger("Fish");
-                            //Change tag
-                            player.tag = "Fish";
-                            //Change movement
-                            plyCntrl.speed = 7;
-                            plyCntrl.jumpHeight = 13.8f;
-                            plyCol.density = 1.31f;
-                            //Change Collider
-                            plyCol.direction = Fish.direction;
-                            plyCol.offset = Fish.offset;
-                            plyCol.size = Fish.size;
-                            //Remove skeleton
-                            removeSkeleton();
-                        }
-                        else
-                        {
-                            Debug.Log("Not Enough Space");
-                        }
-                        break;
-                    default://Unembodies the player from its current skeleton
-                        if (!player.CompareTag("Blob"))
-                        {
-                            //Drop current body
-                            animPly.SetTrigger("Blob");
-                            //Change tag
-                            player.tag = "Blob";
-                            //Change movement
-                            plyCntrl.speed = 5;
-                            plyCntrl.jumpHeight = 18.1f;
-                            plyCol.density = 1;
-                            //Change Collider
-                            plyCol.direction = Blob.direction;
-                            plyCol.offset = Blob.offset;
-                            plyCol.size = Blob.size;
-                        }
-                        break;
-                }
-            }
-            else if (plyCntrl.InWater)
-            {
-                //indication of unemboding goes here
-                Debug.Log("Cannot Unembody in Water");
-            }
-            else if (spIntr.ObjectHeld)
-            {
-                Debug.Log("Cannot Unembody while holding a box");
-            }
-            StartCoroutine(waitAFrame());
-        }
-    }
     
-    //Use this function only for debugging, Change inputted string at start to start in different
-    
-    //IMPORTANT:    Make sure to change string to Blob when finished
-    private void Embody(string form)
+    //When "r" is pressed, the player embodies the skeleton
+    void Embody()
     {
-        switch (form)
+        //If player is not embodying a skeleton, embody the skeleton
+        if(skeleton != null)
         {
-            case "Human":
-                if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Human))//Checks if there is enough space
+            if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), skeleton))
+            {
+                if (audioManager != null)
                 {
-                    //Change to human body
-                    animPly.SetBool("Human", true);
-                    //Change tag
-                    player.tag = "Human";
-                    //Change movement
-                    plyCntrl.speed = 5;
-                    plyCntrl.jumpHeight = 27;
-                    //Change Collider
-                    plyCol.direction = Human.direction;
-                    plyCol.offset = Human.offset;
-                    plyCol.size = Human.size;
-                    //Remove skeleton
-                    removeSkeleton();
+                    audioManager.Play("embody", true);
                 }
-                else
+
+                //Changes players values to be the skeleton
+                player.tag = skeleton.Name;
+                plyCntrl.speed = skeleton.speed;
+                plyCntrl.jumpHeight = skeleton.jumpHeight;
+                plyCol.size = skeleton.colliderSize;
+                plyCol.offset = skeleton.colliderOffset;
+                plyCol.direction = skeleton.direction;
+                plyCol.density = skeleton.density;
+
+                //Changes players sprite to be the skeleton
+                animPly.SetTrigger(skeleton.Name);
+
+                //Attach skeleton to player and disable it
+                heldSkeleton = skeleton.transform.parent;
+                heldSkeleton.parent = player;
+                heldSkeleton.gameObject.SetActive(false);
+
+                //Unsubscribes embody funciton and subscribes disembody funciton
+                PlyController.Embody -= Embody;
+                PlyController.Embody += Disembody;
+            }
+            else
+            {
+                Debug.Log("There is not enough space");
+            }
+        }
+        else
+        {
+            Debug.Log("There is no skeleton");
+        }
+    }
+    //Disembodies the player
+    void Disembody()
+    {
+        if (heldSkeleton != null)
+        {
+            if (!plyCntrl.InWater && !spIntr.ObjectHeld)
+            {
+                if (audioManager != null)
                 {
-                    Debug.Log("Not Enough Space");
+                    audioManager.Play("embody", true);
                 }
-                break;
-            case "Cat":
-                if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Cat))//Checks if there is enough space
-                {
-                    //Change to cat bod
-                    animPly.SetBool("Cat", true);
-                    //Change tag
-                    player.tag = "Cat";
-                    //Change movement
-                    plyCntrl.speed = 7;
-                    plyCntrl.jumpHeight = 32;
-                    //Change Collider
-                    plyCol.direction = Cat.direction;
-                    plyCol.offset = Cat.offset;
-                    plyCol.size = Cat.size;
-                    //Remove skeleton
-                    removeSkeleton();
-                }
-                else
-                {
-                    Debug.Log("Not Enough Space");
-                }
-                break;
-            case "Bat":
-                if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Bat))//Checks if there is enough space
-                {
-                    //Change to bat body
-                    animPly.SetBool("Bat", true);
-                    //Change tag
-                    player.tag = "Bat";
-                    //Change movement
-                    plyCntrl.speed = 5;
-                    plyCntrl.jumpHeight = 10;
-                    //Change Collider
-                    plyCol.direction = Bat.direction;
-                    plyCol.offset = Bat.offset;
-                    plyCol.size = Bat.size;
-                    //Remove skeleton
-                    removeSkeleton();
-                }
-                else
-                {
-                    Debug.Log("Not Enough Space");
-                }
-                break;
-            case "Fish":
-                if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), Fish))//Checks if there is enough space
-                {
-                    //Change to fish body
-                    //animPly.SetBool("Fish", true);
-                    animPly.SetBool("Fish", true);
-                    //Change tag
-                    player.tag = "Fish";
-                    //Change movement
-                    plyCntrl.speed = 7;
-                    plyCntrl.jumpHeight = 13.8f;
-                    plyCol.density = 1.31f;
-                    //Change Collider
-                    plyCol.direction = Fish.direction;
-                    plyCol.offset = Fish.offset;
-                    plyCol.size = Fish.size;
-                    //Remove skeleton
-                    removeSkeleton();
-                }
-                else
-                {
-                    Debug.Log("Not Enough Space");
-                }
-                break;
-            default://Unembodies the player from its current skeleton
-                if (player.CompareTag("Blob"))
-                {
-                    //Drop current body
-                    animPly.SetBool(player.gameObject.tag, false);
-                    //Change tag
-                    player.tag = "Blob";
-                    //Change movement
-                    plyCntrl.speed = 5;
-                    plyCntrl.jumpHeight = 18.1f;
-                    plyCol.density = 1;
-                    //Change Collider
-                    plyCol.direction = Blob.direction;
-                    plyCol.offset = Blob.offset;
-                    plyCol.size = Blob.size;
-                }
-                break;
+
+                //Changes players values to be the blob
+                player.tag = "Blob";
+                plyCntrl.speed = 5;
+                plyCntrl.jumpHeight = 18.1f;
+                plyCol.size = new Vector2(1.830f, 1.366f);
+                plyCol.offset = new Vector2(0, 0);
+                plyCol.direction = CapsuleDirection2D.Horizontal;
+                plyCol.density = 1;
+                skeleton = null;
+
+                //Changes players sprite to be the blob
+                animPly.SetTrigger("Blob");
+
+                //Renables skeleton and places in world
+                SpawnSkeleton();
+
+                //Unsubscribes disembody funciton and subscribes embody funciton
+                PlyController.Embody -= Disembody;
+                PlyController.Embody += Embody;
+            }
+            else if(plyCntrl.InWater)
+            {
+                Debug.Log("Cannot disembody in water");
+            }
+            else if(spIntr.ObjectHeld)
+            {
+                Debug.Log("Cannot disembody while carrying an object");
+            }
+        }
+        else
+        {
+            Debug.Log("Something went wrong in Control Movement");
         }
     }
 
@@ -395,15 +166,13 @@ public class ControlMovement : MonoBehaviour
     }
 
     //Replace skeleton
-    private void replaceSkeleton()
+    private void SpawnSkeleton()
     {
-
         Vector3 curPos = new Vector3(player.position.x, player.position.y + 1, 0);
         heldSkeleton.position = curPos;
         heldSkeleton.parent = null;
         heldSkeleton.gameObject.SetActive(true);
         heldSkeleton = null;
-        transformTarget = "None";
     }
 
     //Don't transform for the rest of this frame
@@ -415,13 +184,13 @@ public class ControlMovement : MonoBehaviour
     //Used For ShriekerField script to remove skeleton from player
     public void DestorySkeleton()
     {
-        transformTarget = "None";
-        Embody();
+        Disembody();
     }
 
-    public void SetEmbodyValues(SkeletonInfo skelo)
+    //Set values of next skeleton to new values
+    public void SetEmbodyValues(SkeletonTrigger skelo)
     {
-
+        skeleton = skelo;
     }
 
     Vector2 PlaceSkeleton()

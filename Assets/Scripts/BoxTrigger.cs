@@ -42,9 +42,12 @@ public class BoxTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        interaction.SetHeldBox(null, "");
-        interaction = null;
-        Indicator.SetActive(false);
+        if (interaction != null)
+        {
+            interaction.SetHeldBox(null, "");
+            interaction = null;
+            Indicator.SetActive(false);
+        }
     }
 
     //Checks if player is within the created box to see if bat is above box

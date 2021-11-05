@@ -430,7 +430,6 @@ public class PlyController : MonoBehaviour
             if (other.CompareTag("Water"))
             {
                 inWater = false;
-                rb.gravityScale = 1;
             }
         }
         else if (player.CompareTag("Blob"))
@@ -439,17 +438,8 @@ public class PlyController : MonoBehaviour
             {
                 //Blob jumps out of water
                 inWater = false;
-                rb.gravityScale = 1;
             }
         }
-        /*else if (player.CompareTag("Cat"))
-        {
-            if (other.CompareTag("Climb"))
-            {
-                catClimb = false;
-                rb.gravityScale = 1;
-            }
-        }*/
     }
 
     //Kill from menu

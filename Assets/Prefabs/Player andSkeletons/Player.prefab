@@ -285,7 +285,7 @@ MonoBehaviour:
   plyAnim: {fileID: 366513243}
   capCollider: {fileID: 1720524858}
   speed: 5
-  jumpHeight: 10
+  jumpHeight: 18.1
   move: 1
   groundLayerMask:
     serializedVersion: 2
@@ -313,7 +313,9 @@ MonoBehaviour:
   animPly: {fileID: 366513243}
   target: {fileID: 0}
   canEmbody: 1
+  skeleton: {fileID: 0}
   emField: {fileID: 6005473104013902345}
+  tileMap: {fileID: 0}
 --- !u!114 &4819060323485262864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,6 +341,7 @@ MonoBehaviour:
   angle: 0
   maxAngle: 45
   objectHeld: 0
+  HboxHeld: 0
   heldBox: {fileID: 0}
   HheldPos: {fileID: 1651337005}
   BheldPos: {fileID: 1373430572}
