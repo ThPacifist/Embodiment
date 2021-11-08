@@ -15,13 +15,14 @@ public class TreadmillTrigger : MonoBehaviour
     {
         if(collision.CompareTag("Cat"))
         {
-            Debug.Log("Cat is inside trigger");
             plyCntrl = collision.GetComponent<PlyController>();
             if(plyCntrl != null)
             {
-                plyCntrl.player = lockPos;
+                ControlMovement.canEmbody = false;
+                ControlMovement.canDisembody = false;
                 plyCntrl.move = false;
                 treadmill.plyCntrl = plyCntrl;
+                collision.transform.position = lockPos.position;
             }
         }
     }
@@ -30,6 +31,8 @@ public class TreadmillTrigger : MonoBehaviour
     {
         if (plyCntrl != null)
         {
+            ControlMovement.canEmbody = true;
+            ControlMovement.canDisembody = true;
             plyCntrl.move = true;
             treadmill.plyCntrl = null;
         }

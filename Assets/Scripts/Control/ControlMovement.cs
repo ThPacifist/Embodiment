@@ -28,14 +28,12 @@ public class ControlMovement : MonoBehaviour
     public CapsuleCollider2D plyCol;
     public Animator animPly;
     public GameObject target;
-    public bool canEmbody = true;
+    public SkeletonTrigger skeleton;
+    public static bool canEmbody = true;
+    public static bool canDisembody = false;
 
     //Private variables
-    private string transformTarget = "None";
-    private bool wait = false;
     AudioManager audioManager;
-
-    public SkeletonTrigger skeleton;
 
     [SerializeField]
     EmbodyField emField;
@@ -72,7 +70,7 @@ public class ControlMovement : MonoBehaviour
         //If player is not embodying a skeleton, embody the skeleton
         if(skeleton != null)
         {
-            if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), skeleton))
+            if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), skeleton) && canEmbody)
             {
                 if (audioManager != null)
                 {
@@ -99,6 +97,7 @@ public class ControlMovement : MonoBehaviour
                 //Unsubscribes embody funciton and subscribes disembody funciton
                 PlyController.Embody -= Embody;
                 PlyController.Embody += Disembody;
+                canDisembody = true;
             }
             else
             {
@@ -115,7 +114,7 @@ public class ControlMovement : MonoBehaviour
     {
         if (heldSkeleton != null)
         {
-            if (!plyCntrl.InWater && !spIntr.objectHeld)
+            if (!plyCntrl.InWater && !spIntr.objectHeld && canDisembody)
             {
                 if (audioManager != null)
                 {
@@ -141,6 +140,7 @@ public class ControlMovement : MonoBehaviour
                 //Unsubscribes disembody funciton and subscribes embody funciton
                 PlyController.Embody -= Disembody;
                 PlyController.Embody += Embody;
+                canEmbody = true;
             }
             else if(plyCntrl.InWater)
             {
@@ -175,12 +175,6 @@ public class ControlMovement : MonoBehaviour
         heldSkeleton = null;
     }
 
-    //Don't transform for the rest of this frame
-    IEnumerator waitAFrame()
-    {
-        yield return new WaitForEndOfFrame();
-        wait = false;
-    }
     //Used For ShriekerField script to remove skeleton from player
     public void DestorySkeleton()
     {

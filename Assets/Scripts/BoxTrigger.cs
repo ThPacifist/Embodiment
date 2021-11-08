@@ -13,7 +13,6 @@ public class BoxTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
         if (collision.CompareTag("Human") || collision.CompareTag("Bat"))
         {
             if (collision.CompareTag("Bat"))
