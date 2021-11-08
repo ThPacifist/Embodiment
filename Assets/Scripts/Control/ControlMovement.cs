@@ -115,7 +115,7 @@ public class ControlMovement : MonoBehaviour
     {
         if (heldSkeleton != null)
         {
-            if (!plyCntrl.InWater && !spIntr.ObjectHeld)
+            if (!plyCntrl.InWater && !spIntr.objectHeld)
             {
                 if (audioManager != null)
                 {
@@ -146,7 +146,7 @@ public class ControlMovement : MonoBehaviour
             {
                 Debug.Log("Cannot disembody in water");
             }
-            else if(spIntr.ObjectHeld)
+            else if(spIntr.objectHeld)
             {
                 Debug.Log("Cannot disembody while carrying an object");
             }

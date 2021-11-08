@@ -29,16 +29,15 @@ public class PlyController : MonoBehaviour
     public bool OnWall = false;
     private bool canJump = true;
     bool delayGroundCheck;
-    bool isJumping;
     Vector2 catDir;
     AudioManager audioManager;
 
-    static bool right;
-    static bool left;
+    bool right;
+    bool left;
 
-    public static bool Right
+    public bool Right
     { get { return right; } }
-    public static bool Left
+    public bool Left
     { get { return left; } }
 
     [SerializeField]
@@ -273,6 +272,11 @@ public class PlyController : MonoBehaviour
                 this.gameObject.transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y),
                     Mathf.Abs(transform.localScale.z));
                 left = true;
+                right = false;
+            }
+            else
+            {
+                left = false;
                 right = false;
             }
         }

@@ -25,25 +25,18 @@ public class SpecialInteractions : MonoBehaviour
     public Collider2D plyCol;
     public GameObject attackBox;
     public GameObject lamp;
-    public GameObject tendril;
     public SpringJoint2D spring;
     public static Action Climb = delegate { };
-    public static Action<Transform> SelectBox = delegate { };
     public LineRenderer lineRender;
     public bool isAttached;
-    public float angle;
-    public float maxAngle;
     public bool objectHeld;
     public bool HboxHeld;
 
     //Private variables
-    private bool climb;
-    private bool canHold;
     private bool specialReady = true;
-    private float timeElapsed;
     private float cooldownTime;
     Rigidbody2D box;
-    public Rigidbody2D heldBox;
+    Rigidbody2D heldBox;
     Switch lever;
     string boxTag;
     AudioManager audioManager;
@@ -55,9 +48,6 @@ public class SpecialInteractions : MonoBehaviour
 
     [SerializeField]
     FixedJoint2D fixedJ;
-
-    public bool ObjectHeld
-    { get { return objectHeld; } }
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -92,12 +82,10 @@ public class SpecialInteractions : MonoBehaviour
         lineRender.SetPosition(0, player.position);
         if (!isAttached)
         {
-            plyCntrl.move = true;
             lineRender.SetPosition(1, player.position);
         }
         else
         {
-            plyCntrl.move = false;
             //Gets the vector that starts from the lamp position and goes to the player position
             Vector2 targetDir = player.position - lamp.transform.position;
             //Gets the angle of the player again, except returns negative angle when the player is to the right of the swing
@@ -329,6 +317,7 @@ public class SpecialInteractions : MonoBehaviour
         }
         if (!spring.isActiveAndEnabled)
         {
+            plyCntrl.move = false;
             lineRender.enabled = true;
             spring.enabled = true;
             spring.connectedAnchor = lamp.transform.position;
@@ -341,6 +330,7 @@ public class SpecialInteractions : MonoBehaviour
         }
         else
         {
+            plyCntrl.move = true;
             spring.enabled = false;
             spring.connectedAnchor = Vector2.zero;
             lineRender.SetPosition(1, player.position);
