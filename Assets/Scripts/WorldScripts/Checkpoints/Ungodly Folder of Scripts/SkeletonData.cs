@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkeletonData : MonoBehaviour
+public class SkeletonData : AntiChrist
 {
-    // Start is called before the first frame update
-    void Start()
+    //Variables
+    private Vector2 position;
+
+    //Constructor
+    public override void Constructor()
     {
-        
+        savedObject = this.gameObject;
+        position = savedObject.transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    //Rebuild Data
+    public override void RebuildData()
     {
-        
+        position = savedObject.transform.position;
+    }
+    //Reset Data
+    public override void ResetData()
+    {
+        savedObject.transform.position = position;
     }
 }

@@ -18,10 +18,8 @@ public class MovingPlatforms : GameAction
     public float waitTime;
     public float speed;
     public bool moving;
-
-    //Private veriables
-    private float currentPos;
-    private int moveTowards;
+    public float currentPos;
+    public int moveTowards;
 
     //Action
     public override void Action(bool move)

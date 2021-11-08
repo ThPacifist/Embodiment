@@ -2,17 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorData : MonoBehaviour
+public class DoorData : AntiChrist
 {
-    // Start is called before the first frame update
-    void Start()
+    /*
+     * Put on the parent to the object
+     * Parent must have the same name
+     */
+
+    //Variables
+    private bool isActive;
+
+    //Constructor Function
+    public override void Constructor()
     {
-        
+        savedObject = this.transform.FindChild(this.name).gameObject;
+        isActive = savedObject.activeSelf;
     }
 
-    // Update is called once per frame
-    void Update()
+    //Rebuild Data Function
+    public override void RebuildData()
     {
-        
+        isActive = savedObject.activeSelf;
+    }
+
+    //Reset Data Function
+    public override void ResetData()
+    {
+        savedObject.SetActive(isActive);
     }
 }
