@@ -43,6 +43,7 @@ public class Treadmill : MonoBehaviour
             {
                 gObject.position = Vector2.MoveTowards(gObject.position, endPos.position, Time.deltaTime * speed);
             }
+            //When gObject is at the endPos, unlock the player
             else
             {
                 plyCntrl.move = true;
@@ -54,6 +55,7 @@ public class Treadmill : MonoBehaviour
             {
                 gObject.position = Vector2.MoveTowards(gObject.position, restPos, Time.deltaTime * speed);
             }
+            //When gObject is at the restPos, unlock the player
             else
             {
                 plyCntrl.move = true;
