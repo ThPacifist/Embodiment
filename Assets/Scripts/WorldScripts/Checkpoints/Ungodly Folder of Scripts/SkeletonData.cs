@@ -10,7 +10,7 @@ public class SkeletonData : AntiChrist
     //Constructor
     public override void Constructor()
     {
-        savedObject = this.gameObject;
+        savedObject = this.gameObject.transform.GetChild(1).gameObject;
         position = savedObject.transform.position;
     }
 

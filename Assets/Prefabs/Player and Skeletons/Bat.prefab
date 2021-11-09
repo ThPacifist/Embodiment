@@ -39,6 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4895855856968952364}
+  - component: {fileID: 1434840713663286150}
   m_Layer: 3
   m_Name: Bat
   m_TagString: Untagged
@@ -62,6 +63,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1434840713663286150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690575561946414110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23ead68d29b0b84e9d3b97929bcd2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  savedObject: {fileID: 0}
 --- !u!1 &6334512087517610324
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,7 +90,6 @@ GameObject:
   - component: {fileID: 6334512087517610322}
   - component: {fileID: 6334512087517610325}
   - component: {fileID: 6334512087517610286}
-  - component: {fileID: 4520306901649340804}
   m_Layer: 3
   m_Name: Bat_Skeleton
   m_TagString: Bat
@@ -229,19 +242,6 @@ MonoBehaviour:
   spawnPoint: {fileID: 3474031023142172677}
   changeLocationAtStart: 0
   waterKill: 1
---- !u!114 &4520306901649340804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6334512087517610324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c23ead68d29b0b84e9d3b97929bcd2aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  savedObject: {fileID: 0}
 --- !u!1 &6334512087713951515
 GameObject:
   m_ObjectHideFlags: 0

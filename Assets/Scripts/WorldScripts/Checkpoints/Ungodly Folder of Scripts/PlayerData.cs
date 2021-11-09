@@ -2,17 +2,64 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerData : MonoBehaviour
+public class PlayerData : AntiChrist
 {
-    // Start is called before the first frame update
-    void Start()
+    //Variables
+    public GameObject player;
+    public SpecialInteractions spcInt;
+    public ControlMovement ctrlMvm;
+    private Transform heldSkeleton;
+    private Rigidbody2D heldBox;
+    private string pTag;
+    private bool objectHeld;
+
+
+    [SerializeField]
+    FixedJoint2D fixedJ;
+
+
+    //Constructor
+    public override void Constructor()
     {
-        
+        pTag = player.tag;
+        heldBox = spcInt.heldBox;
+        heldSkeleton = ctrlMvm.heldSkeleton;
+        objectHeld = spcInt.objectHeld;
+    }
+    //Rebuild Data
+    public override void RebuildData()
+    {
+        pTag = player.tag;
+        heldBox = spcInt.heldBox;
+        heldSkeleton = ctrlMvm.heldSkeleton;
+        objectHeld = spcInt.objectHeld;
     }
 
-    // Update is called once per frame
-    void Update()
+    //Reset Data
+    public override void ResetData()
     {
-        
+        //If the player should be embodied
+        if(!player.CompareTag(pTag))
+        {
+            //Drop any current skeleton at time of death
+            if(ctrlMvm.heldSkeleton != null)
+            {
+                ctrlMvm.heldSkeleton.gameObject.SetActive(true);
+            }
+            //Grab skeleton they should be holding
+            if(pTag != "Blob")
+            {
+
+            }
+            //Change player
+        }
+        //If the player should be holding a box
+        if(objectHeld != spcInt.objectHeld)
+        {
+            spcInt.objectHeld = objectHeld;
+            spcInt.heldBox = heldBox;
+            fixedJ.enabled = true;
+            fixedJ.connectedBody = heldBox;
+        }
     }
 }

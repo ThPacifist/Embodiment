@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 8069979182591699773}
   - component: {fileID: 366513243}
   - component: {fileID: 1263926257}
+  - component: {fileID: 31063976919249225}
   - component: {fileID: 1189157436}
   m_Layer: 6
   m_Name: Player
@@ -257,7 +258,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 2.608098
+  m_Mass: 2.0993426
   m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -331,6 +332,7 @@ MonoBehaviour:
   player: {fileID: 4819060323485262879}
   plyCntrl: {fileID: 4819060323351451821}
   plyRb: {fileID: 4819060323485262875}
+  heldBox: {fileID: 0}
   plyCol: {fileID: 1720524858}
   attackBox: {fileID: 8031588383664005418}
   lamp: {fileID: 0}
@@ -518,6 +520,23 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &31063976919249225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819060323485262873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157aa2a08631e8b4084dd7700ad8a234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  savedObject: {fileID: 4819060323485262873}
+  player: {fileID: 4819060323485262873}
+  spcInt: {fileID: 4819060323485262864}
+  ctrlMvm: {fileID: 4819060323485262866}
+  fixedJ: {fileID: 1189157436}
 --- !u!255 &1189157436
 FixedJoint2D:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7706321712807976531}
+  - component: {fileID: 1721935299266845663}
   m_Layer: 3
   m_Name: Fish
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1721935299266845663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2780372807714599259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23ead68d29b0b84e9d3b97929bcd2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  savedObject: {fileID: 0}
 --- !u!1 &9039985466520428228
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +190,6 @@ GameObject:
   - component: {fileID: 9039985466883334236}
   - component: {fileID: 9039985466883334235}
   - component: {fileID: 9039985466883334208}
-  - component: {fileID: 2723356982118744447}
   m_Layer: 3
   m_Name: Fish_Skelton
   m_TagString: Fish
@@ -329,19 +342,6 @@ MonoBehaviour:
   spawnPoint: {fileID: 9039985467013064025}
   changeLocationAtStart: 0
   waterKill: 1
---- !u!114 &2723356982118744447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9039985466883334234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c23ead68d29b0b84e9d3b97929bcd2aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  savedObject: {fileID: 0}
 --- !u!1 &9039985467013064024
 GameObject:
   m_ObjectHideFlags: 0

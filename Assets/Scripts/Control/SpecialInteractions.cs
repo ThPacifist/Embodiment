@@ -22,6 +22,7 @@ public class SpecialInteractions : MonoBehaviour
     public Transform player;
     public PlyController plyCntrl;
     public Rigidbody2D plyRb;
+    public Rigidbody2D heldBox;
     public Collider2D plyCol;
     public GameObject attackBox;
     public GameObject lamp;
@@ -36,7 +37,7 @@ public class SpecialInteractions : MonoBehaviour
     private bool specialReady = true;
     private float cooldownTime;
     Rigidbody2D box;
-    Rigidbody2D heldBox;
+    
     Switch lever;
     string boxTag;
     AudioManager audioManager;

@@ -19,7 +19,7 @@ public class MovingPlatformData : AntiChrist
     //Constructor Function
     public override void Constructor()
     {
-        savedObject = this.gameObject.transform.FindChild(this.name).gameObject;
+        savedObject = this.gameObject.transform.GetChild(0).gameObject;
         selectedPlatform = savedObject.GetComponent<MovingPlatforms>();
         moving = selectedPlatform.moving;
         moveTowards = selectedPlatform.moveTowards;

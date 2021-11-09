@@ -15,7 +15,7 @@ public class DoorData : AntiChrist
     //Constructor Function
     public override void Constructor()
     {
-        savedObject = this.transform.FindChild(this.name).gameObject;
+        savedObject = this.transform.GetChild(0).gameObject;
         isActive = savedObject.activeSelf;
     }
 

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 542342404630461709}
+  - component: {fileID: 5327759018894500793}
   m_Layer: 3
   m_Name: Cat
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5327759018894500793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3417394401250226856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23ead68d29b0b84e9d3b97929bcd2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  savedObject: {fileID: 0}
 --- !u!1 &6127060448654376075
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,7 +90,6 @@ GameObject:
   - component: {fileID: 7790021946139789867}
   - component: {fileID: 7790021946139789866}
   - component: {fileID: 7790021946139789871}
-  - component: {fileID: 460862618732058044}
   m_Layer: 3
   m_Name: Cat_Skeleton
   m_TagString: Cat
@@ -229,19 +242,6 @@ MonoBehaviour:
   spawnPoint: {fileID: 8779573869297278151}
   changeLocationAtStart: 0
   waterKill: 1
---- !u!114 &460862618732058044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7790021946139789865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c23ead68d29b0b84e9d3b97929bcd2aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  savedObject: {fileID: 0}
 --- !u!1 &7790021946914207408
 GameObject:
   m_ObjectHideFlags: 0
