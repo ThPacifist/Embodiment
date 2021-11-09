@@ -11,6 +11,11 @@ public class Treadmill : MonoBehaviour
     [SerializeField]
     Transform endPos;
 
+    [SerializeField]
+    bool Decay;
+    [SerializeField]
+    float decaySpeed = 1;
+
     public PlyController plyCntrl;
     Vector3 restPos;
 
@@ -22,15 +27,40 @@ public class Treadmill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (plyCntrl != null)
+        if (!Decay)
         {
-            if (plyCntrl.Left)
+            if (plyCntrl != null)
             {
-                UpdateGameObject('+');
+                if (plyCntrl.Left)
+                {
+                    UpdateGameObject('+');
+                }
+                else if (plyCntrl.Right)
+                {
+                    UpdateGameObject('-');
+                }
             }
-            else if (plyCntrl.Right)
+        }
+        else
+        {
+            if (plyCntrl != null)
             {
-                UpdateGameObject('-');
+                if (plyCntrl.Left)
+                {
+                    UpdateGameObject('+');
+                }
+                else if (plyCntrl.Right)
+                {
+                    UpdateGameObject('-');
+                }
+                else
+                {
+                    DecayPos();
+                }
+            }
+            else
+            {
+                DecayPos();
             }
         }
     }
@@ -60,6 +90,14 @@ public class Treadmill : MonoBehaviour
             {
                 plyCntrl.move = true;
             }
+        }
+    }
+
+    void DecayPos()
+    {
+        if (Vector2.Distance(gObject.position, restPos) > 0.001)
+        {
+            gObject.position = Vector2.MoveTowards(gObject.position, restPos, Time.deltaTime * decaySpeed);
         }
     }
 }
