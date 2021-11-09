@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6303674869034217076}
   - component: {fileID: 6303674869034216969}
   - component: {fileID: 471598562}
+  - component: {fileID: 3464032078569571765}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -86,6 +87,7 @@ MonoBehaviour:
   reqWeight: 0
   isTouching: 0
   active: 0
+  dist: 0
 --- !u!50 &6303674869034216969
 Rigidbody2D:
   serializedVersion: 4
@@ -158,6 +160,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3464032078569571765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6303674869034217075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ba78edf5efca38409865698bafd8d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  savedObject: {fileID: 0}
 --- !u!1 &6303674870544144431
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +335,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.3}
-  m_ConnectedAnchor: {x: 0.011034012, y: -0.971}
+  m_ConnectedAnchor: {x: 0.011034489, y: -0.971}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 1
