@@ -43,12 +43,20 @@ public class Treadmill : MonoBehaviour
             {
                 gObject.position = Vector2.MoveTowards(gObject.position, endPos.position, Time.deltaTime * speed);
             }
+            else
+            {
+                plyCntrl.move = true;
+            }
         }
         else if(value == '-')
         {
             if (Vector2.Distance(gObject.position, restPos) > 0.001)
             {
                 gObject.position = Vector2.MoveTowards(gObject.position, restPos, Time.deltaTime * speed);
+            }
+            else
+            {
+                plyCntrl.move = true;
             }
         }
     }
