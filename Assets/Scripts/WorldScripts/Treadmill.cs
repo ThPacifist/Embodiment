@@ -12,6 +12,7 @@ public class Treadmill : MonoBehaviour
     Transform endPos;
 
     [SerializeField]
+    //Set this to true to have the gObjects position slowly move back to it restPos
     bool Decay;
     [SerializeField]
     float decaySpeed = 1;
@@ -25,16 +26,18 @@ public class Treadmill : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!Decay)
         {
             if (plyCntrl != null)
             {
+                //If the player is move left on the treadmill, move the gObject towards the endPos
                 if (plyCntrl.Left)
                 {
                     UpdateGameObject('+');
                 }
+                //If the player moves right, move the gObject towards the restPos
                 else if (plyCntrl.Right)
                 {
                     UpdateGameObject('-');
@@ -65,6 +68,8 @@ public class Treadmill : MonoBehaviour
         }
     }
 
+    //When "+" is passed it moves the gObject towards the endPos, when "-" is passed it moves it away 
+    //from the endPos back towards its restPos
     void UpdateGameObject(char value)
     {
         if(value == '+')
@@ -93,6 +98,7 @@ public class Treadmill : MonoBehaviour
         }
     }
 
+    //Moves the gObject back towards its restPos overTime
     void DecayPos()
     {
         if (Vector2.Distance(gObject.position, restPos) > 0.001)

@@ -403,7 +403,7 @@ public class PlyController : MonoBehaviour
         {
             if (other.CompareTag("Water"))
             {
-                player.gameObject.SetActive(false);
+                Death();
             }
         }
 
