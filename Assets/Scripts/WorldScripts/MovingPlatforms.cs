@@ -18,6 +18,7 @@ public class MovingPlatforms : GameAction
     public float waitTime;
     public float speed;
     public bool moving;
+    public bool stopped;
     public float currentPos;
     public int moveTowards;
 
@@ -41,21 +42,23 @@ public class MovingPlatforms : GameAction
         //If it should be moving do this
         if(moving)
         {
-            //Calcultate what the current position is
-            currentPos += (speed / 100);
-            //Lerp it
-            platform.position = Vector2.Lerp(points[Mathf.Abs(moveTowards - 1)].position, points[moveTowards].position, currentPos);
-            //Find out if it is at the endpoint
-            if (currentPos >= 1)
+            if (!stopped)
             {
-                //Reset endpoint
-                currentPos = 0;
-                //Set to move towards the endpoint
-                moveTowards = Mathf.Abs(moveTowards - 1);
-                //Stop
-                moving = false;
-                StartCoroutine("wait");
-                Debug.Log(moving);
+                //Calcultate what the current position is
+                currentPos += (speed / 100);
+                //Lerp it
+                platform.position = Vector2.Lerp(points[Mathf.Abs(moveTowards - 1)].position, points[moveTowards].position, currentPos);
+                //Find out if it is at the endpoint
+                if (currentPos >= 1)
+                {
+                    //Reset endpoint
+                    currentPos = 0;
+                    //Set to move towards the endpoint
+                    moveTowards = Mathf.Abs(moveTowards - 1);
+                    //Stop
+                    stopped = true;
+                    StartCoroutine("wait");
+                }
             }
         }    
         
@@ -65,7 +68,7 @@ public class MovingPlatforms : GameAction
     IEnumerator wait()
     {
         yield return new WaitForSeconds(waitTime);
-        moving = true;
+        stopped = false;
         Debug.Log(moving);
     }
 

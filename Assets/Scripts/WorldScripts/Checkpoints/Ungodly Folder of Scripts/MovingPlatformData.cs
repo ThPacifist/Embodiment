@@ -43,5 +43,6 @@ public class MovingPlatformData : AntiChrist
         selectedPlatform.moveTowards = moveTowards;
         selectedPlatform.currentPos = currentPos;
         savedObject.transform.position = position;
+        selectedPlatform.stopped = false;
     }
 }
