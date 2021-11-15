@@ -7,15 +7,13 @@ public class BoxTrigger : MonoBehaviour
     public GameObject Indicator;
 
     [SerializeField]
-    BoxUpdater boxUpdate;
-    [SerializeField]
     SpecialInteractions interaction;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Human") || collision.CompareTag("Bat"))
         {
-            if (collision.CompareTag("Bat"))
+            if (collision.CompareTag("Bat") && transform.parent.CompareTag("LBox"))
             {
                 if (CheckBoundsForBat(collision))
                 {

@@ -78,6 +78,7 @@ public class ControlMovement : MonoBehaviour
                 }
 
                 //Changes players values to be the skeleton
+                spIntr.PickUpSkeleton(skeleton);
                 player.tag = skeleton.Name;
                 plyCntrl.speed = skeleton.speed;
                 plyCntrl.jumpHeight = skeleton.jumpHeight;

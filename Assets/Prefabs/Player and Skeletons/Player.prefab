@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1651337004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.62, y: 1.31, z: 0}
+  m_LocalPosition: {x: -1.22, y: 1.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4819060323485262879}
@@ -90,7 +90,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4819060323485262879}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6005473104013902345
 MonoBehaviour:
@@ -133,6 +133,36 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.551102, y: 3.29098}
   m_EdgeRadius: 0
+--- !u!1 &2598920815402007719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5558430560654496473}
+  m_Layer: 6
+  m_Name: SkelPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5558430560654496473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598920815402007719}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.05, y: 1.28, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4819060323485262879}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4819060323485262873
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +205,7 @@ Transform:
   - {fileID: 7678000444253303998}
   - {fileID: 1651337005}
   - {fileID: 1373430572}
+  - {fileID: 5558430560654496473}
   - {fileID: 941227094567743099}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -313,7 +344,6 @@ MonoBehaviour:
   plyCol: {fileID: 1720524858}
   animPly: {fileID: 366513243}
   target: {fileID: 0}
-  canEmbody: 1
   skeleton: {fileID: 0}
   emField: {fileID: 6005473104013902345}
   tileMap: {fileID: 0}
@@ -333,6 +363,7 @@ MonoBehaviour:
   plyCntrl: {fileID: 4819060323351451821}
   plyRb: {fileID: 4819060323485262875}
   heldBox: {fileID: 0}
+  heldSkel: {fileID: 0}
   plyCol: {fileID: 1720524858}
   attackBox: {fileID: 8031588383664005418}
   lamp: {fileID: 0}
@@ -340,9 +371,11 @@ MonoBehaviour:
   lineRender: {fileID: 1263926257}
   isAttached: 0
   objectHeld: 0
+  skelHeld: 0
   HboxHeld: 0
   HheldPos: {fileID: 1651337005}
   BheldPos: {fileID: 1373430572}
+  skelHeldPos: {fileID: 5558430560654496473}
   fixedJ: {fileID: 1189157436}
 --- !u!114 &135167153
 MonoBehaviour:
@@ -536,6 +569,10 @@ MonoBehaviour:
   player: {fileID: 4819060323485262873}
   spcInt: {fileID: 4819060323485262864}
   ctrlMvm: {fileID: 4819060323485262866}
+  plyCtrl: {fileID: 0}
+  plyCol: {fileID: 0}
+  animPly: {fileID: 0}
+  skeleton: {fileID: 0}
   fixedJ: {fileID: 1189157436}
 --- !u!255 &1189157436
 FixedJoint2D:
@@ -552,7 +589,7 @@ FixedJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 13.18, y: 2.41}
   m_DampingRatio: 0
   m_Frequency: 0
 --- !u!1001 &4819060322301267564

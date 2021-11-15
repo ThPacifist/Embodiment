@@ -23,6 +23,7 @@ public class SpecialInteractions : MonoBehaviour
     public PlyController plyCntrl;
     public Rigidbody2D plyRb;
     public Rigidbody2D heldBox;
+    public SkeletonTrigger heldSkel;
     public Collider2D plyCol;
     public GameObject attackBox;
     public GameObject lamp;
@@ -31,12 +32,14 @@ public class SpecialInteractions : MonoBehaviour
     public LineRenderer lineRender;
     public bool isAttached;
     public bool objectHeld;
+    public bool skelHeld;
     public bool HboxHeld;
 
     //Private variables
     private bool specialReady = true;
     private float cooldownTime;
     Rigidbody2D box;
+    SkeletonTrigger skeleton;
     
     Switch lever;
     string boxTag;
@@ -46,6 +49,8 @@ public class SpecialInteractions : MonoBehaviour
     Transform HheldPos;
     [SerializeField]
     Transform BheldPos;
+    [SerializeField]
+    Transform skelHeldPos;
 
     [SerializeField]
     FixedJoint2D fixedJ;
@@ -96,15 +101,22 @@ public class SpecialInteractions : MonoBehaviour
             this.transform.rotation = rotation;
         }
 
-        if(objectHeld)
+        if (objectHeld)
         {
             if (player.tag == "Human")
             {
                 heldBox.transform.position = HheldPos.transform.position;
             }
-            else if(player.tag == "Bat")
+            else if (player.tag == "Bat")
             {
-                heldBox.transform.position = BheldPos.transform.position;
+                //heldBox.transform.position = BheldPos.transform.position;
+            }
+        }
+        if(skelHeld)
+        {
+            if(player.tag == "Blob")
+            {
+                heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
             }
         }
     }
@@ -136,10 +148,20 @@ public class SpecialInteractions : MonoBehaviour
             switch (player.tag)
             {
                 case "Blob":
-                    //Tendril swing
-                    if(lamp != null)
+                    //Pick up Skeleton
+                    if(skeleton != null && !isAttached && !skelHeld)
+                    {
+                        PickUpSkeleton(skeleton);
+                    }
+                    //Tentacle swing
+                    else if (lamp != null && !skelHeld)
                     {
                         ShootTentril();
+                    }
+                    //Drop skeleton
+                    else if(skelHeld)
+                    {
+                        PickUpSkeleton(null);
                     }
 
                     break;
@@ -285,6 +307,11 @@ public class SpecialInteractions : MonoBehaviour
         box = rb;
         boxTag = inputTag;
     }
+
+    public void SetHeldSkel(SkeletonTrigger skel)
+    {
+        skeleton = skel;
+    }
     //Remove boxes from selection
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -345,6 +372,33 @@ public class SpecialInteractions : MonoBehaviour
             specialReady = false;
         }
         //init Cooldown
+        StartCoroutine("SpecialCoolDown");
+    }
+
+    public void PickUpSkeleton(SkeletonTrigger skelo)
+    {
+        if (skelo != null && !skelHeld)
+        {
+            heldSkel = skelo;
+            heldSkel.isGrabbed = true;
+            heldSkel.indicator.SetActive(false);
+            skelHeld = true;
+            //fixedJ.enabled = true;
+            fixedJ.connectedBody = heldSkel.rigidbody;
+            heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
+        }
+        else if(skelo == null && skelHeld)
+        {
+            heldSkel.isGrabbed = false;
+            heldSkel = null;
+            skelHeld = false;
+            fixedJ.enabled = false;
+            fixedJ.connectedBody = null;
+        }
+
+        //Cooldown
+        cooldownTime = 1;
+        specialReady = false;
         StartCoroutine("SpecialCoolDown");
     }
 }

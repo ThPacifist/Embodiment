@@ -6,6 +6,8 @@ using UnityEngine;
 public class SkeletonTrigger : MonoBehaviour
 {
     //Public Variables
+    public GameObject indicator;
+    public bool isGrabbed = false;
     public string Name;
     public float speed;
     public float jumpHeight;
@@ -14,6 +16,7 @@ public class SkeletonTrigger : MonoBehaviour
     public Vector2 colliderOffset;
     public CapsuleDirection2D direction;
     public Transform skelGObject;
+    public Rigidbody2D rigidbody;
 
     //Private Variables
     ControlMovement cntrlMove;
@@ -32,8 +35,15 @@ public class SkeletonTrigger : MonoBehaviour
 
             if(spcInter != null)
             {
-                //set pickup object values
-                //indicator set active
+                spcInter.SetHeldSkel(this);
+                if (!isGrabbed)
+                {
+                    indicator.SetActive(true);
+                }
+                else
+                {
+                    indicator.SetActive(false);
+                }
             }
         }
     }
@@ -43,6 +53,14 @@ public class SkeletonTrigger : MonoBehaviour
         if (cntrlMove != null)
         {
             cntrlMove.SetEmbodyValues(null);
+            cntrlMove = null;
+        }
+
+        if (spcInter != null)
+        {
+            spcInter.SetHeldSkel(null);
+            spcInter = null;
+            indicator.SetActive(false);
         }
     }
 }
