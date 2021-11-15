@@ -29,6 +29,7 @@ public class SpecialInteractions : MonoBehaviour
     public GameObject lamp;
     public SpringJoint2D spring;
     public static Action Climb = delegate { };
+    public static Action Scratch = delegate { };
     public LineRenderer lineRender;
     public bool isAttached;
     public bool objectHeld;
@@ -83,7 +84,7 @@ public class SpecialInteractions : MonoBehaviour
         lineRender.enabled = false;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         lineRender.SetPosition(0, player.position);
         if (!isAttached)
@@ -101,7 +102,16 @@ public class SpecialInteractions : MonoBehaviour
             this.transform.rotation = rotation;
         }
 
-        if (objectHeld)
+        if(plyCntrl.Left)
+        {
+            attackBox.transform.position = new Vector2(player.transform.position.x + -1.81f, attackBox.transform.position.y);
+        }
+        else if(plyCntrl.Right)
+        {
+            attackBox.transform.position = new Vector2(player.transform.position.x + 1.81f, attackBox.transform.position.y);
+        }
+
+        if(objectHeld)
         {
             if (player.tag == "Human")
             {
@@ -229,8 +239,7 @@ public class SpecialInteractions : MonoBehaviour
                     break;
                 case "Cat":
                     //Spawn hitbox
-                    attackBox.SetActive(true);
-                    StartCoroutine(DeleteBox());
+                    Scratch();
                     //Cooldown
                     cooldownTime = 1;
                     specialReady = false;
@@ -328,12 +337,6 @@ public class SpecialInteractions : MonoBehaviour
         specialReady = true;
     }
 
-    //Disable hitbox
-    IEnumerator DeleteBox()
-    {
-        yield return new WaitForSeconds(cooldownTime);
-        attackBox.SetActive(false);
-    }
 
     //Creates the tentacle between the lamp and the player
     public void ShootTentril()

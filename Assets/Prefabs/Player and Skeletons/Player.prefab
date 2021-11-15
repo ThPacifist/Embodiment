@@ -605,11 +605,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2912986105079937746, guid: 1e32536678f63824792a70bc6451e620, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.84
+      value: -1.81
       objectReference: {fileID: 0}
     - target: {fileID: 2912986105079937746, guid: 1e32536678f63824792a70bc6451e620, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.15
+      value: 0.61
       objectReference: {fileID: 0}
     - target: {fileID: 2912986105079937746, guid: 1e32536678f63824792a70bc6451e620, type: 3}
       propertyPath: m_LocalPosition.z
@@ -646,6 +646,10 @@ PrefabInstance:
     - target: {fileID: 3284622489090535238, guid: 1e32536678f63824792a70bc6451e620, type: 3}
       propertyPath: m_Name
       value: AttackBoxTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284622489090535238, guid: 1e32536678f63824792a70bc6451e620, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3441617757413648501, guid: 1e32536678f63824792a70bc6451e620, type: 3}
       propertyPath: hitbox
