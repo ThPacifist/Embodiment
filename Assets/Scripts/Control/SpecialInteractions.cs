@@ -104,11 +104,11 @@ public class SpecialInteractions : MonoBehaviour
 
         if(plyCntrl.Left)
         {
-            attackBox.transform.position = new Vector2(player.transform.position.x + -1.81f, attackBox.transform.position.y);
+            attackBox.transform.position = new Vector2(player.transform.position.x + -1f, attackBox.transform.position.y);
         }
         else if(plyCntrl.Right)
         {
-            attackBox.transform.position = new Vector2(player.transform.position.x + 1.81f, attackBox.transform.position.y);
+            attackBox.transform.position = new Vector2(player.transform.position.x + 1f, attackBox.transform.position.y);
         }
 
         if(objectHeld)
