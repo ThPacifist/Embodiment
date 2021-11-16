@@ -220,7 +220,7 @@ public class PlyController : MonoBehaviour
         }
 
         #region Animation Block
-        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && isGrounded())
+        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
         {
             plyAnim.SetBool("Walking", true);
         }
