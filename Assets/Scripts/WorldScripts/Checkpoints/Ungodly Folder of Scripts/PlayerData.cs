@@ -64,6 +64,7 @@ public class PlayerData : AntiChrist
             if(ctrlMvm.heldSkeleton != heldSkeleton)
             {
                 ctrlMvm.heldSkeleton = heldSkeleton;
+                ctrlMvm.skeleton = skeleton;
                 heldSkeleton.parent = player.transform;
                 heldSkeleton.position = player.transform.position;
                 heldSkeleton.gameObject.SetActive(false);
@@ -91,6 +92,8 @@ public class PlayerData : AntiChrist
             spcInt.heldBox = heldBox;
             fixedJ.enabled = true;
             fixedJ.connectedBody = heldBox;
+            plyCol.size = skeleton.colliderSize;
+            plyCol.offset = skeleton.colliderOffset;
         }
     }
 }

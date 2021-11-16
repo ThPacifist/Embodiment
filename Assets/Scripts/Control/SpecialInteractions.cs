@@ -102,15 +102,6 @@ public class SpecialInteractions : MonoBehaviour
             this.transform.rotation = rotation;
         }
 
-        if(plyCntrl.Left)
-        {
-            attackBox.transform.position = new Vector2(player.transform.position.x + -1f, attackBox.transform.position.y);
-        }
-        else if(plyCntrl.Right)
-        {
-            attackBox.transform.position = new Vector2(player.transform.position.x + 1f, attackBox.transform.position.y);
-        }
-
         if(objectHeld)
         {
             if (player.tag == "Human")
