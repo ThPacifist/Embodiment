@@ -84,7 +84,7 @@ public class SpecialInteractions : MonoBehaviour
         lineRender.enabled = false;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         lineRender.SetPosition(0, player.position);
         if (!isAttached)
