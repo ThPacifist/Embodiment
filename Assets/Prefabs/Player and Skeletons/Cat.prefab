@@ -197,9 +197,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03159132, y: -0.23}
-  m_Size: {x: 1.4069293, y: 0.18532588}
-  m_Direction: 1
+  m_Offset: {x: 0.031591386, y: 0.28068095}
+  m_Size: {x: 0.7362714, y: 1.1443168}
+  m_Direction: 0
 --- !u!61 &7790021946139789866
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -366,6 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 5388630068426837490}
+  isGrabbed: 0
   Name: Cat
   speed: 7
   jumpHeight: 20

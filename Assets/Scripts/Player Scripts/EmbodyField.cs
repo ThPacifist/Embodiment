@@ -31,7 +31,6 @@ public class EmbodyField : MonoBehaviour
                 //Debug.Log("i is " + (i) + " , j is " + (j));
                 if(tileMap.GetTile(new Vector3Int(i + Mathf.FloorToInt(tileMap.transform.localPosition.x), j + Mathf.FloorToInt(tileMap.transform.localPosition.y), 0)))
                 {
-
                     safe = false;
                     Debug.Log("You hit a tile at: " + new Vector3Int(i, j, 0));
                     Debug.Log("You hit: " + tileMap.GetTile(new Vector3Int(i, j, 0)));

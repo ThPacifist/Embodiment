@@ -100,9 +100,13 @@ public class ControlMovement : MonoBehaviour
                 PlyController.Embody += Disembody;
                 canDisembody = true;
             }
-            else
+            else if(!emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), skeleton))
             {
                 Debug.Log("There is not enough space");
+            }
+            else if(!canEmbody)
+            {
+                Debug.Log("Cannot Embody for some reason");
             }
         }
         else
@@ -185,6 +189,7 @@ public class ControlMovement : MonoBehaviour
     //Set values of next skeleton to new values
     public void SetEmbodyValues(SkeletonTrigger skelo)
     {
+        Debug.Log("Skeleton set to " + skelo);
         skeleton = skelo;
     }
 

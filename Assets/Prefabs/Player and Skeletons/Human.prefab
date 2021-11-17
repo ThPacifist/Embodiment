@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 8898208260782337840}
+  isGrabbed: 0
   Name: Human
   speed: 5
   jumpHeight: 20
@@ -330,9 +331,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000000030933947, y: -0.17}
-  m_Size: {x: 1.3353072, y: 0.22928335}
-  m_Direction: 1
+  m_Offset: {x: 0.000000029802322, y: 0.28874612}
+  m_Size: {x: 0.7385267, y: 1.2306423}
+  m_Direction: 0
 --- !u!61 &7750715918683986887
 BoxCollider2D:
   m_ObjectHideFlags: 0

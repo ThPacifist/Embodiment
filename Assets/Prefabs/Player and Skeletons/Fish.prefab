@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 5656331515917417190}
+  isGrabbed: 0
   Name: Fish
   speed: 7
   jumpHeight: 13.8
@@ -300,9 +301,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000000037383472, y: -0.25}
-  m_Size: {x: 1.1893219, y: 0.17089655}
-  m_Direction: 1
+  m_Offset: {x: -0.000000059604645, y: 0.2199741}
+  m_Size: {x: 0.7599164, y: 1.0548028}
+  m_Direction: 0
 --- !u!61 &9039985466883334235
 BoxCollider2D:
   m_ObjectHideFlags: 0

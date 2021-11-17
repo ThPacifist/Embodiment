@@ -57,6 +57,8 @@ public class SpecialInteractions : MonoBehaviour
     FixedJoint2D fixedJ;
     [SerializeField]
     Animator plyAnim;
+    [SerializeField]
+    ControlMovement cntrlMovement;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -379,7 +381,7 @@ public class SpecialInteractions : MonoBehaviour
             heldSkel.isGrabbed = true;
             heldSkel.indicator.SetActive(false);
             skelHeld = true;
-            //fixedJ.enabled = true;
+            fixedJ.enabled = true;
             fixedJ.connectedBody = heldSkel.rigidbody;
             heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
             plyAnim.SetBool("isGrabbing", true);
@@ -391,6 +393,7 @@ public class SpecialInteractions : MonoBehaviour
             skelHeld = false;
             fixedJ.enabled = false;
             fixedJ.connectedBody = null;
+            Debug.Log("Inside pick up skeleton");
             plyAnim.SetBool("isGrabbing", false);
         }
 

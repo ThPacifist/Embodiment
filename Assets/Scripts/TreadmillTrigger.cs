@@ -18,8 +18,8 @@ public class TreadmillTrigger : MonoBehaviour
             plyCntrl = collision.GetComponent<PlyController>();
             if(plyCntrl != null)
             {
-                ControlMovement.canEmbody = false;
-                ControlMovement.canDisembody = false;
+                //ControlMovement.canEmbody = false;
+                //ControlMovement.canDisembody = false;
                 plyCntrl.move = false;
                 treadmill.SetPlyCntrl(plyCntrl);
                 collision.transform.position = lockPos.position;

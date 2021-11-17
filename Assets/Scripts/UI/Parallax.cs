@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    private float length, startposX, startposY;
+    private float startposX, startposY;
     public GameObject cam;
     public float parallaxEffect;
+    public Vector2 limits;
 
     // Start is called before the first frame update
     void Start()
     {
         startposX = transform.position.x;
         startposY = transform.position.y;
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
     // Update is called once per frame
@@ -24,13 +24,19 @@ public class Parallax : MonoBehaviour
         float distY = (cam.transform.position.y * parallaxEffect);
         transform.position = new Vector2(startposX + dist, startposY + distY);
 
-        if(temp > startposX + length)
+        /*(if(temp > startposX + length)
         {
             startposX += length;
         }
         else if(temp < startposX - length)
         {
             startposX -= length;
-        }
+        }*/
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, limits);
     }
 }
