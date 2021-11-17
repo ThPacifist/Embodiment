@@ -55,6 +55,8 @@ public class SpecialInteractions : MonoBehaviour
 
     [SerializeField]
     FixedJoint2D fixedJ;
+    [SerializeField]
+    Animator plyAnim;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -380,6 +382,7 @@ public class SpecialInteractions : MonoBehaviour
             //fixedJ.enabled = true;
             fixedJ.connectedBody = heldSkel.rigidbody;
             heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
+            plyAnim.SetBool("isGrabbing", true);
         }
         else if(skelo == null && skelHeld)
         {
@@ -388,6 +391,7 @@ public class SpecialInteractions : MonoBehaviour
             skelHeld = false;
             fixedJ.enabled = false;
             fixedJ.connectedBody = null;
+            plyAnim.SetBool("isGrabbing", false);
         }
 
         //Cooldown
