@@ -81300,11 +81300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78e6416d072a134dba3d66b487b064a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &1189157434 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 366513243, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-  m_PrefabInstance: {fileID: 4819060323351451817}
-  m_PrefabAsset: {fileID: 0}
 --- !u!212 &1189157435 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 741335704, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
@@ -88591,10 +88586,6 @@ PrefabInstance:
       propertyPath: DeathParticleSystem
       value: 
       objectReference: {fileID: 1184268352}
-    - target: {fileID: 4819060323485262864, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: plyAnim
-      value: 
-      objectReference: {fileID: 1189157434}
     - target: {fileID: 4819060323485262866, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: tileMap
       value: 
