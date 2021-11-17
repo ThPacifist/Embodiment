@@ -17,7 +17,7 @@ public class Treadmill : MonoBehaviour
     [SerializeField]
     float decaySpeed = 1;
 
-    public PlyController plyCntrl;
+    PlyController plyCntrl;
     Vector3 restPos;
 
     private void Awake()
@@ -105,5 +105,10 @@ public class Treadmill : MonoBehaviour
         {
             gObject.position = Vector2.MoveTowards(gObject.position, restPos, Time.deltaTime * decaySpeed);
         }
+    }
+
+    public void SetPlyCntrl(PlyController ply)
+    {
+        plyCntrl = ply;
     }
 }

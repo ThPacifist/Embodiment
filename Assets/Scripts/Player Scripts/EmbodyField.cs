@@ -15,10 +15,10 @@ public class EmbodyField : MonoBehaviour
     public bool CheckSpace(Vector3 floor, SkeletonTrigger to)
     {
         safe = true;
-        GameObject test = new GameObject("test");
+        //GameObject test = new GameObject("test");
         nextBounds = new Bounds(floor + new Vector3(0, to.colliderSize.y / 2, 0), to.colliderSize);
 
-        test.transform.position = nextBounds.center;
+        //test.transform.position = nextBounds.center;
 
         Vector2Int highBoundsInt = Vector2Int.FloorToInt(nextBounds.max);
         Vector2Int lowBoundsInt = Vector2Int.FloorToInt(nextBounds.min);
