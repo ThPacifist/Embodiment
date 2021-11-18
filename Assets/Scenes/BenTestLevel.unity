@@ -81559,17 +81559,6 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 741335704, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
   m_PrefabInstance: {fileID: 4819060323351451817}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1189157439 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4819060323485262866, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-  m_PrefabInstance: {fileID: 4819060323351451817}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189157427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9de6b9209cafa404e967415d616f1cb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1201916313
 GameObject:
   m_ObjectHideFlags: 0
@@ -89388,10 +89377,6 @@ PrefabInstance:
       propertyPath: DeathParticleSystem
       value: 
       objectReference: {fileID: 1184268352}
-    - target: {fileID: 4819060323485262864, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: cntrlMovement
-      value: 
-      objectReference: {fileID: 1189157439}
     - target: {fileID: 4819060323485262866, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: tileMap
       value: 

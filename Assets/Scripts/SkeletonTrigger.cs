@@ -52,8 +52,11 @@ public class SkeletonTrigger : MonoBehaviour
     {
         if (cntrlMove != null)
         {
-            cntrlMove.SetEmbodyValues(null);
-            cntrlMove = null;
+            if (!isGrabbed)
+            {
+                cntrlMove.SetEmbodyValues(null);
+                cntrlMove = null;
+            }
         }
 
         if (spcInter != null)

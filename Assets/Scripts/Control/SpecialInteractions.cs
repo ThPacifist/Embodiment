@@ -121,7 +121,7 @@ public class SpecialInteractions : MonoBehaviour
         {
             if(player.tag == "Blob")
             {
-                heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
+                //heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
             }
         }
     }
@@ -393,7 +393,6 @@ public class SpecialInteractions : MonoBehaviour
             skelHeld = false;
             fixedJ.enabled = false;
             fixedJ.connectedBody = null;
-            Debug.Log("Inside pick up skeleton");
             plyAnim.SetBool("isGrabbing", false);
         }
 
