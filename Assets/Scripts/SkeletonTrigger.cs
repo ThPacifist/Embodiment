@@ -17,6 +17,7 @@ public class SkeletonTrigger : MonoBehaviour
     public CapsuleDirection2D direction;
     public Transform skelGObject;
     public Rigidbody2D rigidbody;
+    public Skeleton skeloScript;
 
     //Private Variables
     ControlMovement cntrlMove;

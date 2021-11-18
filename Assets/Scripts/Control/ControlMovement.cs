@@ -184,14 +184,50 @@ public class ControlMovement : MonoBehaviour
     //Used For ShriekerField script to remove skeleton from player
     public void DestorySkeleton()
     {
-        Disembody();
-        spIntr.PickUpSkeleton(null);
+        if (heldSkeleton != null)
+        {
+            if (!plyCntrl.InWater && !spIntr.objectHeld && canDisembody)
+            {
+                if (audioManager != null)
+                {
+                    audioManager.Play("embody", true);
+                }
+
+                //Changes players values to be the blob
+                player.tag = "Blob";
+                plyCntrl.speed = 5;
+                plyCntrl.jumpHeight = 18.1f;
+                plyCol.size = new Vector2(1.830f, 1.366f);
+                plyCol.offset = new Vector2(0, 0);
+                plyCol.direction = CapsuleDirection2D.Horizontal;
+                plyCol.density = 1;
+
+                //Changes players sprite to be the blob
+                animPly.SetTrigger("Blob");
+
+                //Makes it so player is no longer holding the skeleton
+                spIntr.PickUpSkeleton(null);
+
+                //Move skeleton back to respawn position
+                skeleton.skeloScript.RespawnSkeleton();
+                skeleton = null;
+
+                //Activates skeleton and finishes disconnecting it from the player
+                heldSkeleton.parent = null;
+                heldSkeleton.gameObject.SetActive(true);
+                heldSkeleton = null;
+
+                //Unsubscribes disembody funciton and subscribes embody funciton
+                PlyController.Embody -= Disembody;
+                PlyController.Embody += Embody;
+                canEmbody = true;
+            }
+        }
     }
 
     //Set values of next skeleton to new values
     public void SetEmbodyValues(SkeletonTrigger skelo)
     {
-        Debug.Log("Skeleton set to " + skelo);
         skeleton = skelo;
     }
 

@@ -22,7 +22,7 @@ public class Skeleton : MonoBehaviour
     {
         if(changeLocationAtStart)
         {
-            skeleton.position = spawnPoint.position;
+            RespawnSkeleton();
         }
     }
 
@@ -32,12 +32,17 @@ public class Skeleton : MonoBehaviour
         //If it enters these tags, kill no matter what
         if(other.CompareTag("Death") || other.CompareTag("Shrieker"))
         {
-            skeleton.position = spawnPoint.position;
+            RespawnSkeleton();
         }
         //If it enters these, check if it should kill
         if(waterKill && other.CompareTag("Water"))
         {
-            skeleton.position = spawnPoint.position;
+            RespawnSkeleton();
         }
+    }
+
+    public void RespawnSkeleton()
+    {
+        skeleton.position = spawnPoint.position;
     }
 }

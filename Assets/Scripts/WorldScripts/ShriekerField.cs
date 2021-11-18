@@ -12,7 +12,6 @@ public class ShriekerField : MonoBehaviour
     {
         if(GameAction.PlayerTags(other.tag))//If it's the player
         {
-            Debug.Log("Player is " + other.tag);
             if (other.GetComponent<ControlMovement>().heldSkeleton != null)
             {
                 DestroySkeleton(other.GetComponent<ControlMovement>());
@@ -26,7 +25,6 @@ public class ShriekerField : MonoBehaviour
 
     void DestroySkeleton(ControlMovement ply)
     {
-        Debug.Log("This is the Shrieker . " + ply);
         ply.DestorySkeleton();
     }
 }

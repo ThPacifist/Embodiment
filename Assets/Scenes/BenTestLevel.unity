@@ -133,9 +133,10 @@ GameObject:
   m_Component:
   - component: {fileID: 51863910}
   - component: {fileID: 51863909}
+  - component: {fileID: 51863911}
   m_Layer: 7
   m_Name: Killzone
-  m_TagString: Death
+  m_TagString: Shrieker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -174,12 +175,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51863908}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 48.88, y: 16.04, z: 0}
+  m_LocalPosition: {x: 47.48, y: 5.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &51863911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51863908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31647b6e93b162b49a73e34078d5a958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behavior: {fileID: 0}
 --- !u!1 &64497178
 GameObject:
   m_ObjectHideFlags: 0
@@ -89367,7 +89381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1189157436, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 3.9
+      value: 4.66
       objectReference: {fileID: 0}
     - target: {fileID: 941227094567743099, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_RootOrder
