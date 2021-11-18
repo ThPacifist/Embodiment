@@ -127,6 +127,7 @@ public class ControlMovement : MonoBehaviour
                 }
 
                 //Changes players values to be the blob
+                spIntr.PickUpSkeleton(skeleton);
                 player.tag = "Blob";
                 plyCntrl.speed = 5;
                 plyCntrl.jumpHeight = 18.1f;
@@ -137,7 +138,7 @@ public class ControlMovement : MonoBehaviour
                 skeleton = null;
 
                 //Changes players sprite to be the blob
-                animPly.SetTrigger("Blob");
+                animPly.SetTrigger("Disembody");
 
                 //Renables skeleton and places in world
                 SpawnSkeleton();
@@ -184,6 +185,7 @@ public class ControlMovement : MonoBehaviour
     public void DestorySkeleton()
     {
         Disembody();
+        spIntr.PickUpSkeleton(null);
     }
 
     //Set values of next skeleton to new values
