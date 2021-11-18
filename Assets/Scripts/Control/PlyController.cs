@@ -7,6 +7,7 @@ public class PlyController : MonoBehaviour
 {
     //Assets and Public Variables
     PlayerControls PlyCtrl;
+    SpecialInteractions SpcIntr;
     public Transform player;
     public Transform attackBox;
     public Rigidbody2D rb;
@@ -210,7 +211,13 @@ public class PlyController : MonoBehaviour
         //Remove momentum while on ground
         if (PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded())
         {
+            //Reduce the player's speed by half
             rb.velocity *= new Vector2(0.5f, 1);
+            //Change any held boxes velocity to match the player
+            if (spcInter.heldBox != null)
+            {
+                spcInter.heldBox.velocity = rb.velocity;
+            }
         }
 
         //Remove momentum while on wall

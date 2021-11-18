@@ -65,6 +65,7 @@ public class PlayerData : AntiChrist
             {
                 ctrlMvm.heldSkeleton = heldSkeleton;
                 ctrlMvm.skeleton = skeleton;
+                spcInt.heldSkel = skeleton;
                 heldSkeleton.parent = player.transform;
                 heldSkeleton.position = player.transform.position;
                 heldSkeleton.gameObject.SetActive(false);
