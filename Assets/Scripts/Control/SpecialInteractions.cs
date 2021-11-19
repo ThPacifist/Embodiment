@@ -385,6 +385,8 @@ public class SpecialInteractions : MonoBehaviour
             fixedJ.connectedBody = heldSkel.rigidbody;
             heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
             plyAnim.SetBool("isGrabbing", true);
+
+            Debug.Log("Picked up " + skelo.name);
         }
         else if(skelo == null && skelHeld)
         {
@@ -394,6 +396,8 @@ public class SpecialInteractions : MonoBehaviour
             fixedJ.enabled = false;
             fixedJ.connectedBody = null;
             plyAnim.SetBool("isGrabbing", false);
+
+            Debug.Log("Put Down my object");
         }
 
         //Cooldown

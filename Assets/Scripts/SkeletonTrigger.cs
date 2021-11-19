@@ -62,9 +62,12 @@ public class SkeletonTrigger : MonoBehaviour
 
         if (spcInter != null)
         {
-            spcInter.SetHeldSkel(null);
-            spcInter = null;
-            indicator.SetActive(false);
+            if (!isGrabbed)
+            {
+                spcInter.SetHeldSkel(null);
+                spcInter = null;
+                indicator.SetActive(false);
+            }
         }
     }
 }
