@@ -40,7 +40,10 @@ public class ClimbTrigger : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        plyCntrl.SetCatOnWall(false, Vector2.zero);
-        plyCntrl = null;
+        if (plyCntrl != null)
+        {
+            plyCntrl.SetCatOnWall(false, Vector2.zero);
+            plyCntrl = null;
+        }
     }
 }

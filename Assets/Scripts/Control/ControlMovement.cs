@@ -127,7 +127,6 @@ public class ControlMovement : MonoBehaviour
                 }
 
                 //Changes players values to be the blob
-                spIntr.PickUpSkeleton(skeleton);
                 player.tag = "Blob";
                 plyCntrl.speed = 5;
                 plyCntrl.jumpHeight = 18.1f;
@@ -140,8 +139,9 @@ public class ControlMovement : MonoBehaviour
                 //Changes players sprite to be the blob
                 animPly.SetTrigger("Disembody");
 
-                //Renables skeleton and places in world
-                SpawnSkeleton();
+                heldSkeleton.gameObject.SetActive(true);
+                heldSkeleton.parent = null;
+                heldSkeleton = null;
 
                 //Unsubscribes disembody funciton and subscribes embody funciton
                 PlyController.Embody -= Disembody;
@@ -174,8 +174,8 @@ public class ControlMovement : MonoBehaviour
     //Replace skeleton
     private void SpawnSkeleton()
     {
-        Vector3 curPos = new Vector3(player.position.x, player.position.y + 1, 0);
-        heldSkeleton.position = curPos;
+        /*Vector3 curPos = new Vector3(player.position.x, player.position.y + 1, 0);
+        heldSkeleton.position = curPos;*/
         heldSkeleton.parent = null;
         heldSkeleton.gameObject.SetActive(true);
         heldSkeleton = null;
@@ -269,6 +269,4 @@ public class ControlMovement : MonoBehaviour
         Gizmos.DrawLine(botLeft, topLeft);
         Gizmos.DrawLine(topLeft, topRight);
     }
-
-    //player.position - new Vector2(0, plyCol.bounds.extents.y, 0), 
 }
