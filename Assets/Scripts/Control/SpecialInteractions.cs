@@ -373,6 +373,7 @@ public class SpecialInteractions : MonoBehaviour
         StartCoroutine("SpecialCoolDown");
     }
 
+    //This function is called when we want the blob to pick up skeleton
     public void PickUpSkeleton(SkeletonTrigger skelo)
     {
         if (skelo != null && !skelHeld)
@@ -385,6 +386,7 @@ public class SpecialInteractions : MonoBehaviour
             fixedJ.connectedBody = heldSkel.rigidbody;
             heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
             plyAnim.SetBool("isGrabbing", true);
+            plyCntrl.jumpHeight = 60;
 
             Debug.Log("Picked up " + skelo.name);
         }
@@ -396,6 +398,7 @@ public class SpecialInteractions : MonoBehaviour
             fixedJ.enabled = false;
             fixedJ.connectedBody = null;
             plyAnim.SetBool("isGrabbing", false);
+            plyCntrl.jumpHeight = 18.1f;
 
             Debug.Log("Put Down my object");
         }

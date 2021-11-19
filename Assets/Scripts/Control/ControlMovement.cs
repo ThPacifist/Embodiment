@@ -78,7 +78,7 @@ public class ControlMovement : MonoBehaviour
                 }
 
                 //Changes players values to be the skeleton
-                spIntr.PickUpSkeleton(skeleton);
+                spIntr.PickUpSkeleton(null);
                 player.tag = skeleton.Name;
                 plyCntrl.speed = skeleton.speed;
                 plyCntrl.jumpHeight = skeleton.jumpHeight;
@@ -139,8 +139,11 @@ public class ControlMovement : MonoBehaviour
                 //Changes players sprite to be the blob
                 animPly.SetTrigger("Disembody");
 
+                //Renables skeleton
                 heldSkeleton.gameObject.SetActive(true);
                 heldSkeleton.parent = null;
+                spIntr.PickUpSkeleton(heldSkeleton.GetComponentInChildren<SkeletonTrigger>());
+                skeleton = heldSkeleton.GetComponentInChildren<SkeletonTrigger>();
                 heldSkeleton = null;
 
                 //Unsubscribes disembody funciton and subscribes embody funciton

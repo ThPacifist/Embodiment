@@ -16,7 +16,7 @@ public class SkeletonTrigger : MonoBehaviour
     public Vector2 colliderOffset;
     public CapsuleDirection2D direction;
     public Transform skelGObject;
-    public Rigidbody2D rigidbody;
+    public Rigidbody2D rigidbody; //This is the rigidbody of the parent object
     public Skeleton skeloScript;
 
     //Private Variables
