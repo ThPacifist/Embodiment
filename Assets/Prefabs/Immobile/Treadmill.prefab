@@ -150,7 +150,6 @@ MonoBehaviour:
   endPos: {fileID: 0}
   Decay: 0
   decaySpeed: 1
-  plyCntrl: {fileID: 0}
 --- !u!255 &4202252123542980532
 FixedJoint2D:
   m_ObjectHideFlags: 0
@@ -239,5 +238,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.12, y: 2.16}
+  m_Size: {x: 0.69, y: 2.16}
   m_EdgeRadius: 0

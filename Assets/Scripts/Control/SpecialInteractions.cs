@@ -19,7 +19,6 @@ public class SpecialInteractions : MonoBehaviour
         //IMPORTANT: For any successfully executed special action set a cooldown time, unset special ready, and call the cooldown timer!!!
 
     //Public variables and assets
-    public Transform player;
     public PlyController plyCntrl;
     public Rigidbody2D plyRb;
     public Rigidbody2D heldBox;
@@ -40,7 +39,8 @@ public class SpecialInteractions : MonoBehaviour
     private bool specialReady = true;
     private float cooldownTime;
     Rigidbody2D box;
-    SkeletonTrigger skeleton;
+    [HideInInspector]
+    public SkeletonTrigger skeleton;
     
     Switch lever;
     string boxTag;
@@ -83,22 +83,22 @@ public class SpecialInteractions : MonoBehaviour
         fixedJ.enabled = false;
 
         lineRender.positionCount = 2;
-        lineRender.SetPosition(0, player.position);//Starting Position of Tendril Line
-        lineRender.SetPosition(1, player.position);//Ending Position of Tendril Line
+        lineRender.SetPosition(0, transform.position);//Starting Position of Tendril Line
+        lineRender.SetPosition(1, transform.position);//Ending Position of Tendril Line
         lineRender.enabled = false;
     }
 
     private void FixedUpdate()
     {
-        lineRender.SetPosition(0, player.position);
+        lineRender.SetPosition(0, transform.position);
         if (!isAttached)
         {
-            lineRender.SetPosition(1, player.position);
+            lineRender.SetPosition(1, transform.position);
         }
         else
         {
             //Gets the vector that starts from the lamp position and goes to the player position
-            Vector2 targetDir = player.position - lamp.transform.position;
+            Vector2 targetDir = transform.position - lamp.transform.position;
             //Gets the angle of the player again, except returns negative angle when the player is to the right of the swing
             float signedAngle = Vector2.SignedAngle(targetDir, Vector2.down);
             //Changes the player's rotation to be relative to the swing
@@ -108,18 +108,18 @@ public class SpecialInteractions : MonoBehaviour
 
         if(objectHeld)
         {
-            if (player.tag == "Human")
+            if (tag == "Human")// tag is tag of this gameobject
             {
                 heldBox.transform.position = HheldPos.transform.position;
             }
-            else if (player.tag == "Bat")
+            else if (tag == "Bat")// tag is tag of this gameobject
             {
                 //heldBox.transform.position = BheldPos.transform.position;
             }
         }
         if(skelHeld)
         {
-            if(player.tag == "Blob")
+            if(tag == "Blob")// tag is tag of this gameobject
             {
                 heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
             }
@@ -150,7 +150,7 @@ public class SpecialInteractions : MonoBehaviour
     {
         if (specialReady)
         {
-            switch (player.tag)
+            switch (tag) //Tag of gameobject
             {
                 case "Blob":
                     //Pick up Skeleton
@@ -347,7 +347,7 @@ public class SpecialInteractions : MonoBehaviour
             lineRender.enabled = true;
             spring.enabled = true;
             spring.connectedAnchor = lamp.transform.position;
-            lineRender.SetPosition(1, new Vector3(lamp.transform.position.x, lamp.transform.position.y, player.position.z));
+            lineRender.SetPosition(1, new Vector3(lamp.transform.position.x, lamp.transform.position.y, transform.position.z));
             isAttached = true;
 
             //Cooldown
@@ -359,7 +359,7 @@ public class SpecialInteractions : MonoBehaviour
             plyCntrl.move = true;
             spring.enabled = false;
             spring.connectedAnchor = Vector2.zero;
-            lineRender.SetPosition(1, player.position);
+            lineRender.SetPosition(1, transform.position);
             lineRender.enabled = false;
             Quaternion rotation = Quaternion.Euler(0, 0, 0);
             this.transform.rotation = rotation;

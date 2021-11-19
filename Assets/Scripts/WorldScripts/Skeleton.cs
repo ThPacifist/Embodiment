@@ -15,7 +15,6 @@ public class Skeleton : MonoBehaviour
     public Transform skeleton;
     public Transform spawnPoint;
     public bool changeLocationAtStart = false;
-    public bool waterKill;
 
     //If you want it to change locations at the start, use it
     private void Start()
@@ -30,12 +29,7 @@ public class Skeleton : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //If it enters these tags, kill no matter what
-        if(other.CompareTag("Death") || other.CompareTag("Shrieker"))
-        {
-            RespawnSkeleton();
-        }
-        //If it enters these, check if it should kill
-        if(waterKill && other.CompareTag("Water"))
+        if(other.CompareTag("Death") || other.CompareTag("Shrieker") || other.CompareTag("Water"))
         {
             RespawnSkeleton();
         }

@@ -16,7 +16,6 @@ public class SwingerVisuals : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
         if (collision.CompareTag("Blob"))
         {
             interaction = collision.GetComponent<SpecialInteractions>();

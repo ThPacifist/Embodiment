@@ -31,19 +31,26 @@ public class SkeletonTrigger : MonoBehaviour
             spcInter = collision.GetComponent<SpecialInteractions>();
             if(cntrlMove != null)
             {
-                cntrlMove.SetEmbodyValues(this);
+                if (cntrlMove.skeleton == null)
+                {
+                    cntrlMove.SetEmbodyValues(this);
+                }
             }
 
             if(spcInter != null)
             {
-                spcInter.SetHeldSkel(this);
-                if (!isGrabbed)
+                if (spcInter.heldSkel == null)
                 {
-                    indicator.SetActive(true);
-                }
-                else
-                {
-                    indicator.SetActive(false);
+                    spcInter.SetHeldSkel(this);
+
+                    if (!isGrabbed)
+                    {
+                        indicator.SetActive(true);
+                    }
+                    else
+                    {
+                        indicator.SetActive(false);
+                    }
                 }
             }
         }
@@ -55,8 +62,11 @@ public class SkeletonTrigger : MonoBehaviour
         {
             if (!isGrabbed)
             {
-                cntrlMove.SetEmbodyValues(null);
-                cntrlMove = null;
+                if (cntrlMove.skeleton == this)
+                {
+                    cntrlMove.SetEmbodyValues(null);
+                    cntrlMove = null;
+                }
             }
         }
 
@@ -64,8 +74,11 @@ public class SkeletonTrigger : MonoBehaviour
         {
             if (!isGrabbed)
             {
-                spcInter.SetHeldSkel(null);
-                spcInter = null;
+                if (spcInter.skeleton == this)
+                {
+                    spcInter.SetHeldSkel(null);
+                    spcInter = null;
+                }
                 indicator.SetActive(false);
             }
         }

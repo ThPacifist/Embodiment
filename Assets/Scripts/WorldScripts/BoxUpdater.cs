@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BoxUpdater : MonoBehaviour
 {
-    public PlyController plyCntrl;
     public Rigidbody2D Rb;
     public GameObject player;
 
@@ -16,11 +15,6 @@ public class BoxUpdater : MonoBehaviour
     private void OnDisable()
     {
         PlyController.Embody -= CheckPlayer;
-    }
-
-    private void Awake()
-    {
-        Rb.sharedMaterial.friction = 0.6f;
     }
 
     void CheckPlayer()

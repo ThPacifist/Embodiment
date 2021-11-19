@@ -12,10 +12,13 @@ public class ShriekerField : MonoBehaviour
     {
         if(GameAction.PlayerTags(other.tag))//If it's the player
         {
-            if (other.GetComponent<ControlMovement>().heldSkeleton != null)
+            if (other.gameObject.layer == 6)
             {
-                DestroySkeleton(other.GetComponent<ControlMovement>());
-                //Destroy Skeleton
+                ControlMovement temp = other.GetComponent<ControlMovement>();
+                if (temp.heldSkeleton != null || temp.skeleton != null)
+                {
+                    DestroySkeleton(temp);
+                }
             }
 
             //Any other behavior
@@ -25,6 +28,7 @@ public class ShriekerField : MonoBehaviour
 
     void DestroySkeleton(ControlMovement ply)
     {
+        Debug.Log("Inside Destroy Skeleton");
         ply.DestorySkeleton();
     }
 }
