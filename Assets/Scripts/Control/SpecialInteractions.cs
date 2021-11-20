@@ -157,8 +157,14 @@ public class SpecialInteractions : MonoBehaviour
                     //Pick up Skeleton
                     if (skeleton != null && !isAttached && !skelHeld)
                     {
-                        //plyAnim.runtimeAnimatorController.animationClips[22].events[0].objectReferenceParameter = skeleton;
-                        PickUpSkeleton(skeleton);
+                        if (!plyCntrl.Left && !plyCntrl.Right)
+                        {
+                            plyAnim.SetBool("isGrabbing", true);
+                        }
+                        else
+                        {
+                            PickUpSkeleton(skeleton);
+                        }
                     }
                     //Tentacle swing
                     else if (lamp != null && !skelHeld)
@@ -168,7 +174,14 @@ public class SpecialInteractions : MonoBehaviour
                     //Drop skeleton
                     else if(skelHeld)
                     {
-                        PickUpSkeleton(null);
+                        if (!plyCntrl.Left && !plyCntrl.Right)
+                        {
+                            plyAnim.SetBool("isGrabbing", false);
+                        }
+                        else
+                        {
+                            PickUpSkeleton(null);
+                        }
                     }
 
                     break;
@@ -425,6 +438,28 @@ public class SpecialInteractions : MonoBehaviour
         cooldownTime = 1;
         specialReady = false;
         StartCoroutine("SpecialCoolDown");
+    }
+
+    //Used in BlobPickUp Animation to pick up the skeleton on the correct frame
+    public void CallPickUpFromAnimation()
+    {
+        PickUpSkeleton(skeleton);
+    }
+
+    //Used in BlobPutDown Animation to put down the skeleton on the correct frame
+    public void CallPutDownFromAnimation()
+    {
+        PickUpSkeleton(null);
+    }
+
+    public void DisableMovement()
+    {
+        plyCntrl.move = false;
+    }
+
+    public void RenableMovement()
+    {
+        plyCntrl.move = true;
     }
 
     /*
