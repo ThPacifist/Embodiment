@@ -27,7 +27,6 @@ public class ControlMovement : MonoBehaviour
     public SpecialInteractions spIntr;
     public CapsuleCollider2D plyCol;
     public Animator animPly;
-    public GameObject target;
     public SkeletonTrigger skeleton;
     public static bool canEmbody = true;
     public static bool canDisembody = false;
@@ -164,24 +163,6 @@ public class ControlMovement : MonoBehaviour
         {
             Debug.Log("Something went wrong in Control Movement");
         }
-    }
-
-    //Remove skeleton
-    private void removeSkeleton()
-    {
-        heldSkeleton = target.transform;
-        heldSkeleton.parent = player;
-        heldSkeleton.gameObject.SetActive(false);
-    }
-
-    //Replace skeleton
-    private void SpawnSkeleton()
-    {
-        /*Vector3 curPos = new Vector3(player.position.x, player.position.y + 1, 0);
-        heldSkeleton.position = curPos;*/
-        heldSkeleton.parent = null;
-        heldSkeleton.gameObject.SetActive(true);
-        heldSkeleton = null;
     }
 
     //Used For ShriekerField script to remove skeleton from player

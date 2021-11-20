@@ -153,9 +153,11 @@ public class SpecialInteractions : MonoBehaviour
             switch (tag) //Tag of gameobject
             {
                 case "Blob":
+                    //AllAnimationClips();
                     //Pick up Skeleton
-                    if(skeleton != null && !isAttached && !skelHeld)
+                    if (skeleton != null && !isAttached && !skelHeld)
                     {
+                        //plyAnim.runtimeAnimatorController.animationClips[22].events[0].objectReferenceParameter = skeleton;
                         PickUpSkeleton(skeleton);
                     }
                     //Tentacle swing
@@ -293,6 +295,22 @@ public class SpecialInteractions : MonoBehaviour
         }
     }
 
+    void AllAnimationClips()
+    {
+        int i = 0;
+        int clipIndex = 0;
+        Debug.Log("Inside all animation clips");
+        foreach(AnimationClip clip in plyAnim.runtimeAnimatorController.animationClips)
+        {
+            if(clip.name == "BlobPickup")
+            {
+                clipIndex = i;
+                Debug.Log("Clip index is " + clipIndex);
+            }
+            i++;
+        }
+    }
+
     //Check for boxes
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -408,4 +426,9 @@ public class SpecialInteractions : MonoBehaviour
         specialReady = false;
         StartCoroutine("SpecialCoolDown");
     }
+
+    /*
+     * Indexes of Animations:
+     * Grab animation: 22
+     */
 }

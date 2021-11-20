@@ -28,7 +28,6 @@ public class ShriekerField : MonoBehaviour
 
     void DestroySkeleton(ControlMovement ply)
     {
-        Debug.Log("Inside Destroy Skeleton");
         ply.DestorySkeleton();
     }
 }
