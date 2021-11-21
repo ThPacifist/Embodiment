@@ -32,25 +32,28 @@ public class TransitionController : MonoBehaviour
 
     //This function is called by the SlideOut Animation itself by using an animation event
     //Any behavior we want to happen after the screen has been blacked out needs to be subscribed to slideOutAction
-    public void SlideOutTrigger()
+    void SlideOutTrigger()
     {
         TriggerSlideIn = true;
         slideOutAction();
     }
     //This function is called by the SlideOut Animation itself by using an animation event
     //Any behavior we want to happen after the screen has been revealed needs to be subscribed to slideInAction
-    public void SlideInTrigger()
+    void SlideInTrigger()
     {
-        Debug.Log("Slide In Trigger");
         TriggerSlideIn = false;
         slideInAction();
     }
-
-    public void FadeOutTrigger()
+    //This function is called by the FadeOut Animation itself by using an animation event
+    //Any behavior we want to happen after the screen has been blacked out needs to be subscribed to fadeOutAction
+    //Note: this functions should only be used stuff like changing scenes
+    void FadeOutTrigger()
     {
         fadeOutAction();
     }
 
+    //These functions call there respective animation
+    //Use them to trigger the animations
     public void FadeIn() 
     {
         transitionAnimator.SetTrigger("FadeIn");

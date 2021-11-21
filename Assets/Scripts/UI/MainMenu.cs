@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
      */
 
      //Public variables and assets
-    public string newGameSecne;
+    public string newGameScene;
     public Transform[] menuButtons;
     public Transform[] settingsButtons;
     public GameObject settingsButton;
@@ -21,12 +21,22 @@ public class MainMenu : MonoBehaviour
 
     //Private variable
 
+    private void OnEnable()
+    {
+        TransitionController.fadeOutAction += newGame;
+    }
+
+    private void OnDisable()
+    {
+        TransitionController.fadeOutAction -= newGame;
+    }
+
 
     //Start new game
     public void newGame()
     {
         //Load first level/cutscene
-        SceneManager.LoadScene(newGameSecne);
+        ChangeLevel();
     }
 
     //Continue game
@@ -71,5 +81,23 @@ public class MainMenu : MonoBehaviour
             settingsButtons[i].gameObject.SetActive(false);
         }
         eventS.SetSelectedGameObject(settingsButton);
+    }
+
+    public void ChangeLevel()
+    {
+        StartCoroutine(ChangeLevelIE());
+    }
+
+    IEnumerator ChangeLevelIE()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(newGameScene);//Loads next scene in background asyncronously
+
+        while (!asyncLoad.isDone)// Run this code until the next scene is done loading
+        {
+            yield return null;
+        }
+
+        SceneManager.UnloadSceneAsync(currentScene); //Unloads current scene
     }
 }
