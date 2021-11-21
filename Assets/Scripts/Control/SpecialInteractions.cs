@@ -215,6 +215,7 @@ public class SpecialInteractions : MonoBehaviour
                             {
                                 audioManager.Play("boxGrab", true);
                             }
+                            plyAnim.SetBool("isPushing", true);
                             //Attach Box
                             HboxHeld = true;
                             fixedJ.enabled = true;
@@ -232,6 +233,7 @@ public class SpecialInteractions : MonoBehaviour
                         {
                             audioManager.Play("boxGrab", true);
                         }
+                        plyAnim.SetBool("isPushing", false);
                         //Drop box
                         objectHeld = false;
                         HboxHeld = false;
