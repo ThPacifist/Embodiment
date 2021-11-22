@@ -254,7 +254,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 8.12, y: 6.77}
+  m_Size: {x: 1.6846154, y: 1.4153847}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -317,7 +317,8 @@ MonoBehaviour:
   capCollider: {fileID: 1720524858}
   speed: 5
   jumpHeight: 18.1
-  move: 1
+  canMove: 1
+  canJump: 1
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -342,7 +343,6 @@ MonoBehaviour:
   spIntr: {fileID: 4819060323485262864}
   plyCol: {fileID: 1720524858}
   animPly: {fileID: 366513243}
-  target: {fileID: 0}
   skeleton: {fileID: 0}
   emField: {fileID: 6005473104013902345}
   tileMap: {fileID: 0}
@@ -358,7 +358,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e2d66772e11e6449efda5d9f883dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4819060323485262879}
   plyCntrl: {fileID: 4819060323351451821}
   plyRb: {fileID: 4819060323485262875}
   heldBox: {fileID: 0}
@@ -372,6 +371,7 @@ MonoBehaviour:
   objectHeld: 0
   skelHeld: 0
   HboxHeld: 0
+  skeleton: {fileID: 0}
   HheldPos: {fileID: 1651337005}
   BheldPos: {fileID: 1373430572}
   skelHeldPos: {fileID: 5558430560654496473}
