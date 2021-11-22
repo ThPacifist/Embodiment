@@ -21,14 +21,15 @@ public class PlyController : MonoBehaviour
     public static Action Death = delegate { };
     public float speed;
     public float jumpHeight;
-    public bool move = true;
+    public bool canMove = true;
+    public bool canJump = true;
 
     [SerializeField]
     LayerMask groundLayerMask;
 
     //Private Variables
     public bool OnWall = false;
-    private bool canJump = true;
+    bool batJump = true;
     bool delayGroundCheck;
     Vector2 catDir;
     AudioManager audioManager;
@@ -87,7 +88,7 @@ public class PlyController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (move)
+        if (canMove)
         {
             //Movement for Fish
             if (player.CompareTag("Fish"))
@@ -227,7 +228,7 @@ public class PlyController : MonoBehaviour
         }
 
         #region Animation Block
-        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && move)
+        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && canMove)
         {
             plyAnim.SetBool("Walking", true);
         }
@@ -327,47 +328,50 @@ public class PlyController : MonoBehaviour
     //Jump
     private void Jump()
     {
-        //If time is moving, do something
-        if (Time.timeScale > 0)
+        if (canJump)
         {
-            //Fly when bat
-            if (player.CompareTag("Bat") && canJump)
+            //If time is moving, do something
+            if (Time.timeScale > 0)
             {
-                canJump = false;
-                rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
-                plyAnim.SetTrigger("Flap");
-                if (audioManager != null)
+                //Fly when bat
+                if (player.CompareTag("Bat") && batJump)
                 {
-                    audioManager.Play("wingFlap", true);
-                }
-                StartCoroutine(FlyCoolDown());
-            }
-            //Side jump when climbing
-            else if (player.CompareTag("Cat") && OnWall)
-            {
-                rb.AddForce((-catDir * 25) - new Vector2(rb.velocity.x, 0), ForceMode2D.Impulse);
-                catDir = -catDir;
-            }
-            //Regular jump when appropriate
-            else
-            {
-                if (isGrounded() || inWater)
-                {
+                    batJump = false;
                     rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
+                    plyAnim.SetTrigger("Flap");
+                    if (audioManager != null)
+                    {
+                        audioManager.Play("wingFlap", true);
+                    }
+                    StartCoroutine(FlyCoolDown());
+                }
+                //Side jump when climbing
+                else if (player.CompareTag("Cat") && OnWall)
+                {
+                    rb.AddForce((-catDir * 25) - new Vector2(rb.velocity.x, 0), ForceMode2D.Impulse);
+                    catDir = -catDir;
+                }
+                //Regular jump when appropriate
+                else
+                {
+                    if (isGrounded() || inWater)
+                    {
+                        rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
 
+                    }
+                    else if (spcInter.isAttached)
+                    {
+                        spcInter.ShootTentril();
+                        rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
+                    }
                 }
-                else if(spcInter.isAttached)
+                if (!delayGroundCheck)
                 {
-                    spcInter.ShootTentril();
-                    rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
+                    plyAnim.SetTrigger("takeOff");
                 }
+                plyAnim.SetBool("isJumping", true);
+                DelayGroundCheck();
             }
-            if (!delayGroundCheck)
-            {
-                plyAnim.SetTrigger("takeOff");
-            }
-            plyAnim.SetBool("isJumping", true);
-            DelayGroundCheck();
         }
     }
 
@@ -487,7 +491,7 @@ public class PlyController : MonoBehaviour
     IEnumerator FlyCoolDown()
     {
         yield return new WaitForSeconds(0.1f);
-        canJump = true;
+        batJump = true;
     }
 
     void DelayGroundCheck()
@@ -500,6 +504,18 @@ public class PlyController : MonoBehaviour
         delayGroundCheck = true;
         yield return new WaitForSeconds(0.5f);
         delayGroundCheck = false;
+    }
+
+    public void DisableMovement()
+    {
+        canMove = false;
+        canJump = false;
+    }
+
+    public void RenableMovement()
+    {
+        canMove = true;
+        canJump = true;
     }
 
     //Used for bug testing

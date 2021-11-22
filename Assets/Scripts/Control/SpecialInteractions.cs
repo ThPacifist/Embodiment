@@ -376,7 +376,7 @@ public class SpecialInteractions : MonoBehaviour
         }
         if (!spring.isActiveAndEnabled)
         {
-            plyCntrl.move = false;
+            plyCntrl.canMove = false;
             lineRender.enabled = true;
             spring.enabled = true;
             spring.connectedAnchor = lamp.transform.position;
@@ -389,7 +389,7 @@ public class SpecialInteractions : MonoBehaviour
         }
         else
         {
-            plyCntrl.move = true;
+            plyCntrl.canMove = true;
             spring.enabled = false;
             spring.connectedAnchor = Vector2.zero;
             lineRender.SetPosition(1, transform.position);
@@ -452,16 +452,6 @@ public class SpecialInteractions : MonoBehaviour
     public void CallPutDownFromAnimation()
     {
         PickUpSkeleton(null);
-    }
-
-    public void DisableMovement()
-    {
-        plyCntrl.move = false;
-    }
-
-    public void RenableMovement()
-    {
-        plyCntrl.move = true;
     }
 
     /*

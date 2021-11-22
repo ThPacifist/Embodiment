@@ -20,7 +20,7 @@ public class TreadmillTrigger : MonoBehaviour
             {
                 //ControlMovement.canEmbody = false;
                 //ControlMovement.canDisembody = false;
-                plyCntrl.move = false;
+                plyCntrl.canMove = false;
                 treadmill.SetPlyCntrl(plyCntrl);
                 collision.transform.position = lockPos.position;
             }
@@ -33,7 +33,7 @@ public class TreadmillTrigger : MonoBehaviour
         {
             ControlMovement.canEmbody = true;
             ControlMovement.canDisembody = true;
-            plyCntrl.move = true;
+            plyCntrl.canMove = true;
             treadmill.SetPlyCntrl(null);
         }
     }

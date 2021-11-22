@@ -81,7 +81,7 @@ public class Treadmill : MonoBehaviour
             //When gObject is at the endPos, unlock the player
             else
             {
-                plyCntrl.move = true;
+                plyCntrl.canMove = true;
             }
         }
         else if(value == '-')
@@ -93,7 +93,7 @@ public class Treadmill : MonoBehaviour
             //When gObject is at the restPos, unlock the player
             else
             {
-                plyCntrl.move = true;
+                plyCntrl.canMove = true;
             }
         }
     }
