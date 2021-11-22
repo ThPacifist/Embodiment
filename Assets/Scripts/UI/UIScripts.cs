@@ -20,6 +20,7 @@ public class UIScripts : MonoBehaviour
     public GameObject[] settingsMenu;
     public GameObject settingsButton;
     public GameObject menuButton;
+    public GameObject resumeButton;
     public EventSystem eventS;
     public string titleScreen;
 
@@ -86,6 +87,8 @@ public class UIScripts : MonoBehaviour
         Cursor.visible = true;
         UI.SetActive(true);
         Time.timeScale = 0;
+        eventS.SetSelectedGameObject(settingsButton);
+        eventS.SetSelectedGameObject(resumeButton);
     }
 
     //Goes whenever the ui is made not active
