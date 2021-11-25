@@ -170,7 +170,7 @@ public class PlyController : MonoBehaviour
                         }
                         else
                         {
-                            audioManager.Play("boneStep", true);
+                            //audioManager.Play("boneStep", true);
                         }
                     }
                 }
@@ -205,7 +205,7 @@ public class PlyController : MonoBehaviour
             if (audioManager != null)
             {
                 audioManager.Stop("blobStep");
-                audioManager.Stop("boneStep");
+                //audioManager.Stop("boneStep");
             }
         }
 
@@ -259,6 +259,15 @@ public class PlyController : MonoBehaviour
         if (OnWall)
         {
             plyAnim.SetBool("Climb", true);
+
+            if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y != 0)
+            {
+                plyAnim.SetBool("Walking", true);
+            }
+            else
+            {
+                plyAnim.SetBool("Walking", false);
+            }
         }
         else
         {
@@ -471,7 +480,7 @@ public class PlyController : MonoBehaviour
     }
 
     //Checks if the player is on the ground
-    bool isGrounded()
+    public bool isGrounded()
     {
         float dist = 0.05f;
         RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.size, capCollider.direction, 0f, Vector2.down, 
@@ -516,6 +525,11 @@ public class PlyController : MonoBehaviour
     {
         canMove = true;
         canJump = true;
+    }
+
+    public void PlaySoundFromAudioManager(string name)
+    {
+        audioManager.PlayAnyway(name);
     }
 
     //Used for bug testing
