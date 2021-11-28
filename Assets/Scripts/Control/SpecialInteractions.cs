@@ -158,13 +158,20 @@ public class SpecialInteractions : MonoBehaviour
                     //Pick up Skeleton
                     if (skeleton != null && !isAttached && !skelHeld)
                     {
-                        if (!plyCntrl.Left && !plyCntrl.Right)
+                        if (!CheckSpaceForSkelo())
                         {
-                            plyAnim.SetBool("isGrabbing", true);
+                            if (!plyCntrl.Left && !plyCntrl.Right)
+                            {
+                                plyAnim.SetBool("isGrabbing", true);
+                            }
+                            else
+                            {
+                                PickUpSkeleton(skeleton);
+                            }
                         }
                         else
                         {
-                            PickUpSkeleton(skeleton);
+                            Debug.LogError("There is not enough space for skeleton");
                         }
                     }
                     //Tentacle swing
@@ -192,23 +199,30 @@ public class SpecialInteractions : MonoBehaviour
                     {
                         if (boxTag == "LBox" || boxTag == "MBox")
                         {
-                            if (audioManager != null)
+                            if (!CheckSpaceForBox(box))
                             {
-                                audioManager.Play("boxGrab", true);
+                                if (audioManager != null)
+                                {
+                                    audioManager.Play("boxGrab", true);
+                                }
+                                //Attach box
+                                //box.transform.parent = player;
+                                heldBox = box;
+                                //heldBox.gravityScale = 0;
+                                //heldBox.freezeRotation = true;
+                                objectHeld = true;
+                                fixedJ.enabled = true;
+                                fixedJ.connectedBody = heldBox;
+                                heldBox.transform.position = HheldPos.transform.position;
+                                //Cooldown
+                                cooldownTime = 1;
+                                specialReady = false;
+                                StartCoroutine("SpecialCoolDown");
                             }
-                            //Attach box
-                            //box.transform.parent = player;
-                            heldBox = box;
-                            //heldBox.gravityScale = 0;
-                            //heldBox.freezeRotation = true;
-                            objectHeld = true;
-                            fixedJ.enabled = true;
-                            fixedJ.connectedBody = heldBox;
-                            heldBox.transform.position = HheldPos.transform.position;
-                            //Cooldown
-                            cooldownTime = 1;
-                            specialReady = false;
-                            StartCoroutine("SpecialCoolDown");
+                            else
+                            {
+                                Debug.LogError("Not Enough space for box");
+                            }
                         }
                         else if(boxTag == "HBox")
                         {
@@ -366,6 +380,41 @@ public class SpecialInteractions : MonoBehaviour
         specialReady = true;
     }
 
+    //Checks to see if there is enough space for the box, so that it does not get put through a wall
+    bool CheckSpaceForBox(Rigidbody2D rb)
+    {
+        BoxCollider2D[] cols = new BoxCollider2D[2];
+        rb.GetAttachedColliders(cols); //Gets all the colliders attached to a box
+        BoxCollider2D col;
+
+        //Determines which collider is the box collider, versus the trigger collider
+        if(cols[0].isTrigger)
+        {
+            col = cols[1];
+        }
+        else
+        {
+            col = cols[0];
+        }
+
+        float dist = 0;
+        //Casts a box (much like raycast) into the scene
+        RaycastHit2D hit = Physics2D.BoxCast(HheldPos.position, col.size, 0f, Vector2.down, dist, 3);
+
+        return hit.collider != null; //If collider exists, sends true. Otherwise false
+    }
+
+    //Checks to see if there is enough space for the skeleton, so that it does not get put through a wall
+    bool CheckSpaceForSkelo()
+    {
+        Vector2 start = skelHeldPos.position + Vector3.up; //Pos of skelHeldPos up one
+        float dist = 0.2f;
+
+        RaycastHit2D hit = Physics2D.Raycast(start, Vector2.down, dist, 3);//Sends a ray from start and will only hit colliders in Jumpables layer
+        Debug.DrawRay(start, Vector2.down, Color.white);
+
+        return hit.collider != null; //If collider exists, sends true. Otherwise false
+    }
 
     //Creates the tentacle between the lamp and the player
     public void ShootTentril()

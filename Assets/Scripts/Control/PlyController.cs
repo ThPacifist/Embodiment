@@ -315,9 +315,20 @@ public class PlyController : MonoBehaviour
                     plyAnim.SetInteger("Facing", 0);
                 }
             }
-            else if (this.transform.localScale.x < 0)//When player is facing right, , while holding a heavy box
+            else if (this.transform.localScale.x < 0)//When player is facing right, while holding a heavy box
             {
-                
+                if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)//When player is pressing right
+                {
+                    plyAnim.SetInteger("Facing", 1);
+                }
+                else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)//When player is pressing left
+                {
+                    plyAnim.SetInteger("Facing", -1);
+                }
+                else
+                {
+                    plyAnim.SetInteger("Facing", 0);
+                }
             }
         }
 
