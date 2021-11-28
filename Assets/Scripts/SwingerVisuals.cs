@@ -19,17 +19,23 @@ public class SwingerVisuals : MonoBehaviour
         if (collision.CompareTag("Blob"))
         {
             interaction = collision.GetComponent<SpecialInteractions>();
-            if (interaction != null)
-                interaction.SetSwingerGameObject(gameObject);
-            indicator.SetActive(true);
+            if (interaction.lamp == null)
+            {
+                if (interaction != null)
+                    interaction.SetSwingerGameObject(gameObject);
+                indicator.SetActive(true);
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (interaction != null)
         {
-            interaction.SetSwingerGameObject(null);
-            interaction = null;
+            if (interaction.lamp == this.gameObject)
+            {
+                interaction.SetSwingerGameObject(null);
+                interaction = null;
+            }
             indicator.SetActive(false);
         }
     }

@@ -30,11 +30,14 @@ public class BoxTrigger : MonoBehaviour
                 if (!CheckBoundsForHuman(collision) && collision.GetComponent<PlyController>().isGrounded())
                 {
                     interaction = collision.GetComponent<SpecialInteractions>();
-                    if (collision != null)
+                    if (!interaction.objectHeld)
                     {
-                        interaction.SetHeldBox(this.transform.parent.GetComponent<Rigidbody2D>(), this.transform.parent.tag);
+                        if (collision != null)
+                        {
+                            interaction.SetHeldBox(this.transform.parent.GetComponent<Rigidbody2D>(), this.transform.parent.tag);
+                        }
+                        Indicator.SetActive(true);
                     }
-                    Indicator.SetActive(true);
                 }
             }
         }
@@ -44,8 +47,11 @@ public class BoxTrigger : MonoBehaviour
     {
         if (interaction != null)
         {
-            interaction.SetHeldBox(null, "");
-            interaction = null;
+            if (interaction.box == this.transform.parent.GetComponent<Rigidbody2D>())
+            {
+                interaction.SetHeldBox(null, "");
+                interaction = null;
+            }
             Indicator.SetActive(false);
         }
     }

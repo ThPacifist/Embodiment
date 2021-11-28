@@ -38,7 +38,8 @@ public class SpecialInteractions : MonoBehaviour
     //Private variables
     private bool specialReady = true;
     private float cooldownTime;
-    Rigidbody2D box;
+    [HideInInspector]
+    public Rigidbody2D box;
     [HideInInspector]
     public SkeletonTrigger skeleton;
     
