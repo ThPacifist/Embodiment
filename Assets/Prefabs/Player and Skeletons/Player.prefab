@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 941227094567743099}
   - component: {fileID: 6005473104013902345}
   - component: {fileID: 2083120153341714083}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EmbodyField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,6 +371,7 @@ MonoBehaviour:
   objectHeld: 0
   skelHeld: 0
   HboxHeld: 0
+  box: {fileID: 0}
   skeleton: {fileID: 0}
   HheldPos: {fileID: 1651337005}
   BheldPos: {fileID: 1373430572}
