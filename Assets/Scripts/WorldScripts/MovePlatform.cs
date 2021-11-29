@@ -19,7 +19,7 @@ public class MovePlatform : GameAction
 
     public override void Action()
     {
-
+        move = !move;
     }
 
     public override void Action(bool b)

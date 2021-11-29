@@ -177,7 +177,7 @@ public class SpecialInteractions : MonoBehaviour
                     //Tentacle swing
                     else if (lamp != null && !skelHeld)
                     {
-                        ShootTentril();
+                        ShootTendril();
                     }
                     //Drop skeleton
                     else if(skelHeld)
@@ -417,7 +417,7 @@ public class SpecialInteractions : MonoBehaviour
     }
 
     //Creates the tentacle between the lamp and the player
-    public void ShootTentril()
+    public void ShootTendril()
     {
         //Debug.Log("Spring on " + spring.isActiveAndEnabled);
         if (audioManager != null)
