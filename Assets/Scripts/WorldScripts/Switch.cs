@@ -24,9 +24,9 @@ public class Switch : MonoBehaviour
     GameAction[] behaviors; //behavior that is triggered when the switch is active
 
     //Public Variables
-    public bool Light;
-    public bool Medium;
-    public bool Heavy;
+    public bool interact;
+    public bool onePress;
+    public bool Constant;
     public bool Lever;
     public bool weight;
     public bool plate;
@@ -40,16 +40,16 @@ public class Switch : MonoBehaviour
     bool b;
     public float dist;
 
-    /* Light Buttons:
+    /* interact Buttons:
      * - Press the interact button to activate the button
      */
 
-    /* Medium Buttons:
+    /* onePress Buttons:
      * - Can be pressed by any creature or object
      * - Will stay pressed once pressed
      */
 
-    /* Heavy Button:
+    /* Constant Button:
      * - Can only be pressed by light and heavy boxes, and the human skeleton
      * - Will not stay pressed if object is moved off of button
      */
@@ -75,7 +75,7 @@ public class Switch : MonoBehaviour
     {
         //Gets the distance between the button and the base
         dist = Vector2.Distance(this.gameObject.transform.position, spring.transform.position);
-        if (Heavy)
+        if (Constant)
         {
             if(!isTouching || !active)// If there is not an object touching the button, move button to its original position
             {
@@ -86,7 +86,7 @@ public class Switch : MonoBehaviour
             }
         }
 
-        if(Heavy || Medium)// If either the heavy or medium bool is true
+        if(Constant || onePress)// If either the heavy or medium bool is true
         {
             if(dist < 0.3f) //If the position of the button is less than its rest position, activate the behavior
             {
@@ -103,7 +103,7 @@ public class Switch : MonoBehaviour
                         active = true;
                     }
                 }
-                else if(Medium)
+                else if(onePress)
                 {
                     spring.autoConfigureConnectedAnchor = false;
                     ActivateBehavior(false);
@@ -125,7 +125,7 @@ public class Switch : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         //Check if the button is medium/heavy
-        if (Medium || Heavy)
+        if (onePress || Constant)
         {
             isTouching = true;
             //Get weight of object weighing the button down
@@ -153,7 +153,7 @@ public class Switch : MonoBehaviour
     private void OnCollisionExit2D(Collision2D other)
     {
         //Check if the button is medium/heavy
-        if (Medium || Heavy)
+        if (onePress || Constant)
         {
             //Not active, nothing is touching it, reset weight
             active = false;
@@ -171,7 +171,7 @@ public class Switch : MonoBehaviour
         if (GameAction.PlayerTags(other.tag))
         {
             //Check if it is light or a lever
-            if (Light || Lever)
+            if (interact || Lever)
             {
                 b = true;
                 PlyController.Interact += Interact;
@@ -184,7 +184,7 @@ public class Switch : MonoBehaviour
         if (GameAction.PlayerTags(other.tag))
         {
             //Check if the button is light or a lever
-            if (Light || Lever)
+            if (interact || Lever)
             {
                 b = false;
                 PlyController.Interact -= Interact;
