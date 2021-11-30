@@ -1011,6 +1011,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6539517703296966407}
     m_Modifications:
+    - target: {fileID: 643722302639135539, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
+      propertyPath: m_Targets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 643722302639135539, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
+      propertyPath: m_Targets.Array.data[0].target
+      value: 
+      objectReference: {fileID: 4689708833704345549}
+    - target: {fileID: 643722304192558105, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -18.052269
+      objectReference: {fileID: 0}
+    - target: {fileID: 643722304192558105, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 286.05634
+      objectReference: {fileID: 0}
+    - target: {fileID: 643722304327122384, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2048893818817401718, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 82
+      objectReference: {fileID: 0}
+    - target: {fileID: 2048893818817401718, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 572.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136359313461025573, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 4689708833704345549}
     - target: {fileID: 5727301856677842813, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: player
       value: 

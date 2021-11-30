@@ -8,7 +8,6 @@ public class PlyController : MonoBehaviour
     //Assets and Public Variables
     PlayerControls PlyCtrl;
     SpecialInteractions SpcIntr;
-    public Transform player;
     public Transform attackBox;
     public Rigidbody2D rb;
     public SpriteRenderer plySprite;
@@ -91,7 +90,7 @@ public class PlyController : MonoBehaviour
         if (canMove)
         {
             //Movement for Fish
-            if (player.CompareTag("Fish"))
+            if (this.CompareTag("Fish"))
             {
                 //Movement when in water
                 if (inWater)
@@ -123,7 +122,7 @@ public class PlyController : MonoBehaviour
             else
             {
                 //Cat climb movement
-                if (player.CompareTag("Cat") && OnWall)
+                if (this.CompareTag("Cat") && OnWall)
                 {
                     rb.gravityScale = 0;
                     rb.AddForce(catDir, ForceMode2D.Impulse);
@@ -164,7 +163,7 @@ public class PlyController : MonoBehaviour
                     if (audioManager != null)
                     {
                         audioManager.Stop("catClimb");
-                        if (player.tag == "Blob")
+                        if (tag == "Blob")
                         {
                             audioManager.Play("blobStep", true);
                         }
@@ -377,7 +376,7 @@ public class PlyController : MonoBehaviour
             if (Time.timeScale > 0)
             {
                 //Fly when bat
-                if (player.CompareTag("Bat") && batJump)
+                if (CompareTag("Bat") && batJump)
                 {
                     batJump = false;
                     rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
@@ -389,7 +388,7 @@ public class PlyController : MonoBehaviour
                     StartCoroutine(FlyCoolDown());
                 }
                 //Side jump when climbing
-                else if (player.CompareTag("Cat") && OnWall)
+                else if (CompareTag("Cat") && OnWall)
                 {
                     rb.AddForce((-catDir * 25) - new Vector2(rb.velocity.x, 0), ForceMode2D.Impulse);
                     catDir = -catDir;
@@ -430,7 +429,7 @@ public class PlyController : MonoBehaviour
     //Check when a trigger is entered
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (player.CompareTag("Fish"))
+        if (CompareTag("Fish"))
         {
             if (other.CompareTag("Water"))
             {
@@ -441,7 +440,7 @@ public class PlyController : MonoBehaviour
                 inWater = true;
             }
         }
-        else if (player.CompareTag("Blob"))
+        else if (CompareTag("Blob"))
         {
             if (other.CompareTag("Water"))
             {
@@ -471,7 +470,7 @@ public class PlyController : MonoBehaviour
     //Check for when the player stays in a trigger
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (player.CompareTag("Fish"))
+        if (CompareTag("Fish"))
         {
             if (other.CompareTag("Water"))
             {
@@ -483,14 +482,14 @@ public class PlyController : MonoBehaviour
     //Check for when the trigger is exited
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (player.CompareTag("Fish"))
+        if (CompareTag("Fish"))
         {
             if (other.CompareTag("Water"))
             {
                 inWater = false;
             }
         }
-        else if (player.CompareTag("Blob"))
+        else if (CompareTag("Blob"))
         {
             if (other.CompareTag("Water"))
             {

@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using JetBrains.Annotations;
-using System.Security.Cryptography;
-using UnityEngine.UIElements;
 
 public class SpecialInteractions : MonoBehaviour
 {
