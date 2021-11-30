@@ -12,7 +12,7 @@ public class MovingPlatformData : AntiChrist
     //Variables
     private MovingPlatforms selectedPlatform;
     private Vector2 position;
-    private float currentPos;
+    private Vector2 currentPos;
     private int moveTowards;
     private bool moving;
 
@@ -23,7 +23,7 @@ public class MovingPlatformData : AntiChrist
         selectedPlatform = savedObject.GetComponent<MovingPlatforms>();
         moving = selectedPlatform.moving;
         moveTowards = selectedPlatform.moveTowards;
-        currentPos = selectedPlatform.currentPos;
+        currentPos = selectedPlatform.transform.position;
         position = savedObject.transform.position;
     }
 
@@ -32,7 +32,7 @@ public class MovingPlatformData : AntiChrist
     {
         moving = selectedPlatform.moving;
         moveTowards = selectedPlatform.moveTowards;
-        currentPos = selectedPlatform.currentPos;
+        currentPos = selectedPlatform.transform.position;
         position = savedObject.transform.position;
     }
 
@@ -41,7 +41,7 @@ public class MovingPlatformData : AntiChrist
     {
         selectedPlatform.moving = moving;
         selectedPlatform.moveTowards = moveTowards;
-        selectedPlatform.currentPos = currentPos;
+        selectedPlatform.transform.position = currentPos;
         savedObject.transform.position = position;
         selectedPlatform.stopped = false;
     }

@@ -19,6 +19,8 @@ public class MainMenu : MonoBehaviour
     public GameObject settingsButtons;
     public GameObject levelButtons;
     public GameObject menuButton;
+    public GameObject men2Button;
+    public GameObject newGameButton;
     public TransitionController transCtrl;
     public EventSystem eventS;
 
@@ -75,7 +77,7 @@ public class MainMenu : MonoBehaviour
         //Disable menu buttons
         menuButtons.gameObject.SetActive(false);
         //Set active button
-        eventS.SetSelectedGameObject(menuButton);
+        eventS.SetSelectedGameObject(men2Button);
     }
 
     //Start new game
@@ -112,7 +114,7 @@ public class MainMenu : MonoBehaviour
         //Disable manu buttons
         levelButtons.gameObject.SetActive(false);
         //Set active button
-        eventS.SetSelectedGameObject(menuButton);
+        eventS.SetSelectedGameObject(newGameButton);
     }
 
     //Timer for starting the game when new game is pressed
