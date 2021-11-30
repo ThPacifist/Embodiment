@@ -404,7 +404,7 @@ public class PlyController : MonoBehaviour
                     else if (spcInter.isAttached)
                     {
                         spcInter.ShootTendril();
-                        rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
+                        rb.AddForce((rb.velocity * 2) - rb.velocity, ForceMode2D.Impulse);
                     }
                 }
                 if (!delayGroundCheck)
