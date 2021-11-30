@@ -28,7 +28,7 @@ public class MovingPlatforms : GameAction
     private Vector2 currentPos;
     private Vector2 targetPos;
     private Vector2 direction;
-    private Vector2 velocity;
+    public Vector2 velocity;
     private bool playerOn;
     private bool gotSignal;
     private bool slowToStop;
@@ -59,7 +59,6 @@ public class MovingPlatforms : GameAction
         velocity = direction * speed;
         //Stop endpoint collision at the beginning
         stopPointDetection = true;
-        StartCoroutine("pointWait");
     }
 
     //FixedUpdate is called once per frame
@@ -77,15 +76,12 @@ public class MovingPlatforms : GameAction
         //Slow to a stop
         if(slowToStop)
         {
-            //Slow down
-            //velocity *= 0.5f;
-            //Check for stop
-            if(velocity.x + velocity.y < 0.5)
+            if (!stopped)
             {
+                //Check for stop
                 //Stop and wait
                 stopped = true;
                 slowToStop = false;
-                StartCoroutine("wait");
                 //Set up the next velocity
                 currentPos = platform.position;
                 targetPos = points[moveTowards].position;
@@ -101,27 +97,30 @@ public class MovingPlatforms : GameAction
     //Check if it has hit an endpoint
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("I'm in a trigger");
         if (!stopPointDetection)
         {
             if (collision.CompareTag("Endpoint"))
             {
-                Debug.Log("Hit endpoint");
-                stopPointDetection = true;
-                StartCoroutine("pointWait");
-                StartCoroutine("wait");
-                //Stop and wait
-                slowToStop = true;
-                //Check if it should move
-                if ((needSignal && !gotSignal) || (waitForPlayer && !playerOn))
+                //Make sure it hits the right one
+                if (collision.name == points[moveTowards].name)
                 {
-                    moving = false;
-                }
-                //Set the next destination up
-                moveTowards++;
-                if (moveTowards >= points.Length)
-                {
-                    moveTowards = 0;
+                    //Stop and wait
+                    slowToStop = true;
+                    stopped = true;
+                    //Check if it should move
+                    if ((needSignal && !gotSignal) || (waitForPlayer && !playerOn))
+                    {
+                        moving = false;
+                    }
+                    //Set the next destination up
+                    moveTowards++;
+                    if (moveTowards >= points.Length)
+                    {
+                        moveTowards = 0;
+                    }
+                    //Stop the platform for the wait time
+                    platformRB.velocity = Vector2.zero;
+                    StartCoroutine("wait");
                 }
             }
         }
@@ -132,15 +131,6 @@ public class MovingPlatforms : GameAction
     {
         yield return new WaitForSeconds(waitTime);
         stopped = false;
-        Debug.Log(moving);
-    }
-
-    //Wait before an endpoint can be hit
-    IEnumerator pointWait()
-    {
-        yield return new WaitForSeconds(waitTime + 1);
-        stopPointDetection = false;
-        Debug.Log("Pointwait over");
     }
 
     /*
