@@ -15,115 +15,53 @@ public class MovingPlatforms : GameAction
     //Public variables and assets
     public Transform platform;
     public Transform[] points;
-    public Rigidbody2D platformRB;
     public float waitTime;
     public float speed;
     public bool moving;
     public bool stopped;
+    public float currentPos;
     public int moveTowards;
-    public bool waitForPlayer;
-    public bool needSignal;
-
-    //Private variables
-    private Vector2 currentPos;
-    private Vector2 targetPos;
-    private Vector2 direction;
-    public Vector2 velocity;
-    private bool playerOn;
-    private bool gotSignal;
-    private bool slowToStop;
-    private bool stopPointDetection;
 
     //Action
     public override void Action(bool move)
     {
-        if(move)
+        if (move)
         {
-            gotSignal = false;
+            moving = false;
         }
         else
         {
-            gotSignal = true;
+            moving = true;
         }
     }
 
-    //Do this on awake
-    private void Awake()
-    {
-        //Set up the next velocity
-        currentPos = platform.position;
-        targetPos = points[moveTowards].position;
-        direction.x = targetPos.x - currentPos.x;
-        direction.y = targetPos.y - currentPos.y;
-        direction.Normalize();
-        velocity = direction * speed;
-        //Stop endpoint collision at the beginning
-        stopPointDetection = true;
-    }
 
     //FixedUpdate is called once per frame
     void FixedUpdate()
     {
         //If it should be moving do this
-        if(moving)
+        if (moving)
         {
             if (!stopped)
             {
-                //Move it
-                platformRB.velocity = velocity;
-            }
-        }
-        //Slow to a stop
-        if(slowToStop)
-        {
-            if (!stopped)
-            {
-                //Check for stop
-                //Stop and wait
-                stopped = true;
-                slowToStop = false;
-                //Set up the next velocity
-                currentPos = platform.position;
-                targetPos = points[moveTowards].position;
-                direction.x = targetPos.x - currentPos.x;
-                direction.y = targetPos.y - currentPos.y;
-                direction.Normalize();
-                velocity = direction * speed;
-            }
-        }
-        
-    }
-
-    //Check if it has hit an endpoint
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!stopPointDetection)
-        {
-            if (collision.CompareTag("Endpoint"))
-            {
-                //Make sure it hits the right one
-                if (collision.name == points[moveTowards].name)
+                //Calcultate what the current position is
+                currentPos += (speed / 100);
+                //Lerp it
+                platform.position = Vector2.Lerp(points[Mathf.Abs(moveTowards - 1)].position, points[moveTowards].position, currentPos);
+                //Find out if it is at the endpoint
+                if (currentPos >= 1)
                 {
-                    //Stop and wait
-                    slowToStop = true;
+                    //Reset endpoint
+                    currentPos = 0;
+                    //Set to move towards the endpoint
+                    moveTowards = Mathf.Abs(moveTowards - 1);
+                    //Stop
                     stopped = true;
-                    //Check if it should move
-                    if ((needSignal && !gotSignal) || (waitForPlayer && !playerOn))
-                    {
-                        moving = false;
-                    }
-                    //Set the next destination up
-                    moveTowards++;
-                    if (moveTowards >= points.Length)
-                    {
-                        moveTowards = 0;
-                    }
-                    //Stop the platform for the wait time
-                    platformRB.velocity = Vector2.zero;
                     StartCoroutine("wait");
                 }
             }
         }
+
     }
 
     //Wait after hitting an end point
@@ -131,13 +69,13 @@ public class MovingPlatforms : GameAction
     {
         yield return new WaitForSeconds(waitTime);
         stopped = false;
+        Debug.Log(moving);
     }
 
-    /*
     //Move stuff with it that is touchng it
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(GameAction.PlayerTags(collision.collider.tag))
+        if (GameAction.PlayerTags(collision.collider.tag))
         {
             collision.transform.SetParent(platform);
         }
@@ -151,5 +89,4 @@ public class MovingPlatforms : GameAction
             collision.transform.SetParent(null);
         }
     }
-    */
 }
