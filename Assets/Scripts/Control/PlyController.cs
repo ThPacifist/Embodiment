@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class PlyController : MonoBehaviour
 {
     //Assets and Public Variables
@@ -23,6 +25,7 @@ public class PlyController : MonoBehaviour
     public float jumpHeight;
     public bool canMove = true;
     public bool canJump = true;
+    PlayerInput test;
 
     [SerializeField]
     LayerMask groundLayerMask;

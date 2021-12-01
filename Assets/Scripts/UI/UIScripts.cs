@@ -28,22 +28,55 @@ public class UIScripts : MonoBehaviour
     private bool showSettings = false;
     private bool paused = false;
     private bool canPause = true;
+    public float mouseTimer = 4;
+    PlayerControls plyCntrl;
+    Vector2 lastPos;
+    Vector2 curPos;
+
+    private void Awake()
+    {
+        plyCntrl = new PlayerControls();
+        Cursor.visible = false;
+    }
 
     //Do on enable and do on disable
     private void OnEnable()
     {
+        plyCntrl.Enable();
         PlyController.Pause += pause;
     }
 
     private void OnDisable()
     {
+        plyCntrl.Disable();
         PlyController.Pause -= pause;
     }
 
     //Do at start
     private void Start()
     {
-        //Cursor.visible = false;
+        lastPos = plyCntrl.UI.Point.ReadValue<Vector2>();
+    }
+
+    private void Update()
+    {
+        curPos = plyCntrl.UI.Point.ReadValue<Vector2>();
+        if(curPos != lastPos)
+        {
+            Cursor.visible = true;
+            mouseTimer = 0;
+        }
+        
+        if(mouseTimer < 4)
+        {
+            mouseTimer += Time.deltaTime;
+        }
+
+        if(mouseTimer >= 4)
+        {
+            Cursor.visible = false;
+        }
+        lastPos = curPos;
     }
 
     //Switch from settings to menu or back
@@ -144,5 +177,12 @@ public class UIScripts : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene(); 
         SceneManager.LoadScene(scene.name);
         Time.timeScale = 1;
+    }
+
+    bool HasMouseMoved()
+    {
+        plyCntrl.UI.Point.ReadValue<Vector2>();
+
+        return true;
     }
 }
