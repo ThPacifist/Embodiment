@@ -18,6 +18,7 @@ public class PlyController : MonoBehaviour
     public static Action Special = delegate { };
     public static Action Pause = delegate { };
     public static Action Death = delegate { };
+    public ControlMovement cntrlMove;
     public float speed;
     public float jumpHeight;
     public bool canMove = true;
@@ -225,6 +226,7 @@ public class PlyController : MonoBehaviour
         {
             rb.velocity *= new Vector2(1, 0.5f);
         }
+
 
         #region Animation Block
         if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && canMove)

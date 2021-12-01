@@ -69,7 +69,8 @@ public class ControlMovement : MonoBehaviour
         //If player is not embodying a skeleton, embody the skeleton
         if(skeleton != null)
         {
-            if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), skeleton) && canEmbody)
+            if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), skeleton) && canEmbody 
+                && plyCntrl.isGrounded())
             {
                 if (audioManager != null)
                 {
@@ -118,7 +119,7 @@ public class ControlMovement : MonoBehaviour
     {
         if (heldSkeleton != null)
         {
-            if (!plyCntrl.InWater && !spIntr.objectHeld && canDisembody)
+            if (!plyCntrl.InWater && !spIntr.objectHeld && canDisembody && plyCntrl.isGrounded())
             {
                 if (audioManager != null)
                 {
