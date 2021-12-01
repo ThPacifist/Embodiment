@@ -24,6 +24,7 @@ public class ControlMovement : MonoBehaviour
     public Transform heldSkeleton;
     public Transform player;
     public PlyController plyCntrl;
+    public PlayerData playerData;
     public SpecialInteractions spIntr;
     public CapsuleCollider2D plyCol;
     public Animator animPly;
@@ -198,6 +199,7 @@ public class ControlMovement : MonoBehaviour
         {
             heldSkeleton.parent = null;
             heldSkeleton.gameObject.SetActive(true);
+            playerData.heldSkeleton = heldSkeleton;
             heldSkeleton = null;
         }
 
