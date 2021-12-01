@@ -97,31 +97,34 @@ public class MovingPlatforms : GameAction
     //Check if it has hit an endpoint
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!stopPointDetection)
+        if (collision.CompareTag("Endpoint"))
         {
-            if (collision.CompareTag("Endpoint"))
+            //Make sure it hits the right one
+            if (collision.name == points[moveTowards].name)
             {
-                //Make sure it hits the right one
-                if (collision.name == points[moveTowards].name)
+                //Stop and wait
+                stopped = true;
+                velocity = Vector2.zero;
+                platformRB.velocity = Vector2.zero;
+                StartCoroutine("wait");
+                //Check if it should move
+                if ((needSignal && !gotSignal) || (waitForPlayer && !playerOn))
                 {
-                    //Stop and wait
-                    slowToStop = true;
-                    stopped = true;
-                    //Check if it should move
-                    if ((needSignal && !gotSignal) || (waitForPlayer && !playerOn))
-                    {
-                        moving = false;
-                    }
-                    //Set the next destination up
-                    moveTowards++;
-                    if (moveTowards >= points.Length)
-                    {
-                        moveTowards = 0;
-                    }
-                    //Stop the platform for the wait time
-                    platformRB.velocity = Vector2.zero;
-                    StartCoroutine("wait");
+                    moving = false;
                 }
+                //Set the next destination up
+                moveTowards++;
+                if (moveTowards >= points.Length)
+                {
+                    moveTowards = 0;
+                }
+                //Set up the next velocity
+                currentPos = platform.position;
+                targetPos = points[moveTowards].position;
+                direction.x = targetPos.x - currentPos.x;
+                direction.y = targetPos.y - currentPos.y;
+                direction.Normalize();
+                velocity = direction * speed;
             }
         }
     }
@@ -133,7 +136,6 @@ public class MovingPlatforms : GameAction
         stopped = false;
     }
 
-    /*
     //Move stuff with it that is touchng it
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -151,5 +153,4 @@ public class MovingPlatforms : GameAction
             collision.transform.SetParent(null);
         }
     }
-    */
 }
