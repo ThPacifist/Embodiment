@@ -160,7 +160,10 @@ public class PlyController : MonoBehaviour
                 else if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                 {
                     //rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed) - new Vector2(rb.velocity.x, 0);
-                    rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed);
+                    if (Math.Abs(rb.velocity.x) < speed)
+                    {
+                        rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 10);
+                    }
                     if (audioManager != null)
                     {
                         audioManager.Stop("catClimb");
