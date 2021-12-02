@@ -35,29 +35,31 @@ public class MovingPlatforms : GameAction
         }
     }
 
-
     //FixedUpdate is called once per frame
     void FixedUpdate()
     {
         //If it should be moving do this
-        if (moving)
+
+        if (!stopped && moving)
         {
-            if (!stopped)
+            //Move it
+            platform.position = Vector3.MoveTowards(platform.position, points[moveTowards].transform.position, speed * Time.deltaTime);
+            //Check to see if it has hit the endpoint
+            if (platform.position == points[moveTowards].transform.position)
             {
-                //Calcultate what the current position is
-                currentPos += (speed / 100);
-                //Lerp it
-                platform.position = Vector2.Lerp(points[Mathf.Abs(moveTowards - 1)].position, points[moveTowards].position, currentPos);
-                //Find out if it is at the endpoint
-                if (currentPos >= 1)
+                //Change movement target
+                moveTowards++;
+                if (moveTowards >= points.Length)
                 {
-                    //Reset endpoint
-                    currentPos = 0;
-                    //Set to move towards the endpoint
-                    moveTowards = Mathf.Abs(moveTowards - 1);
-                    //Stop
-                    stopped = true;
-                    StartCoroutine("wait");
+                    moveTowards = 0;
+                }
+                //Wait a little
+                stopped = true;
+                StartCoroutine("wait");
+                //Make check if it should move
+                if ((!gotSignal && needSignal) || (!playerOn && waitForPlayer))
+                {
+                    moving = false;
                 }
             }
         }
@@ -75,18 +77,26 @@ public class MovingPlatforms : GameAction
     //Move stuff with it that is touchng it
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (GameAction.PlayerTags(collision.collider.tag))
+        //Check if it was the player
+        if(GameAction.PlayerTags(collision.collider.tag))
         {
+            //Parent to platform
             collision.transform.SetParent(platform);
+            //Set playerOn
+            playerOn = true;
         }
     }
 
     //Don't move stuff with it that isn't touching it
     private void OnCollisionExit2D(Collision2D collision)
     {
+        //Check if it was the player
         if (GameAction.PlayerTags(collision.collider.tag))
         {
+            //Remove parent
             collision.transform.SetParent(null);
+            //Set playerOn
+            playerOn = false;
         }
     }
 }
