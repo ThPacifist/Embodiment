@@ -28,7 +28,7 @@ public class UIScripts : MonoBehaviour
     private bool showSettings = false;
     private bool paused = false;
     private bool canPause = true;
-    public float mouseTimer = 4;
+    float mouseTimer = 4;
     PlayerControls plyCntrl;
     Vector2 lastPos;
     Vector2 curPos;

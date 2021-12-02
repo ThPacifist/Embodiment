@@ -141,6 +141,12 @@ public class SpecialInteractions : MonoBehaviour
         }
     }
 
+    //Sets lever value
+    public void SetLever(Switch l)
+    {
+        lever = l;
+    }
+
     //Special for blob is tendril grab and swing
     //Special for cat is climb or cat scratch
     //Special for human is to pick up boxes up to medium weight

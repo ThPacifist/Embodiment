@@ -19,6 +19,8 @@ public class Switch : MonoBehaviour
     GameObject buttonBase;
     [SerializeField]
     SpringJoint2D spring;
+    [SerializeField]
+    GameObject indicator;
 
     [SerializeField]
     GameAction[] behaviors; //behavior that is triggered when the switch is active
@@ -39,6 +41,7 @@ public class Switch : MonoBehaviour
     private int currentWeight = 0;
     bool b;
     public float dist;
+    SpecialInteractions interaction;
 
     /* interact Buttons:
      * - Press the interact button to activate the button
@@ -171,10 +174,20 @@ public class Switch : MonoBehaviour
         if (GameAction.PlayerTags(other.tag))
         {
             //Check if it is light or a lever
-            if (interact || Lever)
+            if (interact)
             {
                 b = true;
                 PlyController.Interact += Interact;
+            }
+            else if(Lever)
+            {
+                interaction = other.GetComponent<SpecialInteractions>();
+                indicator.SetActive(true);
+
+                if (interaction != null)
+                {
+                    interaction.SetLever(this);
+                }
             }
         }
     }
@@ -184,10 +197,19 @@ public class Switch : MonoBehaviour
         if (GameAction.PlayerTags(other.tag))
         {
             //Check if the button is light or a lever
-            if (interact || Lever)
+            if (interact)
             {
                 b = false;
                 PlyController.Interact -= Interact;
+            }
+            else if (Lever && other.CompareTag("Fish"))
+            {
+                if (interaction != null)
+                {
+                    interaction.SetLever(null);
+                    interaction = null;
+                }
+                indicator.SetActive(false);
             }
         }
     }
