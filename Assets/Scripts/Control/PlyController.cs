@@ -98,7 +98,10 @@ public class PlyController : MonoBehaviour
                     //Move when the player is pressing buttons
                     if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
                     {
-                        rb.velocity += (Vector2.one * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed) - new Vector2(rb.velocity.x, rb.velocity.y);
+                        if (Math.Abs(rb.velocity.x + rb.velocity.y) < speed)
+                        {
+                            rb.AddForce(Vector2.one * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed * 10);
+                        }
                     }
                 }
                 //Movement when on the ground
@@ -107,7 +110,10 @@ public class PlyController : MonoBehaviour
                     //Move when the player is pressing buttons
                     if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                     {
-                        rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.3f) - new Vector2(rb.velocity.x, 0);
+                        if (Math.Abs(rb.velocity.x) < speed)
+                        {
+                            rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.3f);
+                        }
                     }
                 }
                 else
@@ -159,11 +165,12 @@ public class PlyController : MonoBehaviour
                 //Regular grounded movement
                 else if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                 {
-                    //rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed) - new Vector2(rb.velocity.x, 0);
+                    //Movement
                     if (Math.Abs(rb.velocity.x) < speed)
                     {
                         rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 10);
                     }
+                    //Audio
                     if (audioManager != null)
                     {
                         audioManager.Stop("catClimb");
@@ -212,19 +219,18 @@ public class PlyController : MonoBehaviour
             }
         }
 
-        /*
         //Remove momentum while on ground
         if (PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded())
         {
             //Reduce the player's speed by half
-            rb.velocity *= new Vector2(0.5f, 1);
+            rb.velocity *= new Vector2(0.75f, 1);
             //Change any held boxes velocity to match the player
             if (spcInter.heldBox != null)
             {
                 spcInter.heldBox.velocity = rb.velocity;
             }
         }
-        */
+
         //Remove momentum while on wall
         if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y == 0 && OnWall)
         {
