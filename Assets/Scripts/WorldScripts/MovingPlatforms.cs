@@ -21,23 +21,23 @@ public class MovingPlatforms : GameAction
     public bool stopped;
     public float currentPos;
     public int moveTowards;
-
-    //Private Variables
-    bool gotSignal;
-    bool needSignal;
-    bool playerOn;
-    bool waitForPlayer;
+    public bool needSignal;
+    public bool waitForPlayer;
+    
+    //Private variables
+    private bool gotSignal;
+    private bool playerOn;
 
     //Action
     public override void Action(bool move)
     {
         if (move)
         {
-            moving = false;
+            gotSignal = false;
         }
         else
         {
-            moving = true;
+            gotSignal = true;
         }
     }
 
@@ -77,7 +77,6 @@ public class MovingPlatforms : GameAction
     {
         yield return new WaitForSeconds(waitTime);
         stopped = false;
-        Debug.Log(moving);
     }
 
     //Move stuff with it that is touchng it
