@@ -199,7 +199,6 @@ public class ControlMovement : MonoBehaviour
         {
             heldSkeleton.parent = null;
             heldSkeleton.gameObject.SetActive(true);
-            playerData.holdingSkeleton = heldSkeleton;
             heldSkeleton = null;
         }
 

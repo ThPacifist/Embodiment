@@ -11,8 +11,7 @@ public class PlayerData : AntiChrist
     public PlyController plyCtrl;
     public CapsuleCollider2D plyCol;
     public Animator animPly;
-    private Transform heldSkeleton;
-    public Transform holdingSkeleton;
+    public Transform heldSkeleton;
     public SkeletonTrigger skeleton;
     private Rigidbody2D heldBox;
     private string pTag;
@@ -28,7 +27,7 @@ public class PlayerData : AntiChrist
     {
         pTag = player.tag;
         heldBox = spcInt.heldBox;
-        heldSkeleton = holdingSkeleton;
+        heldSkeleton = ctrlMvm.heldSkeleton;
         objectHeld = spcInt.objectHeld;
         if(heldSkeleton != null)
         {
@@ -40,7 +39,7 @@ public class PlayerData : AntiChrist
     {
         pTag = player.tag;
         heldBox = spcInt.heldBox;
-        heldSkeleton = holdingSkeleton;
+        heldSkeleton = ctrlMvm.heldSkeleton;
         objectHeld = spcInt.objectHeld;
         if (heldSkeleton != null)
         {

@@ -309,12 +309,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78e6416d072a134dba3d66b487b064a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4819060323485262879}
   attackBox: {fileID: 7678000444253303998}
   rb: {fileID: 4819060323485262875}
   plySprite: {fileID: 741335704}
   plyAnim: {fileID: 366513243}
   capCollider: {fileID: 1720524858}
+  cntrlMove: {fileID: 0}
   speed: 5
   jumpHeight: 18.1
   canMove: 1
@@ -340,6 +340,7 @@ MonoBehaviour:
   heldSkeleton: {fileID: 0}
   player: {fileID: 4819060323485262879}
   plyCntrl: {fileID: 4819060323351451821}
+  playerData: {fileID: 31063976919249225}
   spIntr: {fileID: 4819060323485262864}
   plyCol: {fileID: 1720524858}
   animPly: {fileID: 366513243}
@@ -574,6 +575,7 @@ MonoBehaviour:
   plyCtrl: {fileID: 4819060323351451821}
   plyCol: {fileID: 1720524858}
   animPly: {fileID: 366513243}
+  holdingSkeleton: {fileID: 0}
   skeleton: {fileID: 0}
   fixedJ: {fileID: 1189157436}
 --- !u!255 &1189157436
