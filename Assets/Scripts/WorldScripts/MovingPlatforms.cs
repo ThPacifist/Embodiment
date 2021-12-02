@@ -22,6 +22,12 @@ public class MovingPlatforms : GameAction
     public float currentPos;
     public int moveTowards;
 
+    //Private Variables
+    bool gotSignal;
+    bool needSignal;
+    bool playerOn;
+    bool waitForPlayer;
+
     //Action
     public override void Action(bool move)
     {
