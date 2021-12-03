@@ -69,6 +69,21 @@ public class MovingPlatforms : GameAction
                 }
             }
         }
+        else if(!moving)
+        {
+            if ((gotSignal && needSignal) && !waitForPlayer)
+            {
+                moving = true;
+            }
+            else if((playerOn && waitForPlayer) && !needSignal)
+            {
+                moving = true;
+            }
+            else if((gotSignal && needSignal) && (playerOn && waitForPlayer))
+            {
+                moving = true;
+            }
+        }
 
     }
 
