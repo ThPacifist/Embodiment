@@ -4,39 +4,48 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    private float startposX, startposY;
+    //Public variables
     public GameObject cam;
     public float parallaxEffect;
-    public Vector2 limits;
+    public float limits;
+    
+
+    //Private variables
+    private Vector2 origin;
+    private Vector2 deviation;
+    private Vector2 distance;
 
     // Start is called before the first frame update
     void Start()
     {
-        startposX = transform.position.x;
-        startposY = transform.position.y;
+        //Set the middle position
+        origin = transform.position;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        float temp = (cam.transform.position.x * (1 - parallaxEffect));
-        float dist = (cam.transform.position.x * parallaxEffect);
-        float distY = (cam.transform.position.y * parallaxEffect);
-        transform.position = new Vector2(startposX + dist, startposY + distY);
-
-        /*(if(temp > startposX + length)
+        //Find the direction of the camera from this object
+        distance = cam.transform.position;
+        distance = origin - distance;
+        deviation = distance;
+        deviation.x *= -1;
+        deviation.Normalize();
+        //Find the magnitude of the effect
+        parallaxEffect = Mathf.Sqrt((distance.x * distance.x) + (distance.y * distance.y));
+        parallaxEffect *= 0.1f;
+        if(parallaxEffect > limits)
         {
-            startposX += length;
+            parallaxEffect = limits;
         }
-        else if(temp < startposX - length)
-        {
-            startposX -= length;
-        }*/
+        deviation *= parallaxEffect;
+        //Place the object
+        transform.position = origin + deviation;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position, limits);
+        Gizmos.DrawWireCube(transform.position, new Vector2(limits,limits));
     }
 }
