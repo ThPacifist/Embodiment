@@ -40,7 +40,7 @@ public class SpecialInteractions : MonoBehaviour
     [HideInInspector]
     public SkeletonTrigger skeleton;
     
-    Switch lever;
+    public Switch lever;
     string boxTag;
     AudioManager audioManager;
 
@@ -134,7 +134,7 @@ public class SpecialInteractions : MonoBehaviour
                 //Activate the lever
                 lever.Interact();
                 //Cooldown
-                cooldownTime = 2;
+                cooldownTime = 1;
                 specialReady = false;
                 StartCoroutine(SpecialCoolDown());
             }

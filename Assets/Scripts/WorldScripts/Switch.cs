@@ -21,7 +21,8 @@ public class Switch : MonoBehaviour
     SpringJoint2D spring;
     [SerializeField]
     GameObject indicator;
-
+    [SerializeField]
+    Animator anim;
     [SerializeField]
     GameAction[] behaviors; //behavior that is triggered when the switch is active
 
@@ -38,9 +39,9 @@ public class Switch : MonoBehaviour
     Vector3 restPos;
     public bool isTouching = false;
     public bool active;
-    private int currentWeight = 0;
+    int currentWeight = 0;
     bool b;
-    public float dist;
+    float dist;
     SpecialInteractions interaction;
 
     /* interact Buttons:
@@ -179,7 +180,8 @@ public class Switch : MonoBehaviour
                 b = true;
                 PlyController.Interact += Interact;
             }
-            else if(Lever)
+
+            if(Lever && other.CompareTag("Fish"))
             {
                 interaction = other.GetComponent<SpecialInteractions>();
                 indicator.SetActive(true);
@@ -202,7 +204,8 @@ public class Switch : MonoBehaviour
                 b = false;
                 PlyController.Interact -= Interact;
             }
-            else if (Lever && other.CompareTag("Fish"))
+            
+            if (Lever && other.CompareTag("Fish"))
             {
                 if (interaction != null)
                 {
@@ -216,6 +219,9 @@ public class Switch : MonoBehaviour
 
     public void Interact()
     {
+        active = !active;
+        if(Lever)
+            anim.SetBool("Flip", active);
         //This version of the behavior action call, calls the DisableSprite action function without the parameter
         //This intern calls a function which disables the sprite but without passing in a bool
         ActivateBehavior();

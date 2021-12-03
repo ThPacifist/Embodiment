@@ -10,7 +10,8 @@ public class RotateObject : GameAction
     [SerializeField]
     GameObject effectedObject;
 
-    Quaternion rotation;
+    Quaternion restRotation;
+    Quaternion endRotation;
 
     public override void Action()
     {
@@ -25,13 +26,17 @@ public class RotateObject : GameAction
     // Start is called before the first frame update
     void Awake()
     {
-        rotation = Quaternion.Euler(0, 0, EndAngle);
+        restRotation = effectedObject.transform.rotation;
+        endRotation = Quaternion.Euler(new Vector3(0, 0, EndAngle));
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3.RotateTowards(effectedObject.transform.position, new Vector3(0, 0, EndAngle), (rotationSpeed * Time.deltaTime),
-            0.0f);
+
+
+        //Vector2.SignedAngle(Vector2.up, )
+
+        effectedObject.transform.Rotate(Vector3.forward * (rotationSpeed * Time.deltaTime));
     }
 }
