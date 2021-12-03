@@ -78,7 +78,9 @@ public class Switch : MonoBehaviour
     void Update()
     {
         //Gets the distance between the button and the base
-        dist = Vector2.Distance(this.gameObject.transform.position, spring.transform.position);
+        if(Constant || onePress)
+            dist = Vector2.Distance(this.gameObject.transform.position, spring.transform.position);
+
         if (Constant)
         {
             if(!isTouching || !active)// If there is not an object touching the button, move button to its original position
