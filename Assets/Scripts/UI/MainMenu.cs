@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class MainMenu : MonoBehaviour
             newButton.GetComponent<RectTransform>().SetParent(levelButtons.GetComponent<RectTransform>());
             //Place the button on the screen and change its text
             newButton.GetComponent<RectTransform>().localPosition = new Vector2(buttonPos.x + 500 * ((i - 1) / 5), buttonPos.y - 140 * ((i - 1) % 5));
-            newButton.GetComponent<RectTransform>().GetChild(0).GetComponent<Text>().text = "Level " + i;
+            newButton.GetComponent<RectTransform>().GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Level " + i;
             //Add listener to the button
             button.onClick.AddListener(levelSelect);
         }
