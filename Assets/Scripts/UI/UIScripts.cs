@@ -56,6 +56,7 @@ public class UIScripts : MonoBehaviour
     private void Start()
     {
         lastPos = plyCntrl.UI.Point.ReadValue<Vector2>();
+        Cursor.visible = false;
     }
 
     private void FixedUpdate()
