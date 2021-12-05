@@ -16,8 +16,8 @@ public class UIScripts : MonoBehaviour
 
     //Public variables and assets
     public GameObject UI;
-    public GameObject[] pauseMenu;
-    public GameObject[] settingsMenu;
+    public GameObject pauseMenu;
+    public GameObject settingsMenu;
     public GameObject settingsButton;
     public GameObject menuButton;
     public GameObject resumeButton;
@@ -58,7 +58,7 @@ public class UIScripts : MonoBehaviour
         lastPos = plyCntrl.UI.Point.ReadValue<Vector2>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         curPos = plyCntrl.UI.Point.ReadValue<Vector2>();
         if(curPos != lastPos)
@@ -83,16 +83,11 @@ public class UIScripts : MonoBehaviour
     public void settingsSwitch()
     {
         //Enable/disable pause menu
-        for(int i = 0; i < pauseMenu.Length; i++)
-        {
-            pauseMenu[i].SetActive(showSettings);
-        }
+        pauseMenu.SetActive(showSettings);
+
 
         //Enable/disable the settings menu
-        for (int i = 0; i < settingsMenu.Length; i++)
-        {
-            settingsMenu[i].SetActive(!showSettings);
-        }
+        settingsMenu.SetActive(!showSettings);
 
         //Invert the boolean
         if (showSettings)
@@ -104,12 +99,6 @@ public class UIScripts : MonoBehaviour
         {
             showSettings = true;
             eventS.SetSelectedGameObject(menuButton);
-        }
-
-        //Enable/disable the settings menu
-        for(int i = 0; i < settingsMenu.Length; i++)
-        {
-            settingsMenu[i].SetActive(showSettings);
         }
     }
 
