@@ -40,6 +40,8 @@ public class ControlMovement : MonoBehaviour
     [SerializeField]
     Tilemap tileMap;
 
+    [HideInInspector]
+    public SkeletonTrigger skeloData;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -87,6 +89,7 @@ public class ControlMovement : MonoBehaviour
                 plyCol.offset = skeleton.colliderOffset;
                 plyCol.direction = skeleton.direction;
                 plyCol.density = skeleton.density;
+                skeloData = skeleton;
 
                 //Changes players sprite to be the skeleton
                 animPly.SetTrigger(skeleton.Name);
@@ -136,6 +139,7 @@ public class ControlMovement : MonoBehaviour
                 plyCol.direction = CapsuleDirection2D.Horizontal;
                 plyCol.density = 1;
                 skeleton = null;
+                skeloData = null;
 
                 //Changes players sprite to be the blob
                 animPly.SetTrigger("Disembody");

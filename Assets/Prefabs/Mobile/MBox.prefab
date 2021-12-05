@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Indicator: {fileID: 4486800918592813696}
-  boxUpdate: {fileID: 0}
   interaction: {fileID: 0}
 --- !u!61 &881155967
 BoxCollider2D:
@@ -86,7 +85,6 @@ GameObject:
   - component: {fileID: 89386729541824713}
   - component: {fileID: 89386729541824715}
   - component: {fileID: 89386729541824716}
-  - component: {fileID: 89386729541824694}
   - component: {fileID: 186335417553088539}
   m_Layer: 3
   m_Name: MBox
@@ -104,7 +102,7 @@ Transform:
   m_GameObject: {fileID: 89386729541824717}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -17.52, y: 2.41, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.745767, y: 1.745767, z: 1.745767}
   m_Children:
   - {fileID: 881155966}
   m_Father: {fileID: 0}
@@ -199,7 +197,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 30
+  m_Mass: 8
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -208,21 +206,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &89386729541824694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89386729541824717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecc1dbe7e53dd90469c43095a49c4d81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plyCntrl: {fileID: 0}
-  Rb: {fileID: 89386729541824716}
-  player: {fileID: 0}
 --- !u!114 &186335417553088539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e38272b9dd054f46ae2b93bba07b147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  savedObject: {fileID: 0}
 --- !u!1001 &89386730502261214
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -71,7 +71,8 @@ public class Switch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        restPos = button.position;
+        if (Constant || onePress)
+            restPos = button.position;
     }
 
     // Update is called once per frame

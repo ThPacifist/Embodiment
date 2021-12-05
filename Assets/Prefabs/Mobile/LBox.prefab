@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Indicator: {fileID: 8888583303940818657}
-  boxUpdate: {fileID: 0}
   interaction: {fileID: 0}
 --- !u!61 &1642387621
 BoxCollider2D:
@@ -86,7 +85,6 @@ GameObject:
   - component: {fileID: 4909862592832108345}
   - component: {fileID: 4909862592832104647}
   - component: {fileID: 4909862592832104644}
-  - component: {fileID: 4909862592832108346}
   - component: {fileID: 5018867996057913018}
   m_Layer: 3
   m_Name: LBox
@@ -208,21 +206,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4909862592832108346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4909862592832104645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecc1dbe7e53dd90469c43095a49c4d81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plyCntrl: {fileID: 0}
-  Rb: {fileID: 4909862592832104644}
-  player: {fileID: 0}
 --- !u!114 &5018867996057913018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e38272b9dd054f46ae2b93bba07b147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  savedObject: {fileID: 0}
 --- !u!1001 &4909862593918285247
 PrefabInstance:
   m_ObjectHideFlags: 0

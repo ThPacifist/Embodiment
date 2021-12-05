@@ -234,10 +234,12 @@ public class SpecialInteractions : MonoBehaviour
                                 audioManager.Play("boxGrab", true);
                             }
                             plyAnim.SetBool("isPushing", true);
+                            
                             //Attach Box
                             HboxHeld = true;
                             fixedJ.enabled = true;
                             fixedJ.connectedBody = box;
+                            fixedJ.connectedBody.mass = 6;
 
                             //Cooldown
                             cooldownTime = 1;
@@ -259,6 +261,7 @@ public class SpecialInteractions : MonoBehaviour
                         //heldBox.gravityScale = 1;
                         //heldBox.freezeRotation = false;
                         fixedJ.enabled = false;
+                        fixedJ.connectedBody.mass = 20;
                         fixedJ.connectedBody = null;
                         heldBox = null;
                         //Cooldown

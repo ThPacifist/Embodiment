@@ -102,10 +102,18 @@ public class PlyController : MonoBehaviour
                     //Move when the player is pressing buttons
                     if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
                     {
-                        if (Math.Abs(rb.velocity.x + rb.velocity.y) < speed)
+                        float x = 0, y = 0;
+                        //Checks if either the y or x velocity is exceeding the speed
+                        if(Math.Abs(rb.velocity.x) < speed)
                         {
-                            rb.AddForce(Vector2.one * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * speed * 10);
+                            x = 1;
                         }
+                        if(Math.Abs(rb.velocity.y) < speed)
+                        {
+                            y = 1;
+                        }
+
+                        rb.AddForce(new Vector2(x, y) * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * 20 * rb.mass);
                     }
                 }
                 //Movement when on the ground
@@ -114,9 +122,9 @@ public class PlyController : MonoBehaviour
                     //Move when the player is pressing buttons
                     if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                     {
-                        if (Math.Abs(rb.velocity.x) < speed)
+                        if (Math.Abs(rb.velocity.x) < speed * 0.3f)
                         {
-                            rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.3f);
+                            rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 20 * rb.mass);
                         }
                     }
                 }
@@ -172,7 +180,7 @@ public class PlyController : MonoBehaviour
                     //Movement
                     if (Math.Abs(rb.velocity.x) < speed)
                     {
-                        rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 10);
+                        rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 20 * rb.mass);
                     }
                     //Audio
                     if (audioManager != null)
@@ -181,10 +189,6 @@ public class PlyController : MonoBehaviour
                         if (tag == "Blob")
                         {
                             audioManager.Play("blobStep", true);
-                        }
-                        else
-                        {
-                            //audioManager.Play("boneStep", true);
                         }
                     }
                 }
@@ -219,7 +223,6 @@ public class PlyController : MonoBehaviour
             if (audioManager != null)
             {
                 audioManager.Stop("blobStep");
-                //audioManager.Stop("boneStep");
             }
         }
 
@@ -243,7 +246,8 @@ public class PlyController : MonoBehaviour
 
 
         #region Animation Block
-        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && canMove)
+        if ((PlyCtrl.Player.Movement.ReadValue<float>() != 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
+            && canMove)
         {
             plyAnim.SetBool("Walking", true);
         }
@@ -414,13 +418,13 @@ public class PlyController : MonoBehaviour
                 {
                     if (isGrounded() || inWater)
                     {
-                        rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, rb.velocity.y), ForceMode2D.Impulse);
+                        rb.AddForce((Vector2.up * jumpHeight) /*- new Vector2(0, rb.velocity.y)*/, ForceMode2D.Impulse);
 
                     }
                     else if (spcInter.isAttached)
                     {
                         spcInter.ShootTendril();
-                        rb.AddForce((rb.velocity * 2) - rb.velocity, ForceMode2D.Impulse);
+                        rb.AddForce(rb.velocity.normalized * 5, ForceMode2D.Impulse);
                     }
                 }
                 if (!delayGroundCheck)
@@ -491,6 +495,7 @@ public class PlyController : MonoBehaviour
             if (other.CompareTag("Water"))
             {
                 inWater = true;
+                plyAnim.SetBool("inWater", true);
             }
         }
     }
@@ -503,6 +508,7 @@ public class PlyController : MonoBehaviour
             if (other.CompareTag("Water"))
             {
                 inWater = false;
+                plyAnim.SetBool("inWater", false);
             }
         }
         else if (CompareTag("Blob"))
