@@ -71,7 +71,7 @@ public class PlayerData : AntiChrist
                 heldSkeleton.gameObject.SetActive(false);
             }
             //Embody current skeleton if it isn't already
-            if(player.tag != pTag)
+            if(player.tag != pTag && skeleton != null)
             {
                 //Changes players values to be the skeleton
                 player.tag = skeleton.Name;
@@ -84,6 +84,10 @@ public class PlayerData : AntiChrist
 
                 //Changes players sprite to be the skeleton
                 animPly.SetTrigger(skeleton.Name);
+            }
+            else /*if(player.tag == "Blob")*/
+            {
+                ctrlMvm.DestorySkeleton();
             }
         }
         //If the player should be holding a box

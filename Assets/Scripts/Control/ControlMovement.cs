@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using System;
 
 
-public struct ColliderInfo
+ struct ColliderInfo
 {
     public Vector2 size;
     public Vector2 offset;
@@ -42,6 +42,22 @@ public class ControlMovement : MonoBehaviour
 
     [HideInInspector]
     public SkeletonTrigger skeloData;
+
+    //Default Values for the blob
+    [HideInInspector]
+    public string defaultName = "Blob";
+    [HideInInspector]
+    public float defaultSpeed = 5;
+    [HideInInspector]
+    public float defaultJumpHeight = 18.1f;
+    [HideInInspector]
+    public Vector2 defaultSize = new Vector2(1.830f, 1.366f);
+    [HideInInspector]
+    public Vector2 defaultOffset = new Vector2(0, 0);
+    [HideInInspector]
+    public CapsuleDirection2D defaultDirection = CapsuleDirection2D.Horizontal;
+    [HideInInspector]
+    public float defaultDensity = 1;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -131,13 +147,13 @@ public class ControlMovement : MonoBehaviour
                 }
 
                 //Changes players values to be the blob
-                player.tag = "Blob";
-                plyCntrl.speed = 5;
-                plyCntrl.jumpHeight = 18.1f;
-                plyCol.size = new Vector2(1.830f, 1.366f);
-                plyCol.offset = new Vector2(0, 0);
-                plyCol.direction = CapsuleDirection2D.Horizontal;
-                plyCol.density = 1;
+                player.tag = defaultName;
+                plyCntrl.speed = defaultSpeed;
+                plyCntrl.jumpHeight = defaultJumpHeight;
+                plyCol.size = defaultSize;
+                plyCol.offset = defaultOffset;
+                plyCol.direction = defaultDirection;
+                plyCol.density = defaultDensity;
                 skeleton = null;
                 skeloData = null;
 
@@ -167,7 +183,7 @@ public class ControlMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log("Something went wrong in Control Movement");
+            Debug.Log("Held skeleton is null");
         }
     }
 
@@ -195,6 +211,7 @@ public class ControlMovement : MonoBehaviour
         animPly.SetTrigger("Blob");
 
         //Move skeleton back to respawn position
+        if (skeleton != null)
         skeleton.skeloScript.RespawnSkeleton();
         skeleton = null;
 
