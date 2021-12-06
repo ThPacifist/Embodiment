@@ -68,6 +68,8 @@ public class CheckpointController : MonoBehaviour
     public void MoveToCheckpoint(int newPosition)
     {
         player.position = checkpoints[newPosition].transform.position;
+        //Try to place the player on the ground
+        player.position = GameAction.PlaceColOnGround(player.GetComponent<Collider2D>());
     }
 
     //Update checkpoint number when a new checkpoint is touched

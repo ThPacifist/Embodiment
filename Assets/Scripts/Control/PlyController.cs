@@ -61,6 +61,7 @@ public class PlyController : MonoBehaviour
     private void OnEnable()
     {
         PlyCtrl.Enable();
+        TransitionController.slideOutAction += RespawnAnimation;
     }
 
     void OnDisable()
@@ -476,14 +477,14 @@ public class PlyController : MonoBehaviour
         {
             if (other.CompareTag("Water"))
             {
-                Death();
+                plyAnim.SetTrigger("Death");
             }
         }
 
         //If the Trigger is Death, call Death delegate
         if(other.CompareTag("Death") || other.CompareTag("Skeleton"))
         {
-            Death();
+            plyAnim.SetTrigger("Death");
         }
     }
 
@@ -525,7 +526,7 @@ public class PlyController : MonoBehaviour
     public void MenuKill()
     {
         Debug.Log("Menu Kill called");
-        Death();
+        plyAnim.SetTrigger("Death");
     }
 
     public void SetCatOnWall(bool value, Vector2 direction) 
@@ -585,6 +586,31 @@ public class PlyController : MonoBehaviour
     public void PlaySoundFromAudioManager(string name)
     {
         audioManager.PlayAnyway(name);
+    }
+
+    //This is used for the slideInAction, so that the respawn animation plays after the slide in
+    void RespawnAnimation()
+    {
+        plyAnim.SetTrigger("Respawn");
+    }
+
+    //Calls all functions subscribed to death; Used in Death animation
+    void TriggerDeath()
+    {
+        Death();
+    }
+
+    void FreezePlayer()
+    {
+        rb.simulated = false;
+        rb.velocity = Vector2.zero;
+        DisableMovement();
+    }
+
+    void UnFreezePlayer()
+    {
+        rb.simulated = true;
+        RenableMovement();
     }
 
     //Used for bug testing
