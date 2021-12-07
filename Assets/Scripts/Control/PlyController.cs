@@ -57,11 +57,11 @@ public class PlyController : MonoBehaviour
     private void Awake()
     {
         PlyCtrl = new PlayerControls();
+        this.gameObject.transform.position = GameAction.PlaceColOnGround(capCollider);
     }
     private void OnEnable()
     {
         PlyCtrl.Enable();
-        TransitionController.slideOutAction += RespawnAnimation;
     }
 
     void OnDisable()
@@ -588,16 +588,11 @@ public class PlyController : MonoBehaviour
         audioManager.PlayAnyway(name);
     }
 
-    //This is used for the slideInAction, so that the respawn animation plays after the slide in
-    void RespawnAnimation()
-    {
-        plyAnim.SetTrigger("Respawn");
-    }
-
     //Calls all functions subscribed to death; Used in Death animation
     void TriggerDeath()
     {
         Death();
+        this.gameObject.SetActive(false);
     }
 
     void FreezePlayer()

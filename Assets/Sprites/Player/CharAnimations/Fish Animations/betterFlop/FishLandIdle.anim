@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PickUpWalk
+  m_Name: FishLandIdle
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,15 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 07b53b4fc86a11142a3d4f96f945fadb, type: 3}
-    - time: 0.083333336
-      value: {fileID: 21300000, guid: 140ba43de9dce9f4d82e40214cdd7d33, type: 3}
-    - time: 0.16666667
-      value: {fileID: 21300000, guid: e2e59f94e2a5b644b8e5a494ea9b5e21, type: 3}
-    - time: 0.25
-      value: {fileID: 21300000, guid: caeff6ea1e19da046a18ce7afde5100a, type: 3}
-    - time: 0.33333334
-      value: {fileID: 21300000, guid: b50511c9cf4ec5a41808051e641a8ecd, type: 3}
+      value: {fileID: 21300000, guid: 3c0f1b21786fa2e4086ca0a0f7e53248, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,17 +40,13 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 07b53b4fc86a11142a3d4f96f945fadb, type: 3}
-    - {fileID: 21300000, guid: 140ba43de9dce9f4d82e40214cdd7d33, type: 3}
-    - {fileID: 21300000, guid: e2e59f94e2a5b644b8e5a494ea9b5e21, type: 3}
-    - {fileID: 21300000, guid: caeff6ea1e19da046a18ce7afde5100a, type: 3}
-    - {fileID: 21300000, guid: b50511c9cf4ec5a41808051e641a8ecd, type: 3}
+    - {fileID: 21300000, guid: 3c0f1b21786fa2e4086ca0a0f7e53248, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.4166667
+    m_StopTime: 0.083333336
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

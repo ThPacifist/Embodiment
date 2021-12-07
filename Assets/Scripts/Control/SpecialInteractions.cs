@@ -161,7 +161,6 @@ public class SpecialInteractions : MonoBehaviour
             switch (tag) //Tag of gameobject
             {
                 case "Blob":
-                    //AllAnimationClips();
                     //Pick up Skeleton
                     if (skeleton != null && !isAttached && !skelHeld)
                     {

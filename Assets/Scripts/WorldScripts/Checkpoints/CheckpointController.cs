@@ -68,8 +68,6 @@ public class CheckpointController : MonoBehaviour
     public void MoveToCheckpoint(int newPosition)
     {
         player.position = checkpoints[newPosition].transform.position;
-        //Try to place the player on the ground
-        player.position = GameAction.PlaceColOnGround(player.GetComponent<Collider2D>());
     }
 
     //Update checkpoint number when a new checkpoint is touched
@@ -86,10 +84,11 @@ public class CheckpointController : MonoBehaviour
     //disable movement, and play a screen transition
     void RespawnPlayer()
     {
-        plyCntrl.canMove = false;
         MoveToCheckpoint(previousCheckpoint);
         player.gameObject.SetActive(true);
-        plyAnim.SetTrigger(player.tag);
+        //Try to place the player on the ground
+        player.position = GameAction.PlaceColOnGround(player.GetComponent<Collider2D>());
+        plyAnim.SetTrigger("Respawn");
     }
 
     //When ready re-enable movement for the player after a delay

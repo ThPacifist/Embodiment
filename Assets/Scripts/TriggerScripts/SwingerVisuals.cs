@@ -29,14 +29,17 @@ public class SwingerVisuals : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (interaction != null)
+        if (collision.CompareTag("Blob"))
         {
-            if (interaction.lamp == this.gameObject)
+            if (interaction != null)
             {
-                interaction.SetSwingerGameObject(null);
-                interaction = null;
+                if (interaction.lamp == this.gameObject)
+                {
+                    interaction.SetSwingerGameObject(null);
+                    interaction = null;
+                }
+                //indicator.SetActive(false);
             }
-            //indicator.SetActive(false);
         }
     }
 }

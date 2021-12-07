@@ -47,26 +47,29 @@ public class SkeletonTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (cntrlMove != null)
+        if (collision.CompareTag("Blob"))
         {
-            if (!isGrabbed)
+            if (cntrlMove != null)
             {
-                if (cntrlMove.skeleton == this)
+                if (!isGrabbed)
                 {
-                    cntrlMove.SetEmbodyValues(null);
-                    cntrlMove = null;
+                    if (cntrlMove.skeleton == this)
+                    {
+                        cntrlMove.SetEmbodyValues(null);
+                        cntrlMove = null;
+                    }
                 }
             }
-        }
 
-        if (spcInter != null)
-        {
-            if (!isGrabbed)
+            if (spcInter != null)
             {
-                if (spcInter.skeleton == this)
+                if (!isGrabbed)
                 {
-                    spcInter.SetHeldSkel(null);
-                    spcInter = null;
+                    if (spcInter.skeleton == this)
+                    {
+                        spcInter.SetHeldSkel(null);
+                        spcInter = null;
+                    }
                 }
             }
         }
