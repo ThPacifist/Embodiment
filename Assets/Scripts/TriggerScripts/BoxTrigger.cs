@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BoxTrigger : MonoBehaviour
 {
-    public GameObject Indicator;
-
     [SerializeField]
     SpecialInteractions interaction;
 
@@ -22,7 +20,6 @@ public class BoxTrigger : MonoBehaviour
                     {
                         interaction.SetHeldBox(this.transform.parent.GetComponent<Rigidbody2D>(), this.transform.parent.tag);
                     }
-                    Indicator.SetActive(true);
                 }
             }
             else if(collision.CompareTag("Human"))
@@ -36,7 +33,6 @@ public class BoxTrigger : MonoBehaviour
                         {
                             interaction.SetHeldBox(this.transform.parent.GetComponent<Rigidbody2D>(), this.transform.parent.tag);
                         }
-                        Indicator.SetActive(true);
                     }
                 }
             }
@@ -52,7 +48,6 @@ public class BoxTrigger : MonoBehaviour
                 interaction.SetHeldBox(null, "");
                 interaction = null;
             }
-            Indicator.SetActive(false);
         }
     }
 

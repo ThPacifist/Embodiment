@@ -31,6 +31,10 @@ public class SpecialInteractions : MonoBehaviour
     public bool objectHeld;
     public bool skelHeld;
     public bool HboxHeld;
+    [SerializeField]
+    GameObject IndicatorPrefab;
+
+    GameObject prefabInstance;
 
     //Private variables
     private bool specialReady = true;
@@ -357,19 +361,62 @@ public class SpecialInteractions : MonoBehaviour
         }
     }
     //Sets the value of the lamp
-    public void SetSwingerGameObject(GameObject value) { lamp = value; }
+    public void SetSwingerGameObject(GameObject value) 
+    { 
+        lamp = value;
+        if (prefabInstance == null)
+        {
+            prefabInstance = Instantiate(IndicatorPrefab, lamp.transform);
+        }
+        else if (value == null)
+        {
+            Destroy(prefabInstance);
+        }
+        else if (prefabInstance != null)
+        {
+            Destroy(prefabInstance);
+            prefabInstance = Instantiate(IndicatorPrefab, lamp.transform);
+        }
+    }
 
     //Sets the value of the held box
     public void SetHeldBox(Rigidbody2D rb, string inputTag) 
     { 
         box = rb;
         boxTag = inputTag;
+        if (prefabInstance == null)
+        {
+            prefabInstance = Instantiate(IndicatorPrefab, box.transform);
+        }
+        else if (prefabInstance != null)
+        {
+            Destroy(prefabInstance);
+            prefabInstance = Instantiate(IndicatorPrefab, box.transform);
+        }
+        else if (rb == null)
+        {
+            Destroy(prefabInstance);
+        }
     }
 
     public void SetHeldSkel(SkeletonTrigger skel)
     {
         skeleton = skel;
+        if (prefabInstance == null)
+        {
+            prefabInstance = Instantiate(IndicatorPrefab, skeleton.transform);
+        }
+        else if (skel == null)
+        {
+            Destroy(prefabInstance);
+        }
+        else if (prefabInstance != null)
+        {
+            Destroy(prefabInstance);
+            prefabInstance = Instantiate(IndicatorPrefab, skeleton.transform);
+        }
     }
+
     //Remove boxes from selection
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -469,10 +516,10 @@ public class SpecialInteractions : MonoBehaviour
         {
             heldSkel = skelo;
             heldSkel.isGrabbed = true;
-            heldSkel.indicator.SetActive(false);
+            Destroy(prefabInstance);
             skelHeld = true;
             fixedJ.enabled = true;
-            fixedJ.connectedBody = heldSkel.rigidbody;
+            fixedJ.connectedBody = heldSkel.transform.parent.GetComponent<Rigidbody2D>();
             heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
             plyAnim.SetBool("isGrabbing", true);
             plyCntrl.jumpHeight = 60;

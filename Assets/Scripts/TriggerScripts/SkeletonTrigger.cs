@@ -6,7 +6,6 @@ using UnityEngine;
 public class SkeletonTrigger : MonoBehaviour
 {
     //Public Variables
-    public GameObject indicator;
     public bool isGrabbed = false;
     public string Name;
     public float speed;
@@ -16,7 +15,6 @@ public class SkeletonTrigger : MonoBehaviour
     public Vector2 colliderOffset;
     public CapsuleDirection2D direction;
     public Transform skelGObject;
-    public Rigidbody2D rigidbody; //This is the rigidbody of the parent object
     public Skeleton skeloScript;
 
     //Private Variables
@@ -42,15 +40,6 @@ public class SkeletonTrigger : MonoBehaviour
                 if (spcInter.heldSkel == null)
                 {
                     spcInter.SetHeldSkel(this);
-
-                    if (!isGrabbed)
-                    {
-                        indicator.SetActive(true);
-                    }
-                    else
-                    {
-                        indicator.SetActive(false);
-                    }
                 }
             }
         }
@@ -79,7 +68,6 @@ public class SkeletonTrigger : MonoBehaviour
                     spcInter.SetHeldSkel(null);
                     spcInter = null;
                 }
-                indicator.SetActive(false);
             }
         }
     }

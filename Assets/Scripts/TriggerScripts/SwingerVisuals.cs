@@ -19,11 +19,11 @@ public class SwingerVisuals : MonoBehaviour
         if (collision.CompareTag("Blob"))
         {
             interaction = collision.GetComponent<SpecialInteractions>();
-            if (interaction.lamp == null)
+            if (!interaction.isAttached)
             {
                 if (interaction != null)
                     interaction.SetSwingerGameObject(gameObject);
-                indicator.SetActive(true);
+                //indicator.SetActive(true);
             }
         }
     }
@@ -36,7 +36,7 @@ public class SwingerVisuals : MonoBehaviour
                 interaction.SetSwingerGameObject(null);
                 interaction = null;
             }
-            indicator.SetActive(false);
+            //indicator.SetActive(false);
         }
     }
 }
