@@ -459,6 +459,7 @@ public class PlyController : MonoBehaviour
                     audioManager.Play("splash", true);
                 }
                 inWater = true;
+                capCollider.density = 5.5f;
             }
         }
         else if (CompareTag("Blob"))
@@ -471,6 +472,8 @@ public class PlyController : MonoBehaviour
                     audioManager.Play("splash", true);
                 }
                 inWater = true;
+                capCollider.density = 2;
+                jumpHeight = 35;
             }
         }
         else
@@ -510,6 +513,7 @@ public class PlyController : MonoBehaviour
             {
                 inWater = false;
                 plyAnim.SetBool("inWater", false);
+                capCollider.density = cntrlMove.skeloData.density;
             }
         }
         else if (CompareTag("Blob"))
@@ -518,6 +522,8 @@ public class PlyController : MonoBehaviour
             {
                 //Blob jumps out of water
                 inWater = false;
+                capCollider.density = cntrlMove.defaultDensity;
+                jumpHeight = cntrlMove.defaultJumpHeight;
             }
         }
     }
