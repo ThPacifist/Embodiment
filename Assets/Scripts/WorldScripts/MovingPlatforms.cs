@@ -29,6 +29,11 @@ public class MovingPlatforms : GameAction
     private bool playerOn;
 
     //Action
+    public override void Action()
+    {
+        gotSignal = !gotSignal;
+    }
+
     public override void Action(bool move)
     {
         if (move)
