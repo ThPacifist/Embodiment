@@ -169,17 +169,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908bb4b4d6f33d54c9c34215851bcb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicator: {fileID: 5656331515917417190}
   isGrabbed: 0
   Name: Fish
   speed: 7
   jumpHeight: 13.8
   density: 1.31
-  colliderSize: {x: 2.447, y: 0.782}
+  colliderSize: {x: 2.447, y: 0.66}
   colliderOffset: {x: 0, y: 0}
   direction: 1
   skelGObject: {fileID: 9039985466883334239}
-  rigidbody: {fileID: 9039985466883334237}
   skeloScript: {fileID: 9039985466883334208}
 --- !u!1 &9039985466883334234
 GameObject:
@@ -196,7 +194,7 @@ GameObject:
   - component: {fileID: 9039985466883334235}
   - component: {fileID: 9039985466883334208}
   m_Layer: 3
-  m_Name: Fish_Skelton
+  m_Name: Fish_Skeleton
   m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -346,7 +344,6 @@ MonoBehaviour:
   skeleton: {fileID: 9039985466883334239}
   spawnPoint: {fileID: 9039985467013064025}
   changeLocationAtStart: 0
-  waterKill: 1
 --- !u!1 &9039985467013064024
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,11 +435,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b483489a74087404ab3868bfe458d05e, type: 3}
---- !u!1 &5656331515917417190 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4573899549758092126, guid: b483489a74087404ab3868bfe458d05e, type: 3}
-  m_PrefabInstance: {fileID: 8144358483018172856}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5656331515917417185 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4573899549758092121, guid: b483489a74087404ab3868bfe458d05e, type: 3}

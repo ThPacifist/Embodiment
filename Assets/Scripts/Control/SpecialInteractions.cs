@@ -243,6 +243,7 @@ public class SpecialInteractions : MonoBehaviour
                             fixedJ.enabled = true;
                             fixedJ.connectedBody = box;
                             fixedJ.connectedBody.mass = 6;
+                            plyCntrl.speed = 3;
 
                             //Cooldown
                             cooldownTime = 1;
@@ -265,6 +266,7 @@ public class SpecialInteractions : MonoBehaviour
                         //heldBox.freezeRotation = false;
                         fixedJ.enabled = false;
                         fixedJ.connectedBody.mass = 20;
+                        plyCntrl.speed = cntrlMovement.skeloData.speed;
                         fixedJ.connectedBody = null;
                         heldBox = null;
                         //Cooldown
