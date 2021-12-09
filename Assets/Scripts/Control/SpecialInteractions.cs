@@ -131,16 +131,19 @@ public class SpecialInteractions : MonoBehaviour
     //Special for fish is going to be written by Benathen
     private void WaterSpecial()
     {
-        if (specialReady)
+        if (tag == "Fish")
         {
-            if (lever != null)
+            if (specialReady)
             {
-                //Activate the lever
-                lever.Interact();
-                //Cooldown
-                cooldownTime = 1;
-                specialReady = false;
-                StartCoroutine(SpecialCoolDown());
+                if (lever != null)
+                {
+                    //Activate the lever
+                    lever.Interact();
+                    //Cooldown
+                    cooldownTime = 1;
+                    specialReady = false;
+                    StartCoroutine(SpecialCoolDown());
+                }
             }
         }
     }
@@ -207,23 +210,14 @@ public class SpecialInteractions : MonoBehaviour
                         {
                             if (!CheckSpaceForBox(box))
                             {
-                                if (audioManager != null)
+                                if (!plyCntrl.Left && !plyCntrl.Right)
                                 {
-                                    audioManager.Play("boxGrab", true);
+                                    plyAnim.SetBool("isGrabbing", true);
                                 }
-                                //Attach box
-                                //box.transform.parent = player;
-                                heldBox = box;
-                                //heldBox.gravityScale = 0;
-                                //heldBox.freezeRotation = true;
-                                objectHeld = true;
-                                fixedJ.enabled = true;
-                                fixedJ.connectedBody = heldBox;
-                                heldBox.transform.position = HheldPos.transform.position;
-                                //Cooldown
-                                cooldownTime = 1;
-                                specialReady = false;
-                                StartCoroutine("SpecialCoolDown");
+                                else
+                                {
+                                    PickUpBox(box);
+                                }
                             }
                             else
                             {
@@ -253,26 +247,14 @@ public class SpecialInteractions : MonoBehaviour
                     }
                     else if (objectHeld || HboxHeld)
                     {
-                        if (audioManager != null)
+                        if (!plyCntrl.Left && !plyCntrl.Right)
                         {
-                            audioManager.Play("boxGrab", true);
+                            plyAnim.SetBool("isGrabbing", false);
                         }
-                        plyAnim.SetBool("isPushing", false);
-                        //Drop box
-                        objectHeld = false;
-                        HboxHeld = false;
-                        //heldBox.transform.parent = null;
-                        //heldBox.gravityScale = 1;
-                        //heldBox.freezeRotation = false;
-                        fixedJ.enabled = false;
-                        fixedJ.connectedBody.mass = 20;
-                        plyCntrl.speed = cntrlMovement.skeloData.speed;
-                        fixedJ.connectedBody = null;
-                        heldBox = null;
-                        //Cooldown
-                        cooldownTime = 1;
-                        specialReady = false;
-                        StartCoroutine("SpecialCoolDown");
+                        else
+                        {
+                            PickUpBox(null);
+                        }
                     }
                     break;
                 case "Cat":
@@ -290,48 +272,51 @@ public class SpecialInteractions : MonoBehaviour
     //Special for bat is to pick up very light boxes
     private void AirSpecial()
     {
-        if (specialReady)
+        if (tag == "Bat")
         {
-            //Attach box
-            if (box != null && !objectHeld)
+            if (specialReady)
             {
-                if (boxTag == "LBox")
+                //Attach box
+                if (box != null && !objectHeld)
+                {
+                    if (boxTag == "LBox")
+                    {
+                        if (audioManager != null)
+                        {
+                            audioManager.Play("boxGrab", true);
+                        }
+                        //box.transform.parent = player;
+                        heldBox = box;
+                        //heldBox.gravityScale = 0;
+                        objectHeld = true;
+                        fixedJ.enabled = true;
+                        fixedJ.connectedBody = heldBox;
+                        heldBox.transform.position = BheldPos.transform.position;
+                        //Cooldown
+                        cooldownTime = 1;
+                        specialReady = false;
+                        StartCoroutine("SpecialCoolDown");
+                    }
+                }
+                else if (objectHeld)
                 {
                     if (audioManager != null)
                     {
                         audioManager.Play("boxGrab", true);
                     }
-                    //box.transform.parent = player;
-                    heldBox = box;
-                    //heldBox.gravityScale = 0;
-                    objectHeld = true;
-                    fixedJ.enabled = true;
-                    fixedJ.connectedBody = heldBox;
-                    heldBox.transform.position = BheldPos.transform.position;
+                    //Drop box
+                    Debug.Log("Drop box");
+                    //heldBox.transform.parent = null;
+                    //heldBox.gravityScale = 1;
+                    objectHeld = false;
+                    fixedJ.enabled = false;
+                    fixedJ.connectedBody = null;
+                    heldBox = null;
                     //Cooldown
                     cooldownTime = 1;
                     specialReady = false;
                     StartCoroutine("SpecialCoolDown");
                 }
-            }
-            else if (objectHeld)
-            {
-                if (audioManager != null)
-                {
-                    audioManager.Play("boxGrab", true);
-                }
-                //Drop box
-                Debug.Log("Drop box");
-                //heldBox.transform.parent = null;
-                //heldBox.gravityScale = 1;
-                objectHeld = false;
-                fixedJ.enabled = false;
-                fixedJ.connectedBody = null;
-                heldBox = null;
-                //Cooldown
-                cooldownTime = 1;
-                specialReady = false;
-                StartCoroutine("SpecialCoolDown");
             }
         }
     }
@@ -389,14 +374,14 @@ public class SpecialInteractions : MonoBehaviour
         {
             prefabInstance = Instantiate(IndicatorPrefab, box.transform);
         }
+        else if (rb == null)
+        {
+            Destroy(prefabInstance);
+        }
         else if (prefabInstance != null)
         {
             Destroy(prefabInstance);
             prefabInstance = Instantiate(IndicatorPrefab, box.transform);
-        }
-        else if (rb == null)
-        {
-            Destroy(prefabInstance);
         }
     }
 
@@ -546,6 +531,46 @@ public class SpecialInteractions : MonoBehaviour
         StartCoroutine("SpecialCoolDown");
     }
 
+    public void PickUpBox(Rigidbody2D box)
+    {
+        if (box != null)
+        {
+            if (audioManager != null)
+            {
+                audioManager.Play("boxGrab", true);
+            }
+            plyAnim.SetBool("isGrabbing", true);
+            //Attach box
+            heldBox = box;
+            objectHeld = true;
+            fixedJ.enabled = true;
+            fixedJ.connectedBody = heldBox;
+            heldBox.transform.position = HheldPos.transform.position;
+        }
+        else
+        {
+            if (audioManager != null)
+            {
+                audioManager.Play("boxGrab", true);
+            }
+            plyAnim.SetBool("isPushing", false);
+            plyAnim.SetBool("isGrabbing", false); 
+            objectHeld = false;
+            HboxHeld = false;
+            fixedJ.enabled = false;
+            if(boxTag == "HBox")
+                fixedJ.connectedBody.mass = 20;
+            plyCntrl.speed = cntrlMovement.skeloData.speed;
+            fixedJ.connectedBody = null;
+            heldBox = null;
+        }
+
+        //Cooldown
+        cooldownTime = 1;
+        specialReady = false;
+        StartCoroutine("SpecialCoolDown");
+    }
+
     //Used in BlobPickUp Animation to pick up the skeleton on the correct frame
     public void CallPickUpFromAnimation()
     {
@@ -556,6 +581,33 @@ public class SpecialInteractions : MonoBehaviour
     public void CallPutDownFromAnimation()
     {
         PickUpSkeleton(null);
+    }
+
+    //Used in BlobPickUp Animation to pick up the skeleton on the correct frame
+    public void CallPickUpBoxFromAnimation()
+    {
+        PickUpBox(box);
+    }
+
+    //Used in BlobPutDown Animation to put down the skeleton on the correct frame
+    public void CallPutDownBoxFromAnimation()
+    {
+        PickUpBox(null);
+    }
+
+    private void OnDrawGizmos()
+    {
+        //Human Box Pos
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(HheldPos.position, 0.3f);
+
+        //Bat Box Pos
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(BheldPos.position, 0.3f);
+
+        //Blob Box Pos
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(skelHeldPos.position, 0.3f);
     }
 
     /*
