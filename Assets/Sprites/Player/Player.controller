@@ -1109,7 +1109,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: respawn
+  m_Name: BlobRespawn
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -4413,7 +4413,7 @@ AnimatorStateMachine:
     m_Position: {x: 1120, y: 40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4426026284076364150}
-    m_Position: {x: -290, y: -50, z: 0}
+    m_Position: {x: -500, y: -230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4270553531338085347}
     m_Position: {x: 890, y: 1110, z: 0}
