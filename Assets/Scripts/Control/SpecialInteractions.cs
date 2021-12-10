@@ -255,6 +255,11 @@ public class SpecialInteractions : MonoBehaviour
                         {
                             PickUpBox(null);
                         }
+
+                        if (HboxHeld)
+                        {
+                            PickUpBox(null);
+                        }
                     }
                     break;
                 case "Cat":
