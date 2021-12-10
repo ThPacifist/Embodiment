@@ -64,13 +64,17 @@ public class MovingPlatforms : GameAction
                 {
                     moveTowards = 0;
                 }
-                //Wait a little
+                //WStop
                 stopped = true;
-                StartCoroutine("wait");
                 //Make check if it should move
                 if ((!gotSignal && needSignal) || (!playerOn && waitForPlayer))
                 {
                     moving = false;
+                }
+                else
+                {
+                    //Wait a little
+                    StartCoroutine("wait");
                 }
             }
         }
@@ -78,15 +82,15 @@ public class MovingPlatforms : GameAction
         {
             if ((gotSignal && needSignal) && !waitForPlayer)
             {
-                moving = true;
+                StartCoroutine("wait");
             }
             else if((playerOn && waitForPlayer) && !needSignal)
             {
-                moving = true;
+                StartCoroutine("wait");
             }
             else if((gotSignal && needSignal) && (playerOn && waitForPlayer))
             {
-                moving = true;
+                StartCoroutine("wait");
             }
         }
 
@@ -97,6 +101,7 @@ public class MovingPlatforms : GameAction
     {
         yield return new WaitForSeconds(waitTime);
         stopped = false;
+        moving = true;
     }
 
     //Move stuff with it that is touchng it
