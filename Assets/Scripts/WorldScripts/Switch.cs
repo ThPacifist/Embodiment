@@ -39,7 +39,7 @@ public class Switch : MonoBehaviour
     Vector3 restPos;
     public bool isTouching = false;
     public bool active;
-    int currentWeight = 0;
+    public int currentWeight = 0;
     bool b;
     float dist;
     SpecialInteractions interaction;
