@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 
 public class AudioManager : MonoBehaviour
 {
-
 	public static AudioManager instance; //Is there an audio manager? Used to ensure only one instance
 
 	[SerializeField]
@@ -41,6 +40,7 @@ public class AudioManager : MonoBehaviour
             gObject.name = s.clip.name;
             s.source.clip = s.clip;
             s.source.loop = s.loop;
+            s.source.volume = s.volume;
 
             gObject.transform.parent = this.transform;
 

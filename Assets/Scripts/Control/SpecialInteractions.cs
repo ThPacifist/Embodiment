@@ -90,7 +90,7 @@ public class SpecialInteractions : MonoBehaviour
         lineRender.enabled = false;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         lineRender.SetPosition(0, transform.position);
         if (!isAttached)
@@ -470,7 +470,6 @@ public class SpecialInteractions : MonoBehaviour
         }
         if (!spring.isActiveAndEnabled)
         {
-            plyCntrl.canMove = false;
             lineRender.enabled = true;
             spring.enabled = true;
             spring.connectedAnchor = lamp.transform.position;

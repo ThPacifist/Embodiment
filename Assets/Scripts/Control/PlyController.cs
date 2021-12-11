@@ -87,6 +87,8 @@ public class PlyController : MonoBehaviour
 
         //Pause
         PlyCtrl.Player.Pause.performed += _ => Pause();
+
+        audioManager.Play("Depletion", true);
     }
 
     // Update is called once per frame
@@ -179,10 +181,18 @@ public class PlyController : MonoBehaviour
                 else if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                 {
                     //Movement
-                    if (Math.Abs(rb.velocity.x) < speed)
+                    if (Math.Abs(rb.velocity.x) < speed && !spcInter.isAttached)
                     {
                         rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 20 * rb.mass);
                     }
+                    else if (spcInter.isAttached)
+                    {
+                        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+                        {
+                            rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.6f, ForceMode2D.Impulse);
+                        }
+                    }
+
                     //Audio
                     if (audioManager != null)
                     {
@@ -202,13 +212,7 @@ public class PlyController : MonoBehaviour
                 }
             }
         }
-        else if(spcInter.isAttached)
-        {
-            if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
-            {
-                rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.6f, ForceMode2D.Impulse);
-            }
-        }
+
         //If Cat is not on a wall
         if(!OnWall)
         {
@@ -296,25 +300,28 @@ public class PlyController : MonoBehaviour
 
         if (!spcInter.HboxHeld)
         {
-            //Set facing direction
-            if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
+            if (canMove)
             {
-                this.gameObject.transform.localScale = new Vector3(-1 * Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y),
-                    Mathf.Abs(transform.localScale.z));
-                right = true;
-                left = false;
-            }
-            else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
-            {
-                this.gameObject.transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y),
-                    Mathf.Abs(transform.localScale.z));
-                left = true;
-                right = false;
-            }
-            else
-            {
-                left = false;
-                right = false;
+                //Set facing direction
+                if (PlyCtrl.Player.Movement.ReadValue<float>() > 0)
+                {
+                    this.gameObject.transform.localScale = new Vector3(-1 * Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y),
+                        Mathf.Abs(transform.localScale.z));
+                    right = true;
+                    left = false;
+                }
+                else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0)
+                {
+                    this.gameObject.transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y),
+                        Mathf.Abs(transform.localScale.z));
+                    left = true;
+                    right = false;
+                }
+                else
+                {
+                    left = false;
+                    right = false;
+                }
             }
         }
         else

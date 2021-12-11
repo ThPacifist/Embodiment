@@ -18,7 +18,7 @@ public class Sound {
 	 
 	public AudioMixerGroup mixerGroup; //Is there a mixer?
 
-	//[HideInInspector]
+	[HideInInspector]
 	public AudioSource source; //Source associated with this sound - not in editor, controlled behind the scene
 
     float timeToFade;
