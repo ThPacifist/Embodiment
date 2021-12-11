@@ -25,7 +25,7 @@ public class PlyController : MonoBehaviour
     public float jumpHeight;
     public bool canMove = true;
     public bool canJump = true;
-    PlayerInput test;
+    public float angle;
 
     [SerializeField]
     LayerMask groundLayerMask;
@@ -350,6 +350,24 @@ public class PlyController : MonoBehaviour
                     plyAnim.SetInteger("Facing", 0);
                 }
             }
+        }
+
+        if(tag == "Fish" && inWater)
+        {
+            angle = Vector2.SignedAngle(Vector2.left, PlyCtrl.Player.FishInWater.ReadValue<Vector2>());
+
+            /*if(angle > 90)
+            {
+                angle = transform.localScale.x * (90 - (angle - 90));
+            }
+            else if(angle < -90)
+            {
+                angle = transform.localScale.x * (90 + (angle + 90));
+            }*/
+
+            Quaternion rotation = Quaternion.Euler(0, 0, angle);
+
+            //transform.rotation = rotation;
         }
 
         //Set direction as cat on wall

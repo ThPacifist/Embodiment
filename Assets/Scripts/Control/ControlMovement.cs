@@ -109,6 +109,7 @@ public class ControlMovement : MonoBehaviour
 
                 //Changes players sprite to be the skeleton
                 animPly.SetTrigger(skeleton.Name);
+                animPly.SetInteger("Form", skeleton.Form);
 
                 //Attach skeleton to player and disable it
                 heldSkeleton = skeleton.transform.parent;
@@ -159,6 +160,7 @@ public class ControlMovement : MonoBehaviour
 
                 //Changes players sprite to be the blob
                 animPly.SetTrigger("Disembody");
+                animPly.SetInteger("Form", 0);
 
                 //Renables skeleton
                 heldSkeleton.gameObject.SetActive(true);
@@ -209,6 +211,7 @@ public class ControlMovement : MonoBehaviour
 
         //Changes players sprite to be the blob
         animPly.SetTrigger("Blob");
+        animPly.SetInteger("Form", 0);
 
         //Move skeleton back to respawn position
         if (skeleton != null)

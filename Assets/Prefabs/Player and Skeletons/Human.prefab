@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908bb4b4d6f33d54c9c34215851bcb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicator: {fileID: 8898208260782337840}
+  Form: 1
   isGrabbed: 0
   Name: Human
   speed: 5
@@ -209,7 +209,6 @@ MonoBehaviour:
   colliderOffset: {x: 0, y: 0}
   direction: 0
   skelGObject: {fileID: 3596478551229799208}
-  rigidbody: {fileID: 3596478551229799211}
   skeloScript: {fileID: 6984177957286063943}
 --- !u!1 &3596478551229799215
 GameObject:
@@ -376,7 +375,6 @@ MonoBehaviour:
   skeleton: {fileID: 3596478551229799208}
   spawnPoint: {fileID: 4098240563529287519}
   changeLocationAtStart: 0
-  waterKill: 1
 --- !u!1001 &4901332757030296686
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -438,11 +436,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b483489a74087404ab3868bfe458d05e, type: 3}
---- !u!1 &8898208260782337840 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4573899549758092126, guid: b483489a74087404ab3868bfe458d05e, type: 3}
-  m_PrefabInstance: {fileID: 4901332757030296686}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8898208260782337847 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4573899549758092121, guid: b483489a74087404ab3868bfe458d05e, type: 3}

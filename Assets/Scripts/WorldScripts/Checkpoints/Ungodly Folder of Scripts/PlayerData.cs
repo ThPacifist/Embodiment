@@ -84,6 +84,7 @@ public class PlayerData : AntiChrist
 
                 //Changes players sprite to be the skeleton
                 animPly.SetTrigger(skeleton.Name);
+                animPly.SetInteger("Form", skeleton.Form);
             }
             else /*if(player.tag == "Blob")*/
             {
