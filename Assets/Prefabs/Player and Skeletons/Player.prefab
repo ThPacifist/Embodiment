@@ -4886,7 +4886,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373430571}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -1.55, z: 0}
+  m_LocalPosition: {x: -0.203, y: -1.763, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4819060323485262879}
@@ -9987,6 +9987,7 @@ MonoBehaviour:
   jumpHeight: 18.1
   canMove: 1
   canJump: 1
+  angle: 0
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 8

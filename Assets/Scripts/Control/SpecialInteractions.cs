@@ -108,7 +108,7 @@ public class SpecialInteractions : MonoBehaviour
             this.transform.rotation = rotation;
         }
 
-        if(objectHeld)
+        if(objectHeld && heldBox != null)
         {
             if (tag == "Human")// tag is tag of this gameobject
             {
@@ -116,7 +116,7 @@ public class SpecialInteractions : MonoBehaviour
             }
             else if (tag == "Bat")// tag is tag of this gameobject
             {
-                //heldBox.transform.position = BheldPos.transform.position;
+                heldBox.transform.position = BheldPos.transform.position;
             }
         }
         if(skelHeld)
@@ -216,7 +216,7 @@ public class SpecialInteractions : MonoBehaviour
                                 }
                                 else
                                 {
-                                    PickUpBox(box);
+                                    PickUpBoxHuman(box);
                                 }
                             }
                             else
@@ -253,12 +253,12 @@ public class SpecialInteractions : MonoBehaviour
                         }
                         else
                         {
-                            PickUpBox(null);
+                            PickUpBoxHuman(null);
                         }
 
                         if (HboxHeld)
                         {
-                            PickUpBox(null);
+                            PickUpBoxHuman(null);
                         }
                     }
                     break;
@@ -286,41 +286,26 @@ public class SpecialInteractions : MonoBehaviour
                 {
                     if (boxTag == "LBox")
                     {
-                        if (audioManager != null)
+                        if (!plyCntrl.Left && !plyCntrl.Right)
                         {
-                            audioManager.Play("boxGrab", true);
+                            plyAnim.SetBool("isGrabbing", true);
                         }
-                        //box.transform.parent = player;
-                        heldBox = box;
-                        //heldBox.gravityScale = 0;
-                        objectHeld = true;
-                        fixedJ.enabled = true;
-                        fixedJ.connectedBody = heldBox;
-                        heldBox.transform.position = BheldPos.transform.position;
-                        //Cooldown
-                        cooldownTime = 1;
-                        specialReady = false;
-                        StartCoroutine("SpecialCoolDown");
+                        else
+                        {
+                            PickUpBoxBat(box);
+                        }
                     }
                 }
                 else if (objectHeld)
                 {
-                    if (audioManager != null)
+                    if(plyCntrl.Right || plyCntrl.Left || !plyCntrl.isBoxGrounded(heldBox))
                     {
-                        audioManager.Play("boxGrab", true);
+                        PickUpBoxBat(null);
                     }
-                    //Drop box
-                    Debug.Log("Drop box");
-                    //heldBox.transform.parent = null;
-                    //heldBox.gravityScale = 1;
-                    objectHeld = false;
-                    fixedJ.enabled = false;
-                    fixedJ.connectedBody = null;
-                    heldBox = null;
-                    //Cooldown
-                    cooldownTime = 1;
-                    specialReady = false;
-                    StartCoroutine("SpecialCoolDown");
+                    else
+                    {
+                        plyAnim.SetBool("isGrabbing", false);
+                    }
                 }
             }
         }
@@ -535,7 +520,7 @@ public class SpecialInteractions : MonoBehaviour
         StartCoroutine("SpecialCoolDown");
     }
 
-    public void PickUpBox(Rigidbody2D box)
+    public void PickUpBoxHuman(Rigidbody2D box)
     {
         if (box != null)
         {
@@ -575,6 +560,42 @@ public class SpecialInteractions : MonoBehaviour
         StartCoroutine("SpecialCoolDown");
     }
 
+    public void PickUpBoxBat(Rigidbody2D box)
+    {
+        if (box != null)
+        {
+            if (audioManager != null)
+            {
+                audioManager.Play("boxGrab", true);
+            }
+            plyAnim.SetBool("isGrabbing", true);
+            //Attach box
+            heldBox = box;
+            objectHeld = true;
+            fixedJ.enabled = true;
+            fixedJ.connectedBody = heldBox;
+            heldBox.transform.position = BheldPos.transform.position;
+        }
+        else
+        {
+            if (audioManager != null)
+            {
+                audioManager.Play("boxGrab", true);
+            }
+            plyAnim.SetBool("isGrabbing", false);
+            //plyAnim.SetTrigger("Bat");
+            objectHeld = false;
+            fixedJ.enabled = false;
+            fixedJ.connectedBody = null;
+            heldBox = null;
+        }
+
+        //Cooldown
+        cooldownTime = 1;
+        specialReady = false;
+        StartCoroutine("SpecialCoolDown");
+    }
+
     //Used in BlobPickUp Animation to pick up the skeleton on the correct frame
     public void CallPickUpFromAnimation()
     {
@@ -588,15 +609,27 @@ public class SpecialInteractions : MonoBehaviour
     }
 
     //Used in BlobPickUp Animation to pick up the skeleton on the correct frame
-    public void CallPickUpBoxFromAnimation()
+    public void CallPickUpBoxFromHumanAnimation()
     {
-        PickUpBox(box);
+        PickUpBoxHuman(box);
     }
 
     //Used in BlobPutDown Animation to put down the skeleton on the correct frame
-    public void CallPutDownBoxFromAnimation()
+    public void CallPutDownBoxFromHumanAnimation()
     {
-        PickUpBox(null);
+        PickUpBoxHuman(null);
+    }
+
+    //Used in BlobPickUp Animation to pick up the skeleton on the correct frame
+    public void CallPickUpBoxFromBatAnimation()
+    {
+        PickUpBoxBat(box);
+    }
+
+    //Used in BlobPutDown Animation to put down the skeleton on the correct frame
+    public void CallPutDownBoxFromBatAnimation()
+    {
+        PickUpBoxBat(null);
     }
 
     private void OnDrawGizmos()

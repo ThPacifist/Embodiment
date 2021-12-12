@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BatGrabTakeoff
+  m_Name: BatLettingGo
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,18 +20,20 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: de2cff3b6ffe68a41b71a2886509135f, type: 3}
-    - time: 0.083333336
-      value: {fileID: 21300000, guid: b3d5d61c6c0a1224aa9c3d69cdd86423, type: 3}
+      value: {fileID: 21300000, guid: d9861013683af5c41b796ea7b642cdc3, type: 3}
     - time: 0.16666667
-      value: {fileID: 21300000, guid: 6fc2960038ea0674781c102b77d63111, type: 3}
-    - time: 0.25
-      value: {fileID: 21300000, guid: 2137a0657c464534e9c000f9d60e654d, type: 3}
+      value: {fileID: 21300000, guid: 0500843826e21fa4a82246ec4d5fbcee, type: 3}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: ae426b41fe297514497dcdf4b31610ea, type: 3}
+    - time: 0.5
+      value: {fileID: 21300000, guid: 04711700f4999784aa20a9d4e636f975, type: 3}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: bd087f83a9cd68342a368c9fff1f35c3, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 12
+  m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -46,16 +48,17 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: de2cff3b6ffe68a41b71a2886509135f, type: 3}
-    - {fileID: 21300000, guid: b3d5d61c6c0a1224aa9c3d69cdd86423, type: 3}
-    - {fileID: 21300000, guid: 6fc2960038ea0674781c102b77d63111, type: 3}
-    - {fileID: 21300000, guid: 2137a0657c464534e9c000f9d60e654d, type: 3}
+    - {fileID: 21300000, guid: d9861013683af5c41b796ea7b642cdc3, type: 3}
+    - {fileID: 21300000, guid: 0500843826e21fa4a82246ec4d5fbcee, type: 3}
+    - {fileID: 21300000, guid: ae426b41fe297514497dcdf4b31610ea, type: 3}
+    - {fileID: 21300000, guid: 04711700f4999784aa20a9d4e636f975, type: 3}
+    - {fileID: 21300000, guid: bd087f83a9cd68342a368c9fff1f35c3, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.33333334
+    m_StopTime: 0.68333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -74,4 +77,25 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0
+    functionName: DisableMovement
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.16666667
+    functionName: CallPutDownBoxFromBatAnimation
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6666667
+    functionName: RenableMovement
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

@@ -392,6 +392,14 @@ public class PlyController : MonoBehaviour
             left = true;
             right = false;
         }
+
+        if (spcInter.objectHeld && tag == "Bat")
+        {
+            if (isBoxGrounded(spcInter.heldBox))
+            {
+                plyAnim.SetBool("isJumping", false);
+            }
+        }
         #endregion
     }
 
@@ -580,6 +588,31 @@ public class PlyController : MonoBehaviour
         }
         else
             return false;
+    }
+
+    public bool isBoxGrounded(Rigidbody2D rb)
+    {
+        BoxCollider2D[] cols = new BoxCollider2D[2];
+        rb.GetAttachedColliders(cols); //Gets all the colliders attached to a box
+        BoxCollider2D col;
+
+        //Determines which collider is the box collider, versus the trigger collider
+        if (cols[0].isTrigger)
+        {
+            col = cols[1];
+        }
+        else
+        {
+            col = cols[0];
+        }
+
+        float dist = 0.04f;
+        Vector2 size = new Vector2(col.bounds.size.x, dist);
+        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(col.bounds.center.x, col.bounds.min.y - size.y), size, 0f, Vector2.down, 
+            0, groundLayerMask);
+
+        //Debug.Log("hit is " + hit.collider);
+        return hit.collider != null;
     }
 
     /* Bat */
