@@ -299,15 +299,8 @@ public class SpecialInteractions : MonoBehaviour
                 }
                 else if (objectHeld)
                 {
-                    if(plyCntrl.Right || plyCntrl.Left || !plyCntrl.isBoxGrounded(heldBox))
-                    {
-                        plyAnim.SetBool("isGrabbing", false);
-                        PickUpBoxBat(null);
-                    }
-                    else
-                    {
-                        plyAnim.SetBool("isGrabbing", false);
-                    }
+                    plyAnim.SetBool("isGrabbing", false);
+                    PickUpBoxBat(null);
                 }
             }
         }
