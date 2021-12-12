@@ -250,6 +250,7 @@ public class SpecialInteractions : MonoBehaviour
                         if (!plyCntrl.Left && !plyCntrl.Right)
                         {
                             plyAnim.SetBool("isGrabbing", false);
+                            PickUpBoxHuman(null);
                         }
                         else
                         {
@@ -300,6 +301,7 @@ public class SpecialInteractions : MonoBehaviour
                 {
                     if(plyCntrl.Right || plyCntrl.Left || !plyCntrl.isBoxGrounded(heldBox))
                     {
+                        plyAnim.SetBool("isGrabbing", false);
                         PickUpBoxBat(null);
                     }
                     else

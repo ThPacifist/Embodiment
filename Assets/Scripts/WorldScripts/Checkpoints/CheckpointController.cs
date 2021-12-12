@@ -88,7 +88,7 @@ public class CheckpointController : MonoBehaviour
         player.gameObject.SetActive(true);
         //Try to place the player on the ground
         player.position = GameAction.PlaceColOnGround(player.GetComponent<Collider2D>());
-        plyAnim.SetTrigger("Respawn");
+        plyAnim.SetTrigger(player.tag);
     }
 
     //When ready re-enable movement for the player after a delay

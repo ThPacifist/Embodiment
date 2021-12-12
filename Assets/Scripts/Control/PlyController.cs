@@ -58,7 +58,9 @@ public class PlyController : MonoBehaviour
     {
         PlyCtrl = new PlayerControls();
         this.gameObject.transform.position = GameAction.PlaceColOnGround(capCollider);
+        TransitionController.slideInAction = UnFreezePlayer;
     }
+
     private void OnEnable()
     {
         PlyCtrl.Enable();
