@@ -37,6 +37,9 @@ public class PlyController : MonoBehaviour
     Vector2 catDir;
     AudioManager audioManager;
 
+    [HideInInspector]
+    public bool treadmill = false;
+
     bool right;
     bool left;
 
@@ -96,7 +99,7 @@ public class PlyController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (canMove)
+        if (canMove && !treadmill)
         {
             //Movement for Fish
             if (this.CompareTag("Fish"))
