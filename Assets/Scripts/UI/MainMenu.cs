@@ -31,21 +31,30 @@ public class MainMenu : MonoBehaviour
     private Text buttonText;
     private Vector2 buttonPos = new Vector2(-640, 390);
     private int sceneCount;
+    float mouseTimer = 4;
+    PlayerControls plyCntrl;
+    Vector2 lastPos;
+    Vector2 curPos;
 
     //Enable on enable and disable on disabe
     private void OnEnable()
     {
+        plyCntrl.Enable();
         TransitionController.fadeOutAction += newGame;
     }
 
     private void OnDisable()
     {
+        plyCntrl.Disable();
         TransitionController.fadeOutAction -= newGame;
     }
 
     //Runs at start and generates buttons for each level
     private void Awake()
     {
+        plyCntrl = new PlayerControls();
+        Cursor.visible = false;
+
         sceneCount = SceneManager.sceneCountInBuildSettings;
         //Generate buttons for the number of scenes in built settings
         for (int i = 1; i < sceneCount; i++)
@@ -61,6 +70,27 @@ public class MainMenu : MonoBehaviour
             //Add listener to the button
             button.onClick.AddListener(levelSelect);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        curPos = plyCntrl.UI.Point.ReadValue<Vector2>();
+        if (curPos != lastPos)
+        {
+            Cursor.visible = true;
+            mouseTimer = 0;
+        }
+
+        if (mouseTimer < 4)
+        {
+            mouseTimer += Time.deltaTime;
+        }
+
+        if (mouseTimer >= 4)
+        {
+            Cursor.visible = false;
+        }
+        lastPos = curPos;
     }
 
     //Level select buttons
