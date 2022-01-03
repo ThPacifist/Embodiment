@@ -81,12 +81,12 @@ public class BoxTrigger : MonoBehaviour
 
         Vector2 plyPoint = new Vector2(plyCol.bounds.center.x, plyCol.bounds.min.y);
 
-        Vector2 tR = OuterCol.bounds.max;
-        Vector2 bL = new Vector2(OuterCol.bounds.max.x, InnerCol.bounds.max.y);
+        Vector2 tR = new Vector2(OuterCol.bounds.max.x, InnerCol.bounds.max.y - 0.5f);
+        Vector2 bL = new Vector2(OuterCol.bounds.min.x, InnerCol.bounds.min.y - 0.2f);
 
         Debug.DrawLine(tR, bL);
 
-        if (plyPoint.x < tR.x && plyPoint.x > bL.x && plyPoint.y < tR.y && plyPoint.y > bL.y - 0.01f)
+        if (plyPoint.y < tR.y && plyPoint.y > bL.y)
         {
             Debug.Log("Inside Bounds");
             return true;
@@ -107,6 +107,15 @@ public class BoxTrigger : MonoBehaviour
 
         Vector3 center = new Vector3((tR.x + bL.x) / 2, (tR.y + bL.y) / 2, 0);
         Vector3 size = new Vector3(Mathf.Abs(tR.x - bL.x), Mathf.Abs(tR.y - bL.y), 0);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(center, size);
+
+        tR = new Vector2(OuterCol.bounds.max.x, InnerCol.bounds.max.y - 0.5f);
+        bL = new Vector2(OuterCol.bounds.min.x, InnerCol.bounds.min.y - 0.2f);
+
+        center = new Vector3((tR.x + bL.x) / 2, (tR.y + bL.y) / 2, 0);
+        size = new Vector3(Mathf.Abs(tR.x - bL.x), Mathf.Abs(tR.y - bL.y), 0);
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(center, size);
