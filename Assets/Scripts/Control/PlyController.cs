@@ -9,10 +9,8 @@ public class PlyController : MonoBehaviour
 {
     //Assets and Public Variables
     PlayerControls PlyCtrl;
-    SpecialInteractions SpcIntr;
     public Transform attackBox;
     public Rigidbody2D rb;
-    public SpriteRenderer plySprite;
     public Animator plyAnim;
     public CapsuleCollider2D capCollider; 
     public static Action Interact = delegate { };
@@ -33,7 +31,6 @@ public class PlyController : MonoBehaviour
     //Private Variables
     public bool OnWall = false;
     bool batJump = true;
-    bool delayGroundCheck;
     Vector2 catDir;
     AudioManager audioManager;
 
@@ -78,7 +75,7 @@ public class PlyController : MonoBehaviour
     private void Start()
     {
         audioManager = GameObject.FindObjectOfType<AudioManager>();
-        //Spceial Interact
+        //Special Interact
         PlyCtrl.Player.Special.performed += _ => SpecialS();
 
         //Regular interact
@@ -256,8 +253,7 @@ public class PlyController : MonoBehaviour
 
 
         #region Animation Block
-        if ((PlyCtrl.Player.Movement.ReadValue<float>() != 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
-            && canMove)
+        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && canMove)
         {
             plyAnim.SetBool("Walking", true);
         }
@@ -285,6 +281,7 @@ public class PlyController : MonoBehaviour
             plyAnim.SetBool("Swing", false);
         }
 
+        //Climbing on Wall as cat
         if (OnWall)
         {
             plyAnim.SetBool("Climb", true);
@@ -303,6 +300,7 @@ public class PlyController : MonoBehaviour
             plyAnim.SetBool("Climb", false);
         }
 
+        //Pushing and Pulling boxes as Human
         if (!spcInter.HboxHeld)
         {
             if (canMove)
@@ -364,8 +362,17 @@ public class PlyController : MonoBehaviour
             }
         }
 
+        //Moving in Water as fish
         if(tag == "Fish" && inWater)
         {
+            if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
+            {
+                plyAnim.SetBool("Walking", true);
+            }
+            else
+            {
+                plyAnim.SetBool("Walking", false);
+            }
             angle = Vector2.SignedAngle(Vector2.left, PlyCtrl.Player.FishInWater.ReadValue<Vector2>());
 
             /*if(angle > 90)
@@ -398,6 +405,7 @@ public class PlyController : MonoBehaviour
             right = false;
         }
 
+        //Checking if on ground as bat while carrying box
         if (spcInter.objectHeld && tag == "Bat")
         {
             if (isBoxGrounded(spcInter.heldBox))
@@ -466,12 +474,8 @@ public class PlyController : MonoBehaviour
                         rb.AddForce(rb.velocity.normalized * 5, ForceMode2D.Impulse);
                     }
                 }
-                if (!delayGroundCheck)
-                {
-                    plyAnim.SetTrigger("takeOff");
-                }
+                plyAnim.SetTrigger("takeOff");
                 plyAnim.SetBool("isJumping", true);
-                DelayGroundCheck();
             }
         }
     }
@@ -586,15 +590,11 @@ public class PlyController : MonoBehaviour
         RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.size, capCollider.direction, 0f, Vector2.down, 
             dist, groundLayerMask);
 
-        if (!delayGroundCheck)
-        {
-            //Debug.Log(hit.collider);
-            return hit.collider != null;
-        }
-        else
-            return false;
+        //Debug.Log(hit.collider);
+        return hit.collider != null;
     }
 
+    //Checks if the box is on the ground (Bat)
     public bool isBoxGrounded(Rigidbody2D rb)
     {
         BoxCollider2D[] cols = new BoxCollider2D[2];
@@ -626,18 +626,6 @@ public class PlyController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         batJump = true;
-    }
-
-    void DelayGroundCheck()
-    {
-        StartCoroutine(DelayGroundCheckIE());
-    }
-
-    IEnumerator DelayGroundCheckIE()
-    {
-        delayGroundCheck = true;
-        yield return new WaitForSeconds(0.5f);
-        delayGroundCheck = false;
     }
 
     public void DisableMovement()
