@@ -371,7 +371,7 @@ public class PlyController : MonoBehaviour
             }
             else
             {
-                plyAnim.SetBool("Walking", false);
+                plyAnim.SetBool("Walking", true);
             }
 
             angle = Vector2.SignedAngle(Vector2.left, PlyCtrl.Player.FishInWater.ReadValue<Vector2>());
@@ -669,7 +669,8 @@ public class PlyController : MonoBehaviour
     void TriggerDeath()
     {
         Death();
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
+        plySprite.enabled = false;
     }
 
     void FreezePlayer()

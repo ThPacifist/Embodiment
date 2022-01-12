@@ -85,7 +85,7 @@ public class CheckpointController : MonoBehaviour
     void RespawnPlayer()
     {
         MoveToCheckpoint(previousCheckpoint);
-        player.gameObject.SetActive(true);
+        player.GetComponent<SpriteRenderer>().enabled = true;
         //Try to place the player on the ground
         player.position = GameAction.PlaceColOnGround(player.GetComponent<Collider2D>());
         plyAnim.SetTrigger(player.tag);
