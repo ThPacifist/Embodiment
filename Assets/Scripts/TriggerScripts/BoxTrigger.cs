@@ -24,7 +24,7 @@ public class BoxTrigger : MonoBehaviour
             }
             else if(collision.CompareTag("Human"))
             {
-                if (!CheckBoundsForHuman(collision))
+                if (CheckBoundsForHuman(collision))
                 {
                     interaction = collision.GetComponent<SpecialInteractions>();
                     if (!interaction.objectHeld)
