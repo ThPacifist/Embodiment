@@ -256,8 +256,7 @@ public class PlyController : MonoBehaviour
 
 
         #region Animation Block
-        if ((PlyCtrl.Player.Movement.ReadValue<float>() != 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
-            && canMove)
+        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && canMove)
         {
             plyAnim.SetBool("Walking", true);
         }
@@ -366,6 +365,15 @@ public class PlyController : MonoBehaviour
 
         if(tag == "Fish" && inWater)
         {
+            if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
+            {
+                plyAnim.SetBool("Walking", true);
+            }
+            else
+            {
+                plyAnim.SetBool("Walking", false);
+            }
+
             angle = Vector2.SignedAngle(Vector2.left, PlyCtrl.Player.FishInWater.ReadValue<Vector2>());
 
             /*if(angle > 90)
