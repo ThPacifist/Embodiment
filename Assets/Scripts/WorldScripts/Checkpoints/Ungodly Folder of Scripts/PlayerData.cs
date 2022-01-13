@@ -25,6 +25,7 @@ public class PlayerData : AntiChrist
     //Constructor
     public override void Constructor()
     {
+        Debug.Log("Constructor run");
         pTag = player.tag;
         heldBox = spcInt.heldBox;
         heldSkeleton = ctrlMvm.heldSkeleton;
@@ -37,6 +38,7 @@ public class PlayerData : AntiChrist
     //Rebuild Data
     public override void RebuildData()
     {
+        Debug.Log("Rebuild data run");
         pTag = player.tag;
         heldBox = spcInt.heldBox;
         heldSkeleton = ctrlMvm.heldSkeleton;
@@ -53,6 +55,16 @@ public class PlayerData : AntiChrist
         //If the player should be embodied
         if(!player.CompareTag(pTag))
         {
+            //Change sprite back to what it should be
+            if(pTag != "Blob")
+            {
+                animPly.SetInteger("Form", skeleton.Form);
+            }
+            else
+            {
+                animPly.SetInteger("Form", 0);
+            }
+            
             //Drop the current skeleton at time of death
             if(ctrlMvm.heldSkeleton != null && ctrlMvm.heldSkeleton != heldSkeleton)
             {
@@ -93,12 +105,7 @@ public class PlayerData : AntiChrist
         //If the player should be holding a box
         if(objectHeld != spcInt.objectHeld)
         {
-            spcInt.objectHeld = objectHeld;
-            spcInt.heldBox = heldBox;
-            fixedJ.enabled = true;
-            fixedJ.connectedBody = heldBox;
-            plyCol.size = skeleton.colliderSize;
-            plyCol.offset = skeleton.colliderOffset;
+            Debug.Log("Different held item");
         }
     }
 }
