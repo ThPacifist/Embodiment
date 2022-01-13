@@ -92,8 +92,6 @@ public class PlyController : MonoBehaviour
 
         //Pause
         PlyCtrl.Player.Pause.performed += _ => Pause();
-
-        audioManager.Play("Depletion", true);
     }
 
     // Update is called once per frame
@@ -160,7 +158,7 @@ public class PlyController : MonoBehaviour
                             rb.velocity += (Vector2.up * PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y * speed * 0.5f) - new Vector2(0, rb.velocity.y);
                             if (audioManager != null)
                             {
-                                audioManager.Play("catClimb", true);
+                                audioManager.Play("catClimb");
                             }
                         }
                         //Otherwise checks if they push left or right, meaning they can
@@ -204,7 +202,7 @@ public class PlyController : MonoBehaviour
                         audioManager.Stop("catClimb");
                         if (tag == "Blob")
                         {
-                            audioManager.Play("blobStep", true);
+                            audioManager.Play("blobStep");
                         }
                     }
                 }
@@ -450,7 +448,7 @@ public class PlyController : MonoBehaviour
                     plyAnim.SetTrigger("Flap");
                     if (audioManager != null)
                     {
-                        audioManager.Play("wingFlap", true);
+                        audioManager.Play("wingFlap");
                     }
                     StartCoroutine(FlyCoolDown());
                 }
@@ -502,7 +500,7 @@ public class PlyController : MonoBehaviour
             {
                 if (audioManager != null)
                 {
-                    audioManager.Play("splash", true);
+                    audioManager.Play("splash");
                 }
                 inWater = true;
                 capCollider.density = 5.5f;
@@ -515,7 +513,7 @@ public class PlyController : MonoBehaviour
                 //Makes Blob float
                 if (audioManager != null)
                 {
-                    audioManager.Play("splash", true);
+                    audioManager.Play("splash");
                 }
                 inWater = true;
                 capCollider.density = 2;
@@ -662,7 +660,7 @@ public class PlyController : MonoBehaviour
 
     public void PlaySoundFromAudioManager(string name)
     {
-        audioManager.PlayAnyway(name);
+        audioManager.Play(name);
     }
 
     //Calls all functions subscribed to death; Used in Death animation

@@ -1,7 +1,9 @@
 ﻿using UnityEngine.Audio;
 using UnityEngine;
+using System;
+using System.Collections;
 
-[System.Serializable]
+[Serializable]
 public class Sound {
 
 	public string name; //name of the sound, used to find it for scripts attempting to play
@@ -24,42 +26,13 @@ public class Sound {
     float timeToFade;
     float dTime;
 
-    #region get/set
-    public void setFadeTime(float nF)
+	void AudioFadeOut()
     {
-        timeToFade = nF;
+
     }
-    #endregion
 
-    public bool AudioFadeOut()
-    { 
-        float startVolume = this.source.volume;
-
-        Debug.Log("We are in the fade function: " + this.name);
-
-        if (this.source.isPlaying)
-        {
-            if (this.source.volume <= 0)
-            {
-                this.source.Stop();
-                this.source.volume = startVolume;
-                dTime = 0f;
-                return true;
-            }
-            else
-            {
-                dTime += Time.deltaTime;
-                if(dTime > timeToFade)
-                {
-                    dTime = timeToFade;
-                }
-                this.source.volume -= startVolume * (dTime / timeToFade);
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
+    IEnumerator AudioFadeOutIE()
+    {
+		yield return null;
     }
 }

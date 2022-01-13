@@ -9,43 +9,31 @@ public class AudioManager : MonoBehaviour
 {
 	public static AudioManager instance; //Is there an audio manager? Used to ensure only one instance
 
-	[SerializeField]
-	bool isTutorial = false;
-
 	public AudioMixerGroup mixerGroup; //For audio source mixing
 
+    public Sound[] Music; //List of music tracks
 	public Sound[] sounds; //List of sounds managed by the manager
 
-    public List<Sound> fadingSounds = new List<Sound>();
+    GameObject mAssistGO;
+    MusicAssistant mAssist;
+
+    GameObject sAssistGO;
+    SoundAssistant sAssist;
 
 	void Awake()
 	{
-		if (!isTutorial)
+		if (instance != null && instance != null)
 		{
-			if (instance != null && instance != null)
-			{
-				Destroy(gameObject); //Is there a manager? If yes then I'm gone
-			}
-			else
-			{
-				instance = this;  //There isnt a manager? I'm it
-				DontDestroyOnLoad(gameObject);
-			}
+			Destroy(gameObject); //Is there a manager? If yes then I'm gone
+		}
+		else
+		{
+			instance = this;  //There isnt a manager? I'm it
+			DontDestroyOnLoad(gameObject);
 		}
 
-        foreach (Sound s in sounds) //Init each sound - give it a source and init that source to make it playable
-        {
-            GameObject gObject = new GameObject();
-            s.source = gObject.AddComponent<AudioSource>();
-            gObject.name = s.clip.name;
-            s.source.clip = s.clip;
-            s.source.loop = s.loop;
-            s.source.volume = s.volume;
 
-            gObject.transform.parent = this.transform;
-
-            s.source.outputAudioMixerGroup = mixerGroup;
-        }
+        CreateAssistants();
 	}
 
     void Update()
@@ -53,44 +41,18 @@ public class AudioManager : MonoBehaviour
         //doFade();
     }
 
-    public void Play(string sound, bool isRandom) 
-	{
-		Sound s = Array.Find(sounds, item => item.name == sound); //Find the sound we want to play, ensure it's not null
-		if (s == null)
-		{
-			Debug.LogWarning("Sound: " + name + " not found!");
-			return;
-		}
-
-
-		if (!s.source.isPlaying) //Check if the sound is playing - if not, have at it.s
-		{
-            if (!isRandom)
-            {
-                s.source.volume = s.volume; //Set the volume and pitch to the one contained by the sound
-
-                s.source.pitch = s.pitch;
-            }
-
-            else if (isRandom)
-            {
-                s.source.volume = Random.Range(s.volume - 0.05f, s.volume + 0.05f); //Random Volume
-
-                s.source.pitch = Random.Range(0.9f, 1.1f); // Random Pitch
-            }
-
-            s.source.Play();
-
-		}
-	}
-
-    public void PlayAnyway(string sound)
+    public void Play(string sound)
     {
         Sound s = Array.Find(sounds, item => item.name == sound); //Find the sound we want to play, ensure it's not null
         if (s == null)
         {
-            Debug.LogWarning("Sound: " + name + " not found!");
-            return;
+            s = Array.Find(Music, item => item.name == sound); //If it's not a sound effect, see if it's a music track
+
+            if (s == null)
+            {
+                Debug.LogWarning("Sound and/or Music: " + name + " not found!");
+                return;
+            }
         }
 
         s.source.Play();
@@ -101,8 +63,13 @@ public class AudioManager : MonoBehaviour
 		Sound s = Array.Find(sounds, item => item.name == sound); //Find the sound we want to play, ensure it's not null
         if(s == null)
         {
-            Debug.Log("S: " + sound + " is missing");
-            return;
+            s = Array.Find(Music, item => item.name == sound); //If it's not a sound effect, see if it's a music track
+
+            if (s == null)
+            {
+                Debug.LogWarning("Sound and/or Music: " + name + " is music");
+                return;
+            }
         }
 
         if (s.source != null && s.source.isPlaying)
@@ -111,35 +78,55 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void StartFade(string sound, float ttq)
+    [ContextMenu ("Create Assistants")]
+    void CreateAssistants()
     {
-        Sound s = Array.Find(sounds, item => item.name == sound);
-        s.setFadeTime(ttq);
-
-        fadingSounds.Add(s);
-
-    }
-    public void doFade()
-    {
-        if (fadingSounds.Count != 0)
+        if(mAssistGO != null)
         {
-            List<Sound> toremove = new List<Sound>();
-            foreach (Sound s in fadingSounds)
-            {
-                bool remove = s.AudioFadeOut();
-                if (remove)
-                {
-                    toremove.Add(s);
-                }
-            }
-            if(toremove.Count != 0)
-            {
-                foreach(Sound s in toremove)
-                {
-                    fadingSounds.Remove(s);
-                }
-                toremove.Clear();
-            }
+            DestroyImmediate(mAssistGO);
+        }
+        mAssistGO = new GameObject();
+        mAssistGO.name = "Music Assistant";
+        mAssistGO.transform.parent = this.transform;
+        mAssist = mAssistGO.AddComponent<MusicAssistant>();
+        mAssist.audioManager = this;
+        foreach (Sound s in Music)
+        {
+            GameObject gObject = new GameObject();
+            s.source = gObject.AddComponent<AudioSource>();
+            gObject.name = s.clip.name;
+            s.source.clip = s.clip;
+            s.source.loop = s.loop;
+            s.source.volume = s.volume;
+
+            gObject.transform.parent = mAssistGO.transform;
+
+            s.source.outputAudioMixerGroup = mixerGroup;
+            mAssist.music.Add(s);
+        }
+
+        if (sAssistGO != null)
+        {
+            DestroyImmediate(sAssistGO);
+        }
+        sAssistGO = new GameObject();
+        sAssistGO.name = "Sound Assistant";
+        sAssistGO.transform.parent = this.transform;
+        sAssist = sAssistGO.AddComponent<SoundAssistant>();
+        sAssist.audioManager = this;
+        foreach (Sound s in sounds) //Init each sound - give it a source and init that source to make it playable
+        {
+            GameObject gObject = new GameObject();
+            s.source = gObject.AddComponent<AudioSource>();
+            gObject.name = s.clip.name;
+            s.source.clip = s.clip;
+            s.source.loop = s.loop;
+            s.source.volume = s.volume;
+
+            gObject.transform.parent = sAssistGO.transform;
+
+            s.source.outputAudioMixerGroup = mixerGroup;
+            sAssist.soundEffects.Add(s);
         }
     }
 
@@ -154,9 +141,14 @@ public class AudioManager : MonoBehaviour
 
         foreach (Sound s in sounds) //Then recreate it
         {
-            s.source = gameObject.AddComponent<AudioSource>();
+            GameObject gObject = new GameObject();
+            s.source = gObject.AddComponent<AudioSource>();
+            gObject.name = s.clip.name;
             s.source.clip = s.clip;
             s.source.loop = s.loop;
+            s.source.volume = s.volume;
+
+            gObject.transform.parent = this.transform;
 
             s.source.outputAudioMixerGroup = mixerGroup;
         }

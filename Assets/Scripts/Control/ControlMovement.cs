@@ -93,7 +93,7 @@ public class ControlMovement : MonoBehaviour
             {
                 if (audioManager != null)
                 {
-                    audioManager.Play("embody", true);
+                    audioManager.Play("embody");
                 }
 
                 //Changes players values to be the skeleton
@@ -144,7 +144,7 @@ public class ControlMovement : MonoBehaviour
             {
                 if (audioManager != null)
                 {
-                    audioManager.Play("embody", true);
+                    audioManager.Play("embody");
                 }
 
                 //Changes players values to be the blob
@@ -194,7 +194,7 @@ public class ControlMovement : MonoBehaviour
     {
         if (audioManager != null && heldSkeleton != null)
         {
-            audioManager.Play("embody", true);
+            audioManager.Play("embody");
         }
 
         //Makes it so player is no longer holding the skeleton

@@ -228,7 +228,7 @@ public class SpecialInteractions : MonoBehaviour
                         {
                             if (audioManager != null)
                             {
-                                audioManager.Play("boxGrab", true);
+                                audioManager.Play("boxGrab");
                             }
                             plyAnim.SetBool("isPushing", true);
                             
@@ -449,7 +449,7 @@ public class SpecialInteractions : MonoBehaviour
         //Debug.Log("Spring on " + spring.isActiveAndEnabled);
         if (audioManager != null)
         {
-            audioManager.Play("Swing", true);
+            audioManager.Play("Swing");
         }
         if (!spring.isActiveAndEnabled)
         {
@@ -524,7 +524,7 @@ public class SpecialInteractions : MonoBehaviour
         {
             if (audioManager != null)
             {
-                audioManager.Play("boxGrab", true);
+                audioManager.Play("boxGrab");
             }
             plyAnim.SetBool("isGrabbing", true);
             //Attach box
@@ -538,7 +538,7 @@ public class SpecialInteractions : MonoBehaviour
         {
             if (audioManager != null)
             {
-                audioManager.Play("boxGrab", true);
+                audioManager.Play("boxGrab");
             }
             plyAnim.SetBool("isPushing", false);
             plyAnim.SetBool("isGrabbing", false); 
@@ -564,7 +564,7 @@ public class SpecialInteractions : MonoBehaviour
         {
             if (audioManager != null)
             {
-                audioManager.Play("boxGrab", true);
+                audioManager.Play("boxGrab");
             }
             plyAnim.SetBool("isGrabbing", true);
             //Attach box
@@ -578,7 +578,7 @@ public class SpecialInteractions : MonoBehaviour
         {
             if (audioManager != null)
             {
-                audioManager.Play("boxGrab", true);
+                audioManager.Play("boxGrab");
             }
             plyAnim.SetBool("isGrabbing", false);
             //plyAnim.SetTrigger("Bat");
