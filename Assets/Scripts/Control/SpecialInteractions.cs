@@ -49,11 +49,11 @@ public class SpecialInteractions : MonoBehaviour
     AudioManager audioManager;
 
     [SerializeField]
-    Transform HheldPos;
+    public Transform HheldPos;
     [SerializeField]
-    Transform BheldPos;
+    public Transform BheldPos;
     [SerializeField]
-    Transform skelHeldPos;
+    public Transform skelHeldPos;
 
     [SerializeField]
     FixedJoint2D fixedJ;
