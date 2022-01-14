@@ -33,6 +33,12 @@ public class Sound {
 
     IEnumerator AudioFadeOutIE()
     {
-		yield return null;
+		float timer = 5;
+
+		while (timer > 0)
+		{
+			timer -= Time.deltaTime;
+			yield return null;
+		}
     }
 }
