@@ -369,7 +369,7 @@ public class PlyController : MonoBehaviour
             }
             else
             {
-                plyAnim.SetBool("Walking", true);
+                plyAnim.SetBool("Walking", false);
             }
 
             angle = Vector2.SignedAngle(Vector2.left, PlyCtrl.Player.FishInWater.ReadValue<Vector2>());

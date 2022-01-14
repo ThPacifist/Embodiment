@@ -107,11 +107,11 @@ public class MovingPlatforms : GameAction
     //Move stuff with it that is touchng it
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //Parent to platform
+        collision.transform.SetParent(platform);
         //Check if it was the player
-        if(GameAction.PlayerTags(collision.collider.tag))
+        if (GameAction.PlayerTags(collision.collider.tag))
         {
-            //Parent to platform
-            collision.transform.SetParent(platform);
             //Set playerOn
             playerOn = true;
         }
@@ -120,11 +120,11 @@ public class MovingPlatforms : GameAction
     //Don't move stuff with it that isn't touching it
     private void OnCollisionExit2D(Collision2D collision)
     {
+        //Remove parent
+        collision.transform.SetParent(null);
         //Check if it was the player
         if (GameAction.PlayerTags(collision.collider.tag))
         {
-            //Remove parent
-            collision.transform.SetParent(null);
             //Set playerOn
             playerOn = false;
         }

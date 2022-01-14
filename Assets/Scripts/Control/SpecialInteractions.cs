@@ -135,6 +135,9 @@ public class SpecialInteractions : MonoBehaviour
         {
             if (specialReady)
             {
+                if(plyCntrl.InWater)
+                plyAnim.SetTrigger("Spin");
+
                 if (lever != null)
                 {
                     //Activate the lever

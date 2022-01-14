@@ -98,6 +98,7 @@ public class AudioManager : MonoBehaviour
             s.source.clip = s.clip;
             s.source.loop = s.loop;
             s.source.volume = s.volume;
+            s.source.playOnAwake = false;
 
             gObject.transform.parent = mAssistGO.transform;
 
@@ -122,6 +123,7 @@ public class AudioManager : MonoBehaviour
             s.source.clip = s.clip;
             s.source.loop = s.loop;
             s.source.volume = s.volume;
+            s.source.playOnAwake = false;
 
             gObject.transform.parent = sAssistGO.transform;
 

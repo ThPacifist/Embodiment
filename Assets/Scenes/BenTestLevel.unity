@@ -175,7 +175,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51863908}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 51.88, y: 6.13, z: 0}
+  m_LocalPosition: {x: 51.88, y: 20.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -48932,6 +48932,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 89386729541824716, guid: a3ce997d61c54aa4cb33e1b355e4ba16, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 89386729541824717, guid: a3ce997d61c54aa4cb33e1b355e4ba16, type: 3}
       propertyPath: m_Name
       value: MBox
@@ -49367,6 +49371,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4909862592832104644, guid: ade5163ca1ba49e4092150b4fa04bd8d, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4909862592832104645, guid: ade5163ca1ba49e4092150b4fa04bd8d, type: 3}
       propertyPath: m_Name
       value: LBox
@@ -49484,6 +49492,10 @@ PrefabInstance:
     - target: {fileID: 8374081529948776974, guid: 5a720e979ef3f3b41bf78f4a6356df17, type: 3}
       propertyPath: m_Name
       value: HBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 8374081529948776977, guid: 5a720e979ef3f3b41bf78f4a6356df17, type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8374081529948776980, guid: 5a720e979ef3f3b41bf78f4a6356df17, type: 3}
       propertyPath: m_RootOrder

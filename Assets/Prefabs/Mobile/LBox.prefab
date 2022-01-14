@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04a61790c528d84fb758e93afff0a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Indicator: {fileID: 8888583303940818657}
   interaction: {fileID: 0}
 --- !u!61 &1642387621
 BoxCollider2D:
@@ -205,7 +204,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &5018867996057913018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,11 +279,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b483489a74087404ab3868bfe458d05e, type: 3}
---- !u!1 &8888583303940818657 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4573899549758092126, guid: b483489a74087404ab3868bfe458d05e, type: 3}
-  m_PrefabInstance: {fileID: 4909862593918285247}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8888583303940818662 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4573899549758092121, guid: b483489a74087404ab3868bfe458d05e, type: 3}
