@@ -12,9 +12,7 @@ public class PlayerData : AntiChrist
     public CapsuleCollider2D plyCol;
     public Animator animPly;
     public Transform heldSkeleton;
-    public SkeletonTrigger heldSkel;
     public SkeletonTrigger skeleton;
-    private Rigidbody2D heldBox;
     private string pTag;
     private bool objectHeld;
     private bool skelHeld;
@@ -29,8 +27,6 @@ public class PlayerData : AntiChrist
     public override void Constructor()
     {
         pTag = player.tag;
-        heldBox = spcInt.heldBox;
-        heldSkel = spcInt.heldSkel;
         heldSkeleton = ctrlMvm.heldSkeleton;
         objectHeld = spcInt.objectHeld;
         skelHeld = spcInt.skelHeld;
@@ -45,8 +41,6 @@ public class PlayerData : AntiChrist
     {
         Debug.Log("Rebuild data run");
         pTag = player.tag;
-        heldBox = spcInt.heldBox;
-        heldSkel = spcInt.heldSkel;
         heldSkeleton = ctrlMvm.heldSkeleton;
         objectHeld = spcInt.objectHeld;
         skelHeld = spcInt.skelHeld;
@@ -110,45 +104,36 @@ public class PlayerData : AntiChrist
                 ctrlMvm.DestorySkeleton();
             }
         }
-        //If the player should be holding something else/nothing
-        if(objectHeld || spcInt.objectHeld || skelHeld || spcInt.skelHeld || hBoxHeld || spcInt.HboxHeld)
+        //If the player is holding anything, drop it
+        if(spcInt.objectHeld || spcInt.skelHeld || spcInt.HboxHeld)
         {
             //Change bools to be correct
-            spcInt.objectHeld = objectHeld;
-            spcInt.skelHeld = skelHeld;
-            spcInt.HboxHeld = hBoxHeld;
+            spcInt.objectHeld = false;
+            spcInt.skelHeld = false;
+            spcInt.HboxHeld = false;
 
-            //Check if the player should be holding nothing
-            if (heldBox == null && heldSkel == null)
-            {
-                //Make the player hold nothing
-                spcInt.heldSkel = null;
-                spcInt.heldSkel.isGrabbed = false;
-                spcInt.skelHeld = false;
-                fixedJ.enabled = false;
-                fixedJ.connectedBody = null;
-                animPly.SetBool("isGrabbing", false);
-                plyCtrl.jumpHeight = 18.1f;
-            }
-            //Check if the player should be holding a box
-            else if (heldBox != spcInt.heldBox)
-            {
-                //Make the player hold the box they should be holding
-                Debug.Log("The player now holds the box " + heldBox);
-            }
-            // Check if the player should be holding a skeleton
-            else if (heldSkel != spcInt.heldSkel)
-            {
-                //Make the player hold the skeleton they should be holding
-                Debug.Log("The player now holds the skeleton " + heldSkel);
-                spcInt.heldSkel = heldSkel;
-                spcInt.heldSkel.isGrabbed = true;
-                fixedJ.enabled = true;
-                fixedJ.connectedBody = heldSkel.transform.parent.GetComponent<Rigidbody2D>();
-                spcInt.heldSkel.skelGObject.transform.position = spcInt.skelHeldPos.transform.position;
-                animPly.SetBool("isGrabbing", true);
-                plyCtrl.jumpHeight = 60;
-            }
+            //Make the player hold nothing
+            spcInt.heldSkel = null;
+            spcInt.skelHeld = false;
+            fixedJ.enabled = false;
+            fixedJ.connectedBody = null;
+            animPly.SetBool("isGrabbing", false);
+            plyCtrl.jumpHeight = 18.1f;
+        }
+        //Reset pick up target
+        spcInt.box = null;
+        spcInt.skeleton = null;
+
+        //Get rid of interact indicators
+        if(spcInt.prefabInstance != null)
+        {
+            Destroy(spcInt.prefabInstance);
+        }
+
+        //Reset current embody target
+        if(ctrlMvm.skeleton != null)
+        {
+            skeleton = null;
         }
     }
 }

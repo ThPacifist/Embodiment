@@ -34,7 +34,7 @@ public class SpecialInteractions : MonoBehaviour
     [SerializeField]
     GameObject IndicatorPrefab;
 
-    GameObject prefabInstance;
+    public GameObject prefabInstance;
 
     //Private variables
     private bool specialReady = true;
@@ -49,11 +49,11 @@ public class SpecialInteractions : MonoBehaviour
     AudioManager audioManager;
 
     [SerializeField]
-    public Transform HheldPos;
+    Transform HheldPos;
     [SerializeField]
-    public Transform BheldPos;
+    Transform BheldPos;
     [SerializeField]
-    public Transform skelHeldPos;
+    Transform skelHeldPos;
 
     [SerializeField]
     FixedJoint2D fixedJ;
