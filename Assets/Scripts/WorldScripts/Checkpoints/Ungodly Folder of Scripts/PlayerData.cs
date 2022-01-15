@@ -135,5 +135,12 @@ public class PlayerData : AntiChrist
         {
             skeleton = null;
         }
+
+        //Reset heldskel
+        if(spcInt.heldSkel != null)
+        {
+            spcInt.heldSkel.isGrabbed = false;
+            spcInt.heldSkel = null;
+        }
     }
 }
