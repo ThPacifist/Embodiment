@@ -39,7 +39,6 @@ public class PlayerData : AntiChrist
     //Rebuild Data
     public override void RebuildData()
     {
-        Debug.Log("Rebuild data run");
         pTag = player.tag;
         heldSkeleton = ctrlMvm.heldSkeleton;
         objectHeld = spcInt.objectHeld;
@@ -141,6 +140,12 @@ public class PlayerData : AntiChrist
         {
             spcInt.heldSkel.isGrabbed = false;
             spcInt.heldSkel = null;
+        }
+
+        //Reset heldBox
+        if(spcInt.heldBox != null)
+        {
+            spcInt.heldBox = null;
         }
     }
 }
