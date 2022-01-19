@@ -54,7 +54,7 @@ public class PlayerData : AntiChrist
     public override void ResetData()
     {
         //If the player should be embodied
-        if(!player.CompareTag(pTag))
+        if(heldSkeleton != ctrlMvm.heldSkeleton)
         {
             //Change sprite back to what it should be
             if(pTag != "Blob")
@@ -130,9 +130,9 @@ public class PlayerData : AntiChrist
         }
 
         //Reset current embody target
-        if(ctrlMvm.skeleton != null)
+        if(ctrlMvm.skeleton != skeleton)
         {
-            skeleton = null;
+            ctrlMvm.skeleton = skeleton;
         }
 
         //Reset heldskel
