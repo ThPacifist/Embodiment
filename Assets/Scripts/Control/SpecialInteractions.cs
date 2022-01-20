@@ -69,7 +69,6 @@ public class SpecialInteractions : MonoBehaviour
         PlyController.Special += WaterSpecial;
         PlyController.Special += LandSpecial;
         PlyController.Special += AirSpecial;
-        PlyController.Interact += Interact;
     }
 
     private void OnDisable()
@@ -77,7 +76,6 @@ public class SpecialInteractions : MonoBehaviour
         PlyController.Special -= WaterSpecial;
         PlyController.Special -= LandSpecial;
         PlyController.Special -= AirSpecial;
-        PlyController.Interact -= Interact;
     }
 
     private void Start()
@@ -653,10 +651,14 @@ public class SpecialInteractions : MonoBehaviour
 
     private void Interact()
     {
+        Debug.Log("Interact called");
+
         //Check if there is a note to interact with
         if(note != null)
         {
-            if (note.active)
+            Debug.Log(note);
+            Debug.Log(note.active);
+            if (!note.active)
             {
                 note.SetActive(true);
                 Time.timeScale = 0;

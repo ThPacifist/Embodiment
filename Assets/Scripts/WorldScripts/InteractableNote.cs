@@ -12,48 +12,69 @@ public class InteractableNote : MonoBehaviour
 
     //Public variables
     public GameObject note;
+    public GameObject trigger;
 
     //Private variables
-    private bool targetSpawned;
+    private bool playerNear;
+    private GameObject targetInstance;
 
     //Serialize fields
     [SerializeField]
-    SpecialInteractions interaction;
-    [SerializeField]
     GameObject target;
+
+    //Enable on enable and disable on disable
+    private void OnEnable()
+    {
+        PlyController.Interact += Interact;
+    }
+
+    private void OnDisable()
+    {
+        PlyController.Interact -= Interact;
+    }
 
     //When the player enters the trigger
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        //Get the special interactions from the player
-        interaction = collision.GetComponent<SpecialInteractions>();
-
         //Spawn the interaction indicator
-        if(interaction.prefabInstance == null)
+        if (!playerNear)
         {
-            interaction.prefabInstance = Instantiate(target, note.transform);
-            targetSpawned = true;
-
-            //Set notes
-            interaction.note = note;
+            targetInstance = Instantiate(target, trigger.transform);
+            playerNear = true;
         }
-
-        
     }
 
     //When the player leaves the trigger
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (targetSpawned)
+        //Destroy the target
+        if (playerNear)
         {
-            //Destroy the target
-            Destroy(interaction.prefabInstance);
-            targetSpawned = false;
+            Destroy(targetInstance);
+            playerNear = false;
 
-            //Unset note
-            interaction.note = null;
+            //Turn off the note if it is on
+            if(note.active)
+            {
+                note.SetActive(false);
+            }
         }
+    }
 
-
+    //Interact with the note
+    private void Interact()
+    {
+        //Check if there is a note to interact with
+        if (playerNear)
+        {
+            if (!note.active)
+            {
+                note.SetActive(true);
+            }
+            else
+            {
+                note.SetActive(false);
+            }
+        }
     }
 }
