@@ -5,8 +5,7 @@ using UnityEngine;
 public class MusicAssistant : MonoBehaviour
 {
     public string PlayOnStart;
-    [SerializeField]
-    public Sound currentPlayingTrack;
+    public AudioSource currentPlayingTrack;
 
     public List<Sound> music = new List<Sound>();
 
@@ -16,14 +15,21 @@ public class MusicAssistant : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Sound currentPlayingTrack = music.Find(item => item.name == PlayOnStart);
-        if (currentPlayingTrack == null)
+        bool check;
+        if (PlayOnStart != "")
         {
-            Debug.LogError("Music Track not Found");
+            check = Play(PlayOnStart);
+
+            if (!check)
+            {
+                int rand = Random.Range(0, music.Count);
+                Play(music[rand].name);
+            }
         }
         else
         {
-            Play(PlayOnStart);
+            int rand = Random.Range(0, music.Count);
+            Play(music[rand].name);
         }
     }
 
@@ -33,25 +39,78 @@ public class MusicAssistant : MonoBehaviour
         
     }
 
-    public void Play(string sound)
+    bool Play(string sound)
     {
         Sound s = music.Find(item => item.name == sound);
         if(s == null)
         {
             Debug.LogError("Music not Found");
-            return;
+            return false;
         }
 
-        if(currentPlayingTrack.source.isPlaying)
+        if (currentPlayingTrack != null && currentPlayingTrack.isPlaying)
         {
-            return;
+            StartCoroutine(FadeTo(sound));
         }
         else
-        s.source.Play();
+        {
+            s.source.Play();
+            currentPlayingTrack = s.source;
+        }
+
+        return true;
     }
 
-    public void FadeTo(string to)
+    //Stops the current playing track
+    void Stop()
     {
+        if (currentPlayingTrack != null)
+        {
+            currentPlayingTrack.Stop();
+            currentPlayingTrack = null;
+        }
+    }
 
+    public IEnumerator FadeTo(string to)
+    {
+        Sound s = music.Find(item => item.name == to);
+        if (s == null)
+        {
+            Debug.LogError("Music track not found");
+            yield break;
+        }
+        else
+        {
+            float currentTime = 0;
+            float duration = 2;
+            float start = currentPlayingTrack.volume;
+            s.source.volume = 0;
+            audioManager.Play(s.name);
+
+            while (currentTime < duration)
+            {
+                currentTime += Time.deltaTime;
+                s.source.volume = Mathf.Lerp(0, s.volume, currentTime / duration);
+                currentPlayingTrack.volume = Mathf.Lerp(start, 0, currentTime / duration);
+                yield return null;
+            }
+
+            audioManager.Stop(currentPlayingTrack.name);
+            currentPlayingTrack = s.source;
+        }
+    }
+
+    public static IEnumerator StartFade(AudioSource audioSource, float duration, float targetVolume)
+    {
+        float currentTime = 0;
+        float start = audioSource.volume;
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+            yield return null;
+        }
+        yield break;
     }
 }

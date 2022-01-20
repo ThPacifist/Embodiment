@@ -11,14 +11,16 @@ public class AudioManager : MonoBehaviour
 
 	public AudioMixerGroup mixerGroup; //For audio source mixing
 
+    public GameObject mAssistGO;
+    MusicAssistant mAssist;
+
+    public GameObject sAssistGO;
+    SoundAssistant sAssist;
+
     public Sound[] Music; //List of music tracks
 	public Sound[] sounds; //List of sounds managed by the manager
 
-    GameObject mAssistGO;
-    MusicAssistant mAssist;
-
-    GameObject sAssistGO;
-    SoundAssistant sAssist;
+    bool isFading = false;
 
 	void Awake()
 	{
@@ -33,7 +35,7 @@ public class AudioManager : MonoBehaviour
 		}
 
 
-        CreateAssistants();
+        //CreateAssistants();
 	}
 
     void Update()
@@ -74,6 +76,8 @@ public class AudioManager : MonoBehaviour
 
         if (s.source != null && s.source.isPlaying)
         {
+            if (s.source.volume != s.volume)
+                s.source.volume = s.volume;
             s.source.Stop();
         }
     }
@@ -96,7 +100,7 @@ public class AudioManager : MonoBehaviour
             s.source = gObject.AddComponent<AudioSource>();
             gObject.name = s.clip.name;
             s.source.clip = s.clip;
-            s.source.loop = s.loop;
+            s.source.loop = true;
             s.source.volume = s.volume;
             s.source.playOnAwake = false;
 
@@ -129,30 +133,6 @@ public class AudioManager : MonoBehaviour
 
             s.source.outputAudioMixerGroup = mixerGroup;
             sAssist.soundEffects.Add(s);
-        }
-    }
-
-    public void recreateSounds()
-    {
-        //First, run through and destory each instance of audio source
-        Component[] sources = this.gameObject.GetComponents<AudioSource>() as Component[];
-        foreach(Component source in sources)
-        {
-            Destroy(source as AudioSource);
-        }
-
-        foreach (Sound s in sounds) //Then recreate it
-        {
-            GameObject gObject = new GameObject();
-            s.source = gObject.AddComponent<AudioSource>();
-            gObject.name = s.clip.name;
-            s.source.clip = s.clip;
-            s.source.loop = s.loop;
-            s.source.volume = s.volume;
-
-            gObject.transform.parent = this.transform;
-
-            s.source.outputAudioMixerGroup = mixerGroup;
         }
     }
 

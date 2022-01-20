@@ -26,19 +26,13 @@ public class Sound {
     float timeToFade;
     float dTime;
 
-	void AudioFadeOut()
+	public void SetValues(Sound input)
     {
-
-    }
-
-    IEnumerator AudioFadeOutIE()
-    {
-		float timer = 5;
-
-		while (timer > 0)
-		{
-			timer -= Time.deltaTime;
-			yield return null;
-		}
+		name = input.name;
+		clip = input.clip;
+		volume = input.volume;
+		pitch = input.pitch;
+		loop = input.loop;
+		source = input.source;
     }
 }
