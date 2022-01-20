@@ -23,6 +23,7 @@ public class SpecialInteractions : MonoBehaviour
     public Collider2D plyCol;
     public GameObject attackBox;
     public GameObject lamp;
+    public GameObject note;
     public SpringJoint2D spring;
     public static Action Climb = delegate { };
     public static Action Scratch = delegate { };
@@ -68,6 +69,7 @@ public class SpecialInteractions : MonoBehaviour
         PlyController.Special += WaterSpecial;
         PlyController.Special += LandSpecial;
         PlyController.Special += AirSpecial;
+        PlyController.Interact += Interact;
     }
 
     private void OnDisable()
@@ -75,6 +77,7 @@ public class SpecialInteractions : MonoBehaviour
         PlyController.Special -= WaterSpecial;
         PlyController.Special -= LandSpecial;
         PlyController.Special -= AirSpecial;
+        PlyController.Interact -= Interact;
     }
 
     private void Start()
@@ -90,7 +93,7 @@ public class SpecialInteractions : MonoBehaviour
         lineRender.enabled = false;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         lineRender.SetPosition(0, transform.position);
         if (!isAttached)
@@ -646,6 +649,24 @@ public class SpecialInteractions : MonoBehaviour
         //Blob Box Pos
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(skelHeldPos.position, 0.3f);
+    }
+
+    private void Interact()
+    {
+        //Check if there is a note to interact with
+        if(note != null)
+        {
+            if (note.active)
+            {
+                note.SetActive(true);
+                Time.timeScale = 0;
+            }
+            else
+            {
+                note.SetActive(false);
+                Time.timeScale = 1;
+            }
+        }
     }
 
     /*
