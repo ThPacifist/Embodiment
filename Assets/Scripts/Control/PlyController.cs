@@ -518,6 +518,7 @@ public class PlyController : MonoBehaviour
                     audioManager.Play("splash");
                 }
                 inWater = true;
+                plyAnim.SetBool("inWater", true);
                 capCollider.density = 2;
                 jumpHeight = 35;
             }

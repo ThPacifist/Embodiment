@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 
 public class SkeletonTrigger : MonoBehaviour
@@ -15,6 +16,7 @@ public class SkeletonTrigger : MonoBehaviour
     public Vector2 colliderSize;
     public Vector2 colliderOffset;
     public CapsuleDirection2D direction;
+    public RuntimeAnimatorController controller;
     public Transform skelGObject;
     public Skeleton skeloScript;
 
