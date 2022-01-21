@@ -23,6 +23,7 @@ public class SpecialInteractions : MonoBehaviour
     public Collider2D plyCol;
     public GameObject attackBox;
     public GameObject lamp;
+    public GameObject note;
     public SpringJoint2D spring;
     public static Action Climb = delegate { };
     public static Action Scratch = delegate { };
@@ -34,7 +35,7 @@ public class SpecialInteractions : MonoBehaviour
     [SerializeField]
     GameObject IndicatorPrefab;
 
-    GameObject prefabInstance;
+    public GameObject prefabInstance;
 
     //Private variables
     private bool specialReady = true;
@@ -90,7 +91,7 @@ public class SpecialInteractions : MonoBehaviour
         lineRender.enabled = false;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         lineRender.SetPosition(0, transform.position);
         if (!isAttached)
@@ -135,6 +136,9 @@ public class SpecialInteractions : MonoBehaviour
         {
             if (specialReady)
             {
+                if(plyCntrl.InWater)
+                plyAnim.SetTrigger("Spin");
+
                 if (lever != null)
                 {
                     //Activate the lever
@@ -228,7 +232,7 @@ public class SpecialInteractions : MonoBehaviour
                         {
                             if (audioManager != null)
                             {
-                                audioManager.Play("boxGrab", true);
+                                audioManager.Play("boxGrab");
                             }
                             plyAnim.SetBool("isPushing", true);
                             
@@ -449,7 +453,7 @@ public class SpecialInteractions : MonoBehaviour
         //Debug.Log("Spring on " + spring.isActiveAndEnabled);
         if (audioManager != null)
         {
-            audioManager.Play("Swing", true);
+            audioManager.Play("Swing");
         }
         if (!spring.isActiveAndEnabled)
         {
@@ -524,7 +528,7 @@ public class SpecialInteractions : MonoBehaviour
         {
             if (audioManager != null)
             {
-                audioManager.Play("boxGrab", true);
+                audioManager.Play("boxGrab");
             }
             plyAnim.SetBool("isGrabbing", true);
             //Attach box
@@ -538,7 +542,7 @@ public class SpecialInteractions : MonoBehaviour
         {
             if (audioManager != null)
             {
-                audioManager.Play("boxGrab", true);
+                audioManager.Play("boxGrab");
             }
             plyAnim.SetBool("isPushing", false);
             plyAnim.SetBool("isGrabbing", false); 
@@ -564,7 +568,7 @@ public class SpecialInteractions : MonoBehaviour
         {
             if (audioManager != null)
             {
-                audioManager.Play("boxGrab", true);
+                audioManager.Play("boxGrab");
             }
             plyAnim.SetBool("isGrabbing", true);
             //Attach box
@@ -578,7 +582,7 @@ public class SpecialInteractions : MonoBehaviour
         {
             if (audioManager != null)
             {
-                audioManager.Play("boxGrab", true);
+                audioManager.Play("boxGrab");
             }
             plyAnim.SetBool("isGrabbing", false);
             //plyAnim.SetTrigger("Bat");
@@ -643,6 +647,28 @@ public class SpecialInteractions : MonoBehaviour
         //Blob Box Pos
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(skelHeldPos.position, 0.3f);
+    }
+
+    private void Interact()
+    {
+        Debug.Log("Interact called");
+
+        //Check if there is a note to interact with
+        if(note != null)
+        {
+            Debug.Log(note);
+            Debug.Log(note.active);
+            if (!note.active)
+            {
+                note.SetActive(true);
+                Time.timeScale = 0;
+            }
+            else
+            {
+                note.SetActive(false);
+                Time.timeScale = 1;
+            }
+        }
     }
 
     /*

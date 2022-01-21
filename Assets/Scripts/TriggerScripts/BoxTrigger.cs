@@ -24,7 +24,7 @@ public class BoxTrigger : MonoBehaviour
             }
             else if(collision.CompareTag("Human"))
             {
-                if (!CheckBoundsForHuman(collision))
+                if (CheckBoundsForHuman(collision))
                 {
                     interaction = collision.GetComponent<SpecialInteractions>();
                     if (!interaction.objectHeld)
@@ -86,7 +86,7 @@ public class BoxTrigger : MonoBehaviour
 
         Debug.DrawLine(tR, bL);
 
-        if (plyPoint.y < tR.y && plyPoint.y > bL.y)
+        if (plyPoint.y < tR.y)
         {
             Debug.Log("Inside Bounds");
             return true;

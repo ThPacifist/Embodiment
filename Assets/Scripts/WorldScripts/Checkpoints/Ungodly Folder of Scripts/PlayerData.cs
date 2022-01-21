@@ -13,9 +13,10 @@ public class PlayerData : AntiChrist
     public Animator animPly;
     public Transform heldSkeleton;
     public SkeletonTrigger skeleton;
-    private Rigidbody2D heldBox;
     private string pTag;
     private bool objectHeld;
+    private bool skelHeld;
+    private bool hBoxHeld;
 
 
     [SerializeField]
@@ -26,9 +27,10 @@ public class PlayerData : AntiChrist
     public override void Constructor()
     {
         pTag = player.tag;
-        heldBox = spcInt.heldBox;
         heldSkeleton = ctrlMvm.heldSkeleton;
         objectHeld = spcInt.objectHeld;
+        skelHeld = spcInt.skelHeld;
+        hBoxHeld = spcInt.HboxHeld;
         if(heldSkeleton != null)
         {
             skeleton = heldSkeleton.GetChild(0).GetComponent<SkeletonTrigger>();
@@ -38,9 +40,10 @@ public class PlayerData : AntiChrist
     public override void RebuildData()
     {
         pTag = player.tag;
-        heldBox = spcInt.heldBox;
         heldSkeleton = ctrlMvm.heldSkeleton;
         objectHeld = spcInt.objectHeld;
+        skelHeld = spcInt.skelHeld;
+        hBoxHeld = spcInt.HboxHeld;
         if (heldSkeleton != null)
         {
             skeleton = heldSkeleton.GetChild(0).GetComponent<SkeletonTrigger>();
@@ -51,8 +54,18 @@ public class PlayerData : AntiChrist
     public override void ResetData()
     {
         //If the player should be embodied
-        if(!player.CompareTag(pTag))
+        if(heldSkeleton != ctrlMvm.heldSkeleton)
         {
+            //Change sprite back to what it should be
+            if(pTag != "Blob")
+            {
+                animPly.SetInteger("Form", skeleton.Form);
+            }
+            else
+            {
+                animPly.SetInteger("Form", 0);
+            }
+            
             //Drop the current skeleton at time of death
             if(ctrlMvm.heldSkeleton != null && ctrlMvm.heldSkeleton != heldSkeleton)
             {
@@ -90,15 +103,49 @@ public class PlayerData : AntiChrist
                 ctrlMvm.DestorySkeleton();
             }
         }
-        //If the player should be holding a box
-        if(objectHeld != spcInt.objectHeld)
+        //If the player is holding anything, drop it
+        if(spcInt.objectHeld || spcInt.skelHeld || spcInt.HboxHeld)
         {
-            spcInt.objectHeld = objectHeld;
-            spcInt.heldBox = heldBox;
-            fixedJ.enabled = true;
-            fixedJ.connectedBody = heldBox;
-            plyCol.size = skeleton.colliderSize;
-            plyCol.offset = skeleton.colliderOffset;
+            //Change bools to be correct
+            spcInt.objectHeld = false;
+            spcInt.skelHeld = false;
+            spcInt.HboxHeld = false;
+
+            //Make the player hold nothing
+            spcInt.heldSkel = null;
+            spcInt.skelHeld = false;
+            fixedJ.enabled = false;
+            fixedJ.connectedBody = null;
+            animPly.SetBool("isGrabbing", false);
+            plyCtrl.jumpHeight = 18.1f;
+        }
+        //Reset pick up target
+        spcInt.box = null;
+        spcInt.skeleton = null;
+
+        //Get rid of interact indicators
+        if(spcInt.prefabInstance != null)
+        {
+            Destroy(spcInt.prefabInstance);
+        }
+
+        //Reset current embody target
+        if(ctrlMvm.skeleton != skeleton)
+        {
+            ctrlMvm.skeleton = skeleton;
+        }
+
+        //Reset heldskel
+        if(spcInt.heldSkel != null)
+        {
+            spcInt.heldSkel.isGrabbed = false;
+            spcInt.heldSkel = null;
+        }
+
+        //Reset heldBox
+        if(spcInt.heldBox != null)
+        {
+            spcInt.heldBox = null;
         }
     }
 }

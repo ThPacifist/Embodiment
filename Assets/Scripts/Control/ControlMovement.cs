@@ -58,6 +58,8 @@ public class ControlMovement : MonoBehaviour
     public CapsuleDirection2D defaultDirection = CapsuleDirection2D.Horizontal;
     [HideInInspector]
     public float defaultDensity = 1;
+    [SerializeField]
+    public RuntimeAnimatorController defaultController;
 
     //Enable on enable and disable on disable
     private void OnEnable()
@@ -93,7 +95,7 @@ public class ControlMovement : MonoBehaviour
             {
                 if (audioManager != null)
                 {
-                    audioManager.Play("embody", true);
+                    audioManager.Play("embody");
                 }
 
                 //Changes players values to be the skeleton
@@ -108,6 +110,8 @@ public class ControlMovement : MonoBehaviour
                 skeloData = skeleton;
 
                 //Changes players sprite to be the skeleton
+                if(skeleton.controller != null)
+                    animPly.runtimeAnimatorController = skeleton.controller;
                 animPly.SetTrigger(skeleton.Name);
                 animPly.SetInteger("Form", skeleton.Form);
 
@@ -144,7 +148,7 @@ public class ControlMovement : MonoBehaviour
             {
                 if (audioManager != null)
                 {
-                    audioManager.Play("embody", true);
+                    audioManager.Play("embody");
                 }
 
                 //Changes players values to be the blob
@@ -159,6 +163,7 @@ public class ControlMovement : MonoBehaviour
                 skeloData = null;
 
                 //Changes players sprite to be the blob
+                animPly.runtimeAnimatorController = defaultController;
                 animPly.SetTrigger("Disembody");
                 animPly.SetInteger("Form", 0);
 
@@ -194,7 +199,7 @@ public class ControlMovement : MonoBehaviour
     {
         if (audioManager != null && heldSkeleton != null)
         {
-            audioManager.Play("embody", true);
+            audioManager.Play("embody");
         }
 
         //Makes it so player is no longer holding the skeleton
