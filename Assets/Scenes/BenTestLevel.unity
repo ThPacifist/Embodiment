@@ -35273,10 +35273,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3371417522496790412, guid: 8316a8187912ec5419a7f213d0191d35, type: 3}
-      propertyPath: controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 748d0d0d75dc5964b8be6b78eae1351c, type: 2}
     - target: {fileID: 3417394401250226856, guid: 8316a8187912ec5419a7f213d0191d35, type: 3}
       propertyPath: m_Name
       value: Cat
@@ -42997,10 +42993,6 @@ PrefabInstance:
       propertyPath: m_Simulated
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8686491882277154107, guid: 62bf23a8817b92b4d95700c9588f9ce4, type: 3}
-      propertyPath: controller
-      value: 
-      objectReference: {fileID: 9100000, guid: efa667676002b444d8255c1f5904a434, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62bf23a8817b92b4d95700c9588f9ce4, type: 3}
 --- !u!1001 &391990686
@@ -47729,10 +47721,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bat
       objectReference: {fileID: 0}
-    - target: {fileID: 2759387672173929148, guid: 4b12eb6dbb214e94d8cf24da776d40f4, type: 3}
-      propertyPath: controller
-      value: 
-      objectReference: {fileID: 9100000, guid: a8a617ae4e971664d8153a350987e18f, type: 2}
     - target: {fileID: 4895855856968952364, guid: 4b12eb6dbb214e94d8cf24da776d40f4, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -48171,10 +48159,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fish
       objectReference: {fileID: 0}
-    - target: {fileID: 2780927966137414413, guid: 54eb8fb80544fb045a219d6e8ddb18d2, type: 3}
-      propertyPath: controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 02002ff8857a0b540a1c9fa3e9361c2c, type: 2}
     - target: {fileID: 7706321712807976531, guid: 54eb8fb80544fb045a219d6e8ddb18d2, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -49170,17 +49154,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 366513243, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 2f7efdecadde8064dbfad88915726ec6, type: 2}
     - target: {fileID: 1189157436, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 24.24
       objectReference: {fileID: 0}
     - target: {fileID: 1189157436, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.67
+      value: 1.63
       objectReference: {fileID: 0}
     - target: {fileID: 1373430572, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_LocalPosition.x
