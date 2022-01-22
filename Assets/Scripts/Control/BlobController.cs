@@ -81,7 +81,7 @@ public class BlobController : Controller
             //Makes Blob float
             if (audioManager != null)
             {
-                audioManager.Play("splash", true);
+                audioManager.Play("splash");
             }
             inWater = true;
             capCollider.density = 2;

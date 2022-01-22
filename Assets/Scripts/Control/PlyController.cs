@@ -12,6 +12,7 @@ public class PlyController : MonoBehaviour
     public Transform attackBox;
     public Rigidbody2D rb;
     public Animator plyAnim;
+    public SpriteRenderer plySprite;
     public CapsuleCollider2D capCollider; 
     public static Action Interact = delegate { };
     public static Action Embody = delegate { };

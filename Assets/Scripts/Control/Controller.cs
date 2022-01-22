@@ -128,7 +128,7 @@ public class Controller : MonoBehaviour
 
     public void PlaySoundFromAudioManager(string name)
     {
-        audioManager.PlayAnyway(name);
+        audioManager.Play(name);
     }
 
     public void DisableMovement()
