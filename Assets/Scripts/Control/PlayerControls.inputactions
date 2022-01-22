@@ -66,7 +66,7 @@
                 {
                     "name": "",
                     "id": "ca0d764b-c1f2-43cd-961c-df83a5b07095",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -88,7 +88,7 @@
                 {
                     "name": "",
                     "id": "863a8078-ed72-48a7-ae15-79258864378e",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -130,9 +130,31 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "Negative",
+                    "id": "5a5a84a8-2c81-4b70-996c-d99bb32a12b3",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "Positive",
                     "id": "0737a925-aa8f-4764-aed9-819f9b1b3336",
                     "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "3cd71581-2c8f-484c-893d-7d49adfad39f",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -198,7 +220,7 @@
                 {
                     "name": "",
                     "id": "82a40bca-bef8-4482-bdd9-a53e227989ea",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -262,9 +284,31 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "up",
+                    "id": "2c5d219a-288b-4c0a-a821-b6399f45340c",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "FishInWater",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "down",
                     "id": "609964f8-e340-44de-8601-e9d9c6f7de47",
                     "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FishInWater",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "264282d8-9867-49a4-9f56-09df7e1484f6",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -284,9 +328,31 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "left",
+                    "id": "174354a5-4ff4-4fbf-aefb-c1d548958e63",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FishInWater",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "right",
                     "id": "a4f86bc9-dc19-480b-808b-b5892f829597",
                     "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FishInWater",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "3bac2469-21a5-4939-8aa4-477db50c033e",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
