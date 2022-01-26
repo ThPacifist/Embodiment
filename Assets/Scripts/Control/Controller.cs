@@ -23,15 +23,17 @@ public class Controller : MonoBehaviour
     public bool canMove = true;
     public bool canJump = true;
 
-    //Private Variables
+    //Protected Variables
     protected PlayerControls PlyCtrl;
     protected AudioManager audioManager;
     protected bool right;
     protected bool left;
-    
-    //Private but Editable in Inspector
     [SerializeField]
     protected bool inWater = false;
+    protected bool specialReady = true;
+    protected float cooldownTime;
+
+    //Private
     [SerializeField]
     LayerMask groundLayerMask;
 
@@ -134,6 +136,13 @@ public class Controller : MonoBehaviour
     public virtual void Special()
     {
 
+    }
+
+    //Special cooldown
+    IEnumerator SpecialCoolDown()
+    {
+        yield return new WaitForSeconds(cooldownTime);
+        specialReady = true;
     }
 
     public void DisableMovement()
