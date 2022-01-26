@@ -6,9 +6,9 @@ public class BlobController : Controller
 {
 
     // Update is called once per frame
-    public override void LateUpdate()
+    public override void FixedUpdate()
     {
-        base.LateUpdate();
+        base.FixedUpdate();
 
         if(canMove)
         {

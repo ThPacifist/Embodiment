@@ -15,11 +15,11 @@ public class Controller : MonoBehaviour
     public CapsuleCollider2D capCollider;
     public static Action Interact = delegate { };
     public static Action Embody = delegate { };
-    public static Action Special = delegate { };
     public static Action Pause = delegate { };
     public static Action Death = delegate { };
     public float speed;
     public float jumpHeight;
+    public RuntimeAnimatorController animatorController;
     public bool canMove = true;
     public bool canJump = true;
 
@@ -80,7 +80,7 @@ public class Controller : MonoBehaviour
     }
 
     // Update is called once per frame
-    public virtual void LateUpdate()
+    public virtual void FixedUpdate()
     {
         //Remove momentum while on ground
         if (PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded())
@@ -129,6 +129,11 @@ public class Controller : MonoBehaviour
     public void PlaySoundFromAudioManager(string name)
     {
         audioManager.Play(name);
+    }
+
+    public virtual void Special()
+    {
+
     }
 
     public void DisableMovement()

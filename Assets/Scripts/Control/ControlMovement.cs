@@ -37,8 +37,6 @@ public class ControlMovement : MonoBehaviour
 
     [SerializeField]
     EmbodyField emField;
-    [SerializeField]
-    Tilemap tileMap;
 
     [HideInInspector]
     public SkeletonTrigger skeloData;
@@ -241,25 +239,6 @@ public class ControlMovement : MonoBehaviour
     public void SetEmbodyValues(SkeletonTrigger skelo)
     {
         skeleton = skelo;
-    }
-
-    Vector2 PlaceSkeleton()
-    {
-        Vector2Int tR = Vector2Int.FloorToInt(plyCol.bounds.max + Vector3.one);
-        Vector2Int bL = Vector2Int.FloorToInt(plyCol.bounds.min + -Vector3.one);
-
-        for(int i = bL.x; i < tR.x; i++)
-        {
-            for(int j = bL.y; j < tR.y; j++)
-            {
-                if(!tileMap.GetTile(new Vector3Int(i, j, 0)))
-                {
-                    return new Vector2(i + 0.5f, 0.5f);
-                }
-            }
-        }
-        Debug.Log("Something has gone wrong in Control Movement");
-        return player.position;
     }
 
     void ChangeForm(ColliderInfo from, ColliderInfo to)
