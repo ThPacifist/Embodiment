@@ -163,7 +163,7 @@ public class ControlMovement : MonoBehaviour
                 skeloData = null;
 
                 //Changes players sprite to be the blob
-                animPly.runtimeAnimatorController = defaultController;
+                //animPly.runtimeAnimatorController = defaultController;
                 animPly.SetTrigger("Disembody");
                 animPly.SetInteger("Form", 0);
 

@@ -43473,10 +43473,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1473955847659395179, guid: feeb614f732172a45ab20468284d94c5, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2598827210204006946, guid: feeb614f732172a45ab20468284d94c5, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -43525,18 +43521,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 2598827211138061584, guid: feeb614f732172a45ab20468284d94c5, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2598827211138061588, guid: feeb614f732172a45ab20468284d94c5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5253812118016637083, guid: feeb614f732172a45ab20468284d94c5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 3699074438341368401, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3654394873999824388}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: feeb614f732172a45ab20468284d94c5, type: 3}
 --- !u!1 &712879190
@@ -44546,7 +44534,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1936672798}
-  - {fileID: 1402534059}
+  - {fileID: 3654394873999824389}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -44811,11 +44799,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25c5bc10007581043ab013714500e34d, type: 3}
---- !u!4 &1402534059 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3654394875351953071, guid: 25c5bc10007581043ab013714500e34d, type: 3}
-  m_PrefabInstance: {fileID: 1402534058}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1469167458
 GameObject:
   m_ObjectHideFlags: 0
@@ -49182,6 +49165,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8044355cf9268844486ec1bcaf13f3ca, type: 3}
+--- !u!114 &3654394873999824388 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3654394875351953070, guid: 25c5bc10007581043ab013714500e34d, type: 3}
+  m_PrefabInstance: {fileID: 1402534058}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da703c03f2862d24fbb7e39a33ca8649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &3654394873999824389 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3654394875351953071, guid: 25c5bc10007581043ab013714500e34d, type: 3}
+  m_PrefabInstance: {fileID: 1402534058}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4819060323351451817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49217,10 +49216,6 @@ PrefabInstance:
       propertyPath: tileMap
       value: 
       objectReference: {fileID: 335044965}
-    - target: {fileID: 4819060323485262866, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: defaultController
-      value: 
-      objectReference: {fileID: 9100000, guid: 2f7efdecadde8064dbfad88915726ec6, type: 2}
     - target: {fileID: 4819060323485262873, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_Name
       value: Player

@@ -34,7 +34,6 @@ public class AudioManager : MonoBehaviour
 			DontDestroyOnLoad(gameObject);
 		}
 
-
         //CreateAssistants();
 	}
 
@@ -94,6 +93,7 @@ public class AudioManager : MonoBehaviour
         mAssistGO.transform.parent = this.transform;
         mAssist = mAssistGO.AddComponent<MusicAssistant>();
         mAssist.audioManager = this;
+        mAssist.mixerGroup = mixerGroup.audioMixer.FindMatchingGroups("Music")[0];
         foreach (Sound s in Music)
         {
             GameObject gObject = new GameObject();
@@ -106,7 +106,7 @@ public class AudioManager : MonoBehaviour
 
             gObject.transform.parent = mAssistGO.transform;
 
-            s.source.outputAudioMixerGroup = mixerGroup;
+            s.source.outputAudioMixerGroup = mixerGroup.audioMixer.FindMatchingGroups("Music")[0];
             mAssist.music.Add(s);
         }
 
@@ -119,6 +119,7 @@ public class AudioManager : MonoBehaviour
         sAssistGO.transform.parent = this.transform;
         sAssist = sAssistGO.AddComponent<SoundAssistant>();
         sAssist.audioManager = this;
+        sAssist.mixerGroup = mixerGroup.audioMixer.FindMatchingGroups("SFX")[0];
         foreach (Sound s in sounds) //Init each sound - give it a source and init that source to make it playable
         {
             GameObject gObject = new GameObject();
@@ -131,7 +132,7 @@ public class AudioManager : MonoBehaviour
 
             gObject.transform.parent = sAssistGO.transform;
 
-            s.source.outputAudioMixerGroup = mixerGroup;
+            s.source.outputAudioMixerGroup = mixerGroup.audioMixer.FindMatchingGroups("SFX")[0];
             sAssist.soundEffects.Add(s);
         }
     }
@@ -144,11 +145,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void updateVolume(float val)
+    public void SetVolume(float val)
     {
-        foreach(Sound s in sounds)
-        {
-            s.volume = val;
-        }
+        mixerGroup.audioMixer.SetFloat("MasterVol", Mathf.Log10(val)*20);
     }
 }

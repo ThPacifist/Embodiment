@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class MusicAssistant : MonoBehaviour
 {
     public string PlayOnStart;
     public AudioSource currentPlayingTrack;
+    public AudioMixerGroup mixerGroup;
 
     public List<Sound> music = new List<Sound>();
 
@@ -37,6 +39,11 @@ public class MusicAssistant : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetVolume(float value)
+    {
+        mixerGroup.audioMixer.SetFloat("volume", value);
     }
 
     bool Play(string sound)
