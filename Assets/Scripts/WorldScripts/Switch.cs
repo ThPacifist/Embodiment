@@ -22,7 +22,7 @@ public class Switch : MonoBehaviour
     [SerializeField]
     GameObject indicator;
     [SerializeField]
-    Animator anim;
+    public Animator anim;
     [SerializeField]
     GameAction[] behaviors; //behavior that is triggered when the switch is active
 
