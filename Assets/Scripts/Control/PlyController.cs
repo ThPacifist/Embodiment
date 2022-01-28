@@ -588,8 +588,10 @@ public class PlyController : MonoBehaviour
     //Checks if the player is on the ground
     public bool isGrounded()
     {
-        float dist = 0.05f;
-        RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.size, capCollider.direction, 0f, Vector2.down, 
+        float dist = 0f;
+        Vector2 origin = new Vector2(capCollider.bounds.center.x, capCollider.bounds.min.y);
+        Vector2 size = new Vector2(capCollider.size.x, 0.05f);
+        RaycastHit2D hit = Physics2D.CapsuleCast(origin, size, CapsuleDirection2D.Horizontal, 0f, Vector2.down, 
             dist, groundLayerMask);
 
         //Debug.Log(hit.collider);
@@ -671,7 +673,7 @@ public class PlyController : MonoBehaviour
     //Used for bug testing
     private void OnDrawGizmos()
     {
-        float dist = 0.05f;
+        float dist = 0f;
         RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.size, capCollider.direction, 0f, Vector2.down,
             dist, groundLayerMask);
 
@@ -679,5 +681,6 @@ public class PlyController : MonoBehaviour
             hit.centroid - new Vector2(capCollider.bounds.extents.x, 0));
         Gizmos.DrawLine(hit.centroid + new Vector2(0, capCollider.bounds.extents.y), 
             hit.centroid - new Vector2(0, capCollider.bounds.extents.y));
+
     }
 }

@@ -9,6 +9,7 @@ public class ButtonData : AntiChrist
     Vector2 position;
     bool isTouching;
     bool active;
+    int animState;
 
     //Constructor
     public override void Constructor()
@@ -18,6 +19,10 @@ public class ButtonData : AntiChrist
         position = savedObject.transform.position;
         isTouching = switchScript.isTouching;
         active = switchScript.active;
+        if(switchScript.Lever)
+        {
+            animState = switchScript.anim.GetCurrentAnimatorStateInfo(0).fullPathHash;
+        }
     }
 
     //RebuildData
@@ -26,6 +31,10 @@ public class ButtonData : AntiChrist
         position = savedObject.transform.position;
         isTouching = switchScript.isTouching;
         active = switchScript.active;
+        if (switchScript.Lever)
+        {
+            animState = switchScript.anim.GetCurrentAnimatorStateInfo(0).fullPathHash;
+        }
     }
 
     //ResetData
@@ -34,5 +43,9 @@ public class ButtonData : AntiChrist
         savedObject.transform.position = position;
         switchScript.isTouching = isTouching;
         switchScript.active = active;
+        if (switchScript.Lever)
+        {
+            switchScript.anim.Play(animState);
+        }
     }
 }
