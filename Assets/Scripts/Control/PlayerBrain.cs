@@ -11,6 +11,8 @@ public class PlayerBrain : MonoBehaviour
     public Rigidbody2D rb;
     public SpriteRenderer plySpr;
     public ControlMovement CM;
+    [SerializeField]
+    GameObject IndicatorPrefab;
 
     private void Awake()
     {

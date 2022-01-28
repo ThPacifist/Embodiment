@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class BlobController : Controller
 {
-    public bool isAttached = false;
+    public bool isAttached;
+    public bool skelHeld;
     public LineRenderer lRenderer;
     public GameObject lamp;
+    public SpringJoint2D spring;
+    public SkeletonTrigger heldSkel;
+    [SerializeField]
+    GameObject IndicatorPrefab;
+    public GameObject prefabInstance;
 
     // Update is called once per frame
     public override void FixedUpdate()
