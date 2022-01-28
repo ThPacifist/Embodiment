@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerData : AntiChrist
+public class PlayerData : BaseData
 {
     //Variables
     public GameObject player;
@@ -24,7 +24,7 @@ public class PlayerData : AntiChrist
 
 
     //Constructor
-    public override void Constructor()
+    public override void InitializeData()
     {
         pTag = player.tag;
         heldSkeleton = ctrlMvm.heldSkeleton;
@@ -37,7 +37,7 @@ public class PlayerData : AntiChrist
         }
     }
     //Rebuild Data
-    public override void RebuildData()
+    public override void SaveState()
     {
         pTag = player.tag;
         heldSkeleton = ctrlMvm.heldSkeleton;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonData : AntiChrist
+public class ButtonData : BaseData
 {
     //Variables
     Switch switchScript;
@@ -12,7 +12,7 @@ public class ButtonData : AntiChrist
     int animState;
 
     //Constructor
-    public override void Constructor()
+    public override void InitializeData()
     {
         savedObject = this.gameObject;
         switchScript = savedObject.GetComponent<Switch>();
@@ -26,7 +26,7 @@ public class ButtonData : AntiChrist
     }
 
     //RebuildData
-    public override void RebuildData()
+    public override void SaveState()
     {
         position = savedObject.transform.position;
         isTouching = switchScript.isTouching;
