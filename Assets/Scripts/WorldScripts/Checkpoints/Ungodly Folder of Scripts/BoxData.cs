@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoxData : AntiChrist
+public class BoxData : BaseData
 {
     //Variables
     private Vector2 position;
@@ -10,7 +10,7 @@ public class BoxData : AntiChrist
     private bool carried;
 
     //Constructor function
-    public override void Constructor()
+    public override void InitializeData()
     {
         savedObject = this.gameObject;
         position = savedObject.transform.position;
@@ -18,7 +18,7 @@ public class BoxData : AntiChrist
     }
 
     //Rebuild data function
-    public override void RebuildData()
+    public override void SaveState()
     {
         position = savedObject.transform.position;
         rotation = savedObject.transform.rotation;

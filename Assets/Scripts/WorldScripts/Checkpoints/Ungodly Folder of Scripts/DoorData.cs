@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorData : AntiChrist
+public class DoorData : BaseData
 {
     /*
      * Put on the parent to the object
@@ -13,14 +13,14 @@ public class DoorData : AntiChrist
     private bool isActive;
 
     //Constructor Function
-    public override void Constructor()
+    public override void InitializeData()
     {
         savedObject = this.transform.GetChild(0).gameObject;
         isActive = savedObject.activeSelf;
     }
 
     //Rebuild Data Function
-    public override void RebuildData()
+    public override void SaveState()
     {
         isActive = savedObject.activeSelf;
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AntiChrist : MonoBehaviour
+public class BaseData : MonoBehaviour
 {
     /*
      * Description:
@@ -18,31 +18,26 @@ public class AntiChrist : MonoBehaviour
     //Enable on enable and disable on disable
     private void OnEnable()
     {
-        CheckpointController.RebuildData += RebuildData;
+        InitializeData();
+        CheckpointController.RebuildData += SaveState;
         TransitionController.slideOutAction += ResetData;
     }
 
     private void OnDisable()
     {
-        CheckpointController.RebuildData -= RebuildData;
+        CheckpointController.RebuildData -= SaveState;
         TransitionController.slideOutAction -= ResetData;
     }
 
-    //Activates on awake
-    private void Awake()
-    {
-        Constructor();
-    }
-
     //Constructs the data at the beginning, called by awake
-    public virtual void Constructor()
+    public virtual void InitializeData()
     {
         savedObject = this.gameObject;
         Debug.Log("Initialized " + gameObject.name);
     }
 
     //Rebuilds data when checkpoint it hit
-    public virtual void RebuildData()
+    public virtual void SaveState()
     {
         Debug.Log("Saved " + gameObject.name);
     }

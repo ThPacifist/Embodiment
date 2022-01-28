@@ -63,8 +63,6 @@ public class MovingPlatforms : GameAction
         //Calculate speed
         speed = Vector3.Distance(points[0].position, points[1].position);
         speed /= moveTime * 60;
-
-        Debug.Log("Start: " + moving);
     }
 
     //Fixed Update is called 60 times  second
@@ -129,7 +127,6 @@ public class MovingPlatforms : GameAction
     //Player check
     private void pCheck()
     {
-        Debug.Log("Pcheck: " + moving);
         //Check if it should stop here
         if (!playerOn &&  (currentPos == waitPos))
         {
@@ -144,7 +141,6 @@ public class MovingPlatforms : GameAction
     //Need signal check
     private void nsCheck()
     {
-        Debug.Log("NScheck: " + moving);
         if (!gotSignal && (currentPos == waitPos))
         {
             moving = false;
