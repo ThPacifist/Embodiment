@@ -13,6 +13,10 @@ public class BlobController : Controller
     [SerializeField]
     GameObject IndicatorPrefab;
     public GameObject prefabInstance;
+    [HideInInspector]
+    public SkeletonTrigger skeleton;
+    [SerializeField]
+    Transform skelHeldPos;
 
     // Update is called once per frame
     public override void FixedUpdate()
@@ -40,15 +44,15 @@ public class BlobController : Controller
             if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
             {
                 //Movement
-                if (Mathf.Abs(rb.velocity.x) < speed && !isAttached)
+                if (Mathf.Abs(PlayerBrain.PB.rb.velocity.x) < speed && !isAttached)
                 {
-                    rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 20 * rb.mass);
+                    PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 20 * PlayerBrain.PB.rb.mass);
                 }
                 else if (isAttached)
                 {
                     if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                     {
-                        rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.6f, ForceMode2D.Impulse);
+                        PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.6f, ForceMode2D.Impulse);
                     }
                 }
             }
@@ -65,30 +69,30 @@ public class BlobController : Controller
         #region Animation Block
         if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && canMove)
         {
-            plyAnim.SetBool("Walking", true);
+            PlayerBrain.PB.plyAnim.SetBool("Walking", true);
         }
         else
         {
-            plyAnim.SetBool("Walking", false);
+            PlayerBrain.PB.plyAnim.SetBool("Walking", false);
         }
 
         if (isGrounded())
         {
-            plyAnim.SetBool("isJumping", false);
+            PlayerBrain.PB.plyAnim.SetBool("isJumping", false);
         }
         else
         {
-            plyAnim.SetBool("isJumping", true);
+            PlayerBrain.PB.plyAnim.SetBool("isJumping", true);
         }
 
         //Check if the blob is attached
-        if (spcInter.isAttached)
+        if (isAttached)
         {
-            plyAnim.SetBool("Swing", true);
+            PlayerBrain.PB.plyAnim.SetBool("Swing", true);
         }
         else
         {
-            plyAnim.SetBool("Swing", false);
+            PlayerBrain.PB.plyAnim.SetBool("Swing", false);
         }
         #endregion
     }
@@ -99,12 +103,12 @@ public class BlobController : Controller
         {
             if (isGrounded() || inWater)
             {
-                rb.AddForce((Vector2.up * jumpHeight) /*- new Vector2(0, rb.velocity.y)*/, ForceMode2D.Impulse);
+                PlayerBrain.PB.rb.AddForce((Vector2.up * jumpHeight) /*- new Vector2(0, rb.velocity.y)*/, ForceMode2D.Impulse);
             }
-            else if (spcInter.isAttached)
+            else if (isAttached)
             {
-                spcInter.ShootTendril();
-                rb.AddForce(rb.velocity.normalized * 5, ForceMode2D.Impulse);
+                ShootTendril();
+                PlayerBrain.PB.rb.AddForce(PlayerBrain.PB.rb.velocity.normalized * 5, ForceMode2D.Impulse);
             }
 
             base.Jump();// this goes last in function
@@ -118,9 +122,9 @@ public class BlobController : Controller
         {
             if (!CheckSpaceForSkelo())
             {
-                if (!plyCntrl.Left && !plyCntrl.Right)
+                if (!Left && !Right)
                 {
-                    plyAnim.SetBool("isGrabbing", true);
+                    PlayerBrain.PB.plyAnim.SetBool("isGrabbing", true);
                 }
                 else
                 {
@@ -140,9 +144,9 @@ public class BlobController : Controller
         //Drop skeleton
         else if (skelHeld)
         {
-            if (!plyCntrl.Left && !plyCntrl.Right)
+            if (!Left && !Right)
             {
-                plyAnim.SetBool("isGrabbing", false);
+                PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
             }
             else
             {
@@ -176,10 +180,10 @@ public class BlobController : Controller
         }
         if (!spring.isActiveAndEnabled)
         {
-            lineRender.enabled = true;
+            lRenderer.enabled = true;
             spring.enabled = true;
             spring.connectedAnchor = lamp.transform.position;
-            lineRender.SetPosition(1, new Vector3(lamp.transform.position.x, lamp.transform.position.y, transform.position.z));
+            lRenderer.SetPosition(1, new Vector3(lamp.transform.position.x, lamp.transform.position.y, transform.position.z));
             isAttached = true;
 
             //Cooldown
@@ -188,11 +192,10 @@ public class BlobController : Controller
         }
         else
         {
-            plyCntrl.canMove = true;
             spring.enabled = false;
             spring.connectedAnchor = Vector2.zero;
-            lineRender.SetPosition(1, transform.position);
-            lineRender.enabled = false;
+            lRenderer.SetPosition(1, transform.position);
+            lRenderer.enabled = false;
             Quaternion rotation = Quaternion.Euler(0, 0, 0);
             this.transform.rotation = rotation;
             isAttached = false;
@@ -203,6 +206,50 @@ public class BlobController : Controller
         }
         //init Cooldown
         StartCoroutine("SpecialCoolDown");
+    }
+
+    //This function is called when we want the blob to pick up skeleton
+    public void PickUpSkeleton(SkeletonTrigger skelo)
+    {
+        if (skelo != null && !skelHeld)
+        {
+            heldSkel = skelo;
+            heldSkel.isGrabbed = true;
+            Destroy(prefabInstance);
+            skelHeld = true;
+            PlayerBrain.PB.fixedJ.enabled = true;
+            PlayerBrain.PB.fixedJ.connectedBody = heldSkel.transform.parent.GetComponent<Rigidbody2D>();
+            heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
+            PlayerBrain.PB.plyAnim.SetBool("isGrabbing", true);
+            jumpHeight = 60;
+
+            Debug.Log("Picked up " + skelo.name);
+        }
+        else if (skelo == null && skelHeld)
+        {
+            heldSkel.isGrabbed = false;
+            heldSkel = null;
+            skelHeld = false;
+            PlayerBrain.PB.fixedJ.enabled = false;
+            PlayerBrain.PB.fixedJ.connectedBody = null;
+            PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
+            jumpHeight = 18.1f;
+
+            Debug.Log("Put Down my object");
+        }
+
+        //Cooldown
+        cooldownTime = 1;
+        specialReady = false;
+        StartCoroutine("SpecialCoolDown");
+    }
+
+    public override void SetObject(object value)
+    {
+        if(value.GetType() == typeof(GameObject))
+        {
+
+        }
     }
 
     public override void OnTriggerEnter2D(Collider2D other)
@@ -217,7 +264,7 @@ public class BlobController : Controller
                 audioManager.Play("splash");
             }
             inWater = true;
-            capCollider.density = 2;
+            PlayerBrain.PB.plyCol.density = 2;
             jumpHeight = 35;
         }
     }
@@ -230,7 +277,7 @@ public class BlobController : Controller
         {
             //Blob jumps out of water
             inWater = false;
-            capCollider.density = cntrlMove.defaultDensity;
+            PlayerBrain.PB.plyCol.density = cntrlMove.defaultDensity;
             jumpHeight = cntrlMove.defaultJumpHeight;
         }
     }

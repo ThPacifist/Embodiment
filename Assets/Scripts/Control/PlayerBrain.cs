@@ -11,7 +11,8 @@ public class PlayerBrain : MonoBehaviour
     public Rigidbody2D rb;
     public SpriteRenderer plySpr;
     public ControlMovement CM;
-
+    public FixedJoint2D fixedJ;
+    public SpringJoint2D spring;
 
     private void Awake()
     {

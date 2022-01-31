@@ -9,10 +9,6 @@ public class Controller : MonoBehaviour
 {
     //Public Variables
     public ControlMovement cntrlMove;
-    public SpecialInteractions spcInter;
-    public Rigidbody2D rb;
-    public Animator plyAnim;
-    public CapsuleCollider2D capCollider;
     public static Action Interact = delegate { };
     public static Action Embody = delegate { };
     public static Action Pause = delegate { };
@@ -48,7 +44,7 @@ public class Controller : MonoBehaviour
     private void Awake()
     {
         PlyCtrl = new PlayerControls();
-        this.gameObject.transform.position = GameAction.PlaceColOnGround(capCollider);
+        this.gameObject.transform.position = GameAction.PlaceColOnGround(PlayerBrain.PB.plyCol);
     }
 
     private void OnEnable()
@@ -84,11 +80,31 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     public virtual void FixedUpdate()
     {
-        //Remove momentum while on ground
-        if (PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded())
+        if (canMove)
         {
-            //Reduce the player's speed by half
-            rb.velocity *= new Vector2(0.75f, 1);
+            //Keeps track of what direction player is moving in
+            if (PlyCtrl.Player.Movement.ReadValue<float>() > 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x > 0)
+            {
+                right = true;
+                left = false;
+            }
+            else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x < 0)
+            {
+                left = true;
+                right = false;
+            }
+            else
+            {
+                left = false;
+                right = false;
+            }
+
+            //Remove momentum while on ground
+            if (PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded())
+            {
+                //Reduce the player's speed by half
+                PlayerBrain.PB.rb.velocity *= new Vector2(0.75f, 1);
+            }
         }
     }
 
@@ -97,7 +113,7 @@ public class Controller : MonoBehaviour
         //If the Trigger is Death, tirgger Death
         if (other.CompareTag("Death") || other.CompareTag("Skeleton"))
         {
-            plyAnim.SetTrigger("Death");
+            PlayerBrain.PB.plyAnim.SetTrigger("Death");
         }
     }
 
@@ -113,15 +129,17 @@ public class Controller : MonoBehaviour
 
     public virtual void Jump()
     {
-        plyAnim.SetTrigger("takeOff");
-        plyAnim.SetBool("isJumping", true);
+        PlayerBrain.PB.plyAnim.SetTrigger("takeOff");
+        PlayerBrain.PB.plyAnim.SetBool("isJumping", true);
     }
 
     //Checks if the player is on the ground
     public bool isGrounded()
     {
-        float dist = 0.05f;
-        RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.size, capCollider.direction, 0f, Vector2.down,
+        float dist = 0f;
+        Vector2 origin = new Vector2(PlayerBrain.PB.plyCol.bounds.center.x, PlayerBrain.PB.plyCol.bounds.min.y);
+        Vector2 size = new Vector2(PlayerBrain.PB.plyCol.size.x, 0.05f);
+        RaycastHit2D hit = Physics2D.CapsuleCast(origin, size, CapsuleDirection2D.Horizontal, 0f, Vector2.down, 
             dist, groundLayerMask);
 
         //Debug.Log(hit.collider);
@@ -134,6 +152,16 @@ public class Controller : MonoBehaviour
     }
 
     public virtual void Special()
+    {
+
+    }
+
+    public virtual void CallPutFrom(bool value)
+    {
+
+    }
+
+    public virtual void SetObject(object value)
     {
 
     }
@@ -161,19 +189,19 @@ public class Controller : MonoBehaviour
     void TriggerDeath()
     {
         Death();
-        this.gameObject.SetActive(false);
+        PlayerBrain.PB.plySpr.enabled = false;
     }
 
     void FreezePlayer()
     {
-        rb.simulated = false;
-        rb.velocity = Vector2.zero;
+        PlayerBrain.PB.rb.simulated = false;
+        PlayerBrain.PB.rb.velocity = Vector2.zero;
         DisableMovement();
     }
 
     void UnFreezePlayer()
     {
-        rb.simulated = true;
+        PlayerBrain.PB.rb.simulated = true;
         RenableMovement();
     }
 
@@ -181,12 +209,12 @@ public class Controller : MonoBehaviour
     private void OnDrawGizmos()
     {
         float dist = 0.05f;
-        RaycastHit2D hit = Physics2D.CapsuleCast(capCollider.bounds.center, capCollider.size, capCollider.direction, 0f, Vector2.down,
-            dist, groundLayerMask);
+        RaycastHit2D hit = Physics2D.CapsuleCast(PlayerBrain.PB.plyCol.bounds.center, PlayerBrain.PB.plyCol.size, 
+            PlayerBrain.PB.plyCol.direction, 0f, Vector2.down,dist, groundLayerMask);
 
-        Gizmos.DrawLine(hit.centroid + new Vector2(capCollider.bounds.extents.x, 0),
-            hit.centroid - new Vector2(capCollider.bounds.extents.x, 0));
-        Gizmos.DrawLine(hit.centroid + new Vector2(0, capCollider.bounds.extents.y),
-            hit.centroid - new Vector2(0, capCollider.bounds.extents.y));
+        Gizmos.DrawLine(hit.centroid + new Vector2(PlayerBrain.PB.plyCol.bounds.extents.x, 0),
+            hit.centroid - new Vector2(PlayerBrain.PB.plyCol.bounds.extents.x, 0));
+        Gizmos.DrawLine(hit.centroid + new Vector2(0, PlayerBrain.PB.plyCol.bounds.extents.y),
+            hit.centroid - new Vector2(0, PlayerBrain.PB.plyCol.bounds.extents.y));
     }
 }

@@ -374,6 +374,7 @@ public class SpecialInteractions : MonoBehaviour
         }
     }
 
+    //Sets the value of the skeleton to be held
     public void SetHeldSkel(SkeletonTrigger skel)
     {
         skeleton = skel;
