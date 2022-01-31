@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour
 
      //Public variables and assets
     public string newGameScene;
+    public string[] levelNames;
     public GameObject levelButtonPrefab;
     public GameObject menuButtons;
     public GameObject settingsButtons;
@@ -29,8 +30,7 @@ public class MainMenu : MonoBehaviour
     private GameObject newButton;
     private Button button;
     private Text buttonText;
-    private Vector2 buttonPos = new Vector2(-640, 390);
-    private int sceneCount;
+    private Vector2 buttonPos = new Vector2(-840, 400);
     float mouseTimer = 4;
     PlayerControls plyCntrl;
     Vector2 lastPos;
@@ -55,18 +55,19 @@ public class MainMenu : MonoBehaviour
         plyCntrl = new PlayerControls();
         Cursor.visible = false;
 
-        sceneCount = SceneManager.sceneCountInBuildSettings;
+        Debug.Log(levelNames.Length);
+
         //Generate buttons for the number of scenes in built settings
-        for (int i = 1; i < sceneCount; i++)
+        for (int i = 0; i < levelNames.Length; i++)
         {
             //Create and place the new button in hierarchy
             newButton = Instantiate(levelButtonPrefab);
-            newButton.name = "Level " + i;
+            newButton.name = levelNames[i];
             button = newButton.GetComponent<Button>();
             newButton.GetComponent<RectTransform>().SetParent(levelButtons.GetComponent<RectTransform>());
             //Place the button on the screen and change its text
-            newButton.GetComponent<RectTransform>().localPosition = new Vector2(buttonPos.x + 500 * ((i - 1) / 5), buttonPos.y - 140 * ((i - 1) % 5));
-            newButton.GetComponent<RectTransform>().GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Level " + i;
+            newButton.GetComponent<RectTransform>().localPosition = new Vector2(buttonPos.x + 250 * (i / 8), buttonPos.y - 100 * (i % 8));
+            newButton.GetComponent<RectTransform>().GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = levelNames[i];
             //Add listener to the button
             button.onClick.AddListener(levelSelect);
         }
