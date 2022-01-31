@@ -73,6 +73,12 @@ public class MovingPlatforms : GameAction
         {
             //Move the platform to the next point
             platform.position = Vector3.MoveTowards(platform.position, points[moveTowards].position, speed);
+
+            //If it needs theplayer, call that method
+            if (!playerOn && waitForPlayer)
+            {
+                moveTowards = waitPos;
+            }
             //Check if it has arrived
             if(platform.position == points[moveTowards].position)
             {
@@ -128,7 +134,7 @@ public class MovingPlatforms : GameAction
     private void pCheck()
     {
         //Check if it should stop here
-        if (!playerOn &&  (currentPos == waitPos))
+        if (!playerOn &&  (platform.position == points[waitPos].position))
         {
             moving = false;
         }
@@ -204,6 +210,7 @@ public class MovingPlatforms : GameAction
         //Check if it was the player
         if (GameAction.PlayerTags(collision.collider.tag))
         {
+            Debug.Log("Player left");
             //Set playerOn
             playerOn = false;
         }
