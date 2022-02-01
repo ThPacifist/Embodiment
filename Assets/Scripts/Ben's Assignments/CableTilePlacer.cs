@@ -14,13 +14,6 @@ public class CableTilePlacer : MonoBehaviour
     Vector2Int startPosInt;
     Vector2Int endPosInt;
 
-    int count = 0;
-
-    private void Start()
-    {
-        PlyController.Interact += GenerateCable;
-    }
-
     [ContextMenu("Generate Cable")]
     void GenerateCable()
     {
