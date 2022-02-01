@@ -59,7 +59,7 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
-	public void Stop(string sound)
+    public void Stop(string sound)
 	{
 		Sound s = Array.Find(sounds, item => item.name == sound); //Find the sound we want to play, ensure it's not null
         if(s == null)
@@ -143,10 +143,5 @@ public class AudioManager : MonoBehaviour
         {
             s.source.Stop();
         }
-    }
-
-    public void SetVolume(float val)
-    {
-        mixerGroup.audioMixer.SetFloat("MasterVol", Mathf.Log10(val)*20);
     }
 }

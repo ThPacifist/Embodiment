@@ -14,20 +14,33 @@ public class CableTilePlacer : MonoBehaviour
     Vector2Int startPosInt;
     Vector2Int endPosInt;
 
+    [ContextMenu("Generate Cable")]
     void GenerateCable()
     {
         //Converts the positions of the game objects to be integer vectors
         startPosInt = Vector2Int.FloorToInt(startPos.transform.position);
         endPosInt = Vector2Int.FloorToInt(endPos.transform.position);
+        Debug.Log("Start Pos is " + startPosInt + ". End pos is " + endPosInt + ".");
         //Initializes starting position
         currentPos = startPosInt;
 
-        while(currentPos.x > endPosInt.x)
+        Debug.Log("End pos X: " + endPosInt.x);
+        while(currentPos.x != endPosInt.x)
         {
             currentPos.x += MoveTowardsInt(currentPos, endPosInt);
         }
 
         Debug.Log("X position is now the same");
+
+        Debug.Log("End pos Y: " + endPosInt.y);
+        while (currentPos.y != endPosInt.y)
+        {
+            currentPos.y += MoveTowardsInt(currentPos, endPosInt);
+        }
+
+        Debug.Log("Y position is now the same");
+
+        Debug.Log("Current position is " + currentPos);
     }
 
     //Shorthand for Vector2Int.FloorToInt
@@ -42,11 +55,11 @@ public class CableTilePlacer : MonoBehaviour
 
         if(dist < 0)
         {
-            return 1;
+            return -1;
         }
         else if(dist > 0)
         {
-            return -1;
+            return 1;
         }
         else
         {
@@ -60,9 +73,9 @@ public class CableTilePlacer : MonoBehaviour
         Vector3Int ePint = Vector3Int.FloorToInt(endPos.transform.position);
 
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(sPint, Vector3.one * 0.3f);
+        Gizmos.DrawWireSphere(sPint, 1);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(ePint, Vector3.one * 0.3f);
+        Gizmos.DrawWireSphere(ePint, 1);
     }
 }
