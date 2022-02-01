@@ -22,14 +22,14 @@ public class SkeletonTrigger : MonoBehaviour
 
     //Private Variables
     ControlMovement cntrlMove;
-    SpecialInteractions spcInter;
+    BlobController blbCntrl;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Blob"))
         {
             cntrlMove = collision.GetComponent<ControlMovement>();
-            spcInter = collision.GetComponent<SpecialInteractions>();
+            blbCntrl = collision.GetComponent<BlobController>();
             if(cntrlMove != null)
             {
                 if (cntrlMove.skeleton == null)
@@ -38,11 +38,11 @@ public class SkeletonTrigger : MonoBehaviour
                 }
             }
 
-            if(spcInter != null)
+            if(blbCntrl != null)
             {
-                if (spcInter.heldSkel == null)
+                if (blbCntrl.heldSkel == null)
                 {
-                    spcInter.SetHeldSkel(this);
+                    blbCntrl.SetHeldSkel(this);
                 }
             }
         }
@@ -64,14 +64,14 @@ public class SkeletonTrigger : MonoBehaviour
                 }
             }
 
-            if (spcInter != null)
+            if (blbCntrl != null)
             {
                 if (!isGrabbed)
                 {
-                    if (spcInter.skeleton == this)
+                    if (blbCntrl.skeleton == this)
                     {
-                        spcInter.SetHeldSkel(null);
-                        spcInter = null;
+                        blbCntrl.SetHeldSkel(null);
+                        blbCntrl = null;
                     }
                 }
             }

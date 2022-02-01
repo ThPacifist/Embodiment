@@ -1,10 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerBrain : MonoBehaviour
 {
     public static PlayerBrain PB;
+
+    public static Action Death = delegate { };
 
     public CapsuleCollider2D plyCol;
     public Animator plyAnim;
@@ -13,6 +17,8 @@ public class PlayerBrain : MonoBehaviour
     public ControlMovement CM;
     public FixedJoint2D fixedJ;
     public SpringJoint2D spring;
+    public GameObject IndicatorPrefab;
+    public GameObject prefabInstance;
 
     private void Awake()
     {

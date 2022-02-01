@@ -42976,41 +42976,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!1 &344267374 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4819060323485262873, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-  m_PrefabInstance: {fileID: 4819060323351451817}
-  m_PrefabAsset: {fileID: 0}
---- !u!70 &344267384 stripped
-CapsuleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 1720524858, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-  m_PrefabInstance: {fileID: 4819060323351451817}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &344267386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344267374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 634c3f4b01cf26349870ace2980de058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cntrlMove: {fileID: 0}
-  spcInter: {fileID: 0}
-  rb: {fileID: 0}
-  plyAnim: {fileID: 0}
-  capCollider: {fileID: 344267384}
-  speed: 0
-  jumpHeight: 0
-  canMove: 1
-  canJump: 1
-  inWater: 0
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1001 &344809147
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44603,17 +44568,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &1189157428 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4819060323351451821, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-  m_PrefabInstance: {fileID: 4819060323351451817}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344267374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c78e6416d072a134dba3d66b487b064a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1201916313
 GameObject:
   m_ObjectHideFlags: 0
@@ -49120,7 +49074,7 @@ MonoBehaviour:
   - {fileID: 584262706139327652}
   player: {fileID: 135167158}
   toCheckpoint: 0
-  plyCntrl: {fileID: 1189157428}
+  plyCntrl: {fileID: 0}
   transCntrl: {fileID: 507466321}
   previousCheckpoint: 0
 --- !u!4 &584262705903958123
@@ -49359,53 +49313,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1189157436, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_ConnectedAnchor.x
-      value: 12.29
-      objectReference: {fileID: 0}
-    - target: {fileID: 1189157436, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_ConnectedAnchor.y
-      value: 2.88
-      objectReference: {fileID: 0}
-    - target: {fileID: 1373430572, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 1373430572, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 1651337005, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.39
-      objectReference: {fileID: 0}
-    - target: {fileID: 1651337005, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.68
-      objectReference: {fileID: 0}
-    - target: {fileID: 4819060323351451821, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4819060323351451821, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4819060323351451821, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4819060323485262866, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: tileMap
-      value: 
-      objectReference: {fileID: 335044965}
     - target: {fileID: 4819060323485262873, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4819060323485262875, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Mass
-      value: 2.0993426
       objectReference: {fileID: 0}
     - target: {fileID: 4819060323485262879, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_RootOrder

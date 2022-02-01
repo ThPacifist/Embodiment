@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 public class Controller : MonoBehaviour
 {
     //Public Variables
-    public ControlMovement cntrlMove;
     public static Action Interact = delegate { };
     public static Action Embody = delegate { };
     public static Action Pause = delegate { };
@@ -50,6 +49,7 @@ public class Controller : MonoBehaviour
     private void OnEnable()
     {
         PlyCtrl.Enable();
+        PlayerBrain.PB.plyAnim.runtimeAnimatorController = animatorController;
     }
 
     void OnDisable()
@@ -58,7 +58,7 @@ public class Controller : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         audioManager = GameObject.FindObjectOfType<AudioManager>();
         //Special Interact
@@ -75,6 +75,9 @@ public class Controller : MonoBehaviour
 
         //Pause
         PlyCtrl.Player.Pause.performed += _ => Pause();
+
+        PlayerBrain.PB.spring.enabled = false;
+        PlayerBrain.PB.fixedJ.enabled = false;
     }
 
     // Update is called once per frame
@@ -82,14 +85,18 @@ public class Controller : MonoBehaviour
     {
         if (canMove)
         {
-            //Keeps track of what direction player is moving in
+            //Keeps track of what direction player is moving in and flips the player based on the direction they are heading in
             if (PlyCtrl.Player.Movement.ReadValue<float>() > 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x > 0)
             {
+                this.gameObject.transform.localScale = new Vector3(-1 * Mathf.Abs(transform.localScale.x), 
+                    Mathf.Abs(transform.localScale.y),Mathf.Abs(transform.localScale.z));
                 right = true;
                 left = false;
             }
             else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x < 0)
             {
+                this.gameObject.transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), 
+                    Mathf.Abs(transform.localScale.y),Mathf.Abs(transform.localScale.z));
                 left = true;
                 right = false;
             }
@@ -156,12 +163,7 @@ public class Controller : MonoBehaviour
 
     }
 
-    public virtual void CallPutFrom(bool value)
-    {
-
-    }
-
-    public virtual void SetObject(object value)
+    public virtual void CallFromAnimation(int value)
     {
 
     }

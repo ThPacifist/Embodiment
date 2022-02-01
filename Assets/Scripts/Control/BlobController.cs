@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,15 +9,21 @@ public class BlobController : Controller
     public bool skelHeld;
     public LineRenderer lRenderer;
     public GameObject lamp;
-    public SpringJoint2D spring;
     public SkeletonTrigger heldSkel;
-    [SerializeField]
-    GameObject IndicatorPrefab;
-    public GameObject prefabInstance;
-    [HideInInspector]
+    //[HideInInspector]
     public SkeletonTrigger skeleton;
     [SerializeField]
     Transform skelHeldPos;
+
+    public override void Start()
+    {
+        base.Start();
+
+        lRenderer.positionCount = 2;
+        lRenderer.SetPosition(0, transform.position);//Starting Position of Tendril Line
+        lRenderer.SetPosition(1, transform.position);//Ending Position of Tendril Line
+        lRenderer.enabled = false;
+    }
 
     // Update is called once per frame
     public override void FixedUpdate()
@@ -37,6 +44,10 @@ public class BlobController : Controller
             //Changes the player's rotation to be relative to the swing
             Quaternion rotation = Quaternion.Euler(0, 0, -signedAngle);
             this.transform.rotation = rotation;
+        }
+        if (skelHeld)
+        {
+            heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
         }
 
         if (canMove)
@@ -178,11 +189,11 @@ public class BlobController : Controller
         {
             audioManager.Play("Swing");
         }
-        if (!spring.isActiveAndEnabled)
+        if (!PlayerBrain.PB.spring.isActiveAndEnabled)
         {
             lRenderer.enabled = true;
-            spring.enabled = true;
-            spring.connectedAnchor = lamp.transform.position;
+            PlayerBrain.PB.spring.enabled = true;
+            PlayerBrain.PB.spring.connectedAnchor = lamp.transform.position;
             lRenderer.SetPosition(1, new Vector3(lamp.transform.position.x, lamp.transform.position.y, transform.position.z));
             isAttached = true;
 
@@ -192,8 +203,8 @@ public class BlobController : Controller
         }
         else
         {
-            spring.enabled = false;
-            spring.connectedAnchor = Vector2.zero;
+            PlayerBrain.PB.spring.enabled = false;
+            PlayerBrain.PB.spring.connectedAnchor = Vector2.zero;
             lRenderer.SetPosition(1, transform.position);
             lRenderer.enabled = false;
             Quaternion rotation = Quaternion.Euler(0, 0, 0);
@@ -208,6 +219,25 @@ public class BlobController : Controller
         StartCoroutine("SpecialCoolDown");
     }
 
+    //Sets the value of the lamp variable to allow the player to swing
+    public void SetSwingerGameObject(GameObject value)
+    {
+        lamp = value;
+        if (PlayerBrain.PB.prefabInstance == null)
+        {
+            PlayerBrain.PB.prefabInstance = Instantiate(PlayerBrain.PB.IndicatorPrefab, lamp.transform);
+        }
+        else if (value == null)
+        {
+            Destroy(PlayerBrain.PB.prefabInstance);
+        }
+        else if (PlayerBrain.PB.prefabInstance != null)
+        {
+            Destroy(PlayerBrain.PB.prefabInstance);
+            PlayerBrain.PB.prefabInstance = Instantiate(PlayerBrain.PB.IndicatorPrefab, lamp.transform);
+        }
+    }
+
     //This function is called when we want the blob to pick up skeleton
     public void PickUpSkeleton(SkeletonTrigger skelo)
     {
@@ -215,7 +245,7 @@ public class BlobController : Controller
         {
             heldSkel = skelo;
             heldSkel.isGrabbed = true;
-            Destroy(prefabInstance);
+            Destroy(PlayerBrain.PB.prefabInstance);
             skelHeld = true;
             PlayerBrain.PB.fixedJ.enabled = true;
             PlayerBrain.PB.fixedJ.connectedBody = heldSkel.transform.parent.GetComponent<Rigidbody2D>();
@@ -244,14 +274,39 @@ public class BlobController : Controller
         StartCoroutine("SpecialCoolDown");
     }
 
-    public override void SetObject(object value)
+    //Sets the value of the skeleton to be held
+    public void SetHeldSkel(SkeletonTrigger skel)
     {
-        if(value.GetType() == typeof(GameObject))
+        skeleton = skel;
+        if (PlayerBrain.PB.prefabInstance == null)
         {
-
+            PlayerBrain.PB.prefabInstance = Instantiate(PlayerBrain.PB.IndicatorPrefab, skeleton.transform);
+        }
+        else if (skel == null)
+        {
+            Destroy(PlayerBrain.PB.prefabInstance);
+        }
+        else if (PlayerBrain.PB.prefabInstance != null)
+        {
+            Destroy(PlayerBrain.PB.prefabInstance);
+            PlayerBrain.PB.prefabInstance = Instantiate(PlayerBrain.PB.IndicatorPrefab, skeleton.transform);
         }
     }
 
+    public override void CallFromAnimation(int value)
+    {
+        if(value == 0)
+        {
+            PickUpSkeleton(skeleton);
+        }
+        else
+        {
+            PickUpSkeleton(null);
+        }
+    }
+
+
+    //OnTriggers
     public override void OnTriggerEnter2D(Collider2D other)
     {
         base.OnTriggerEnter2D(other);
@@ -277,8 +332,15 @@ public class BlobController : Controller
         {
             //Blob jumps out of water
             inWater = false;
-            PlayerBrain.PB.plyCol.density = cntrlMove.defaultDensity;
-            jumpHeight = cntrlMove.defaultJumpHeight;
+            PlayerBrain.PB.plyCol.density = PlayerBrain.PB.CM.defaultDensity;
+            jumpHeight = PlayerBrain.PB.CM.defaultJumpHeight;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        //Blob Box Pos
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(skelHeldPos.position, 0.3f);
     }
 }

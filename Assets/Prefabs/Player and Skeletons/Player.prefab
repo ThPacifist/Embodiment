@@ -4886,7 +4886,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373430571}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.203, y: -1.763, z: 0}
+  m_LocalPosition: {x: -0.13, y: -1.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4819060323485262879}
@@ -4916,7 +4916,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1651337004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.22, y: 1.51, z: 0}
+  m_LocalPosition: {x: -1.39, y: 1.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4819060323485262879}
@@ -9840,15 +9840,15 @@ GameObject:
   - component: {fileID: 741335704}
   - component: {fileID: 1720524858}
   - component: {fileID: 4819060323485262875}
-  - component: {fileID: 4819060323351451821}
   - component: {fileID: 4819060323485262866}
-  - component: {fileID: 4819060323485262864}
   - component: {fileID: 135167153}
   - component: {fileID: 8069979182591699773}
   - component: {fileID: 366513243}
   - component: {fileID: 1263926257}
   - component: {fileID: 31063976919249225}
   - component: {fileID: 1189157436}
+  - component: {fileID: 344267375}
+  - component: {fileID: 344267386}
   m_Layer: 6
   m_Name: Player
   m_TagString: Blob
@@ -9965,36 +9965,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4819060323351451821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4819060323485262873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c78e6416d072a134dba3d66b487b064a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackBox: {fileID: 7678000444253303998}
-  rb: {fileID: 4819060323485262875}
-  plySprite: {fileID: 741335704}
-  plyAnim: {fileID: 366513243}
-  capCollider: {fileID: 1720524858}
-  cntrlMove: {fileID: 4819060323485262866}
-  speed: 5
-  jumpHeight: 18.1
-  canMove: 1
-  canJump: 1
-  angle: 0
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  OnWall: 0
-  treadmill: 0
-  inWater: 0
-  spcInter: {fileID: 4819060323485262864}
 --- !u!114 &4819060323485262866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10009,14 +9979,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heldSkeleton: {fileID: 0}
   player: {fileID: 4819060323485262879}
-  plyCntrl: {fileID: 4819060323351451821}
+  plyCntrl: {fileID: 0}
   playerData: {fileID: 31063976919249225}
-  spIntr: {fileID: 4819060323485262864}
+  spIntr: {fileID: 0}
   plyCol: {fileID: 1720524858}
   animPly: {fileID: 366513243}
   skeleton: {fileID: 0}
   emField: {fileID: 6005473104013902345}
-  tileMap: {fileID: 0}
   skeloData: {fileID: 0}
   defaultName: Blob
   defaultSpeed: 5
@@ -10026,43 +9995,6 @@ MonoBehaviour:
   defaultDirection: 1
   defaultDensity: 1
   defaultController: {fileID: 9100000, guid: 2f7efdecadde8064dbfad88915726ec6, type: 2}
---- !u!114 &4819060323485262864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4819060323485262873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82e2d66772e11e6449efda5d9f883dcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plyCntrl: {fileID: 4819060323351451821}
-  plyRb: {fileID: 4819060323485262875}
-  heldBox: {fileID: 0}
-  heldSkel: {fileID: 0}
-  plyCol: {fileID: 1720524858}
-  attackBox: {fileID: 8031588383664005418}
-  lamp: {fileID: 0}
-  note: {fileID: 0}
-  spring: {fileID: 8069979182591699773}
-  lineRender: {fileID: 1263926257}
-  isAttached: 0
-  objectHeld: 0
-  skelHeld: 0
-  HboxHeld: 0
-  IndicatorPrefab: {fileID: 4573899549758092126, guid: b483489a74087404ab3868bfe458d05e, type: 3}
-  prefabInstance: {fileID: 0}
-  box: {fileID: 0}
-  skeleton: {fileID: 0}
-  lever: {fileID: 0}
-  HheldPos: {fileID: 1651337005}
-  BheldPos: {fileID: 1373430572}
-  skelHeldPos: {fileID: 5558430560654496473}
-  fixedJ: {fileID: 1189157436}
-  plyAnim: {fileID: 366513243}
-  cntrlMovement: {fileID: 4819060323485262866}
 --- !u!114 &135167153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10123,7 +10055,7 @@ Animator:
   m_GameObject: {fileID: 4819060323485262873}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 158b8ca7e8b5a1243a51d290926289a4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2f7efdecadde8064dbfad88915726ec6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -10253,9 +10185,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   savedObject: {fileID: 4819060323485262873}
   player: {fileID: 4819060323485262873}
-  spcInt: {fileID: 4819060323485262864}
+  spcInt: {fileID: 0}
   ctrlMvm: {fileID: 4819060323485262866}
-  plyCtrl: {fileID: 4819060323351451821}
+  plyCtrl: {fileID: 0}
   plyCol: {fileID: 1720524858}
   animPly: {fileID: 366513243}
   heldSkeleton: {fileID: 0}
@@ -10276,9 +10208,58 @@ FixedJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 3.1, y: 0.705}
+  m_ConnectedAnchor: {x: 12.29, y: 2.88}
   m_DampingRatio: 0
   m_Frequency: 0
+--- !u!114 &344267375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819060323485262873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9758f494f80c4bc47ae4849549626b44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plyCol: {fileID: 1720524858}
+  plyAnim: {fileID: 366513243}
+  rb: {fileID: 4819060323485262875}
+  plySpr: {fileID: 741335704}
+  CM: {fileID: 4819060323485262866}
+  fixedJ: {fileID: 1189157436}
+  spring: {fileID: 8069979182591699773}
+  IndicatorPrefab: {fileID: 4573899549758092126, guid: b483489a74087404ab3868bfe458d05e, type: 3}
+  prefabInstance: {fileID: 0}
+--- !u!114 &344267386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819060323485262873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 634c3f4b01cf26349870ace2980de058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  jumpHeight: 18.1
+  animatorController: {fileID: 9100000, guid: 2f7efdecadde8064dbfad88915726ec6, type: 2}
+  canMove: 1
+  canJump: 1
+  inWater: 0
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  isAttached: 0
+  skelHeld: 0
+  lRenderer: {fileID: 1263926257}
+  lamp: {fileID: 0}
+  heldSkel: {fileID: 0}
+  skeleton: {fileID: 0}
+  skelHeldPos: {fileID: 5558430560654496473}
 --- !u!1001 &4819060322301267564
 PrefabInstance:
   m_ObjectHideFlags: 0

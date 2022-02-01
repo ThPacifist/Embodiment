@@ -11,14 +11,16 @@ public class SwingerVisuals : MonoBehaviour
      * Also activates the indicator when the player is within range
      */
     public GameObject indicator;
+    /*[SerializeField]
+    SpecialInteractions interaction;*/
     [SerializeField]
-    SpecialInteractions interaction;
+    BlobController interaction;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Blob"))
         {
-            interaction = collision.GetComponent<SpecialInteractions>();
+            interaction = collision.GetComponent<BlobController>();
             if (!interaction.isAttached)
             {
                 if (interaction != null)

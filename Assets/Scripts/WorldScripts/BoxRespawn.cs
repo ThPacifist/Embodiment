@@ -8,7 +8,7 @@ public class BoxRespawn : MonoBehaviour
     public Transform respawnPos;
 
     //When it enters any of these triggers, reapwawn the box
-    private void OnTriggerEnter2D(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Death")
         {
