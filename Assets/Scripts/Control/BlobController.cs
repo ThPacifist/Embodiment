@@ -10,7 +10,7 @@ public class BlobController : Controller
     public LineRenderer lRenderer;
     public GameObject lamp;
     public SkeletonTrigger heldSkel;
-    //[HideInInspector]
+    [HideInInspector]
     public SkeletonTrigger skeleton;
     [SerializeField]
     Transform skelHeldPos;
