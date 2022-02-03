@@ -12,15 +12,17 @@ public class ExpozyteTalk : MonoBehaviour
      */
 
     //Public variables
-    public TextMeshProUGUI textBox;
+    public TextMeshPro textBox;
     public string[] Dialogue;
+    public int[] timeDisplayed;
 
     //Private variables
-    private int currentDialogue;
+    private int currentDialogue = 0;
 
     //Detects when expozyte enters the checkpoint
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Caught you");
         PlayDialogue();
     }
 
@@ -41,10 +43,10 @@ public class ExpozyteTalk : MonoBehaviour
     IEnumerator Wait()
     {
         //Keep it displayed
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(timeDisplayed[currentDialogue]);
         textBox.gameObject.SetActive(false);
         //Turn it off for a little bit
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.5f);
         //Put the next one up
         currentDialogue++;
         PlayDialogue();
