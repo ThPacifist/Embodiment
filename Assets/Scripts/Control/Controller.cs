@@ -12,26 +12,30 @@ public class Controller : MonoBehaviour
     public static Action Embody = delegate { };
     public static Action Pause = delegate { };
     public static Action Death = delegate { };
-    public float speed;
-    public float jumpHeight;
-    public RuntimeAnimatorController animatorController;
     public bool canMove = true;
     public bool canJump = true;
+    public bool inWater = false;
+    [SerializeField]
+    LayerMask groundLayerMask;
+    [Header("Form Settings")]
+    public string form;
+    public float speed;
+    public float jumpHeight;
+    public float density;
+    public Vector2 colliderSize;
+    public Vector2 colliderOffset;
+    public CapsuleDirection2D direction;
+    public RuntimeAnimatorController animatorController;
 
     //Protected Variables
     protected PlayerControls PlyCtrl;
     protected AudioManager audioManager;
     protected bool right;
     protected bool left;
-    [SerializeField]
-    protected bool inWater = false;
     protected bool specialReady = true;
     protected float cooldownTime;
 
     //Private
-    [SerializeField]
-    LayerMask groundLayerMask;
-
     public bool Right
     { get { return right; } }
     public bool Left
@@ -43,7 +47,7 @@ public class Controller : MonoBehaviour
     private void Awake()
     {
         PlyCtrl = new PlayerControls();
-        this.gameObject.transform.position = GameAction.PlaceColOnGround(PlayerBrain.PB.plyCol);
+        //this.gameObject.transform.position = GameAction.PlaceColOnGround(PlayerBrain.PB.plyCol);
     }
 
     private void OnEnable()
@@ -138,6 +142,17 @@ public class Controller : MonoBehaviour
     {
         PlayerBrain.PB.plyAnim.SetTrigger("takeOff");
         PlayerBrain.PB.plyAnim.SetBool("isJumping", true);
+    }
+
+    void InitializeForm()
+    {
+        tag = form;
+        PlayerBrain.PB.currentController = this;
+        PlayerBrain.PB.plyCol.size = colliderSize;
+        PlayerBrain.PB.plyCol.offset = colliderOffset;
+        PlayerBrain.PB.plyCol.direction = direction;
+        PlayerBrain.PB.plyCol.density = density;
+        PlayerBrain.PB.plyAnim.runtimeAnimatorController = animatorController;
     }
 
     //Checks if the player is on the ground

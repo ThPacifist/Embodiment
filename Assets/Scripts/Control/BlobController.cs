@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BlobController : Controller
 {
+    [Header("Blob Settings")]
     public bool isAttached;
     public bool skelHeld;
     public LineRenderer lRenderer;

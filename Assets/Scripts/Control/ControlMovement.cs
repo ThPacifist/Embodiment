@@ -77,17 +77,15 @@ public class ControlMovement : MonoBehaviour
     {
         //Embody(this.tag);
     }
-
     
     //When "r" is pressed, the player embodies the skeleton
     void Embody()
     {
-        Debug.Log("Inside Embody");
         //If player is not embodying a skeleton, embody the skeleton
         if(skeleton != null)
         {
-            if (emField.CheckSpace(transform.position - new Vector3(0, PlayerBrain.PB.plyCol.bounds.extents.y, 0), skeleton) && canEmbody 
-                && plyCntrl.isGrounded())
+            if (emField.CheckSpace(transform.position - new Vector3(0, PlayerBrain.PB.plyCol.bounds.extents.y, 0), skeleton) 
+                && canEmbody && plyCntrl.isGrounded())
             {
                 if (audioManager != null)
                 {

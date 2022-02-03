@@ -8,8 +8,6 @@ public class PlayerBrain : MonoBehaviour
 {
     public static PlayerBrain PB;
 
-    public static Action Death = delegate { };
-
     public CapsuleCollider2D plyCol;
     public Animator plyAnim;
     public Rigidbody2D rb;
@@ -19,6 +17,9 @@ public class PlayerBrain : MonoBehaviour
     public SpringJoint2D spring;
     public GameObject IndicatorPrefab;
     public GameObject prefabInstance;
+
+    [Space]
+    public Controller currentController;
 
     private void Awake()
     {
