@@ -6,6 +6,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerBrain : MonoBehaviour
 {
+    public enum skeleType
+    {
+        Blob,
+        Cat,
+        Fish,
+        Bat,
+        Human
+    }
+
     public static PlayerBrain PB;
 
     public CapsuleCollider2D plyCol;
@@ -20,6 +29,12 @@ public class PlayerBrain : MonoBehaviour
 
     [Space]
     public Controller currentController;
+
+    //Dictionary for skeletons
+    public static Dictionary<skeleType, Type> Skeletons = new Dictionary<skeleType, Type>()
+    { 
+        {skeleType.Blob, typeof(BlobController)},
+    };
 
     private void Awake()
     {

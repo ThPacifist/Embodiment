@@ -56,6 +56,18 @@ public class Controller : MonoBehaviour
         PlayerBrain.PB.plyAnim.runtimeAnimatorController = animatorController;
     }
 
+    //Called during OnEnable to change the form and stats of the player when it changes form
+    void InitializeForm()
+    {
+        tag = form;
+        PlayerBrain.PB.currentController = this;
+        PlayerBrain.PB.plyCol.size = colliderSize;
+        PlayerBrain.PB.plyCol.offset = colliderOffset;
+        PlayerBrain.PB.plyCol.direction = direction;
+        PlayerBrain.PB.plyCol.density = density;
+        PlayerBrain.PB.plyAnim.runtimeAnimatorController = animatorController;
+    }
+
     void OnDisable()
     {
         PlyCtrl.Disable();
@@ -142,17 +154,6 @@ public class Controller : MonoBehaviour
     {
         PlayerBrain.PB.plyAnim.SetTrigger("takeOff");
         PlayerBrain.PB.plyAnim.SetBool("isJumping", true);
-    }
-
-    void InitializeForm()
-    {
-        tag = form;
-        PlayerBrain.PB.currentController = this;
-        PlayerBrain.PB.plyCol.size = colliderSize;
-        PlayerBrain.PB.plyCol.offset = colliderOffset;
-        PlayerBrain.PB.plyCol.direction = direction;
-        PlayerBrain.PB.plyCol.density = density;
-        PlayerBrain.PB.plyAnim.runtimeAnimatorController = animatorController;
     }
 
     //Checks if the player is on the ground

@@ -59,13 +59,13 @@ public class ControlMovement : MonoBehaviour
     //Enable on enable and disable on disable
     private void OnEnable()
     {
-        BlobController.Embody += Embody;
+        Controller.Embody += Embody;
     }
 
     private void OnDisable()
     {
-        BlobController.Embody -= Embody;
-        BlobController.Embody -= Disembody;
+        Controller.Embody -= Embody;
+        Controller.Embody -= Disembody;
     }
 
     private void Start()

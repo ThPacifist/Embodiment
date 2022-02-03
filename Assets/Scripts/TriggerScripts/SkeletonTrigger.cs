@@ -7,6 +7,7 @@ using UnityEngine.Animations;
 public class SkeletonTrigger : MonoBehaviour
 {
     //Public Variables
+    public PlayerBrain.skeleType type;
     public int Form; //This is used in the animator to let it know which form it needs to change to
     public bool isGrabbed = false;
     public string Name;

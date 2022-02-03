@@ -9986,6 +9986,7 @@ MonoBehaviour:
   spring: {fileID: 8069979182591699773}
   IndicatorPrefab: {fileID: 4573899549758092126, guid: b483489a74087404ab3868bfe458d05e, type: 3}
   prefabInstance: {fileID: 0}
+  currentController: {fileID: 0}
 --- !u!114 &344267386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9998,15 +9999,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634c3f4b01cf26349870ace2980de058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  jumpHeight: 18.1
-  animatorController: {fileID: 9100000, guid: 2f7efdecadde8064dbfad88915726ec6, type: 2}
   canMove: 1
   canJump: 1
   inWater: 0
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 8
+  form: 
+  speed: 5
+  jumpHeight: 18.1
+  density: 0
+  colliderSize: {x: 0, y: 0}
+  colliderOffset: {x: 0, y: 0}
+  direction: 0
+  animatorController: {fileID: 9100000, guid: 2f7efdecadde8064dbfad88915726ec6, type: 2}
   isAttached: 0
   skelHeld: 0
   lRenderer: {fileID: 1263926257}
