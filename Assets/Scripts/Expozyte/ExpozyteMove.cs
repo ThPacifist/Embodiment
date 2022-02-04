@@ -11,11 +11,13 @@ public class ExpozyteMove : MonoBehaviour
      */
 
     //Public variables
-    public Transform[] Checkpoints;
     public Transform Expozyte;
     public int atCheckpoint;
     public int toCheckpoint;
     public bool moving;
+
+    [SerializeField]
+    public Transform[] Checkpoints;
 
     //Private variables
 
