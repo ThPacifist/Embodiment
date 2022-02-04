@@ -15,13 +15,11 @@ public class Controller : MonoBehaviour
     public bool canMove = true;
     public bool canJump = true;
     public bool inWater = false;
-    [SerializeField]
-    LayerMask groundLayerMask;
     [Header("Form Settings")]
     public string form;
     public float speed;
     public float jumpHeight;
-    public float density;
+    public float density = 1;
     public Vector2 colliderSize;
     public Vector2 colliderOffset;
     public CapsuleDirection2D direction;
@@ -54,6 +52,7 @@ public class Controller : MonoBehaviour
     {
         PlyCtrl.Enable();
         PlayerBrain.PB.plyAnim.runtimeAnimatorController = animatorController;
+        InitializeForm();
     }
 
     //Called during OnEnable to change the form and stats of the player when it changes form
@@ -163,7 +162,7 @@ public class Controller : MonoBehaviour
         Vector2 origin = new Vector2(PlayerBrain.PB.plyCol.bounds.center.x, PlayerBrain.PB.plyCol.bounds.min.y);
         Vector2 size = new Vector2(PlayerBrain.PB.plyCol.size.x, 0.05f);
         RaycastHit2D hit = Physics2D.CapsuleCast(origin, size, CapsuleDirection2D.Horizontal, 0f, Vector2.down, 
-            dist, groundLayerMask);
+            dist, PlayerBrain.PB.groundLayerMask);
 
         //Debug.Log(hit.collider);
         return hit.collider != null;
@@ -228,7 +227,7 @@ public class Controller : MonoBehaviour
     {
         float dist = 0.05f;
         RaycastHit2D hit = Physics2D.CapsuleCast(PlayerBrain.PB.plyCol.bounds.center, PlayerBrain.PB.plyCol.size, 
-            PlayerBrain.PB.plyCol.direction, 0f, Vector2.down,dist, groundLayerMask);
+            PlayerBrain.PB.plyCol.direction, 0f, Vector2.down,dist, PlayerBrain.PB.groundLayerMask);
 
         Gizmos.DrawLine(hit.centroid + new Vector2(PlayerBrain.PB.plyCol.bounds.extents.x, 0),
             hit.centroid - new Vector2(PlayerBrain.PB.plyCol.bounds.extents.x, 0));

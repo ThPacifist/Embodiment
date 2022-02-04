@@ -9842,6 +9842,7 @@ GameObject:
   - component: {fileID: 4819060323485262875}
   - component: {fileID: 344267375}
   - component: {fileID: 344267386}
+  - component: {fileID: 2660896411525341248}
   - component: {fileID: 4819060323485262866}
   - component: {fileID: 135167153}
   - component: {fileID: 8069979182591699773}
@@ -9984,6 +9985,9 @@ MonoBehaviour:
   CM: {fileID: 4819060323485262866}
   fixedJ: {fileID: 1189157436}
   spring: {fileID: 8069979182591699773}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
   IndicatorPrefab: {fileID: 4573899549758092126, guid: b483489a74087404ab3868bfe458d05e, type: 3}
   prefabInstance: {fileID: 0}
   currentController: {fileID: 0}
@@ -10002,16 +10006,13 @@ MonoBehaviour:
   canMove: 1
   canJump: 1
   inWater: 0
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  form: 
+  form: Blob
   speed: 5
   jumpHeight: 18.1
-  density: 0
-  colliderSize: {x: 0, y: 0}
+  density: 1
+  colliderSize: {x: 1.83, y: 1.366}
   colliderOffset: {x: 0, y: 0}
-  direction: 0
+  direction: 1
   animatorController: {fileID: 9100000, guid: 2f7efdecadde8064dbfad88915726ec6, type: 2}
   isAttached: 0
   skelHeld: 0
@@ -10020,6 +10021,31 @@ MonoBehaviour:
   heldSkel: {fileID: 0}
   skeleton: {fileID: 0}
   skelHeldPos: {fileID: 5558430560654496473}
+--- !u!114 &2660896411525341248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819060323485262873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f6db1a1ebef9974296ae407dfaa6ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canMove: 1
+  canJump: 1
+  inWater: 0
+  form: Cat
+  speed: 7
+  jumpHeight: 20
+  density: 1
+  colliderSize: {x: 1.5, y: 1.5}
+  colliderOffset: {x: 0, y: 0}
+  direction: 1
+  animatorController: {fileID: 9100000, guid: 748d0d0d75dc5964b8be6b78eae1351c, type: 2}
+  OnWall: 0
+  treadmill: 0
 --- !u!114 &4819060323485262866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10332,13 +10358,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e32536678f63824792a70bc6451e620, type: 3}
---- !u!1 &8031588383664005418 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3284622489090535238, guid: 1e32536678f63824792a70bc6451e620, type: 3}
-  m_PrefabInstance: {fileID: 4819060322301267564}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7678000444253303998 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2912986105079937746, guid: 1e32536678f63824792a70bc6451e620, type: 3}
+  m_PrefabInstance: {fileID: 4819060322301267564}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8031588383664005418 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3284622489090535238, guid: 1e32536678f63824792a70bc6451e620, type: 3}
   m_PrefabInstance: {fileID: 4819060322301267564}
   m_PrefabAsset: {fileID: 0}

@@ -24,6 +24,7 @@ public class PlayerBrain : MonoBehaviour
     public ControlMovement CM;
     public FixedJoint2D fixedJ;
     public SpringJoint2D spring;
+    public LayerMask groundLayerMask;
     public GameObject IndicatorPrefab;
     public GameObject prefabInstance;
 
