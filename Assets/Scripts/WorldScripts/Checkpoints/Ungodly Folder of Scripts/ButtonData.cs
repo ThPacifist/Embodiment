@@ -47,5 +47,6 @@ public class ButtonData : BaseData
         {
             switchScript.anim.Play(animState);
         }
+        switchScript.ActivateBehavior(active);
     }
 }

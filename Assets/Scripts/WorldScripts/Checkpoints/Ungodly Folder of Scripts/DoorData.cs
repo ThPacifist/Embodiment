@@ -10,6 +10,7 @@ public class DoorData : BaseData
      */
 
     //Variables
+    private Vector2 position;
     private bool isActive;
 
     //Constructor Function
@@ -17,17 +18,22 @@ public class DoorData : BaseData
     {
         savedObject = this.transform.GetChild(0).gameObject;
         isActive = savedObject.activeSelf;
+        position = savedObject.transform.position;
     }
 
     //Rebuild Data Function
     public override void SaveState()
     {
         isActive = savedObject.activeSelf;
+        position = savedObject.transform.position;
     }
 
     //Reset Data Function
     public override void ResetData()
     {
         savedObject.SetActive(isActive);
+        Debug.Log(savedObject.transform.position);
+        savedObject.transform.position = position;
+        Debug.Log(savedObject.transform.position);
     }
 }

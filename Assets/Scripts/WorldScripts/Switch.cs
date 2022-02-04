@@ -230,7 +230,7 @@ public class Switch : MonoBehaviour
         ActivateBehavior();
     }
 
-    void ActivateBehavior()
+    public void ActivateBehavior()
     {
         foreach(GameAction behavior in behaviors)
         {
@@ -238,7 +238,7 @@ public class Switch : MonoBehaviour
         }
     }
 
-    void ActivateBehavior(bool b)
+    public void ActivateBehavior(bool b)
     {
         foreach (GameAction behavior in behaviors)
         {
