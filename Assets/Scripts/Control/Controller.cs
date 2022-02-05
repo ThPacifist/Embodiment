@@ -12,9 +12,6 @@ public class Controller : MonoBehaviour
     public static Action Embody = delegate { };
     public static Action Pause = delegate { };
     public static Action Death = delegate { };
-    public bool canMove = true;
-    public bool canJump = true;
-    public bool inWater = false;
     [Header("Form Settings")]
     public string form;
     public float speed;
@@ -39,19 +36,16 @@ public class Controller : MonoBehaviour
     public bool Left
     { get { return left; } }
 
-    public bool InWater
-    { get { return inWater; } }
-
     private void Awake()
     {
         PlyCtrl = new PlayerControls();
         //this.gameObject.transform.position = GameAction.PlaceColOnGround(PlayerBrain.PB.plyCol);
+        InitializeForm();
     }
 
     private void OnEnable()
     {
         PlyCtrl.Enable();
-        PlayerBrain.PB.plyAnim.runtimeAnimatorController = animatorController;
         InitializeForm();
     }
 
@@ -98,7 +92,7 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     public virtual void FixedUpdate()
     {
-        if (canMove)
+        if (PlayerBrain.PB.canMove)
         {
             //Keeps track of what direction player is moving in and flips the player based on the direction they are heading in
             if (PlyCtrl.Player.Movement.ReadValue<float>() > 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x > 0)
@@ -192,14 +186,14 @@ public class Controller : MonoBehaviour
 
     public void DisableMovement()
     {
-        canMove = false;
-        canJump = false;
+        PlayerBrain.PB.canMove = false;
+        PlayerBrain.PB.canJump = false;
     }
 
     public void RenableMovement()
     {
-        canMove = true;
-        canJump = true;
+        PlayerBrain.PB.canMove = true;
+        PlayerBrain.PB.canJump = true;
     }
 
     //Calls all functions subscribed to death; Used in Death animation

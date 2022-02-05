@@ -27,15 +27,15 @@ public class PlayerBrain : MonoBehaviour
     public LayerMask groundLayerMask;
     public GameObject IndicatorPrefab;
     public GameObject prefabInstance;
+    public bool canMove = true;
+    public bool canJump = true;
+    public bool inWater = false;
 
     [Space]
     public Controller currentController;
 
     //Dictionary for skeletons
-    public static Dictionary<skeleType, Type> Skeletons = new Dictionary<skeleType, Type>()
-    { 
-        {skeleType.Blob, typeof(BlobController)},
-    };
+    public static Dictionary<skeleType, Controller> Skeletons = new Dictionary<skeleType, Controller>();
 
     private void Awake()
     {
@@ -43,5 +43,11 @@ public class PlayerBrain : MonoBehaviour
             GameObject.Destroy(PB);
         else
             PB = this;
+
+        if(Skeletons == null)
+        {
+            Skeletons.Add(skeleType.Blob, GetComponent<BlobController>());
+            Skeletons.Add(skeleType.Cat, GetComponent<CatController>());
+        }
     }
 }

@@ -51,7 +51,7 @@ public class BlobController : Controller
             heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
         }
 
-        if (canMove)
+        if (PlayerBrain.PB.canMove)
         {
             if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
             {
@@ -79,7 +79,7 @@ public class BlobController : Controller
         }
 
         #region Animation Block
-        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && canMove)
+        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && PlayerBrain.PB.canMove)
         {
             PlayerBrain.PB.plyAnim.SetBool("Walking", true);
         }
@@ -111,9 +111,9 @@ public class BlobController : Controller
 
     public override void Jump()
     {
-        if(canJump)
+        if(PlayerBrain.PB.canJump)
         {
-            if (isGrounded() || inWater)
+            if (isGrounded() || PlayerBrain.PB.inWater)
             {
                 PlayerBrain.PB.rb.AddForce((Vector2.up * jumpHeight) /*- new Vector2(0, rb.velocity.y)*/, ForceMode2D.Impulse);
             }
@@ -319,7 +319,7 @@ public class BlobController : Controller
             {
                 audioManager.Play("splash");
             }
-            inWater = true;
+            PlayerBrain.PB.inWater = true;
             PlayerBrain.PB.plyCol.density = 2;
             jumpHeight = 35;
         }
@@ -332,7 +332,7 @@ public class BlobController : Controller
         if (other.CompareTag("Water"))
         {
             //Blob jumps out of water
-            inWater = false;
+            PlayerBrain.PB.inWater = false;
             PlayerBrain.PB.plyCol.density = PlayerBrain.PB.CM.defaultDensity;
             jumpHeight = PlayerBrain.PB.CM.defaultJumpHeight;
         }

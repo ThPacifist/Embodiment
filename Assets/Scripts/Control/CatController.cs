@@ -65,7 +65,7 @@ public class CatController : Controller
         }
 
         #region Animation Block
-        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && canMove)
+        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && PlayerBrain.PB.canMove)
         {
             PlayerBrain.PB.plyAnim.SetBool("Walking", true);
         }
@@ -122,7 +122,7 @@ public class CatController : Controller
 
     public override void Jump()
     {
-        if (canJump)
+        if (PlayerBrain.PB.canJump)
         {
             if (isGrounded() && !OnWall)
             {

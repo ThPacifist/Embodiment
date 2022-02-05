@@ -24,6 +24,7 @@ public class SkeletonTrigger : MonoBehaviour
     //Private Variables
     ControlMovement cntrlMove;
     BlobController blbCntrl;
+    Embodiment embody;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -31,6 +32,7 @@ public class SkeletonTrigger : MonoBehaviour
         {
             cntrlMove = collision.GetComponent<ControlMovement>();
             blbCntrl = collision.GetComponent<BlobController>();
+            embody = collision.GetComponent<Embodiment>();
             if(cntrlMove != null)
             {
                 if (cntrlMove.skeleton == null)
@@ -44,6 +46,14 @@ public class SkeletonTrigger : MonoBehaviour
                 if (blbCntrl.heldSkel == null)
                 {
                     blbCntrl.SetHeldSkel(this);
+                }
+            }
+
+            if(embody != null)
+            {
+                if(embody.heldSkeleton == null)
+                {
+                    embody.SetTargetSkeleton(this);
                 }
             }
         }
@@ -73,6 +83,18 @@ public class SkeletonTrigger : MonoBehaviour
                     {
                         blbCntrl.SetHeldSkel(null);
                         blbCntrl = null;
+                    }
+                }
+            }
+
+            if (embody != null)
+            {
+                if (!isGrabbed)
+                {
+                    if (embody.targetSkeleton == this)
+                    {
+                        embody.SetTargetSkeleton(null);
+                        embody = null;
                     }
                 }
             }
