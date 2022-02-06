@@ -27,6 +27,7 @@ public class Embodiment : MonoBehaviour
         {
             //Enables the controller of the targeted form
             BlobController temp = (BlobController)PlayerBrain.Skeletons[PlayerBrain.skeleType.Blob];
+            temp.PickUpSkeleton(targetSkeleton);
             PlayerBrain.PB.currentController.enabled = false;
             PlayerBrain.Skeletons[targetSkeleton.type].enabled = true;
             Debug.Log("Player set to " + targetSkeleton.type);
@@ -47,6 +48,11 @@ public class Embodiment : MonoBehaviour
     {
         if(heldSkeleton != null)
         {
+            BlobController temp = (BlobController)PlayerBrain.Skeletons[PlayerBrain.skeleType.Blob];
+            temp.PickUpSkeleton(null);
+            PlayerBrain.PB.currentController.enabled = false;
+            PlayerBrain.Skeletons[PlayerBrain.skeleType.Blob].enabled = true;
+            Debug.Log("Player set to " + targetSkeleton.type);
 
             //Renables skeleton
             heldSkeleton.gameObject.SetActive(true);
