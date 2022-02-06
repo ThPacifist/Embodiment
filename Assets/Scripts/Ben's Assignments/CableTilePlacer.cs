@@ -1,65 +1,70 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(TileMapColorChanger))]
+[RequireComponent(typeof(LineRenderer))]
 public class CableTilePlacer : MonoBehaviour
 {
-    Vector2Int currentPos;
+    [SerializeField]
+    LineRenderer line;
+    Vector3 currentPos;
     [SerializeField]
     GameObject startPos;
     [SerializeField]
     GameObject endPos;
 
-    Vector2Int startPosInt;
-    Vector2Int endPosInt;
+    Vector3 startPosR;
+    Vector3 endPosR;
+    List<Vector3> Positions = new List<Vector3>();
 
-    [ContextMenu("Generate Cable")]
-    void GenerateCable()
+    public void GenerateCable()
     {
+        Positions.Clear();
         //Converts the positions of the game objects to be integer vectors
-        startPosInt = Vector2Int.FloorToInt(startPos.transform.position);
-        endPosInt = Vector2Int.FloorToInt(endPos.transform.position);
-        Debug.Log("Start Pos is " + startPosInt + ". End pos is " + endPosInt + ".");
+        startPosR = Vector3Int.FloorToInt(startPos.transform.position) + new Vector3(0.5f, 0.5f, 0);
+        endPosR = Vector3Int.FloorToInt(endPos.transform.position) + new Vector3(0.5f, 0.5f, 0);
+        Debug.Log("Start Pos is " + startPosR + ". End pos is " + endPosR + ".");
         //Initializes starting position
-        currentPos = startPosInt;
+        currentPos = startPosR;
+        Positions.Add(currentPos);
 
-        Debug.Log("End pos X: " + endPosInt.x);
-        while(currentPos.x != endPosInt.x)
+        while(currentPos.x != endPosR.x)
         {
-            currentPos.x += MoveTowardsInt(currentPos, endPosInt);
+            currentPos.x += MoveTowardsInt(currentPos.x, endPosR.x);
+            Positions.Add(currentPos);
         }
 
-        Debug.Log("X position is now the same");
-
-        Debug.Log("End pos Y: " + endPosInt.y);
-        while (currentPos.y != endPosInt.y)
+        while (currentPos.y != endPosR.y)
         {
-            currentPos.y += MoveTowardsInt(currentPos, endPosInt);
+            currentPos.y += MoveTowardsInt(currentPos.y, endPosR.y);
+            Positions.Add(currentPos);
         }
 
-        Debug.Log("Y position is now the same");
+        for(int i = 0; i < Positions.Count; i++)
+        {
+            Debug.Log("Position " + i + " is: " + Positions[i]);
+        }
 
-        Debug.Log("Current position is " + currentPos);
+        line.positionCount = Positions.Count;
+        line.SetPositions(Positions.ToArray());
+
+        Positions.Clear();
     }
 
-    //Shorthand for Vector2Int.FloorToInt
-    Vector2Int FlInt(Vector2 input)
+    //Adds 1 or -1 based on the dist from vectors a to b
+    int MoveTowardsInt(float a, float b)
     {
-        return Vector2Int.FloorToInt(input);
-    }
-
-    int MoveTowardsInt(Vector2 a, Vector2 b)
-    {
-        float dist = Vector2.Distance(a, b);
+        float dist = a - b;
 
         if(dist < 0)
         {
-            return -1;
+            return 1;
         }
         else if(dist > 0)
         {
-            return 1;
+            return -1;
         }
         else
         {
@@ -69,8 +74,8 @@ public class CableTilePlacer : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Vector3Int sPint = Vector3Int.FloorToInt(startPos.transform.position);
-        Vector3Int ePint = Vector3Int.FloorToInt(endPos.transform.position);
+        Vector3 sPint = Vector3Int.FloorToInt(startPos.transform.position) + new Vector3(0.5f, 0.5f, 0);
+        Vector3 ePint = Vector3Int.FloorToInt(endPos.transform.position) + new Vector3(0.5f, 0.5f, 0);
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(sPint, 1);
