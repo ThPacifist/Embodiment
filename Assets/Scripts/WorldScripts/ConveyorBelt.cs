@@ -7,8 +7,11 @@ public class ConveyorBelt : GameAction
     [SerializeField]
     SurfaceEffector2D surfaceEff;
 
+    [Header("Button Actions")]
+    [Tooltip("Makes the button switch the conveyor belt ON or OFF")]
     [SerializeField]
     bool toggleOnOff;
+    [Tooltip("Makes the button reverse the direction the conveyor belt moves objects")]
     [SerializeField]
     bool switchDirection;
 
