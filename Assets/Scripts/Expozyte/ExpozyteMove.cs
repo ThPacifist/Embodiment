@@ -47,4 +47,12 @@ public class ExpozyteMove : MonoBehaviour
             moving = false;
         }
     }
+
+    //This function sets the movement
+    public void BeginMove(int newCheckpoint)
+    {
+        //Set moving and the checkpoint
+        moving = true;
+        toCheckpoint = newCheckpoint;
+    }
 }
