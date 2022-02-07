@@ -11,11 +11,13 @@ public class ExpozyteMove : MonoBehaviour
      */
 
     //Public variables
-    public Transform[] Checkpoints;
     public Transform Expozyte;
     public int atCheckpoint;
     public int toCheckpoint;
     public bool moving;
+
+    [SerializeField]
+    public Transform[] Checkpoints;
 
     //Private variables
 
@@ -44,5 +46,13 @@ public class ExpozyteMove : MonoBehaviour
             toCheckpoint = -1;
             moving = false;
         }
+    }
+
+    //This function sets the movement
+    public void BeginMove(int newCheckpoint)
+    {
+        //Set moving and the checkpoint
+        moving = true;
+        toCheckpoint = newCheckpoint;
     }
 }
