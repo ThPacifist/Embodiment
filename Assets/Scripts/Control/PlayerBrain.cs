@@ -35,7 +35,7 @@ public class PlayerBrain : MonoBehaviour
     public Controller currentController;
 
     //Dictionary for skeletons
-    public static Dictionary<skeleType, Controller> Skeletons = new Dictionary<skeleType, Controller>();
+    public static Dictionary<skeleType, Controller> Skeletons;
 
     private void Awake()
     {
@@ -44,10 +44,8 @@ public class PlayerBrain : MonoBehaviour
         else
             PB = this;
 
-        if(Skeletons == null)
-        {
-            Skeletons.Add(skeleType.Blob, GetComponent<BlobController>());
-            Skeletons.Add(skeleType.Cat, GetComponent<CatController>());
-        }
+        Skeletons = new Dictionary<skeleType, Controller>();
+        Skeletons.Add(skeleType.Blob, GetComponent<BlobController>());
+        Skeletons.Add(skeleType.Cat, GetComponent<CatController>());
     }
 }

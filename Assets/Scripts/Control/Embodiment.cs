@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Embodiment : MonoBehaviour
 {
-    public Transform heldSkeleton;
+    public Transform currentSkeleton;
     public SkeletonTrigger targetSkeleton;
     public static bool canEmbody = true;
     public static bool canDisembody = false;
@@ -23,6 +23,7 @@ public class Embodiment : MonoBehaviour
 
     void Embody()
     {
+        Debug.Log("Embody");
         if(targetSkeleton != null && canEmbody)
         {
             //Enables the controller of the targeted form
@@ -33,21 +34,24 @@ public class Embodiment : MonoBehaviour
             Debug.Log("Player set to " + targetSkeleton.type);
 
             //Attach skeleton to player and disable it
-            heldSkeleton = targetSkeleton.transform.parent;
-            heldSkeleton.parent = transform;
-            heldSkeleton.gameObject.SetActive(false);
+            currentSkeleton = targetSkeleton.transform.parent;
+            currentSkeleton.parent = transform;
+            currentSkeleton.gameObject.SetActive(false);
 
             Controller.Embody -= Embody;
             canEmbody = false;
             Controller.Embody += Disembody;
+            Debug.Log("Can Disembody");
             canDisembody = true;
         }
     }
 
     void Disembody()
     {
-        if(heldSkeleton != null)
+        Debug.Log("Disembody");
+        if (currentSkeleton != null)
         {
+            //Disables the controller of the old form and renables Blob form
             BlobController temp = (BlobController)PlayerBrain.Skeletons[PlayerBrain.skeleType.Blob];
             temp.PickUpSkeleton(null);
             PlayerBrain.PB.currentController.enabled = false;
@@ -55,8 +59,9 @@ public class Embodiment : MonoBehaviour
             Debug.Log("Player set to " + targetSkeleton.type);
 
             //Renables skeleton
-            heldSkeleton.gameObject.SetActive(true);
-            heldSkeleton.parent = null;
+            currentSkeleton.gameObject.SetActive(true);
+            currentSkeleton.parent = null;
+            currentSkeleton = null;
 
             Controller.Embody += Embody;
             canEmbody = true;

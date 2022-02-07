@@ -51,7 +51,7 @@ public class SkeletonTrigger : MonoBehaviour
 
             if(embody != null)
             {
-                if(embody.heldSkeleton == null)
+                if(embody.currentSkeleton == null)
                 {
                     embody.SetTargetSkeleton(this);
                 }

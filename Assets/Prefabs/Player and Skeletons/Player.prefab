@@ -9843,6 +9843,7 @@ GameObject:
   - component: {fileID: 344267375}
   - component: {fileID: 344267386}
   - component: {fileID: 2660896411525341248}
+  - component: {fileID: 251227713739937241}
   - component: {fileID: 4819060323485262866}
   - component: {fileID: 135167153}
   - component: {fileID: 8069979182591699773}
@@ -9990,13 +9991,10 @@ MonoBehaviour:
     m_Bits: 8
   IndicatorPrefab: {fileID: 4573899549758092126, guid: b483489a74087404ab3868bfe458d05e, type: 3}
   prefabInstance: {fileID: 0}
+  canMove: 1
+  canJump: 1
+  inWater: 0
   currentController: {fileID: 0}
-  Controllers:
-  - {fileID: 344267386}
-  - {fileID: 2660896411525341248}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &344267386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10009,9 +10007,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634c3f4b01cf26349870ace2980de058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canMove: 1
-  canJump: 1
-  inWater: 0
   form: Blob
   speed: 5
   jumpHeight: 18.1
@@ -10039,9 +10034,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f6db1a1ebef9974296ae407dfaa6ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canMove: 1
-  canJump: 1
-  inWater: 0
   form: Cat
   speed: 7
   jumpHeight: 20
@@ -10052,7 +10044,7 @@ MonoBehaviour:
   animatorController: {fileID: 9100000, guid: 748d0d0d75dc5964b8be6b78eae1351c, type: 2}
   OnWall: 0
   treadmill: 0
---- !u!114 &4819060323485262866
+--- !u!114 &251227713739937241
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10060,6 +10052,20 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4819060323485262873}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e33efb0ec3764b34e8716496aba3adab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heldSkeleton: {fileID: 0}
+  targetSkeleton: {fileID: 0}
+--- !u!114 &4819060323485262866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819060323485262873}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de6b9209cafa404e967415d616f1cb1, type: 3}
   m_Name: 

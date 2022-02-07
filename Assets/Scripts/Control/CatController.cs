@@ -15,7 +15,7 @@ public class CatController : Controller
         base.FixedUpdate();
 
         //Regular grounded movement
-        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && !OnWall)
         {
             //Movement
             if (Mathf.Abs(PlayerBrain.PB.rb.velocity.x) < speed)
@@ -118,6 +118,12 @@ public class CatController : Controller
             right = false;
         }
         #endregion
+    }
+
+    public void SetCatOnWall(bool value, Vector2 direction)
+    {
+        OnWall = value;
+        catDir = direction;
     }
 
     public override void Jump()
