@@ -51,7 +51,7 @@ public class SkeletonTrigger : MonoBehaviour
 
             if(embody != null)
             {
-                if(embody.currentSkeleton == null)
+                if(embody.targetSkeleton == null)
                 {
                     embody.SetTargetSkeleton(this);
                 }
@@ -61,41 +61,38 @@ public class SkeletonTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Blob"))
+        if (cntrlMove != null)
         {
-            if (cntrlMove != null)
+            if (!isGrabbed)
             {
-                if (!isGrabbed)
+                if (cntrlMove.skeleton == this)
                 {
-                    if (cntrlMove.skeleton == this)
-                    {
-                        cntrlMove.SetEmbodyValues(null);
-                        cntrlMove = null;
-                    }
+                    cntrlMove.SetEmbodyValues(null);
+                    cntrlMove = null;
                 }
             }
+        }
 
-            if (blbCntrl != null)
+        if (blbCntrl != null)
+        {
+            if (!isGrabbed)
             {
-                if (!isGrabbed)
+                if (blbCntrl.skeleton == this)
                 {
-                    if (blbCntrl.skeleton == this)
-                    {
-                        blbCntrl.SetHeldSkel(null);
-                        blbCntrl = null;
-                    }
+                    blbCntrl.SetHeldSkel(null);
+                    blbCntrl = null;
                 }
             }
+        }
 
-            if (embody != null)
+        if (embody != null)
+        {
+            if (!isGrabbed)
             {
-                if (!isGrabbed)
+                if (embody.targetSkeleton == this)
                 {
-                    if (embody.targetSkeleton == this)
-                    {
-                        embody.SetTargetSkeleton(null);
-                        embody = null;
-                    }
+                    embody.SetTargetSkeleton(null);
+                    embody = null;
                 }
             }
         }

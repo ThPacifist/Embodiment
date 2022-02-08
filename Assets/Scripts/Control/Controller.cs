@@ -5,8 +5,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Base class for all player controllers
+/// </summary>
 public class Controller : MonoBehaviour
 {
+    /*  Things to Note:
+     *  When we want to change the player to a form, makes sure to:
+     *      Step 1: Disable the current controller from Player brain
+     *      Step 2: Enable the controller of the target from
+     *      
+     *  The Enabling of a controller will set the values of the collider, set itself as the current controller, and everything else
+     *  that need to be set for that particular form
+     */
+
+
     //Public Variables
     public static Action Interact = delegate { };
     public static Action Embody = delegate { };
@@ -143,6 +156,7 @@ public class Controller : MonoBehaviour
 
     }
 
+    //Use base.Jump at the end of all overrides of Jump
     public virtual void Jump()
     {
         PlayerBrain.PB.plyAnim.SetTrigger("takeOff");
@@ -162,6 +176,7 @@ public class Controller : MonoBehaviour
         return hit.collider != null;
     }
 
+    //Pass in a valid string to play a sound
     public void PlaySoundFromAudioManager(string name)
     {
         audioManager.Play(name);
