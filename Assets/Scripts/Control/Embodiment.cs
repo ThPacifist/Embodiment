@@ -18,6 +18,7 @@ public class Embodiment : MonoBehaviour
     private void OnEnable()
     {
         Controller.Embody += Embody;
+        canEmbody = true;
     }
 
     private void OnDisable()
@@ -30,9 +31,9 @@ public class Embodiment : MonoBehaviour
     void Embody()
     {
         Debug.Log("Embody");
-        if(targetSkeleton != null && canEmbody)
+        if(targetSkeleton != null && CheckSpace(targetSkeleton) && canEmbody)
         {
-            //CheckSpace(targetSkeleton);
+
             //Enables the controller of the targeted form
             PlayerBrain.PB.currentController.enabled = false;
             PlayerBrain.Skeletons[targetSkeleton.type].enabled = true;
@@ -92,11 +93,13 @@ public class Embodiment : MonoBehaviour
         Vector2 targetCenter = new Vector2(PlayerBrain.PB.plyCol.bounds.center.x, 
             PlayerBrain.PB.plyCol.bounds.min.y + targetSkeleton.colliderSize.y);
 
+        //Defines the colliders that will be detected by the cast to see if there is space
+        int layer = LayerMask.NameToLayer("CheckSpace");
+
         //Send a Capsule cast to see if there is enough space for the player
         RaycastHit2D hit = Physics2D.CapsuleCast(targetCenter, targetSkeleton.colliderSize, targetSkeleton.direction,
-            0f, Vector2.down, 0f, PlayerBrain.PB.groundLayerMask);
-
-        Debug.Log("Hit is " + hit.collider.name);
-        return true;
+            0f, Vector2.down, 0f, layer);
+        Debug.Log(hit.collider);
+        return hit.collider == null;
     }
 }

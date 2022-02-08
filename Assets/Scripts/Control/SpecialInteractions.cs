@@ -427,8 +427,9 @@ public class SpecialInteractions : MonoBehaviour
         }
 
         float dist = 0;
+        int layer = LayerMask.NameToLayer("CheckSpace");
         //Casts a box (much like raycast) into the scene
-        RaycastHit2D hit = Physics2D.BoxCast(HheldPos.position, col.size, 0f, Vector2.down, dist, 3);
+        RaycastHit2D hit = Physics2D.BoxCast(HheldPos.position, col.size, 0f, Vector2.down, dist, layer);
 
         return hit.collider != null; //If collider exists, sends true. Otherwise false
     }

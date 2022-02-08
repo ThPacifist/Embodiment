@@ -173,7 +173,7 @@ public class BlobController : Controller
         Vector2 start = skelHeldPos.position + Vector3.up; //Pos of skelHeldPos up one
         float dist = 0.2f;
 
-        string name = "Jumpables";
+        string name = "CheckSpace";
         int layerMask = LayerMask.NameToLayer(name);
 
         RaycastHit2D hit = Physics2D.Raycast(start, Vector2.down, dist, layerMask);//Sends a ray from start and will only hit colliders in Jumpables layer

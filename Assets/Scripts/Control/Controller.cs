@@ -167,10 +167,12 @@ public class Controller : MonoBehaviour
     public bool isGrounded()
     {
         float dist = 0f;
+        int layer = LayerMask.GetMask("Jumpables", "PickupAbles");
+
         Vector2 origin = new Vector2(PlayerBrain.PB.plyCol.bounds.center.x, PlayerBrain.PB.plyCol.bounds.min.y);
         Vector2 size = new Vector2(PlayerBrain.PB.plyCol.size.x, 0.05f);
         RaycastHit2D hit = Physics2D.CapsuleCast(origin, size, CapsuleDirection2D.Horizontal, 0f, Vector2.down, 
-            dist, PlayerBrain.PB.groundLayerMask);
+            dist, layer);
 
         //Debug.Log(hit.collider);
         return hit.collider != null;
