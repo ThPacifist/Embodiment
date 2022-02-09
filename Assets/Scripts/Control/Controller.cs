@@ -134,12 +134,30 @@ public class Controller : MonoBehaviour
                 //Reduce the player's speed by half
                 PlayerBrain.PB.rb.velocity *= new Vector2(0.75f, 1);
             }
+
+            if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && PlayerBrain.PB.canMove)
+            {
+                PlayerBrain.PB.plyAnim.SetBool("Walking", true);
+            }
+            else
+            {
+                PlayerBrain.PB.plyAnim.SetBool("Walking", false);
+            }
+
+            if (isGrounded())
+            {
+                PlayerBrain.PB.plyAnim.SetBool("isJumping", false);
+            }
+            else
+            {
+                PlayerBrain.PB.plyAnim.SetBool("isJumping", true);
+            }
         }
     }
 
     public virtual void OnTriggerEnter2D(Collider2D other)
     {
-        //If the Trigger is Death, tirgger Death
+        //If the Trigger is Death, trigger Death
         if (other.CompareTag("Death") || other.CompareTag("Skeleton"))
         {
             PlayerBrain.PB.plyAnim.SetTrigger("Death");

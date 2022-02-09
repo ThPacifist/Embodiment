@@ -31,82 +31,67 @@ public class BlobController : Controller
     {
         base.FixedUpdate();
 
-        lRenderer.SetPosition(0, transform.position);
-        if (!isAttached)
-        {
-            lRenderer.SetPosition(1, transform.position);
-        }
-        else
-        {
-            //Gets the vector that starts from the lamp position and goes to the player position
-            Vector2 targetDir = transform.position - lamp.transform.position;
-            //Gets the angle of the player again, except returns negative angle when the player is to the right of the swing
-            float signedAngle = Vector2.SignedAngle(targetDir, Vector2.down);
-            //Changes the player's rotation to be relative to the swing
-            Quaternion rotation = Quaternion.Euler(0, 0, -signedAngle);
-            this.transform.rotation = rotation;
-        }
-        if (skelHeld)
-        {
-            heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
-        }
-
         if (PlayerBrain.PB.canMove)
         {
-            if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+            lRenderer.SetPosition(0, transform.position);
+            if (!isAttached)
             {
-                //Movement
-                if (Mathf.Abs(PlayerBrain.PB.rb.velocity.x) < speed && !isAttached)
+                lRenderer.SetPosition(1, transform.position);
+            }
+            else
+            {
+                //Gets the vector that starts from the lamp position and goes to the player position
+                Vector2 targetDir = transform.position - lamp.transform.position;
+                //Gets the angle of the player again, except returns negative angle when the player is to the right of the swing
+                float signedAngle = Vector2.SignedAngle(targetDir, Vector2.down);
+                //Changes the player's rotation to be relative to the swing
+                Quaternion rotation = Quaternion.Euler(0, 0, -signedAngle);
+                this.transform.rotation = rotation;
+            }
+            if (skelHeld)
+            {
+                heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
+            }
+
+            if (PlayerBrain.PB.canMove)
+            {
+                if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                 {
-                    PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 20 * PlayerBrain.PB.rb.mass);
-                }
-                else if (isAttached)
-                {
-                    if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+                    //Movement
+                    if (Mathf.Abs(PlayerBrain.PB.rb.velocity.x) < speed && !isAttached)
                     {
-                        PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.6f, ForceMode2D.Impulse);
+                        PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 20 * PlayerBrain.PB.rb.mass);
+                    }
+                    else if (isAttached)
+                    {
+                        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+                        {
+                            PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.6f, ForceMode2D.Impulse);
+                        }
                     }
                 }
             }
-        }
 
-        if (!isGrounded())
-        {
-            if (audioManager != null)
+            if (!isGrounded())
             {
-                audioManager.Stop("blobStep");
+                if (audioManager != null)
+                {
+                    audioManager.Stop("blobStep");
+                }
             }
-        }
 
-        #region Animation Block
-        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && PlayerBrain.PB.canMove)
-        {
-            PlayerBrain.PB.plyAnim.SetBool("Walking", true);
+            #region Animation Block
+            //Check if the blob is attached
+            if (isAttached)
+            {
+                PlayerBrain.PB.plyAnim.SetBool("Swing", true);
+            }
+            else
+            {
+                PlayerBrain.PB.plyAnim.SetBool("Swing", false);
+            }
+            #endregion
         }
-        else
-        {
-            PlayerBrain.PB.plyAnim.SetBool("Walking", false);
-        }
-
-        if (isGrounded())
-        {
-            PlayerBrain.PB.plyAnim.SetBool("isJumping", false);
-        }
-        else
-        {
-            PlayerBrain.PB.plyAnim.SetBool("isJumping", true);
-        }
-
-        //Check if the blob is attached
-        if (isAttached)
-        {
-            PlayerBrain.PB.plyAnim.SetBool("Swing", true);
-        }
-        else
-        {
-            PlayerBrain.PB.plyAnim.SetBool("Swing", false);
-        }
-        #endregion
     }
 
     public override void Jump()
