@@ -12,9 +12,12 @@ public class ExpozyteMove : MonoBehaviour
 
     //Public variables
     public Transform Expozyte;
+    public Transform player;
     public int atCheckpoint;
     public int toCheckpoint;
     public bool moving;
+    public bool left;
+    public bool withPlayer;
 
     [SerializeField]
     public Transform[] Checkpoints;
@@ -24,8 +27,13 @@ public class ExpozyteMove : MonoBehaviour
     //Fixed update is called 60 times a second
     private void FixedUpdate()
     {
-        //If he should be moving, move him
-        if(moving)
+        //If he should be moving with the player
+        if (withPlayer)
+        {
+            PlyMove();
+        }
+        //If he should be moving, move it
+        else if (moving)
         {
             Move();
         }
@@ -37,7 +45,7 @@ public class ExpozyteMove : MonoBehaviour
         //If he is not there yet, move him there
         if(Expozyte.position != Checkpoints[toCheckpoint].position)
         {
-            Expozyte.position = Checkpoints[toCheckpoint].position;
+            Expozyte.position = Vector2.MoveTowards(Expozyte.position, Checkpoints[toCheckpoint].position, 10 * Time.deltaTime);
         }
         //If he is, change his values
         else
@@ -54,5 +62,39 @@ public class ExpozyteMove : MonoBehaviour
         //Set moving and the checkpoint
         moving = true;
         toCheckpoint = newCheckpoint;
+    }
+
+    //This function handles movement with player
+    private void PlyMove()
+    {
+        //If the player is to the left, and Expozyte requires them to be to the left, move
+        if(left && player.position.x < Expozyte.position.x)
+        {
+            moving = true;
+        }
+        //If the player is to the right, and he needs them to be to the right, move
+        else if(player.position.x > Expozyte.position.x)
+        {
+            moving = true;
+        }
+        else
+        {
+            moving = false;
+        }
+
+        if (moving)
+        {
+            Expozyte.position = Vector2.MoveTowards(Expozyte.position, Checkpoints[toCheckpoint].position, 10 * Time.deltaTime);
+        }
+    }
+
+    //This function handles moving with the player
+    public void MoveWithPlayer(bool leftRight)
+    {
+        //Sets the direction of movement
+        left = leftRight;
+        withPlayer = true;
+        //Sets checkpoint 
+        toCheckpoint = atCheckpoint;
     }
 }

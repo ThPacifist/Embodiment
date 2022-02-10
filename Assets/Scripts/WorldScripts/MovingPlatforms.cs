@@ -72,7 +72,7 @@ public class MovingPlatforms : GameAction
         if (moving)
         {
             //Move the platform to the next point
-            platform.position = Vector3.MoveTowards(platform.position, points[moveTowards].position, speed);
+            platform.position = Vector2.MoveTowards(platform.position, points[moveTowards].position, speed);
 
             //If it needs theplayer, call that method
             if (!playerOn && waitForPlayer)
@@ -134,7 +134,7 @@ public class MovingPlatforms : GameAction
     private void pCheck()
     {
         //Check if it should stop here
-        if (!playerOn &&  (platform.position == points[waitPos].position))
+        if (!playerOn &&  (currentPos == waitPos))
         {
             moving = false;
         }
