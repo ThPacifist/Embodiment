@@ -49,21 +49,21 @@ public class Controller : MonoBehaviour
     public bool Left
     { get { return left; } }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         PlyCtrl = new PlayerControls();
         //this.gameObject.transform.position = GameAction.PlaceColOnGround(PlayerBrain.PB.plyCol);
         InitializeForm();
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         PlyCtrl.Enable();
         InitializeForm();
     }
 
     //Called during OnEnable to change the form and stats of the player when it changes form
-    void InitializeForm()
+    protected virtual void InitializeForm()
     {
         tag = form;
         PlayerBrain.PB.currentController = this;
@@ -74,7 +74,7 @@ public class Controller : MonoBehaviour
         PlayerBrain.PB.plyAnim.runtimeAnimatorController = animatorController;
     }
 
-    void OnDisable()
+    protected virtual void OnDisable()
     {
         PlyCtrl.Disable();
     }
@@ -174,6 +174,14 @@ public class Controller : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Used in Player Data to reset all necessary values back to null, false, etc
+    /// </summary>
+    public virtual void SetToDefault()
+    {
+
+    }
+
     //Use base.Jump at the end of all overrides of Jump
     public virtual void Jump()
     {
@@ -254,13 +262,6 @@ public class Controller : MonoBehaviour
     //Used for bug testing
     private void OnDrawGizmos()
     {
-        float dist = 0.05f;
-        RaycastHit2D hit = Physics2D.CapsuleCast(PlayerBrain.PB.plyCol.bounds.center, PlayerBrain.PB.plyCol.size, 
-            PlayerBrain.PB.plyCol.direction, 0f, Vector2.down,dist, PlayerBrain.PB.groundLayerMask);
-
-        Gizmos.DrawLine(hit.centroid + new Vector2(PlayerBrain.PB.plyCol.bounds.extents.x, 0),
-            hit.centroid - new Vector2(PlayerBrain.PB.plyCol.bounds.extents.x, 0));
-        Gizmos.DrawLine(hit.centroid + new Vector2(0, PlayerBrain.PB.plyCol.bounds.extents.y),
-            hit.centroid - new Vector2(0, PlayerBrain.PB.plyCol.bounds.extents.y));
+        
     }
 }

@@ -31,6 +31,25 @@ public class BlobController : Controller
     {
         base.FixedUpdate();
 
+        if (skelHeld)
+        {
+            heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
+            Embodiment.canEmbody = false;
+        }
+        else
+        {
+            Embodiment.canEmbody = true;
+        }
+
+        if(isAttached)
+        {
+            Embodiment.canEmbody = false;
+        }
+        else
+        {
+            Embodiment.canEmbody = true;
+        }
+
         if (PlayerBrain.PB.canMove)
         {
             lRenderer.SetPosition(0, transform.position);
@@ -47,10 +66,6 @@ public class BlobController : Controller
                 //Changes the player's rotation to be relative to the swing
                 Quaternion rotation = Quaternion.Euler(0, 0, -signedAngle);
                 this.transform.rotation = rotation;
-            }
-            if (skelHeld)
-            {
-                heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
             }
 
             if (PlayerBrain.PB.canMove)
@@ -91,6 +106,30 @@ public class BlobController : Controller
                 PlayerBrain.PB.plyAnim.SetBool("Swing", false);
             }
             #endregion
+        }
+    }
+
+    public override void SetToDefault()
+    {
+        if (isAttached)
+        {
+            PlayerBrain.PB.spring.enabled = false;
+            PlayerBrain.PB.spring.connectedAnchor = Vector2.zero;
+            lRenderer.SetPosition(1, transform.position);
+            lRenderer.enabled = false;
+            Quaternion rotation = Quaternion.Euler(0, 0, 0);
+            this.transform.rotation = rotation;
+            isAttached = false;
+        }
+
+        if(skelHeld)
+        {
+            heldSkel.isGrabbed = false;
+            heldSkel = null;
+            skelHeld = false;
+            PlayerBrain.PB.fixedJ.enabled = false;
+            PlayerBrain.PB.fixedJ.connectedBody = null;
+            jumpHeight = 18.1f;
         }
     }
 

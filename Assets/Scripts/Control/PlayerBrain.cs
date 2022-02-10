@@ -32,16 +32,15 @@ public class PlayerBrain : MonoBehaviour
     public ControlMovement CM;
     public FixedJoint2D fixedJ;
     public SpringJoint2D spring;
-    public LayerMask groundLayerMask;
+    public Embodiment Embodiment;
     public GameObject IndicatorPrefab;
     public GameObject prefabInstance;
-    public Tilemap tileMap;
     public bool canMove = true;
     public bool canJump = true;
     public bool inWater = false;
 
     /// <summary>
-    /// Represents the current active controller, in other words, the current form
+    /// Represents the current active controller, in other words, the current form 
     /// </summary>
     [Space]
     public Controller currentController;

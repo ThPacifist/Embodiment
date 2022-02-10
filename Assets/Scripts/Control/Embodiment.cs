@@ -33,8 +33,7 @@ public class Embodiment : MonoBehaviour
         Debug.Log("Embody");
         if(targetSkeleton != null && CheckSpace(targetSkeleton) && canEmbody)
         {
-
-            //Enables the controller of the targeted form
+            //Enables the controller of the targeted form which changes the current controller
             PlayerBrain.PB.currentController.enabled = false;
             PlayerBrain.Skeletons[targetSkeleton.type].enabled = true;
             targetSkeleton.isGrabbed = true;
@@ -43,12 +42,12 @@ public class Embodiment : MonoBehaviour
             //Attach skeleton to player and disable it
             currentSkeleton = targetSkeleton.transform.parent;
             currentSkeleton.parent = transform;
+            currentSkeleton.transform.position = transform.position;
             currentSkeleton.gameObject.SetActive(false);
 
             Controller.Embody -= Embody;
             canEmbody = false;
             Controller.Embody += Disembody;
-            Debug.Log("Can Disembody");
             canDisembody = true;
         }
     }
@@ -76,6 +75,54 @@ public class Embodiment : MonoBehaviour
             canEmbody = true;
             Controller.Embody -= Disembody;
             canDisembody = false;
+        }
+    }
+
+    //Used by Player to forcibly change the player to the correct form
+    public void EmbodyThis(SkeletonTrigger target)
+    {
+        //if target is empty, transform into the blob
+        if(target == null)
+        {
+            //Disables the controller of the old form and renables Blob form
+            BlobController temp = (BlobController)PlayerBrain.Skeletons[PlayerBrain.skeleType.Blob];
+            PlayerBrain.PB.currentController.enabled = false;
+            PlayerBrain.Skeletons[PlayerBrain.skeleType.Blob].enabled = true;
+            Debug.Log("Player set to " + targetSkeleton.type);
+                
+            currentSkeleton.gameObject.SetActive(true);
+            targetSkeleton.skeloScript.RespawnSkeleton();
+            currentSkeleton.parent = null;
+            currentSkeleton = null;
+
+            Controller.Embody += Embody;
+            canEmbody = true;
+            Controller.Embody -= Disembody;
+            canDisembody = false;
+        }
+        else
+        {
+            //Enables the controller of the targeted form which changes the current controller
+            PlayerBrain.PB.currentController.enabled = false;
+            PlayerBrain.Skeletons[target.type].enabled = true;
+            target.isGrabbed = true;
+            Debug.Log("Player set to " + target.type);
+
+            currentSkeleton.gameObject.SetActive(true);
+            targetSkeleton.skeloScript.RespawnSkeleton();
+            currentSkeleton.parent = null;
+            currentSkeleton = null;
+
+            //Attach skeleton to player and disable it
+            currentSkeleton = target.transform.parent;
+            currentSkeleton.parent = transform;
+            currentSkeleton.transform.position = transform.position;
+            currentSkeleton.gameObject.SetActive(false);
+
+            Controller.Embody -= Embody;
+            canEmbody = false;
+            Controller.Embody += Disembody;
+            canDisembody = true;
         }
     }
 

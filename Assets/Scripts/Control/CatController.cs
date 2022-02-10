@@ -18,6 +18,15 @@ public class CatController : Controller
     {
         base.FixedUpdate();
 
+        if(OnWall)
+        {
+            Embodiment.canDisembody = false;
+        }
+        else
+        {
+            Embodiment.canDisembody = true;
+        }
+
         if (PlayerBrain.PB.canMove && !treadmill)
         {
             //Regular grounded movement
