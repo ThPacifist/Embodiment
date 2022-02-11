@@ -13,7 +13,7 @@ public class SettingsMenu : MonoBehaviour
     private void Awake()
     {
         currentActiveCanvas.SetActive(true);
-        currentActiveButton.interactable = false;
+        //currentActiveButton.interactable = false;
     }
 
     //Is called by buttons to turn on a section of the settings menu
@@ -24,8 +24,10 @@ public class SettingsMenu : MonoBehaviour
         childCanvases[index].SetActive(true);
         currentActiveCanvas = childCanvases[index];
 
+        /*
         currentActiveButton.interactable = true;
         buttons[index].interactable = false;
         currentActiveButton = buttons[index];
+        */
     }
 }
