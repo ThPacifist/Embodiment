@@ -244,12 +244,9 @@ MonoBehaviour:
   CM: {fileID: 0}
   fixedJ: {fileID: 1189157436}
   spring: {fileID: 8069979182591699773}
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
+  Embodiment: {fileID: 0}
   IndicatorPrefab: {fileID: 4573899549758092126, guid: b483489a74087404ab3868bfe458d05e, type: 3}
   prefabInstance: {fileID: 0}
-  tileMap: {fileID: 0}
   canMove: 1
   canJump: 1
   inWater: 0
@@ -381,14 +378,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   savedObject: {fileID: 4819060323485262873}
   player: {fileID: 4819060323485262873}
-  spcInt: {fileID: 0}
-  ctrlMvm: {fileID: 0}
-  plyCtrl: {fileID: 0}
-  plyCol: {fileID: 1720524858}
-  animPly: {fileID: 366513243}
   heldSkeleton: {fileID: 0}
   skeleton: {fileID: 0}
   fixedJ: {fileID: 1189157436}
+  cntrlState: {fileID: 0}
 --- !u!95 &366513243
 Animator:
   serializedVersion: 3

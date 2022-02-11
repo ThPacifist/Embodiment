@@ -101,7 +101,7 @@ public class CheckpointController : MonoBehaviour
     IEnumerator Delay()
     {
         yield return new WaitForSeconds(1);
-        plyCntrl.canMove = true;
+        PlayerBrain.PB.canMove = true;
         Debug.DrawLine(player.position, player.position + Vector3.up, Color.white, 2f);
     }
 }

@@ -6,21 +6,14 @@ public class PlayerData : BaseData
 {
     //Variables
     public GameObject player;
-    public SpecialInteractions spcInt;
-    public ControlMovement ctrlMvm;
-    public PlyController plyCtrl;
-    public CapsuleCollider2D plyCol;
-    public Animator animPly;
     public Transform heldSkeleton;
     public SkeletonTrigger skeleton;
     private string pTag;
+    [SerializeField]
+    FixedJoint2D fixedJ;
 
     [Header("Player Rework Stuff")]
     public Controller cntrlState;
-
-
-    [SerializeField]
-    FixedJoint2D fixedJ;
 
 
     //Constructor
@@ -29,7 +22,7 @@ public class PlayerData : BaseData
         cntrlState = PlayerBrain.PB.currentController;
 
         pTag = player.tag;
-        heldSkeleton = PlayerBrain.PB.Embodiment.currentSkeleton;
+        //heldSkeleton = PlayerBrain.PB.Embodiment.currentSkeleton;
         if(heldSkeleton != null)
         {
             skeleton = heldSkeleton.GetChild(0).GetComponent<SkeletonTrigger>();
@@ -51,6 +44,7 @@ public class PlayerData : BaseData
     //Reset Data
     public override void ResetData()
     {
+        Debug.Log("Player Data reset data");
         /*//If the player should be embodied
         if (heldSkeleton != ctrlMvm.heldSkeleton)
         {
@@ -141,17 +135,13 @@ public class PlayerData : BaseData
         {
             spcInt.heldBox = null;
         }*/
-
         if (PlayerBrain.PB.currentController != cntrlState)
         {
+            Debug.Log("Player does not have the right form");
             PlayerBrain.PB.Embodiment.EmbodyThis(skeleton);
         }
         
         //Get rid of interact indicators
-        if(spcInt.prefabInstance != null)
-        {
-            Destroy(spcInt.prefabInstance);
-        }
         if(PlayerBrain.PB.prefabInstance != null)
         {
             Destroy(PlayerBrain.PB.prefabInstance);

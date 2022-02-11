@@ -54,6 +54,7 @@ public class Controller : MonoBehaviour
         PlyCtrl = new PlayerControls();
         //this.gameObject.transform.position = GameAction.PlaceColOnGround(PlayerBrain.PB.plyCol);
         InitializeForm();
+        TransitionController.slideInAction = UnFreezePlayer;
     }
 
     protected virtual void OnEnable()
