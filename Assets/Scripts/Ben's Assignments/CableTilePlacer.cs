@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(TileMapColorChanger))]
 [RequireComponent(typeof(LineRenderer))]
@@ -14,6 +15,8 @@ public class CableTilePlacer : MonoBehaviour
     GameObject startPos;
     [SerializeField]
     GameObject endPos;
+    [SerializeField]
+    Tilemap tileMap;
 
     Vector3 startPosR;
     Vector3 endPosR;
