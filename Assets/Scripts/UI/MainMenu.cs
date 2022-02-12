@@ -55,8 +55,6 @@ public class MainMenu : MonoBehaviour
         plyCntrl = new PlayerControls();
         Cursor.visible = false;
 
-        Debug.Log(levelNames.Length);
-
         //Generate buttons for the number of scenes in built settings
         for (int i = 0; i < levelNames.Length; i++)
         {
