@@ -77,7 +77,7 @@ public class SkeletonTrigger : MonoBehaviour
         {
             if (!isGrabbed)
             {
-                if (blbCntrl.skeleton == this)
+                if (blbCntrl.targetSkeleton == this)
                 {
                     blbCntrl.SetHeldSkel(null);
                     blbCntrl = null;

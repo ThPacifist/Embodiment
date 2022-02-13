@@ -29,7 +29,6 @@ public class PlayerBrain : MonoBehaviour
     public Animator plyAnim;
     public Rigidbody2D rb;
     public SpriteRenderer plySpr;
-    public ControlMovement CM;
     public FixedJoint2D fixedJ;
     public SpringJoint2D spring;
     public Embodiment Embodiment;

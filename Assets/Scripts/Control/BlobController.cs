@@ -11,8 +11,7 @@ public class BlobController : Controller
     public LineRenderer lRenderer;
     public GameObject lamp;
     public SkeletonTrigger heldSkel;
-    [HideInInspector]
-    public SkeletonTrigger skeleton;
+    public SkeletonTrigger targetSkeleton;
     [SerializeField]
     Transform skelHeldPos;
 
@@ -111,26 +110,30 @@ public class BlobController : Controller
 
     public override void SetToDefault()
     {
-        if (isAttached)
-        {
-            PlayerBrain.PB.spring.enabled = false;
-            PlayerBrain.PB.spring.connectedAnchor = Vector2.zero;
-            lRenderer.SetPosition(1, transform.position);
-            lRenderer.enabled = false;
-            Quaternion rotation = Quaternion.Euler(0, 0, 0);
-            this.transform.rotation = rotation;
-            isAttached = false;
-        }
+        lamp = null;
+        PlayerBrain.PB.spring.enabled = false;
+        PlayerBrain.PB.spring.connectedAnchor = Vector2.zero;
+        lRenderer.SetPosition(1, transform.position);
+        lRenderer.enabled = false;
+        Quaternion rotation = Quaternion.Euler(0, 0, 0);
+        this.transform.rotation = rotation;
+        isAttached = false;
 
-        if(skelHeld)
+        targetSkeleton = null;
+        if (heldSkel != null)
         {
             heldSkel.isGrabbed = false;
+            heldSkel.skeloScript.RespawnSkeleton();
             heldSkel = null;
-            skelHeld = false;
-            PlayerBrain.PB.fixedJ.enabled = false;
-            PlayerBrain.PB.fixedJ.connectedBody = null;
-            jumpHeight = 18.1f;
         }
+        skelHeld = false;
+        PlayerBrain.PB.fixedJ.enabled = false;
+        PlayerBrain.PB.fixedJ.connectedBody = null;
+        jumpHeight = 18.1f;
+
+        PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
+        PlayerBrain.PB.Embodiment.targetSkeleton = null;
+        PlayerBrain.PB.plyAnim.SetTrigger(form);
     }
 
     public override void Jump()
@@ -154,7 +157,7 @@ public class BlobController : Controller
     public override void Special()
     {
         //Pick up Skeleton
-        if (skeleton != null && !isAttached && !skelHeld)
+        if (targetSkeleton != null && !isAttached && !skelHeld)
         {
             if (!CheckSpaceForSkelo())
             {
@@ -164,7 +167,7 @@ public class BlobController : Controller
                 }
                 else
                 {
-                    PickUpSkeleton(skeleton);
+                    PickUpSkeleton(targetSkeleton);
                 }
             }
             else
@@ -302,10 +305,10 @@ public class BlobController : Controller
     //Sets the value of the skeleton to be held
     public void SetHeldSkel(SkeletonTrigger skel)
     {
-        skeleton = skel;
+        targetSkeleton = skel;
         if (PlayerBrain.PB.prefabInstance == null)
         {
-            PlayerBrain.PB.prefabInstance = Instantiate(PlayerBrain.PB.IndicatorPrefab, skeleton.transform);
+            PlayerBrain.PB.prefabInstance = Instantiate(PlayerBrain.PB.IndicatorPrefab, targetSkeleton.transform);
         }
         else if (skel == null)
         {
@@ -314,7 +317,7 @@ public class BlobController : Controller
         else if (PlayerBrain.PB.prefabInstance != null)
         {
             Destroy(PlayerBrain.PB.prefabInstance);
-            PlayerBrain.PB.prefabInstance = Instantiate(PlayerBrain.PB.IndicatorPrefab, skeleton.transform);
+            PlayerBrain.PB.prefabInstance = Instantiate(PlayerBrain.PB.IndicatorPrefab, targetSkeleton.transform);
         }
     }
 
@@ -322,7 +325,7 @@ public class BlobController : Controller
     {
         if(value == 0)
         {
-            PickUpSkeleton(skeleton);
+            PickUpSkeleton(targetSkeleton);
         }
         else
         {
@@ -357,8 +360,8 @@ public class BlobController : Controller
         {
             //Blob jumps out of water
             PlayerBrain.PB.inWater = false;
-            PlayerBrain.PB.plyCol.density = PlayerBrain.PB.CM.defaultDensity;
-            jumpHeight = PlayerBrain.PB.CM.defaultJumpHeight;
+            PlayerBrain.PB.plyCol.density = density;
+            jumpHeight = 18.1f;
         }
     }
 

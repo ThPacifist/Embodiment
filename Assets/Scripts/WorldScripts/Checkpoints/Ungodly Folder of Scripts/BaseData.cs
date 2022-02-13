@@ -21,7 +21,6 @@ public class BaseData : MonoBehaviour
         InitializeData();
         CheckpointController.RebuildData += SaveState;
         TransitionController.slideOutAction += ResetData;
-        ResetData();
     }
 
     private void OnDisable()

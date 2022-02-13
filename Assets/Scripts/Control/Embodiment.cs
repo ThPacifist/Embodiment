@@ -92,6 +92,7 @@ public class Embodiment : MonoBehaviour
                 
             currentSkeleton.gameObject.SetActive(true);
             targetSkeleton.skeloScript.RespawnSkeleton();
+            targetSkeleton = null;
             currentSkeleton.parent = null;
             currentSkeleton = null;
 

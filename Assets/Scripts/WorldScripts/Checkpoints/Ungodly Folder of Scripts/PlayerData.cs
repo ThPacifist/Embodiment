@@ -22,7 +22,7 @@ public class PlayerData : BaseData
         cntrlState = PlayerBrain.PB.currentController;
 
         pTag = player.tag;
-        //heldSkeleton = PlayerBrain.PB.Embodiment.currentSkeleton;
+        heldSkeleton = PlayerBrain.PB.Embodiment.currentSkeleton;
         if(heldSkeleton != null)
         {
             skeleton = heldSkeleton.GetChild(0).GetComponent<SkeletonTrigger>();
@@ -138,11 +138,16 @@ public class PlayerData : BaseData
         if (PlayerBrain.PB.currentController != cntrlState)
         {
             Debug.Log("Player does not have the right form");
+
+            //Player's form is changed back to cntrlState
             PlayerBrain.PB.Embodiment.EmbodyThis(skeleton);
         }
-        
+
+        //Resets all values of current form back to default
+        PlayerBrain.PB.currentController.SetToDefault();
+
         //Get rid of interact indicators
-        if(PlayerBrain.PB.prefabInstance != null)
+        if (PlayerBrain.PB.prefabInstance != null)
         {
             Destroy(PlayerBrain.PB.prefabInstance);
         }
