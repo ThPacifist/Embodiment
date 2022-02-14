@@ -17,20 +17,20 @@ public class Embodiment : MonoBehaviour
 
     private void OnEnable()
     {
-        Controller.Embody += Embody;
+        PlayerBrain.Embody += Embody;
         canEmbody = true;
     }
 
     private void OnDisable()
     {
-        Controller.Embody -= Embody;
-        Controller.Embody -= Disembody;
+        PlayerBrain.Embody -= Embody;
+        PlayerBrain.Embody -= Disembody;
     }
 
     //Changes the player's form
     void Embody()
     {
-        Debug.Log("Embody");
+        Debug.Log("Embody");    
         if(targetSkeleton != null && CheckSpace(targetSkeleton) && canEmbody)
         {
             //Enables the controller of the targeted form which changes the current controller
@@ -45,9 +45,9 @@ public class Embodiment : MonoBehaviour
             currentSkeleton.transform.position = transform.position;
             currentSkeleton.gameObject.SetActive(false);
 
-            Controller.Embody -= Embody;
+            PlayerBrain.Embody -= Embody;
             canEmbody = false;
-            Controller.Embody += Disembody;
+            PlayerBrain.Embody += Disembody;
             canDisembody = true;
         }
     }
@@ -71,9 +71,9 @@ public class Embodiment : MonoBehaviour
             temp.PickUpSkeleton(targetSkeleton);
             PlayerBrain.PB.plyAnim.SetTrigger("Disembody");
 
-            Controller.Embody += Embody;
+            PlayerBrain.Embody += Embody;
             canEmbody = true;
-            Controller.Embody -= Disembody;
+            PlayerBrain.Embody -= Disembody;
             canDisembody = false;
         }
     }
@@ -96,9 +96,9 @@ public class Embodiment : MonoBehaviour
             currentSkeleton.parent = null;
             currentSkeleton = null;
 
-            Controller.Embody += Embody;
+            PlayerBrain.Embody += Embody;
             canEmbody = true;
-            Controller.Embody -= Disembody;
+            PlayerBrain.Embody -= Disembody;
             canDisembody = false;
         }
         else
@@ -120,9 +120,9 @@ public class Embodiment : MonoBehaviour
             currentSkeleton.transform.position = transform.position;
             currentSkeleton.gameObject.SetActive(false);
 
-            Controller.Embody -= Embody;
+            PlayerBrain.Embody -= Embody;
             canEmbody = false;
-            Controller.Embody += Disembody;
+            PlayerBrain.Embody += Disembody;
             canDisembody = true;
         }
     }

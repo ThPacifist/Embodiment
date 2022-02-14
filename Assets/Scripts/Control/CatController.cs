@@ -18,7 +18,7 @@ public class CatController : Controller
     {
         base.FixedUpdate();
 
-        if(OnWall)
+        if(OnWall || !isGrounded())
         {
             Embodiment.canDisembody = false;
         }
@@ -116,6 +116,13 @@ public class CatController : Controller
             }
             #endregion
         }
+    }
+
+    public override void SetToDefault()
+    {
+        catDir = Vector2.zero;
+        OnWall = false;
+        PlayerBrain.PB.plyAnim.SetTrigger(form);
     }
 
     public void SetCatOnWall(bool value, Vector2 direction)

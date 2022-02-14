@@ -40,7 +40,7 @@ public class BlobController : Controller
             Embodiment.canEmbody = true;
         }
 
-        if(isAttached)
+        if(isAttached || !isGrounded())
         {
             Embodiment.canEmbody = false;
         }

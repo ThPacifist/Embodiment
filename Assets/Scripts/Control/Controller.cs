@@ -21,10 +21,6 @@ public class Controller : MonoBehaviour
 
 
     //Public Variables
-    public static Action Interact = delegate { };
-    public static Action Embody = delegate { };
-    public static Action Pause = delegate { };
-    public static Action Death = delegate { };
     [Header("Form Settings")]
     public string form;
     public float speed;
@@ -88,16 +84,16 @@ public class Controller : MonoBehaviour
         PlyCtrl.Player.Special.performed += _ => Special();
 
         //Regular interact
-        PlyCtrl.Player.Interact.performed += _ => Interact();
+        PlyCtrl.Player.Interact.performed += _ => PlayerBrain.Interact();
 
         //Jump
         PlyCtrl.Player.Jump.performed += _ => Jump();
 
         //Embody
-        PlyCtrl.Player.Embody.performed += _ => Embody();
+        PlyCtrl.Player.Embody.performed += _ => PlayerBrain.Embody();
 
         //Pause
-        PlyCtrl.Player.Pause.performed += _ => Pause();
+        PlyCtrl.Player.Pause.performed += _ => PlayerBrain.Pause();
 
         PlayerBrain.PB.spring.enabled = false;
         PlayerBrain.PB.fixedJ.enabled = false;
@@ -243,7 +239,7 @@ public class Controller : MonoBehaviour
     //Calls all functions subscribed to death; Used in Death animation
     void TriggerDeath()
     {
-        Death();
+        PlayerBrain.Death();
         PlayerBrain.PB.plySpr.enabled = false;
     }
 

@@ -31,6 +31,7 @@ public class PlayerData : BaseData
     //Rebuild Data
     public override void SaveState()
     {
+        Debug.Log("Saving State");
         cntrlState = PlayerBrain.PB.currentController;
 
         pTag = player.tag;

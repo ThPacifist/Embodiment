@@ -73,6 +73,7 @@ public class CheckpointController : MonoBehaviour
     //Update checkpoint number when a new checkpoint is touched
     public void UpdateCheckpoint(int newPosition)
     {
+        Debug.Log("Player has passed Checkpoint: " + newPosition);
         if (newPosition > previousCheckpoint)
         {
             previousCheckpoint = newPosition;

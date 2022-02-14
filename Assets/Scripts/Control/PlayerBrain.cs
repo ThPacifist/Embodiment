@@ -24,6 +24,10 @@ public class PlayerBrain : MonoBehaviour
     /// Reference this to have access to this scripts field without needing an object reference in every script
     /// </summary>
     public static PlayerBrain PB;
+    public static Action Interact = delegate { };
+    public static Action Embody = delegate { };
+    public static Action Pause = delegate { };
+    public static Action Death = delegate { };
 
     public CapsuleCollider2D plyCol;
     public Animator plyAnim;
