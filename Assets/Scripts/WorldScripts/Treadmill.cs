@@ -4,20 +4,29 @@ using UnityEngine;
 
 public class Treadmill : MonoBehaviour
 {
+    enum direction
+    {
+        Left,
+        Right
+    }
+
     [SerializeField]
     Transform gObject;
     [SerializeField]
     float speed = 1;
     [SerializeField]
     Transform endPos;
-
+    [Tooltip("Represents the direction the player needs to move in.")]
     [SerializeField]
+    direction Direction;
+
     //Set this to true to have the gObjects position slowly move back to it restPos
+    [SerializeField]
     bool Decay;
     [SerializeField]
     float decaySpeed = 1;
 
-    PlyController plyCntrl;
+    CatController cat;
     Vector3 restPos;
 
     private void Awake()
@@ -30,15 +39,15 @@ public class Treadmill : MonoBehaviour
     {
         if (!Decay)
         {
-            if (plyCntrl != null)
+            if (cat != null)
             {
                 //If the player is move left on the treadmill, move the gObject towards the endPos
-                if (plyCntrl.Left)
+                if (cat.Left)
                 {
                     UpdateGameObject('+');
                 }
                 //If the player moves right, move the gObject towards the restPos
-                else if (plyCntrl.Right)
+                else if (cat.Right)
                 {
                     UpdateGameObject('-');
                 }
@@ -46,13 +55,13 @@ public class Treadmill : MonoBehaviour
         }
         else
         {
-            if (plyCntrl != null)
+            if (cat != null)
             {
-                if (plyCntrl.Left)
+                if (cat.Left)
                 {
                     UpdateGameObject('+');
                 }
-                else if (plyCntrl.Right)
+                else if (cat.Right)
                 {
                     UpdateGameObject('-');
                 }
@@ -81,7 +90,7 @@ public class Treadmill : MonoBehaviour
             //When gObject is at the endPos, unlock the player
             else
             {
-                plyCntrl.canMove = true;
+                PlayerBrain.PB.canMove = true;
             }
         }
         else if(value == '-')
@@ -93,7 +102,7 @@ public class Treadmill : MonoBehaviour
             //When gObject is at the restPos, unlock the player
             else
             {
-                plyCntrl.canMove = true;
+                PlayerBrain.PB.canMove = true;
             }
         }
     }
@@ -107,8 +116,8 @@ public class Treadmill : MonoBehaviour
         }
     }
 
-    public void SetPlyCntrl(PlyController ply)
+    public void SetCatCntrl(CatController kit)
     {
-        plyCntrl = ply;
+        cat = kit;
     }
 }

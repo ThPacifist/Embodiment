@@ -11,8 +11,6 @@ public class SwingerVisuals : MonoBehaviour
      * Also activates the indicator when the player is within range
      */
     public GameObject indicator;
-    /*[SerializeField]
-    SpecialInteractions interaction;*/
     [SerializeField]
     BlobController interaction;
 
