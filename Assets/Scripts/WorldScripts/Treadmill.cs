@@ -4,34 +4,41 @@ using UnityEngine;
 
 public class Treadmill : MonoBehaviour
 {
-    enum direction
+
+    public enum Direction
     {
-        Left,
-        Right
+        Right,
+        Left
     }
 
     [SerializeField]
-    Transform gObject;
+    Animator anim;
     [SerializeField]
-    float speed = 1;
+    Transform affectedObject;
     [SerializeField]
     Transform endPos;
-    [Tooltip("Represents the direction the player needs to move in.")]
     [SerializeField]
-    direction Direction;
+    float speed = 1;
+    [Tooltip("Represents the direction the player needs to move.\n" +
+        "Note: Make sure to flip the Sprite Renderer along the x axis")]
+    public Direction direction;
 
-    //Set this to true to have the gObjects position slowly move back to it restPos
+    /// <summary>
+    /// Makes the affectedObject return it's original position over time
+    /// </summary>
+    [Tooltip("Makes the affectedObject return it's original position over time.")]
+    [Space]
     [SerializeField]
     bool Decay;
-    [SerializeField]
-    float decaySpeed = 1;
+    public float decaySpeed = 1;
 
     CatController cat;
     Vector3 restPos;
 
     private void Awake()
     {
-        restPos = gObject.position;
+        anim.SetFloat("Speed", 0);
+        restPos = affectedObject.position;
     }
 
     // Update is called once per frame
@@ -41,16 +48,49 @@ public class Treadmill : MonoBehaviour
         {
             if (cat != null)
             {
-                //If the player is move left on the treadmill, move the gObject towards the endPos
-                if (cat.Left)
+                if (direction == Direction.Right)
                 {
-                    UpdateGameObject('+');
+                    //If the player is move left on the treadmill, move the affected object towards the endPos
+                    if (cat.Right)
+                    {
+                        UpdateGameObject('+');
+                        anim.SetFloat("Speed", 1);
+                    }
+                    //If the player moves right, move the affected object towards the restPos
+                    else if (cat.Left)
+                    {
+                        UpdateGameObject('-');
+                        anim.SetFloat("Speed", -1);
+                    }
+                    else
+                    {
+                        anim.SetFloat("Speed", 0);
+                    }
                 }
-                //If the player moves right, move the gObject towards the restPos
-                else if (cat.Right)
+
+                else if(direction == Direction.Left)
                 {
-                    UpdateGameObject('-');
+                    //If the player is move right on the treadmill, move the affected object towards the restPos
+                    if (cat.Right)
+                    {
+                        UpdateGameObject('-');
+                        anim.SetFloat("Speed", -1);
+                    }
+                    //If the player moves left, move the affected object towards the endPos
+                    else if (cat.Left)
+                    {
+                        UpdateGameObject('+');
+                        anim.SetFloat("Speed", -1);
+                    }
+                    else
+                    {
+                        anim.SetFloat("Speed", 0);
+                    }
                 }
+            }
+            else
+            {
+                anim.SetFloat("Speed", 0);
             }
         }
         else
@@ -60,19 +100,23 @@ public class Treadmill : MonoBehaviour
                 if (cat.Left)
                 {
                     UpdateGameObject('+');
+                    anim.SetFloat("Speed", 1);
                 }
                 else if (cat.Right)
                 {
                     UpdateGameObject('-');
+                    anim.SetFloat("Speed", -1);
                 }
                 else
                 {
                     DecayPos();
+                    anim.SetFloat("Speed", -1);
                 }
             }
             else
             {
                 DecayPos();
+                anim.SetFloat("Speed", -1);
             }
         }
     }
@@ -83,9 +127,9 @@ public class Treadmill : MonoBehaviour
     {
         if(value == '+')
         {
-            if (Vector2.Distance(gObject.position, endPos.position) > 0.001)
+            if (Vector2.Distance(affectedObject.position, endPos.position) > 0.001)
             {
-                gObject.position = Vector2.MoveTowards(gObject.position, endPos.position, Time.deltaTime * speed);
+                affectedObject.position = Vector2.MoveTowards(affectedObject.position, endPos.position, Time.deltaTime * speed);
             }
             //When gObject is at the endPos, unlock the player
             else
@@ -95,9 +139,9 @@ public class Treadmill : MonoBehaviour
         }
         else if(value == '-')
         {
-            if (Vector2.Distance(gObject.position, restPos) > 0.001)
+            if (Vector2.Distance(affectedObject.position, restPos) > 0.001)
             {
-                gObject.position = Vector2.MoveTowards(gObject.position, restPos, Time.deltaTime * speed);
+                affectedObject.position = Vector2.MoveTowards(affectedObject.position, restPos, Time.deltaTime * speed);
             }
             //When gObject is at the restPos, unlock the player
             else
@@ -110,14 +154,35 @@ public class Treadmill : MonoBehaviour
     //Moves the gObject back towards its restPos overTime
     void DecayPos()
     {
-        if (Vector2.Distance(gObject.position, restPos) > 0.001)
+        if (Vector2.Distance(affectedObject.position, restPos) > 0.001)
         {
-            gObject.position = Vector2.MoveTowards(gObject.position, restPos, Time.deltaTime * decaySpeed);
+            affectedObject.position = Vector2.MoveTowards(affectedObject.position, restPos, Time.deltaTime * decaySpeed);
         }
     }
 
     public void SetCatCntrl(CatController kit)
     {
         cat = kit;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 center = transform.position + Vector3.up;
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(center + new Vector3(-0.5f, 0, 0), center + new Vector3(0.5f, 0, 0));
+        if (direction == Direction.Right)
+        {
+            Vector3 tip = center + new Vector3(0.5f, 0, 0);
+            Gizmos.DrawLine(tip, tip + new Vector3(-0.25f, 0.25f, 0));
+            Gizmos.DrawLine(tip, tip + new Vector3(-0.25f, -0.25f, 0));
+            Gizmos.DrawLine(tip + new Vector3(-0.25f, 0.25f, 0), tip + new Vector3(-0.25f, -0.25f, 0));
+        }
+        else if(direction == Direction.Left)
+        {
+            Vector3 tip = center + new Vector3(-0.5f, 0, 0);
+            Gizmos.DrawLine(tip, tip + new Vector3(0.25f, 0.25f, 0));
+            Gizmos.DrawLine(tip, tip + new Vector3(0.25f, -0.25f, 0));
+            Gizmos.DrawLine(tip + new Vector3(0.25f, 0.25f, 0), tip + new Vector3(0.25f, -0.25f, 0));
+        }
     }
 }

@@ -31,7 +31,6 @@ public class TreadmillTrigger : MonoBehaviour
     {
         if (cat != null)
         {
-            ControlMovement.canEmbody = true;
             ControlMovement.canDisembody = true;
             cat.treadmill = false;
             treadmill.SetCatCntrl(null);
