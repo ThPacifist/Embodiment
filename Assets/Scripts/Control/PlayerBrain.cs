@@ -66,5 +66,8 @@ public class PlayerBrain : MonoBehaviour
         Skeletons = new Dictionary<skeleType, Controller>();
         Skeletons.Add(skeleType.Blob, GetComponent<BlobController>());
         Skeletons.Add(skeleType.Cat, GetComponent<CatController>());
+        Skeletons.Add(skeleType.Bat, GetComponent<BatController>());
+        Skeletons.Add(skeleType.Fish, GetComponent<FishController>());
+        Skeletons.Add(skeleType.Human, GetComponent<HumanController>());
     }
 }
