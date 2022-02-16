@@ -328,13 +328,16 @@ public class BlobController : Controller
 
     public override void CallFromAnimation(int value)
     {
-        if(value == 0)
+        if (PlayerBrain.PB.currentController == this)
         {
-            PickUpSkeleton(targetSkeleton);
-        }
-        else
-        {
-            PickUpSkeleton(null);
+            if (value == 0)
+            {
+                PickUpSkeleton(targetSkeleton);
+            }
+            else
+            {
+                PickUpSkeleton(null);
+            }
         }
     }
 

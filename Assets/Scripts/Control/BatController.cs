@@ -181,13 +181,16 @@ public class BatController : Controller
 
     public override void CallFromAnimation(int value)
     {
-        if(value == 0)
+        if (PlayerBrain.PB.currentController == this)
         {
-            PickUpBoxBat(box);
-        }
-        else
-        {
-            PickUpBoxBat(null);
+            if (value == 0)
+            {
+                PickUpBoxBat(box);
+            }
+            else
+            {
+                PickUpBoxBat(null);
+            }
         }
     }
 }
