@@ -218,7 +218,7 @@ public class Controller : MonoBehaviour
     }
 
     //Special cooldown
-    IEnumerator SpecialCoolDown()
+    public IEnumerator SpecialCoolDown()
     {
         yield return new WaitForSeconds(cooldownTime);
         specialReady = true;

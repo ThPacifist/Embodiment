@@ -156,40 +156,45 @@ public class BlobController : Controller
 
     public override void Special()
     {
-        //Pick up Skeleton
-        if (targetSkeleton != null && !isAttached && !skelHeld)
+        if (specialReady)
         {
-            if (!CheckSpaceForSkelo())
+            //Pick up Skeleton
+            if (targetSkeleton != null && !isAttached && !skelHeld)
             {
-                if (!Left && !Right)
+                if (!CheckSpaceForSkelo())
                 {
-                    PlayerBrain.PB.plyAnim.SetBool("isGrabbing", true);
+                    Debug.Log("Picking up skeleton");
+                    if (!Left && !Right)
+                    {
+                        PlayerBrain.PB.plyAnim.SetBool("isGrabbing", true);
+                    }
+                    else
+                    {
+                        PickUpSkeleton(targetSkeleton);
+                    }
                 }
                 else
                 {
-                    PickUpSkeleton(targetSkeleton);
+                    Debug.LogError("There is not enough space for skeleton");
                 }
             }
-            else
+            //Tentacle swing
+            else if (lamp != null && !skelHeld)
             {
-                Debug.LogError("There is not enough space for skeleton");
+                ShootTendril();
             }
-        }
-        //Tentacle swing
-        else if (lamp != null && !skelHeld)
-        {
-            ShootTendril();
-        }
-        //Drop skeleton
-        else if (skelHeld)
-        {
-            if (!Left && !Right)
+            //Drop skeleton
+            else if (skelHeld)
             {
-                PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
-            }
-            else
-            {
-                PickUpSkeleton(null);
+                Debug.Log("Putting down Skeleton");
+                if (!Left && !Right)
+                {
+                    PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
+                }
+                else
+                {
+                    PickUpSkeleton(null);
+                }
             }
         }
     }
@@ -244,7 +249,7 @@ public class BlobController : Controller
             specialReady = false;
         }
         //init Cooldown
-        StartCoroutine("SpecialCoolDown");
+        StartCoroutine(SpecialCoolDown());
     }
 
     //Sets the value of the lamp variable to allow the player to swing
@@ -299,7 +304,7 @@ public class BlobController : Controller
         //Cooldown
         cooldownTime = 1;
         specialReady = false;
-        StartCoroutine("SpecialCoolDown");
+        StartCoroutine(SpecialCoolDown());
     }
 
     //Sets the value of the skeleton to be held
