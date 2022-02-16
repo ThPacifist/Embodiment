@@ -12,10 +12,16 @@ public class BatController : Controller
     [HideInInspector]
     public Rigidbody2D box;
     string boxTag;
+    bool batJump = true;
 
     public override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if(boxHeld)
+        {
+            heldBox.transform.position = heldPos.transform.position;
+        }
 
         if(PlayerBrain.PB.canMove)
         {
@@ -25,12 +31,38 @@ public class BatController : Controller
                 PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 20 * PlayerBrain.PB.rb.mass);
             }
         }
+
+        #region Animation Block
+        //Checking if on ground as bat while carrying box
+        if (boxHeld && tag == "Bat")
+        {
+            if (isBoxGrounded(heldBox))
+            {
+                PlayerBrain.PB.plyAnim.SetBool("isJumping", false);
+            }
+        }
+        #endregion
     }
 
     public override void Jump()
     {
+        if (PlayerBrain.PB.canJump)
+        {
+            //Fly when bat
+            if (batJump)
+            {
+                batJump = false;
+                PlayerBrain.PB.rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, PlayerBrain.PB.rb.velocity.y), ForceMode2D.Impulse);
+                PlayerBrain.PB.plyAnim.SetTrigger("Flap");
+                if (audioManager != null)
+                {
+                    audioManager.Play("wingFlap");
+                }
+                StartCoroutine(FlyCoolDown());
+            }
 
-        base.Jump();
+            base.Jump();
+        }
     }
 
     public override void Special()
@@ -55,6 +87,33 @@ public class BatController : Controller
             PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
             PickUpBoxBat(null);
         }
+    }
+
+    //Checks if the box is on the ground (Bat)
+    public bool isBoxGrounded(Rigidbody2D rb)
+    {
+        BoxCollider2D[] cols = new BoxCollider2D[2];
+        rb.GetAttachedColliders(cols); //Gets all the colliders attached to a box
+        BoxCollider2D col;
+
+        //Determines which collider is the box collider, versus the trigger collider
+        if (cols[0].isTrigger)
+        {
+            col = cols[1];
+        }
+        else
+        {
+            col = cols[0];
+        }
+
+        float dist = 0.04f;
+        int layer = LayerMask.GetMask("Jumpables", "PickupAbles");
+        Vector2 size = new Vector2(col.bounds.size.x, dist);
+        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(col.bounds.center.x, col.bounds.min.y - size.y), size, 0f, Vector2.down,
+            0, layer);
+
+        //Debug.Log("hit is " + hit.collider);
+        return hit.collider != null;
     }
 
     public void PickUpBoxBat(Rigidbody2D box)
@@ -111,6 +170,13 @@ public class BatController : Controller
             Destroy(PlayerBrain.PB.prefabInstance);
             PlayerBrain.PB.prefabInstance = Instantiate(PlayerBrain.PB.IndicatorPrefab, box.transform);
         }
+    }
+
+    //Cooldown for jumping in midair
+    IEnumerator FlyCoolDown()
+    {
+        yield return new WaitForSeconds(0.1f);
+        batJump = true;
     }
 
     public override void CallFromAnimation(int value)

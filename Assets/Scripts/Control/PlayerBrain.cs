@@ -70,4 +70,11 @@ public class PlayerBrain : MonoBehaviour
         Skeletons.Add(skeleType.Fish, GetComponent<FishController>());
         Skeletons.Add(skeleType.Human, GetComponent<HumanController>());
     }
+
+    //Kill from menu
+    public void MenuKill()
+    {
+        Debug.Log("Menu Kill called");
+        plyAnim.SetTrigger("Death");
+    }
 }

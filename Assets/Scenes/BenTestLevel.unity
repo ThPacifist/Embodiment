@@ -35360,6 +35360,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8316a8187912ec5419a7f213d0191d35, type: 3}
+--- !u!114 &186375202 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 344267375, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
+  m_PrefabInstance: {fileID: 4819060323351451817}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9758f494f80c4bc47ae4849549626b44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &286112860
 GameObject:
   m_ObjectHideFlags: 0
@@ -43756,6 +43767,22 @@ PrefabInstance:
     - target: {fileID: 2598827211138061588, guid: feeb614f732172a45ab20468284d94c5, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482892908757793332, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 186375202}
+    - target: {fileID: 3482892908757793332, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MenuKill
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482892908757793332, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerBrain, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482892908757793332, guid: feeb614f732172a45ab20468284d94c5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4099094231960368255, guid: feeb614f732172a45ab20468284d94c5, type: 3}
       propertyPath: m_AnchorMax.x

@@ -7,6 +7,11 @@ public class BoxTrigger : MonoBehaviour
     [SerializeField]
     SpecialInteractions interaction;
 
+    [SerializeField]
+    BatController bat;
+    [SerializeField]
+    HumanController human;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Human") || collision.CompareTag("Bat"))
@@ -15,10 +20,10 @@ public class BoxTrigger : MonoBehaviour
             {
                 if (CheckBoundsForBat(collision))
                 {
-                    interaction = collision.GetComponent<SpecialInteractions>();
+                    bat = collision.GetComponent<BatController>();
                     if (collision != null)
                     {
-                        interaction.SetHeldBox(this.transform.parent.GetComponent<Rigidbody2D>(), this.transform.parent.tag);
+                        bat.SetHeldBox(this.transform.parent.GetComponent<Rigidbody2D>(), this.transform.parent.tag);
                     }
                 }
             }
@@ -26,12 +31,12 @@ public class BoxTrigger : MonoBehaviour
             {
                 if (CheckBoundsForHuman(collision))
                 {
-                    interaction = collision.GetComponent<SpecialInteractions>();
-                    if (!interaction.objectHeld)
+                    human = collision.GetComponent<HumanController>();
+                    if (!human.boxHeld)
                     {
                         if (collision != null)
                         {
-                            interaction.SetHeldBox(this.transform.parent.GetComponent<Rigidbody2D>(), this.transform.parent.tag);
+                            human.SetHeldBox(this.transform.parent.GetComponent<Rigidbody2D>(), this.transform.parent.tag);
                         }
                     }
                 }
@@ -41,12 +46,21 @@ public class BoxTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (interaction != null)
+        if (bat != null)
         {
-            if (interaction.box == this.transform.parent.GetComponent<Rigidbody2D>())
+            if (bat.box == this.transform.parent.GetComponent<Rigidbody2D>())
             {
-                interaction.SetHeldBox(null, "");
-                interaction = null;
+                bat.SetHeldBox(null, "");
+                bat = null;
+            }
+        }
+
+        if (human != null)
+        {
+            if (human.box == this.transform.parent.GetComponent<Rigidbody2D>())
+            {
+                human.SetHeldBox(null, "");
+                human = null;
             }
         }
     }
