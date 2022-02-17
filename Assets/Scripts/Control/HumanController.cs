@@ -141,67 +141,59 @@ public class HumanController : Controller
 
     public override void Special()
     {
-        if (specialReady)
+        //Check if there is a box to hold or a box being held
+        if (box != null && !boxHeld)
         {
-            //Check if there is a box to hold or a box being held
-            if (box != null && !boxHeld)
+            if (boxTag == "LBox" || boxTag == "MBox")
             {
-                if (boxTag == "LBox" || boxTag == "MBox")
+                if (!CheckSpaceForBox(box))
                 {
-                    if (!CheckSpaceForBox(box))
+                    Debug.Log("Inside check space for box");
+                    if (!Left && !Right)
                     {
-                        Debug.Log("Inside check space for box");
-                        if (!Left && !Right)
-                        {
-                            PlayerBrain.PB.plyAnim.SetBool("isGrabbing", true);
-                        }
-                        else
-                        {
-                            PickUpBoxHuman(box);
-                        }
+                        PlayerBrain.PB.plyAnim.SetBool("isGrabbing", true);
                     }
                     else
                     {
-                        Debug.LogError("Not Enough space for box");
+                        PickUpBoxHuman(box);
                     }
-                }
-                else if (boxTag == "HBox")
-                {
-                    if (audioManager != null)
-                    {
-                        audioManager.Play("boxGrab");
-                    }
-                    PlayerBrain.PB.plyAnim.SetBool("isPushing", true);
-
-                    //Attach Box
-                    heavyBoxHeld = true;
-                    PlayerBrain.PB.fixedJ.enabled = true;
-                    PlayerBrain.PB.fixedJ.connectedBody = box;
-                    PlayerBrain.PB.fixedJ.connectedBody.mass = 6;
-                    speed = 3;
-
-                    //Cooldown
-                    cooldownTime = 1;
-                    specialReady = false;
-                    StartCoroutine("SpecialCoolDown");
-                }
-            }
-            else if (boxHeld || heavyBoxHeld)
-            {
-                if (!Left && !Right)
-                {
-                    PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
-                    PickUpBoxHuman(null);
                 }
                 else
                 {
-                    PickUpBoxHuman(null);
+                    Debug.LogError("Not Enough space for box");
                 }
-
-                if (heavyBoxHeld)
+            }
+            else if (boxTag == "HBox")
+            {
+                if (audioManager != null)
                 {
-                    PickUpBoxHuman(null);
+                    audioManager.Play("boxGrab");
                 }
+                PlayerBrain.PB.plyAnim.SetBool("isPushing", true);
+
+                //Attach Box
+                heavyBoxHeld = true;
+                PlayerBrain.PB.fixedJ.enabled = true;
+                PlayerBrain.PB.fixedJ.connectedBody = box;
+                PlayerBrain.PB.fixedJ.connectedBody.mass = 6;
+                speed = 3;
+            }
+        }
+        else if (boxHeld || heavyBoxHeld)
+        {
+            if (!Left && !Right)
+            {
+                PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
+                PickUpBoxHuman(null);
+            }
+            else
+            {
+                PickUpBoxHuman(null);
+            }
+
+            if (heavyBoxHeld)
+            {
+                PickUpBoxHuman(null);
             }
         }
     }

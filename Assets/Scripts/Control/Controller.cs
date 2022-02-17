@@ -219,12 +219,12 @@ public class Controller : MonoBehaviour
 
     }
 
-    //Special cooldown
+    /*//Special cooldown
     public IEnumerator SpecialCoolDown()
     {
         yield return new WaitForSeconds(cooldownTime);
         specialReady = true;
-    }
+    }*/
 
     public void DisableMovement()
     {

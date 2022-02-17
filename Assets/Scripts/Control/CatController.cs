@@ -152,15 +152,8 @@ public class CatController : Controller
 
     public override void Special()
     {
-        if(specialReady)
-        {
-            //Spawn hitbox
-            Scratch();
-            //Cooldown
-            cooldownTime = 1;
-            specialReady = false;
-            StartCoroutine("SpecialCoolDown");
-        }
+        //Spawn hitbox
+        Scratch();
     }
     public override void OnTriggerEnter2D(Collider2D other)
     {

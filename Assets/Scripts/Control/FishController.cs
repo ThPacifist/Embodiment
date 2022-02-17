@@ -113,20 +113,13 @@ public class FishController : Controller
     //Special
     public override void Special()
     {
-        if (specialReady)
-        {
-            if (PlayerBrain.PB.inWater)
-                PlayerBrain.PB.plyAnim.SetTrigger("Spin");
+        if (PlayerBrain.PB.inWater)
+            PlayerBrain.PB.plyAnim.SetTrigger("Spin");
 
-            if (lever != null)
-            {
-                //Activate the lever
-                lever.Interact();
-                //Cooldown
-                cooldownTime = 1;
-                specialReady = false;
-                StartCoroutine(SpecialCoolDown());
-            }
+        if (lever != null)
+        {
+            //Activate the lever
+            lever.Interact();
         }
     }
 

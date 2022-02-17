@@ -155,45 +155,42 @@ public class BlobController : Controller
 
     public override void Special()
     {
-        if (specialReady)
+        //Pick up Skeleton
+        if (targetSkeleton != null && !isAttached && !skelHeld)
         {
-            //Pick up Skeleton
-            if (targetSkeleton != null && !isAttached && !skelHeld)
+            if (!CheckSpaceForSkelo())
             {
-                if (!CheckSpaceForSkelo())
-                {
-                    Debug.Log("Picking up skeleton");
-                    if (!Left && !Right)
-                    {
-                        PlayerBrain.PB.plyAnim.SetBool("isGrabbing", true);
-                    }
-                    else
-                    {
-                        PickUpSkeleton(targetSkeleton);
-                    }
-                }
-                else
-                {
-                    Debug.LogError("There is not enough space for skeleton");
-                }
-            }
-            //Tentacle swing
-            else if (lamp != null && !skelHeld)
-            {
-                ShootTendril();
-            }
-            //Drop skeleton
-            else if (skelHeld)
-            {
-                Debug.Log("Putting down Skeleton");
+                Debug.Log("Picking up skeleton");
                 if (!Left && !Right)
                 {
-                    PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
+                    PlayerBrain.PB.plyAnim.SetBool("isGrabbing", true);
                 }
                 else
                 {
-                    PickUpSkeleton(null);
+                    PickUpSkeleton(targetSkeleton);
                 }
+            }
+            else
+            {
+                Debug.LogError("There is not enough space for skeleton");
+            }
+        }
+        //Tentacle swing
+        else if (lamp != null && !skelHeld)
+        {
+            ShootTendril();
+        }
+        //Drop skeleton
+        else if (skelHeld)
+        {
+            Debug.Log("Putting down Skeleton");
+            if (!Left && !Right)
+            {
+                PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
+            }
+            else
+            {
+                PickUpSkeleton(null);
             }
         }
     }
@@ -228,10 +225,6 @@ public class BlobController : Controller
             PlayerBrain.PB.spring.connectedAnchor = lamp.transform.position;
             lRenderer.SetPosition(1, new Vector3(lamp.transform.position.x, lamp.transform.position.y, transform.position.z));
             isAttached = true;
-
-            //Cooldown
-            cooldownTime = 0.3f;
-            specialReady = false;
         }
         else
         {
@@ -242,13 +235,7 @@ public class BlobController : Controller
             Quaternion rotation = Quaternion.Euler(0, 0, 0);
             this.transform.rotation = rotation;
             isAttached = false;
-
-            //Cooldown
-            cooldownTime = 0.5f;
-            specialReady = false;
         }
-        //init Cooldown
-        StartCoroutine(SpecialCoolDown());
     }
 
     //Sets the value of the lamp variable to allow the player to swing
@@ -299,11 +286,6 @@ public class BlobController : Controller
 
             Debug.Log("Put Down my object");
         }
-
-        //Cooldown
-        cooldownTime = 1;
-        specialReady = false;
-        StartCoroutine(SpecialCoolDown());
     }
 
     //Sets the value of the skeleton to be held

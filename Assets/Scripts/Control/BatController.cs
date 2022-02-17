@@ -168,11 +168,6 @@ public class BatController : Controller
             PlayerBrain.PB.fixedJ.connectedBody = null;
             heldBox = null;
         }
-
-        //Cooldown
-        cooldownTime = 1;
-        specialReady = false;
-        StartCoroutine("SpecialCoolDown");
     }
 
     //Sets the value of the held box
