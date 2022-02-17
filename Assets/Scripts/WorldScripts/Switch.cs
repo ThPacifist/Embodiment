@@ -42,7 +42,7 @@ public class Switch : MonoBehaviour
     public int currentWeight = 0;
     bool b;
     float dist;
-    SpecialInteractions interaction;
+    FishController FC;
 
     /* interact Buttons:
      * - Press the interact button to activate the button
@@ -186,12 +186,12 @@ public class Switch : MonoBehaviour
 
             if(Lever && other.CompareTag("Fish"))
             {
-                interaction = other.GetComponent<SpecialInteractions>();
+                FC = other.GetComponent<FishController>();
                 indicator.SetActive(true);
 
-                if (interaction != null)
+                if (FC != null)
                 {
-                    interaction.SetLever(this);
+                    FC.SetLever(this);
                 }
             }
         }
@@ -210,10 +210,10 @@ public class Switch : MonoBehaviour
             
             if (Lever && other.CompareTag("Fish"))
             {
-                if (interaction != null)
+                if (FC != null)
                 {
-                    interaction.SetLever(null);
-                    interaction = null;
+                    FC.SetLever(null);
+                    FC = null;
                 }
                 indicator.SetActive(false);
             }

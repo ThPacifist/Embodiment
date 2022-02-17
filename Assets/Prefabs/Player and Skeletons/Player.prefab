@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 344267386}
   - component: {fileID: 2660896411525341248}
   - component: {fileID: 2336805159787988049}
+  - component: {fileID: 5104514707208658251}
   - component: {fileID: 251227713739937241}
   - component: {fileID: 135167153}
   - component: {fileID: 8069979182591699773}
@@ -323,6 +324,28 @@ MonoBehaviour:
   heldBox: {fileID: 0}
   heldPos: {fileID: 1373430572}
   box: {fileID: 0}
+--- !u!114 &5104514707208658251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819060323485262873}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e99e2530893b7fb41855b9ea33490a53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  form: Fish
+  speed: 0
+  jumpHeight: 0
+  density: 1
+  colliderSize: {x: 0, y: 0}
+  colliderOffset: {x: 0, y: 0}
+  direction: 0
+  animatorController: {fileID: 9100000, guid: 02002ff8857a0b540a1c9fa3e9361c2c, type: 2}
+  lever: {fileID: 0}
+  waterDensity: 5
 --- !u!114 &251227713739937241
 MonoBehaviour:
   m_ObjectHideFlags: 0
