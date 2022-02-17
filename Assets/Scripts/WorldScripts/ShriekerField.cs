@@ -7,6 +7,7 @@ public class ShriekerField : MonoBehaviour
     [SerializeField]
     GameAction behavior;
     PlyController temp2;
+    AudioManager audioManager;
 
     //If the player is this field, destory the skeleton
     private void OnTriggerEnter2D(Collider2D other)
@@ -23,6 +24,13 @@ public class ShriekerField : MonoBehaviour
                     temp2.canJump = false;
                     DestroySkeleton(temp);
                     StartCoroutine("haltMovement");
+                    //Commented out until the sound exists
+                    /*
+                    if(audioManager != null)
+                    {
+                        audioManager.Play("shriekerShriek");
+                    }
+                    */
                 }
             }
 
