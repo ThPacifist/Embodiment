@@ -169,7 +169,6 @@ public class CatController : Controller
         {
             if (other.CompareTag("Water"))
             {
-                Debug.Log("Inside Water check: Cat");
                 PlayerBrain.PB.plyAnim.SetTrigger("Death");
             }
         }

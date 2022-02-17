@@ -88,7 +88,6 @@ public class Embodiment : MonoBehaviour
             BlobController temp = (BlobController)PlayerBrain.Skeletons[PlayerBrain.skeleType.Blob];
             PlayerBrain.PB.currentController.enabled = false;
             PlayerBrain.Skeletons[PlayerBrain.skeleType.Blob].enabled = true;
-            Debug.Log("Player set to " + targetSkeleton.type);
                 
             currentSkeleton.gameObject.SetActive(true);
             targetSkeleton.skeloScript.RespawnSkeleton();
@@ -109,16 +108,20 @@ public class Embodiment : MonoBehaviour
             target.isGrabbed = true;
             Debug.Log("Player set to " + target.type);
 
-            currentSkeleton.gameObject.SetActive(true);
-            targetSkeleton.skeloScript.RespawnSkeleton();
-            currentSkeleton.parent = null;
-            currentSkeleton = null;
+            if (currentSkeleton != null)
+            {
+                currentSkeleton.gameObject.SetActive(true);
+                targetSkeleton.skeloScript.RespawnSkeleton();
+                currentSkeleton.parent = null;
+                currentSkeleton = null;
+            }
 
             //Attach skeleton to player and disable it
             currentSkeleton = target.transform.parent;
             currentSkeleton.parent = transform;
             currentSkeleton.transform.position = transform.position;
             currentSkeleton.gameObject.SetActive(false);
+            targetSkeleton = target;
 
             PlayerBrain.Embody -= Embody;
             canEmbody = false;

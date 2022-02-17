@@ -48,6 +48,7 @@ public class Treadmill : MonoBehaviour
         {
             if (cat != null)
             {
+                //If direction is set to Right
                 if (direction == Direction.Right)
                 {
                     //If the player is move left on the treadmill, move the affected object towards the endPos
@@ -67,7 +68,7 @@ public class Treadmill : MonoBehaviour
                         anim.SetFloat("Speed", 0);
                     }
                 }
-
+                //If direction is set to Left
                 else if(direction == Direction.Left)
                 {
                     //If the player is move right on the treadmill, move the affected object towards the restPos
