@@ -162,4 +162,16 @@ public class CatController : Controller
             StartCoroutine("SpecialCoolDown");
         }
     }
+    public override void OnTriggerEnter2D(Collider2D other)
+    {
+        base.OnTriggerEnter2D(other);
+        if (PlayerBrain.PB.currentController == this)
+        {
+            if (other.CompareTag("Water"))
+            {
+                Debug.Log("Inside Water check: Cat");
+                PlayerBrain.PB.plyAnim.SetTrigger("Death");
+            }
+        }
+    }
 }

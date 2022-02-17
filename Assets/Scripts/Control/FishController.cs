@@ -8,6 +8,7 @@ public class FishController : Controller
     [Header("Fish Settings")]
     public Switch lever;
     public float waterDensity;
+    float angle;
 
     //Protected variables
     protected bool inWater;
@@ -16,33 +17,73 @@ public class FishController : Controller
     {
         base.FixedUpdate();
 
-        //Handles movemnt when on the land
-        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && !inWater)
+        //Movement when in water
+        if (inWater)
         {
-            //Movement
-            if (Mathf.Abs(PlayerBrain.PB.rb.velocity.x) < speed )
+            //Move when the player is pressing buttons
+            if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
             {
-                PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 20 * PlayerBrain.PB.rb.mass);
+                float x = 0, y = 0;
+                //Checks if either the y or x velocity is exceeding the speed
+                if (Mathf.Abs(PlayerBrain.PB.rb.velocity.x) < speed)
+                {
+                    x = 1;
+                }
+                if (Mathf.Abs(PlayerBrain.PB.rb.velocity.y) < speed)
+                {
+                    y = 1;
+                }
+
+                PlayerBrain.PB.rb.AddForce(new Vector2(x, y) * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * 20 * PlayerBrain.PB.rb.mass);
             }
         }
-        //Handles vertical movement when in water
-        else if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
+        //Movement when on the ground
+        else if (isGrounded())
         {
-            if (Mathf.Abs(PlayerBrain.PB.rb.velocity.x + PlayerBrain.PB.rb.velocity.y) < speed)
+            //Move when the player is pressing buttons
+            if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
             {
-                PlayerBrain.PB.rb.AddForce(new Vector2(1, 1) * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * 20 * PlayerBrain.PB.rb.mass);
+                if (Mathf.Abs(PlayerBrain.PB.rb.velocity.x) < speed * 0.3f)
+                {
+                    PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 20 * PlayerBrain.PB.rb.mass);
+                }
+            }
+        }
+        else
+        {
+            //Move when the player is pressing the direction
+            if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+            {
+                PlayerBrain.PB.rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.5f) - new Vector2(PlayerBrain.PB.rb.velocity.x, 0);
             }
         }
 
         #region Animation Block
-        //Check if the blob is attached
+        //Moving in Water as fish
         if (inWater)
         {
-            PlayerBrain.PB.plyAnim.SetBool("inWater", true);
-        }
-        else
-        {
-            PlayerBrain.PB.plyAnim.SetBool("inWater", false);
+            if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
+            {
+                PlayerBrain.PB.plyAnim.SetBool("Walking", true);
+            }
+            else
+            {
+                PlayerBrain.PB.plyAnim.SetBool("Walking", false);
+            }
+            angle = Vector2.SignedAngle(Vector2.left, PlyCtrl.Player.FishInWater.ReadValue<Vector2>());
+
+            /*if(angle > 90)
+            {
+                angle = transform.localScale.x * (90 - (angle - 90));
+            }
+            else if(angle < -90)
+            {
+                angle = transform.localScale.x * (90 + (angle + 90));
+            }*/
+
+            Quaternion rotation = Quaternion.Euler(0, 0, angle);
+
+            //transform.rotation = rotation;
         }
         #endregion
     }
@@ -91,27 +132,45 @@ public class FishController : Controller
 
     public override void OnTriggerEnter2D(Collider2D other)
     {
-        //If the Trigger is Death, trigger Death
-        if (other.CompareTag("Death") || other.CompareTag("Skeleton"))
+        base.OnTriggerEnter2D(other);
+        if (PlayerBrain.PB.currentController == this)
         {
-            PlayerBrain.PB.plyAnim.SetTrigger("Death");
-        }
-
-        //If the collision is water, swim
-        if(other.CompareTag("Water"))
-        {
-            inWater = true;
-            PlayerBrain.PB.plyCol.density = waterDensity;
+            //If the collision is water, swim
+            if (other.CompareTag("Water"))
+            {
+                if (audioManager != null)
+                {
+                    audioManager.Play("splash");
+                }
+                inWater = true;
+                PlayerBrain.PB.plyCol.density = waterDensity;
+            }
         }
     }
 
-    public void OnTriggerExit2D(Collider2D other)
+    public override void OnTriggerStay2D(Collider2D other)
     {
-        //If the collision is water, stop swimming
-        if(other.CompareTag("Water"))
+        if (PlayerBrain.PB.currentController == this)
         {
-            inWater = false;
-            PlayerBrain.PB.plyCol.density = density;
+            if (other.CompareTag("Water"))
+            {
+                inWater = true;
+                PlayerBrain.PB.plyAnim.SetBool("inWater", true);
+            }
+        }
+    }
+
+    public override void OnTriggerExit2D(Collider2D other)
+    {
+        if (PlayerBrain.PB.currentController == this)
+        {
+            //If the collision is water, stop swimming
+            if (other.CompareTag("Water"))
+            {
+                inWater = false;
+                PlayerBrain.PB.plyAnim.SetBool("inWater", false);
+                PlayerBrain.PB.plyCol.density = density;
+            }
         }
     }
 

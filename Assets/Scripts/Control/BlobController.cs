@@ -346,30 +346,36 @@ public class BlobController : Controller
     public override void OnTriggerEnter2D(Collider2D other)
     {
         base.OnTriggerEnter2D(other);
-
-        if (other.CompareTag("Water"))
+        if (PlayerBrain.PB.currentController == this)
         {
-            //Makes Blob float
-            if (audioManager != null)
+            if (other.CompareTag("Water"))
             {
-                audioManager.Play("splash");
+                //Makes Blob float
+                if (audioManager != null)
+                {
+                    audioManager.Play("splash");
+                }
+                PlayerBrain.PB.inWater = true;
+                PlayerBrain.PB.plyAnim.SetBool("inWater", true);
+                PlayerBrain.PB.plyCol.density = 2;
+                jumpHeight = 35;
             }
-            PlayerBrain.PB.inWater = true;
-            PlayerBrain.PB.plyCol.density = 2;
-            jumpHeight = 35;
         }
     }
 
     public override void OnTriggerExit2D(Collider2D other)
     {
         base.OnTriggerExit2D(other);
-
-        if (other.CompareTag("Water"))
+        if (PlayerBrain.PB.currentController == this)
         {
-            //Blob jumps out of water
-            PlayerBrain.PB.inWater = false;
-            PlayerBrain.PB.plyCol.density = density;
-            jumpHeight = 18.1f;
+            if (other.CompareTag("Water"))
+            {
+                //Blob jumps out of water
+                PlayerBrain.PB.inWater = false;
+                PlayerBrain.PB.plyAnim.SetBool("inWater", false);
+                PlayerBrain.PB.plyCol.density = density;
+                jumpHeight = 18.1f;
+            }
         }
     }
 

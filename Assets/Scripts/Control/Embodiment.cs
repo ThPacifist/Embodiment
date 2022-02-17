@@ -138,8 +138,7 @@ public class Embodiment : MonoBehaviour
         //Controller of the skeleton the player is transforming into
         Controller targetSkeleton = PlayerBrain.Skeletons[target.type];
         //Calculate the center of the collider after transforming
-        Vector2 targetCenter = new Vector2(PlayerBrain.PB.plyCol.bounds.center.x, 
-            PlayerBrain.PB.plyCol.bounds.min.y + targetSkeleton.colliderSize.y);
+        Vector2 targetCenter = new Vector2(PlayerBrain.PB.plyCol.bounds.center.x, PlayerBrain.PB.plyCol.bounds.min.y + targetSkeleton.colliderSize.y);
 
         //Defines the colliders that will be detected by the cast to see if there is space
         int layer = LayerMask.NameToLayer("CheckSpace");

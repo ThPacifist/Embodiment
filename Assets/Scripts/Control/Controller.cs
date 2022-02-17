@@ -48,6 +48,7 @@ public class Controller : MonoBehaviour
     protected virtual void Awake()
     {
         PlyCtrl = new PlayerControls();
+        audioManager = FindObjectOfType<AudioManager>();
         //this.gameObject.transform.position = GameAction.PlaceColOnGround(PlayerBrain.PB.plyCol);
         InitializeForm();
         TransitionController.slideInAction = UnFreezePlayer;

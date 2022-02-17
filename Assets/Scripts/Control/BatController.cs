@@ -65,6 +65,18 @@ public class BatController : Controller
         }
     }
 
+    public override void OnTriggerEnter2D(Collider2D other)
+    {
+        base.OnTriggerEnter2D(other);
+        if (PlayerBrain.PB.currentController == this)
+        {
+            if (other.CompareTag("Water"))
+            {
+                PlayerBrain.PB.plyAnim.SetTrigger("Death");
+            }
+        }
+    }
+
     public override void Special()
     {
         //Attach box
@@ -87,6 +99,17 @@ public class BatController : Controller
             PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
             PickUpBoxBat(null);
         }
+    }
+
+    public override void SetToDefault()
+    {
+        PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
+        boxHeld = false;
+        boxTag = null;
+        PlayerBrain.PB.fixedJ.enabled = false;
+        PlayerBrain.PB.fixedJ.connectedBody = null;
+        heldBox = null;
+        box = null;
     }
 
     //Checks if the box is on the ground (Bat)
@@ -192,5 +215,12 @@ public class BatController : Controller
                 PickUpBoxBat(null);
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        //Bat Box Pos
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(heldPos.position, 0.3f);
     }
 }
