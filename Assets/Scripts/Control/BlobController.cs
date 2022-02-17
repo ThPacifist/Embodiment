@@ -132,7 +132,6 @@ public class BlobController : Controller
         jumpHeight = 18.1f;
 
         PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
-        PlayerBrain.PB.Embodiment.targetSkeleton = null;
         PlayerBrain.PB.plyAnim.SetTrigger(form);
     }
 
