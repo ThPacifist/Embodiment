@@ -91,7 +91,7 @@ public class Controller : MonoBehaviour
         PlyCtrl.Player.Jump.performed += _ => Jump();
 
         //Embody
-        PlyCtrl.Player.Embody.performed += _ => PlayerBrain.Embody();
+        PlyCtrl.Player.Embody.performed += _ => Embody();
 
         //Pause
         PlyCtrl.Player.Pause.performed += _ => PlayerBrain.Pause();
@@ -108,15 +108,15 @@ public class Controller : MonoBehaviour
             //Keeps track of what direction player is moving in and flips the player based on the direction they are heading in
             if (PlyCtrl.Player.Movement.ReadValue<float>() > 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x > 0)
             {
-                this.gameObject.transform.localScale = new Vector3(-1 * Mathf.Abs(transform.localScale.x), 
-                    Mathf.Abs(transform.localScale.y),Mathf.Abs(transform.localScale.z));
+                this.gameObject.transform.localScale = new Vector3(-1 * Mathf.Abs(transform.localScale.x),
+                    Mathf.Abs(transform.localScale.y), Mathf.Abs(transform.localScale.z));
                 right = true;
                 left = false;
             }
             else if (PlyCtrl.Player.Movement.ReadValue<float>() < 0 || PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x < 0)
             {
-                this.gameObject.transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), 
-                    Mathf.Abs(transform.localScale.y),Mathf.Abs(transform.localScale.z));
+                this.gameObject.transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x),
+                    Mathf.Abs(transform.localScale.y), Mathf.Abs(transform.localScale.z));
                 left = true;
                 right = false;
             }
@@ -196,7 +196,7 @@ public class Controller : MonoBehaviour
 
         Vector2 origin = new Vector2(PlayerBrain.PB.plyCol.bounds.center.x, PlayerBrain.PB.plyCol.bounds.min.y);
         Vector2 size = new Vector2(PlayerBrain.PB.plyCol.size.x, 0.05f);
-        RaycastHit2D hit = Physics2D.CapsuleCast(origin, size, CapsuleDirection2D.Horizontal, 0f, Vector2.down, 
+        RaycastHit2D hit = Physics2D.CapsuleCast(origin, size, CapsuleDirection2D.Horizontal, 0f, Vector2.down,
             dist, layer);
 
         //Debug.Log(hit.collider);
@@ -261,6 +261,15 @@ public class Controller : MonoBehaviour
     //Used for bug testing
     private void OnDrawGizmos()
     {
-        
+
+    }
+
+    //Checks for embodiment and causes it
+    public void Embody()
+    {
+        if (!PlayerBrain.PB.inWater)
+        {
+            PlayerBrain.Embody();
+        }
     }
 }

@@ -10,15 +10,14 @@ public class FishController : Controller
     public float waterDensity;
     float angle;
 
-    //Protected variables
-    protected bool inWater;
-
     public override void FixedUpdate()
     {
         base.FixedUpdate();
 
         //Movement when in water
-        if (inWater)
+        //Handles movemnt when on the land
+        if(PlayerBrain.PB.inWater)
+        //if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && PlayerBrain.PB.inWater)
         {
             //Move when the player is pressing buttons
             if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
@@ -60,7 +59,8 @@ public class FishController : Controller
 
         #region Animation Block
         //Moving in Water as fish
-        if (inWater)
+        //Check if the blob is attached
+        if (PlayerBrain.PB.inWater)
         {
             if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
             {
@@ -91,7 +91,7 @@ public class FishController : Controller
     //Set to default
     public override void SetToDefault()
     {
-        inWater = false;
+        PlayerBrain.PB.inWater = false;
         Quaternion rotation = Quaternion.Euler(0, 0, 0);
         this.transform.rotation = rotation;
     }
@@ -115,7 +115,7 @@ public class FishController : Controller
     {
         if (specialReady)
         {
-            if (inWater)
+            if (PlayerBrain.PB.inWater)
                 PlayerBrain.PB.plyAnim.SetTrigger("Spin");
 
             if (lever != null)
@@ -142,8 +142,7 @@ public class FishController : Controller
                 {
                     audioManager.Play("splash");
                 }
-                inWater = true;
-                PlayerBrain.PB.plyCol.density = waterDensity;
+                PlayerBrain.PB.inWater = true;
             }
         }
     }
@@ -154,7 +153,7 @@ public class FishController : Controller
         {
             if (other.CompareTag("Water"))
             {
-                inWater = true;
+                PlayerBrain.PB.inWater = true;
                 PlayerBrain.PB.plyAnim.SetBool("inWater", true);
             }
         }
@@ -167,9 +166,8 @@ public class FishController : Controller
             //If the collision is water, stop swimming
             if (other.CompareTag("Water"))
             {
-                inWater = false;
+                PlayerBrain.PB.inWater = false;
                 PlayerBrain.PB.plyAnim.SetBool("inWater", false);
-                PlayerBrain.PB.plyCol.density = density;
             }
         }
     }
