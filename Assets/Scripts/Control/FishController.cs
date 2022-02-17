@@ -136,6 +136,7 @@ public class FishController : Controller
                     audioManager.Play("splash");
                 }
                 PlayerBrain.PB.inWater = true;
+                PlayerBrain.PB.plyCol.density = waterDensity;
             }
         }
     }
@@ -160,6 +161,7 @@ public class FishController : Controller
             if (other.CompareTag("Water"))
             {
                 PlayerBrain.PB.inWater = false;
+                PlayerBrain.PB.plyCol.density = density;
                 PlayerBrain.PB.plyAnim.SetBool("inWater", false);
             }
         }
