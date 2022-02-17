@@ -62364,6 +62364,10 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 4159865657535033912}
+    - target: {fileID: 4869438459966937975, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5727301857153180359, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -62411,6 +62415,10 @@ PrefabInstance:
     - target: {fileID: 5727301857153180408, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_Name
       value: Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 5852236757575851228, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 5852236758373906024, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[0].x
@@ -62524,10 +62532,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 344267386, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1189157436, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 70.4

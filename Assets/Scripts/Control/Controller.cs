@@ -159,6 +159,7 @@ public class Controller : MonoBehaviour
         if (other.CompareTag("Death") || other.CompareTag("Skeleton"))
         {
             PlayerBrain.PB.plyAnim.SetTrigger("Death");
+            SetToDefault();
         }
     }
 

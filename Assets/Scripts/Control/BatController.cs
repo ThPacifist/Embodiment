@@ -5,7 +5,6 @@ using UnityEngine;
 public class BatController : Controller
 {
     [Header("Bat Settings")]
-    bool boxHeld;
     public Rigidbody2D heldBox;
     [SerializeField]
     Transform heldPos;
@@ -13,6 +12,7 @@ public class BatController : Controller
     public Rigidbody2D box;
     string boxTag;
     bool batJump = true;
+    bool boxHeld;
 
     public override void FixedUpdate()
     {
