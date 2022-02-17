@@ -6,7 +6,7 @@ public class TreadmillTrigger : MonoBehaviour
 {
     public Transform lockPos;
 
-    PlyController plyCntrl;
+    CatController cat;
 
     [SerializeField]
     Treadmill treadmill;
@@ -15,12 +15,13 @@ public class TreadmillTrigger : MonoBehaviour
     {
         if(collision.CompareTag("Cat"))
         {
-            plyCntrl = collision.GetComponent<PlyController>();
-            if(plyCntrl != null)
+            cat = collision.GetComponent<CatController>();
+            if(cat != null)
             {
-                ControlMovement.canDisembody = false;
-                plyCntrl.treadmill = true;
-                treadmill.SetPlyCntrl(plyCntrl);
+                //ControlMovement.canEmbody = false;
+                Embodiment.canDisembody = false;
+                cat.treadmill = true;
+                treadmill.SetCatCntrl(cat);
                 collision.transform.position = lockPos.position;
             }
         }
@@ -28,11 +29,11 @@ public class TreadmillTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (plyCntrl != null)
+        if (cat != null)
         {
             ControlMovement.canDisembody = true;
-            plyCntrl.treadmill = false;
-            treadmill.SetPlyCntrl(null);
+            cat.treadmill = false;
+            treadmill.SetCatCntrl(null);
         }
     }
 }

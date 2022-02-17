@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -62115,7 +62115,7 @@ PrefabInstance:
     - target: {fileID: 584262705851217292, guid: b7f235b0c74ca1346bd2ce84354ef06b, type: 3}
       propertyPath: plyCntrl
       value: 
-      objectReference: {fileID: 4159865657535033913}
+      objectReference: {fileID: 0}
     - target: {fileID: 584262705851217292, guid: b7f235b0c74ca1346bd2ce84354ef06b, type: 3}
       propertyPath: transCntrl
       value: 
@@ -62364,6 +62364,10 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 4159865657535033912}
+    - target: {fileID: 4869438459966937975, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5727301857153180359, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -62411,6 +62415,10 @@ PrefabInstance:
     - target: {fileID: 5727301857153180408, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_Name
       value: Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 5852236757575851228, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 5852236758373906024, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[0].x
@@ -62532,6 +62540,10 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.y
       value: 19.9
       objectReference: {fileID: 0}
+    - target: {fileID: 2336805159787988049, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4819060323485262866, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: tileMap
       value: 
@@ -62595,17 +62607,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4819060323485262879, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
   m_PrefabInstance: {fileID: 4159865657535033911}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4159865657535033913 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4819060323351451821, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-  m_PrefabInstance: {fileID: 4159865657535033911}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c78e6416d072a134dba3d66b487b064a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4397798236379710349
 GameObject:
   m_ObjectHideFlags: 0

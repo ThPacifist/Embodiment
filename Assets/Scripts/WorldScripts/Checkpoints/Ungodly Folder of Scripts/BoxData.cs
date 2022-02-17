@@ -22,9 +22,16 @@ public class BoxData : BaseData
     {
         position = savedObject.transform.position;
         rotation = savedObject.transform.rotation;
-        if(GameAction.PlayerTags(savedObject.transform.parent.tag))
+        if (savedObject.transform.parent != null)
         {
-            carried = true;
+            if (GameAction.PlayerTags(savedObject.transform.parent.tag))
+            {
+                carried = true;
+            }
+            else
+            {
+                carried = false;
+            }
         }
         else
         {

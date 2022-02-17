@@ -18,11 +18,13 @@ public class TransitionController : MonoBehaviour
     private void OnEnable()
     {
         PlyController.Death += LevelWipe;
+        PlayerBrain.Death += LevelWipe;
     }
 
     private void OnDisable()
     {
         PlyController.Death -= LevelWipe;
+        PlayerBrain.Death -= LevelWipe;
     }
 
     public void BehaviorTrigger(int num)

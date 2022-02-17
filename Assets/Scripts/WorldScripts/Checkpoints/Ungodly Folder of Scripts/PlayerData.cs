@@ -6,31 +6,23 @@ public class PlayerData : BaseData
 {
     //Variables
     public GameObject player;
-    public SpecialInteractions spcInt;
-    public ControlMovement ctrlMvm;
-    public PlyController plyCtrl;
-    public CapsuleCollider2D plyCol;
-    public Animator animPly;
     public Transform heldSkeleton;
     public SkeletonTrigger skeleton;
     private string pTag;
-    private bool objectHeld;
-    private bool skelHeld;
-    private bool hBoxHeld;
-
-
     [SerializeField]
     FixedJoint2D fixedJ;
+
+    [Header("Player Rework Stuff")]
+    public Controller cntrlState;
 
 
     //Constructor
     public override void InitializeData()
     {
+        cntrlState = PlayerBrain.PB.currentController;
+
         pTag = player.tag;
-        heldSkeleton = ctrlMvm.heldSkeleton;
-        objectHeld = spcInt.objectHeld;
-        skelHeld = spcInt.skelHeld;
-        hBoxHeld = spcInt.HboxHeld;
+        heldSkeleton = PlayerBrain.PB.Embodiment.currentSkeleton;
         if(heldSkeleton != null)
         {
             skeleton = heldSkeleton.GetChild(0).GetComponent<SkeletonTrigger>();
@@ -39,11 +31,11 @@ public class PlayerData : BaseData
     //Rebuild Data
     public override void SaveState()
     {
+        Debug.Log("Saving State");
+        cntrlState = PlayerBrain.PB.currentController;
+
         pTag = player.tag;
-        heldSkeleton = ctrlMvm.heldSkeleton;
-        objectHeld = spcInt.objectHeld;
-        skelHeld = spcInt.skelHeld;
-        hBoxHeld = spcInt.HboxHeld;
+        heldSkeleton = PlayerBrain.PB.Embodiment.currentSkeleton;
         if (heldSkeleton != null)
         {
             skeleton = heldSkeleton.GetChild(0).GetComponent<SkeletonTrigger>();
@@ -53,8 +45,9 @@ public class PlayerData : BaseData
     //Reset Data
     public override void ResetData()
     {
-        //If the player should be embodied
-        if(heldSkeleton != ctrlMvm.heldSkeleton)
+        Debug.Log("Player Data reset data");
+        /*//If the player should be embodied
+        if (heldSkeleton != ctrlMvm.heldSkeleton)
         {
             //Change sprite back to what it should be
             if(pTag != "Blob")
@@ -98,7 +91,7 @@ public class PlayerData : BaseData
                 //Changes players sprite to be the skeleton
                 animPly.SetTrigger(skeleton.Name);
             }
-            else /*if(player.tag == "Blob")*/
+            else //= if(player.tag == "Blob")
             {
                 ctrlMvm.DestorySkeleton();
             }
@@ -123,11 +116,7 @@ public class PlayerData : BaseData
         spcInt.box = null;
         spcInt.skeleton = null;
 
-        //Get rid of interact indicators
-        if(spcInt.prefabInstance != null)
-        {
-            Destroy(spcInt.prefabInstance);
-        }
+        
 
         //Reset current embody target
         if(ctrlMvm.skeleton != skeleton)
@@ -146,6 +135,22 @@ public class PlayerData : BaseData
         if(spcInt.heldBox != null)
         {
             spcInt.heldBox = null;
+        }*/
+        if (PlayerBrain.PB.currentController != cntrlState)
+        {
+            Debug.Log("Player does not have the right form");
+
+            //Player's form is changed back to cntrlState
+            PlayerBrain.PB.Embodiment.EmbodyThis(skeleton);
+        }
+
+        //Resets all values of current form back to default
+        PlayerBrain.PB.currentController.SetToDefault();
+
+        //Get rid of interact indicators
+        if (PlayerBrain.PB.prefabInstance != null)
+        {
+            Destroy(PlayerBrain.PB.prefabInstance);
         }
     }
 }

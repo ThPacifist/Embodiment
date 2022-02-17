@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Treadmill : MonoBehaviour
 {
+
     public enum Direction
     {
         Right,
@@ -31,7 +32,7 @@ public class Treadmill : MonoBehaviour
     bool Decay;
     public float decaySpeed = 1;
 
-    PlyController plyCntrl;
+    CatController cat;
     Vector3 restPos;
 
     private void Awake()
@@ -45,18 +46,19 @@ public class Treadmill : MonoBehaviour
     {
         if (!Decay)
         {
-            if (plyCntrl != null)
+            if (cat != null)
             {
+                //If direction is set to Right
                 if (direction == Direction.Right)
                 {
                     //If the player is move left on the treadmill, move the affected object towards the endPos
-                    if (plyCntrl.Right)
+                    if (cat.Right)
                     {
                         UpdateGameObject('+');
                         anim.SetFloat("Speed", 1);
                     }
                     //If the player moves right, move the affected object towards the restPos
-                    else if (plyCntrl.Left)
+                    else if (cat.Left)
                     {
                         UpdateGameObject('-');
                         anim.SetFloat("Speed", -1);
@@ -66,16 +68,17 @@ public class Treadmill : MonoBehaviour
                         anim.SetFloat("Speed", 0);
                     }
                 }
+                //If direction is set to Left
                 else if(direction == Direction.Left)
                 {
                     //If the player is move right on the treadmill, move the affected object towards the restPos
-                    if (plyCntrl.Right)
+                    if (cat.Right)
                     {
                         UpdateGameObject('-');
                         anim.SetFloat("Speed", -1);
                     }
                     //If the player moves left, move the affected object towards the endPos
-                    else if (plyCntrl.Left)
+                    else if (cat.Left)
                     {
                         UpdateGameObject('+');
                         anim.SetFloat("Speed", -1);
@@ -93,14 +96,14 @@ public class Treadmill : MonoBehaviour
         }
         else
         {
-            if (plyCntrl != null)
+            if (cat != null)
             {
-                if (plyCntrl.Left)
+                if (cat.Left)
                 {
                     UpdateGameObject('+');
                     anim.SetFloat("Speed", 1);
                 }
-                else if (plyCntrl.Right)
+                else if (cat.Right)
                 {
                     UpdateGameObject('-');
                     anim.SetFloat("Speed", -1);
@@ -132,7 +135,7 @@ public class Treadmill : MonoBehaviour
             //When gObject is at the endPos, unlock the player
             else
             {
-                plyCntrl.canMove = true;
+                PlayerBrain.PB.canMove = true;
             }
         }
         else if(value == '-')
@@ -144,7 +147,7 @@ public class Treadmill : MonoBehaviour
             //When gObject is at the restPos, unlock the player
             else
             {
-                plyCntrl.canMove = true;
+                PlayerBrain.PB.canMove = true;
             }
         }
     }
@@ -158,9 +161,9 @@ public class Treadmill : MonoBehaviour
         }
     }
 
-    public void SetPlyCntrl(PlyController ply)
+    public void SetCatCntrl(CatController kit)
     {
-        plyCntrl = ply;
+        cat = kit;
     }
 
     private void OnDrawGizmos()

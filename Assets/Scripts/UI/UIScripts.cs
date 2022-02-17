@@ -44,12 +44,14 @@ public class UIScripts : MonoBehaviour
     {
         plyCntrl.Enable();
         PlyController.Pause += pause;
+        PlayerBrain.Pause += pause;
     }
 
     private void OnDisable()
     {
         plyCntrl.Disable();
         PlyController.Pause -= pause;
+        PlayerBrain.Pause -= pause;
     }
 
     //Do at start
@@ -110,6 +112,8 @@ public class UIScripts : MonoBehaviour
         Cursor.visible = true;
         UI.SetActive(true);
         Time.timeScale = 0;
+        PlayerBrain.PB.canJump = false;
+        PlayerBrain.PB.canMove = false;
         eventS.SetSelectedGameObject(settingsButton);
         eventS.SetSelectedGameObject(resumeButton);
     }
@@ -125,6 +129,8 @@ public class UIScripts : MonoBehaviour
         }
         UI.SetActive(false);
         Time.timeScale = 1;
+        PlayerBrain.PB.canJump = true;
+        PlayerBrain.PB.canMove = true;
     }
 
     //Pause and unpause

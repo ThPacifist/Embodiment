@@ -12,13 +12,13 @@ public class SwingerVisuals : MonoBehaviour
      */
     public GameObject indicator;
     [SerializeField]
-    SpecialInteractions interaction;
+    BlobController interaction;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Blob"))
         {
-            interaction = collision.GetComponent<SpecialInteractions>();
+            interaction = collision.GetComponent<BlobController>();
             if (!interaction.isAttached)
             {
                 if (interaction != null)

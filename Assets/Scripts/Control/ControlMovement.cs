@@ -22,12 +22,9 @@ public class ControlMovement : MonoBehaviour
      */
     //Assets and Public Variables
     public Transform heldSkeleton;
-    public Transform player;
     public PlyController plyCntrl;
     public PlayerData playerData;
     public SpecialInteractions spIntr;
-    public CapsuleCollider2D plyCol;
-    public Animator animPly;
     public SkeletonTrigger skeleton;
     public static bool canEmbody = true;
     public static bool canDisembody = false;
@@ -37,8 +34,6 @@ public class ControlMovement : MonoBehaviour
 
     [SerializeField]
     EmbodyField emField;
-    [SerializeField]
-    Tilemap tileMap;
 
     [HideInInspector]
     public SkeletonTrigger skeloData;
@@ -82,7 +77,6 @@ public class ControlMovement : MonoBehaviour
     {
         //Embody(this.tag);
     }
-
     
     //When "r" is pressed, the player embodies the skeleton
     void Embody()
@@ -90,8 +84,8 @@ public class ControlMovement : MonoBehaviour
         //If player is not embodying a skeleton, embody the skeleton
         if(skeleton != null)
         {
-            if (emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), skeleton) && canEmbody 
-                && plyCntrl.isGrounded())
+            if (emField.CheckSpace(transform.position - new Vector3(0, PlayerBrain.PB.plyCol.bounds.extents.y, 0), skeleton) 
+                && canEmbody && plyCntrl.isGrounded())
             {
                 if (audioManager != null)
                 {
@@ -100,24 +94,24 @@ public class ControlMovement : MonoBehaviour
 
                 //Changes players values to be the skeleton
                 spIntr.PickUpSkeleton(null);
-                player.tag = skeleton.Name;
+                tag = skeleton.Name;
                 plyCntrl.speed = skeleton.speed;
                 plyCntrl.jumpHeight = skeleton.jumpHeight;
-                plyCol.size = skeleton.colliderSize;
-                plyCol.offset = skeleton.colliderOffset;
-                plyCol.direction = skeleton.direction;
-                plyCol.density = skeleton.density;
+                PlayerBrain.PB.plyCol.size = skeleton.colliderSize;
+                PlayerBrain.PB.plyCol.offset = skeleton.colliderOffset;
+                PlayerBrain.PB.plyCol.direction = skeleton.direction;
+                PlayerBrain.PB.plyCol.density = skeleton.density;
                 skeloData = skeleton;
 
                 //Changes players sprite to be the skeleton
                 if(skeleton.controller != null)
-                    animPly.runtimeAnimatorController = skeleton.controller;
-                animPly.SetTrigger(skeleton.Name);
-                animPly.SetInteger("Form", skeleton.Form);
+                    PlayerBrain.PB.plyAnim.runtimeAnimatorController = skeleton.controller;
+                PlayerBrain.PB.plyAnim.SetTrigger(skeleton.Name);
+                PlayerBrain.PB.plyAnim.SetInteger("Form", skeleton.Form);
 
                 //Attach skeleton to player and disable it
                 heldSkeleton = skeleton.transform.parent;
-                heldSkeleton.parent = player;
+                heldSkeleton.parent = transform;
                 heldSkeleton.gameObject.SetActive(false);
 
                 //Unsubscribes embody funciton and subscribes disembody funciton
@@ -125,7 +119,7 @@ public class ControlMovement : MonoBehaviour
                 PlyController.Embody += Disembody;
                 canDisembody = true;
             }
-            else if(!emField.CheckSpace(player.position - new Vector3(0, plyCol.bounds.extents.y, 0), skeleton))
+            else if(!emField.CheckSpace(transform.position - new Vector3(0, PlayerBrain.PB.plyCol.bounds.extents.y, 0), skeleton))
             {
                 Debug.Log("There is not enough space");
             }
@@ -152,20 +146,20 @@ public class ControlMovement : MonoBehaviour
                 }
 
                 //Changes players values to be the blob
-                player.tag = defaultName;
+                tag = defaultName;
                 plyCntrl.speed = defaultSpeed;
                 plyCntrl.jumpHeight = defaultJumpHeight;
-                plyCol.size = defaultSize;
-                plyCol.offset = defaultOffset;
-                plyCol.direction = defaultDirection;
-                plyCol.density = defaultDensity;
+                PlayerBrain.PB.plyCol.size = defaultSize;
+                PlayerBrain.PB.plyCol.offset = defaultOffset;
+                PlayerBrain.PB.plyCol.direction = defaultDirection;
+                PlayerBrain.PB.plyCol.density = defaultDensity;
                 skeleton = null;
                 skeloData = null;
 
                 //Changes players sprite to be the blob
                 //animPly.runtimeAnimatorController = defaultController;
-                animPly.SetTrigger("Disembody");
-                animPly.SetInteger("Form", 0);
+                PlayerBrain.PB.plyAnim.SetTrigger("Disembody");
+                PlayerBrain.PB.plyAnim.SetInteger("Form", 0);
 
                 //Renables skeleton
                 heldSkeleton.gameObject.SetActive(true);
@@ -206,17 +200,17 @@ public class ControlMovement : MonoBehaviour
         spIntr.PickUpSkeleton(null);
 
         //Changes players values to be the blob
-        player.tag = "Blob";
+        tag = "Blob";
         plyCntrl.speed = 5;
         plyCntrl.jumpHeight = 18.1f;
-        plyCol.size = new Vector2(1.830f, 1.366f);
-        plyCol.offset = new Vector2(0, 0);
-        plyCol.direction = CapsuleDirection2D.Horizontal;
-        plyCol.density = 1;
+        PlayerBrain.PB.plyCol.size = new Vector2(1.830f, 1.366f);
+        PlayerBrain.PB.plyCol.offset = new Vector2(0, 0);
+        PlayerBrain.PB.plyCol.direction = CapsuleDirection2D.Horizontal;
+        PlayerBrain.PB.plyCol.density = 1;
 
         //Changes players sprite to be the blob
-        animPly.SetTrigger("Blob");
-        animPly.SetInteger("Form", 0);
+        PlayerBrain.PB.plyAnim.SetTrigger("Blob");
+        PlayerBrain.PB.plyAnim.SetInteger("Form", 0);
 
         //Move skeleton back to respawn position
         if (skeleton != null)
@@ -243,25 +237,6 @@ public class ControlMovement : MonoBehaviour
         skeleton = skelo;
     }
 
-    Vector2 PlaceSkeleton()
-    {
-        Vector2Int tR = Vector2Int.FloorToInt(plyCol.bounds.max + Vector3.one);
-        Vector2Int bL = Vector2Int.FloorToInt(plyCol.bounds.min + -Vector3.one);
-
-        for(int i = bL.x; i < tR.x; i++)
-        {
-            for(int j = bL.y; j < tR.y; j++)
-            {
-                if(!tileMap.GetTile(new Vector3Int(i, j, 0)))
-                {
-                    return new Vector2(i + 0.5f, 0.5f);
-                }
-            }
-        }
-        Debug.Log("Something has gone wrong in Control Movement");
-        return player.position;
-    }
-
     void ChangeForm(ColliderInfo from, ColliderInfo to)
     {
 
@@ -270,10 +245,10 @@ public class ControlMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         //Area Player occupies in Grid
-        Vector3Int topLeft = Vector3Int.FloorToInt(new Vector3(plyCol.bounds.min.x, plyCol.bounds.max.y+1, 0));
-        Vector3Int topRight = Vector3Int.FloorToInt(plyCol.bounds.max + new Vector3(1, 1, 0));
-        Vector3Int botRight = Vector3Int.FloorToInt(new Vector3 (plyCol.bounds.max.x+1, plyCol.bounds.min.y, 0));
-        Vector3Int botLeft = Vector3Int.FloorToInt(plyCol.bounds.min);
+        Vector3Int topLeft = Vector3Int.FloorToInt(new Vector3(PlayerBrain.PB.plyCol.bounds.min.x, PlayerBrain.PB.plyCol.bounds.max.y+1, 0));
+        Vector3Int topRight = Vector3Int.FloorToInt(PlayerBrain.PB.plyCol.bounds.max + new Vector3(1, 1, 0));
+        Vector3Int botRight = Vector3Int.FloorToInt(new Vector3 (PlayerBrain.PB.plyCol.bounds.max.x+1, PlayerBrain.PB.plyCol.bounds.min.y, 0));
+        Vector3Int botLeft = Vector3Int.FloorToInt(PlayerBrain.PB.plyCol.bounds.min);
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(topRight, botRight);

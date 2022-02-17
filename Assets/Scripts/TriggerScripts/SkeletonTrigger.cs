@@ -7,6 +7,7 @@ using UnityEngine.Animations;
 public class SkeletonTrigger : MonoBehaviour
 {
     //Public Variables
+    public PlayerBrain.skeleType type;
     public int Form; //This is used in the animator to let it know which form it needs to change to
     public bool isGrabbed = false;
     public string Name;
@@ -22,14 +23,16 @@ public class SkeletonTrigger : MonoBehaviour
 
     //Private Variables
     ControlMovement cntrlMove;
-    SpecialInteractions spcInter;
+    BlobController blbCntrl;
+    Embodiment embody;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Blob"))
         {
             cntrlMove = collision.GetComponent<ControlMovement>();
-            spcInter = collision.GetComponent<SpecialInteractions>();
+            blbCntrl = collision.GetComponent<BlobController>();
+            embody = collision.GetComponent<Embodiment>();
             if(cntrlMove != null)
             {
                 if (cntrlMove.skeleton == null)
@@ -38,11 +41,19 @@ public class SkeletonTrigger : MonoBehaviour
                 }
             }
 
-            if(spcInter != null)
+            if(blbCntrl != null)
             {
-                if (spcInter.heldSkel == null)
+                if (blbCntrl.heldSkel == null)
                 {
-                    spcInter.SetHeldSkel(this);
+                    blbCntrl.SetHeldSkel(this);
+                }
+            }
+
+            if(embody != null)
+            {
+                if(embody.targetSkeleton == null)
+                {
+                    embody.SetTargetSkeleton(this);
                 }
             }
         }
@@ -50,29 +61,38 @@ public class SkeletonTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Blob"))
+        if (cntrlMove != null)
         {
-            if (cntrlMove != null)
+            if (!isGrabbed)
             {
-                if (!isGrabbed)
+                if (cntrlMove.skeleton == this)
                 {
-                    if (cntrlMove.skeleton == this)
-                    {
-                        cntrlMove.SetEmbodyValues(null);
-                        cntrlMove = null;
-                    }
+                    cntrlMove.SetEmbodyValues(null);
+                    cntrlMove = null;
                 }
             }
+        }
 
-            if (spcInter != null)
+        if (blbCntrl != null)
+        {
+            if (!isGrabbed)
             {
-                if (!isGrabbed)
+                if (blbCntrl.targetSkeleton == this)
                 {
-                    if (spcInter.skeleton == this)
-                    {
-                        spcInter.SetHeldSkel(null);
-                        spcInter = null;
-                    }
+                    blbCntrl.SetHeldSkel(null);
+                    blbCntrl = null;
+                }
+            }
+        }
+
+        if (embody != null)
+        {
+            if (!isGrabbed)
+            {
+                if (embody.targetSkeleton == this)
+                {
+                    embody.SetTargetSkeleton(null);
+                    embody = null;
                 }
             }
         }

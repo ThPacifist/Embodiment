@@ -11,6 +11,8 @@ public class ClimbTrigger : MonoBehaviour
 
     [SerializeField]
     PlyController plyCntrl;
+    //Code for Player Rework
+    CatController cat;
 
     Vector2 direction;
 
@@ -32,9 +34,15 @@ public class ClimbTrigger : MonoBehaviour
         if (collision.CompareTag("Cat"))
         {
             plyCntrl = collision.GetComponent<PlyController>();
+            cat = collision.GetComponent<CatController>();
             if (plyCntrl != null)
             {
                 plyCntrl.SetCatOnWall(true, direction);
+            }
+            //Code for Player Rework
+            if (cat != null)
+            {
+                cat.SetCatOnWall(true, direction);
             }
         }
     }
@@ -44,6 +52,12 @@ public class ClimbTrigger : MonoBehaviour
         {
             plyCntrl.SetCatOnWall(false, Vector2.zero);
             plyCntrl = null;
+        }
+        //Code for Player Rework
+        if (cat != null)
+        {
+            cat.SetCatOnWall(false, Vector2.zero);
+            cat = null;
         }
     }
 }
