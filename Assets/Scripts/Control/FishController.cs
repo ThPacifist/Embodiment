@@ -172,4 +172,9 @@ public class FishController : Controller
     {
         lever = l;
     }
+
+    public override void ToggleBody(bool value)
+    {
+        Embodiment.canDisembody = value;
+    }
 }

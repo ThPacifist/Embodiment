@@ -33,6 +33,11 @@ public class Embodiment : MonoBehaviour
         Debug.Log("Embody");    
         if(targetSkeleton != null && CheckSpace(targetSkeleton) && canEmbody)
         {
+            if(AudioManager.instance != null)
+            {
+                AudioManager.instance.Play("embody");
+            }
+
             //Enables the controller of the targeted form which changes the current controller
             PlayerBrain.PB.currentController.enabled = false;
             PlayerBrain.Skeletons[targetSkeleton.type].enabled = true;
@@ -58,6 +63,11 @@ public class Embodiment : MonoBehaviour
         Debug.Log("Disembody");
         if (currentSkeleton != null && canDisembody)
         {
+            if (AudioManager.instance != null)
+            {
+                AudioManager.instance.Play("unEmbody");
+            }
+
             //Disables the controller of the old form and renables Blob form
             BlobController temp = (BlobController)PlayerBrain.Skeletons[PlayerBrain.skeleType.Blob];
             PlayerBrain.PB.currentController.enabled = false;
@@ -68,8 +78,25 @@ public class Embodiment : MonoBehaviour
             currentSkeleton.gameObject.SetActive(true);
             currentSkeleton.parent = null;
             currentSkeleton = null;
-            temp.PickUpSkeleton(targetSkeleton);
-            PlayerBrain.PB.plyAnim.SetTrigger("Disembody");
+
+            //Makes the Player Grab the skeleton
+            if (targetSkeleton != null)
+            {
+                temp.heldSkel = targetSkeleton;
+                temp.heldSkel.isGrabbed = true;
+                Destroy(PlayerBrain.PB.prefabInstance);
+                temp.skelHeld = true;
+                PlayerBrain.PB.fixedJ.enabled = true;
+                PlayerBrain.PB.fixedJ.connectedBody = temp.heldSkel.transform.parent.GetComponent<Rigidbody2D>();
+                temp.heldSkel.skelGObject.transform.position = temp.skelHeldPos.transform.position;
+                PlayerBrain.PB.plyAnim.SetBool("isGrabbing", true);
+                PlayerBrain.PB.plyAnim.SetTrigger("Disembody");
+                temp.jumpHeight = 60;
+            }
+            else
+            {
+                Debug.LogError("There is no skeleton to grab.");
+            }
 
             PlayerBrain.Embody += Embody;
             canEmbody = true;

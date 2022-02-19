@@ -249,13 +249,26 @@ public class Controller : MonoBehaviour
     {
         PlayerBrain.PB.rb.simulated = false;
         PlayerBrain.PB.rb.velocity = Vector2.zero;
+        ToggleBody(false);
         DisableMovement();
     }
 
     void UnFreezePlayer()
     {
         PlayerBrain.PB.rb.simulated = true;
+        ToggleBody(true);
         RenableMovement();
+    }
+
+    /// <summary>
+    /// This is to be used to disable and enable Disembody and embody for the correct form. Where blob the can only embody so only canEmbody is disabled
+    /// and with any of the other forms we disable canDisembody.
+    /// Note: Make sure to set it back to true
+    /// </summary>
+    /// <param name="value"></param>
+    public virtual void ToggleBody(bool value)
+    {
+
     }
 
     //Used for bug testing

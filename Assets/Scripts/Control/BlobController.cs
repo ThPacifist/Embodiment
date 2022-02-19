@@ -12,8 +12,7 @@ public class BlobController : Controller
     public GameObject lamp;
     public SkeletonTrigger heldSkel;
     public SkeletonTrigger targetSkeleton;
-    [SerializeField]
-    Transform skelHeldPos;
+    public Transform skelHeldPos;
 
     public override void Start()
     {
@@ -82,6 +81,18 @@ public class BlobController : Controller
                         {
                             PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.6f, ForceMode2D.Impulse);
                         }
+                    }
+
+                    if (audioManager != null)
+                    {
+                        audioManager.Play("blobStep");
+                    }
+                }
+                else
+                {
+                    if (audioManager != null)
+                    {
+                        audioManager.Stop("blobStep");
                     }
                 }
             }
@@ -358,6 +369,11 @@ public class BlobController : Controller
                 jumpHeight = 18.1f;
             }
         }
+    }
+
+    public override void ToggleBody(bool value)
+    {
+        Embodiment.canEmbody = value;
     }
 
     private void OnDrawGizmos()

@@ -321,6 +321,11 @@ public class HumanController : Controller
         }
     }
 
+    public override void ToggleBody(bool value)
+    {
+        Embodiment.canDisembody = value;
+    }
+
     private void OnDrawGizmos()
     {
         //Human Box Pos

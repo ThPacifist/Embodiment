@@ -553,7 +553,7 @@ public class SpecialInteractions : MonoBehaviour
             fixedJ.enabled = false;
             if(boxTag == "HBox")
                 fixedJ.connectedBody.mass = 20;
-            plyCntrl.speed = cntrlMovement.skeloData.speed;
+            //plyCntrl.speed = cntrlMovement.skeloData.speed;
             fixedJ.connectedBody = null;
             heldBox = null;
         }

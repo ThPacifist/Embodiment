@@ -166,4 +166,9 @@ public class CatController : Controller
             }
         }
     }
+
+    public override void ToggleBody(bool value)
+    {
+        Embodiment.canDisembody = value;
+    }
 }

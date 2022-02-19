@@ -56,7 +56,8 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        s.source.Play();
+        if(!s.source.isPlaying)
+            s.source.Play();
     }
 
     public void Stop(string sound)
@@ -135,6 +136,53 @@ public class AudioManager : MonoBehaviour
             s.source.outputAudioMixerGroup = mixerGroup.audioMixer.FindMatchingGroups("SFX")[0];
             sAssist.soundEffects.Add(s);
         }
+    }
+    /// <summary>
+    /// Checks whether the inputted sound is playing. If it is, passes 1. If not it passes 2. If it passes 0, the sound does not exist or is missing.
+    /// </summary>
+    /// <param name="sound"></param>
+    /// <returns></returns>
+    public int IsSoundPlaying(string sound)
+    {
+        Sound s = Array.Find(sounds, item => item.name == sound); //Find the sound we want to play, ensure it's not null
+        if (s == null)
+        {
+            s = Array.Find(Music, item => item.name == sound); //If it's not a sound effect, see if it's a music track
+
+            if (s == null)
+            {
+                Debug.LogError("Sound and/or Music: " + name + " not found!");
+                return 0;
+            }
+        }
+
+        //if the sound is playing, pass 1
+        if(s.source.isPlaying)
+        {
+            return 1;
+        }
+        //if the sound is NOT playing, pass 2
+        else
+        {
+            return 2;
+        }
+    }
+
+    bool DoesSoundExist(string sound)
+    {
+        Sound s = Array.Find(sounds, item => item.name == sound); //Find the sound we want to play, ensure it's not null
+        if (s == null)
+        {
+            s = Array.Find(Music, item => item.name == sound); //If it's not a sound effect, see if it's a music track
+
+            if (s == null)
+            {
+                Debug.LogError("Sound and/or Music: " + name + " not found!");
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public void StopAll()

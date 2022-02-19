@@ -557,7 +557,7 @@ public class PlyController : MonoBehaviour
             {
                 inWater = false;
                 plyAnim.SetBool("inWater", false);
-                capCollider.density = cntrlMove.skeloData.density;
+                //capCollider.density = cntrlMove.skeloData.density;
             }
         }
         else if (CompareTag("Blob"))

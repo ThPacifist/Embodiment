@@ -8,16 +8,7 @@ public class SkeletonTrigger : MonoBehaviour
 {
     //Public Variables
     public PlayerBrain.skeleType type;
-    public int Form; //This is used in the animator to let it know which form it needs to change to
     public bool isGrabbed = false;
-    public string Name;
-    public float speed;
-    public float jumpHeight;
-    public float density;
-    public Vector2 colliderSize;
-    public Vector2 colliderOffset;
-    public CapsuleDirection2D direction;
-    public RuntimeAnimatorController controller;
     public Transform skelGObject;
     public Skeleton skeloScript;
 

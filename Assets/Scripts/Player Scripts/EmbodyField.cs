@@ -16,7 +16,7 @@ public class EmbodyField : MonoBehaviour
     {
         safe = true;
         //GameObject test = new GameObject("test");
-        nextBounds = new Bounds(floor + new Vector3(0, to.colliderSize.y / 2, 0), to.colliderSize);
+        //nextBounds = new Bounds(floor + new Vector3(0, to.colliderSize.y / 2, 0), to.colliderSize);
 
         //test.transform.position = nextBounds.center;
 

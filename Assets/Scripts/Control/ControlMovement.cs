@@ -94,20 +94,20 @@ public class ControlMovement : MonoBehaviour
 
                 //Changes players values to be the skeleton
                 spIntr.PickUpSkeleton(null);
-                tag = skeleton.Name;
+                /*tag = skeleton.Name;
                 plyCntrl.speed = skeleton.speed;
                 plyCntrl.jumpHeight = skeleton.jumpHeight;
                 PlayerBrain.PB.plyCol.size = skeleton.colliderSize;
                 PlayerBrain.PB.plyCol.offset = skeleton.colliderOffset;
                 PlayerBrain.PB.plyCol.direction = skeleton.direction;
-                PlayerBrain.PB.plyCol.density = skeleton.density;
+                PlayerBrain.PB.plyCol.density = skeleton.density;*/
                 skeloData = skeleton;
 
                 //Changes players sprite to be the skeleton
-                if(skeleton.controller != null)
+                /*if(skeleton.controller != null)
                     PlayerBrain.PB.plyAnim.runtimeAnimatorController = skeleton.controller;
                 PlayerBrain.PB.plyAnim.SetTrigger(skeleton.Name);
-                PlayerBrain.PB.plyAnim.SetInteger("Form", skeleton.Form);
+                PlayerBrain.PB.plyAnim.SetInteger("Form", skeleton.Form);*/
 
                 //Attach skeleton to player and disable it
                 heldSkeleton = skeleton.transform.parent;

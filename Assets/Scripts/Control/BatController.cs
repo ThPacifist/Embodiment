@@ -212,6 +212,11 @@ public class BatController : Controller
         }
     }
 
+    public override void ToggleBody(bool value)
+    {
+        Embodiment.canDisembody = value;
+    }
+
     private void OnDrawGizmos()
     {
         //Bat Box Pos
