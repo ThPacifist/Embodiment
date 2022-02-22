@@ -8,6 +8,16 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(LineRenderer))]
 public class CableTilePlacer : MonoBehaviour
 {
+    public enum Pipe
+    {
+        Horizontal,
+        Vertical,
+        LeftUp,
+        LeftDown,
+        RightUp,
+        RightDown
+    }
+
     [SerializeField]
     LineRenderer line;
     Vector3Int currentPos;
@@ -18,28 +28,80 @@ public class CableTilePlacer : MonoBehaviour
     [SerializeField]
     Tilemap tileMap;
 
+    [Header("List of Tiles")]
+    public TileBase HorizontalCable;
+    public TileBase VerticalCable;
+    public TileBase leftUp;
+    public TileBase leftDown;
+    public TileBase rightUp;
+    public TileBase rightDown;
+
     Vector3Int startPosR;
     Vector3Int endPosR;
     //Serves as the next position of the loop
     Vector3Int nextPos;
-    List<Vector3> Positions = new List<Vector3>();
+    List<Vector3Int> Positions = new List<Vector3Int>();
+    List<TileBase> tileList = new List<TileBase>();
     int count = 0;
+
+    public Dictionary<Pipe, TileBase> PipeDB;
+
+    [ContextMenu("Initialize Tile Database")]
+    void InitializeDB()
+    {
+        PipeDB = new Dictionary<Pipe, TileBase>();
+
+        PipeDB.Add(Pipe.Horizontal, HorizontalCable);
+        PipeDB.Add(Pipe.Vertical, VerticalCable);
+        PipeDB.Add(Pipe.LeftUp, leftUp);
+        PipeDB.Add(Pipe.LeftDown, leftDown);
+        PipeDB.Add(Pipe.RightUp, rightUp);
+        PipeDB.Add(Pipe.RightDown, rightDown);
+
+        Dictionary<Pipe, TileBase>.ValueCollection values = PipeDB.Values;
+        foreach(TileBase t in values)
+        {
+            Debug.Log(t.name + " has been added to the dictionary");
+        }
+    }
 
     public void GenerateCable()
     {
+        Positions.Clear();
+        tileList.Clear();
+
+        if (PipeDB == null)
+            InitializeDB();
+
+        //Initializing TileMap
+        GameObject CableMap = new GameObject("Cable Map");
+        CableMap.transform.parent = this.transform.parent;
+        Tilemap cableTileMap = CableMap.AddComponent<Tilemap>();
+        CableMap.AddComponent<TilemapRenderer>();
+
         //Converts the positions of the game objects to be integer vectors
         startPosR = Vector3Int.FloorToInt(startPos.transform.position);
         startPosR.z = 0;
         endPosR = Vector3Int.FloorToInt(endPos.transform.position);
         endPosR.z = 0;
         Debug.Log("Start Pos is " + startPosR + ". End pos is " + endPosR + ".");
+
         //Initializes starting position
         currentPos = startPosR;
         nextPos = currentPos;
         Positions.Add(currentPos);
+        tileList.Add(PipeDB[Pipe.Horizontal]);
+        count = 1;
 
-        while(currentPos.x != endPosR.x && count < 100)
+        while(currentPos.x != endPosR.x)
         {
+            //This is for when I am moving right instead of left
+            int adjustment = 0;
+            if (currentPos.x > endPosR.x)
+                adjustment = 2;
+
+            //Sets the default tile
+            TileBase nextTile = PipeDB[Pipe.Horizontal];
             nextPos.x += MoveTowardsInt(currentPos.x, endPosR.x);
             if (tileMap.GetTile(nextPos))
             {
@@ -49,11 +111,20 @@ public class CableTilePlacer : MonoBehaviour
                 if(!tileMap.GetTile(nextPos + Vector3Int.up))
                 {
                     currentPos.y += 1;
+                    //tileList[count - 1] = PipeDB[Pipe.LeftUp + adjustment];
+                    //nextTile = PipeDB[Pipe.RightDown - adjustment];
                 }
                 //If there is, move down
-                else
+                else if(!tileMap.GetTile(nextPos + Vector3Int.down))
                 {
                     currentPos.y -= 1;
+                    //tileList[count - 1] = PipeDB[Pipe.LeftDown + adjustment];
+                    //nextTile = PipeDB[Pipe.RightUp - adjustment];
+                }
+                else
+                {
+                    Debug.LogError("Could not find a path. Please change Start and/or End points");
+                    break;
                 }
             }
             else
@@ -63,16 +134,25 @@ public class CableTilePlacer : MonoBehaviour
             }
 
             Positions.Add(currentPos);
+            tileList.Add(nextTile);
             nextPos = currentPos;
 
             count++;
         }
 
         nextPos = currentPos;
-        count = 0;
-
-        while (currentPos.y != endPosR.y && count < 100)
+        /*if(currentPos.y > endPosR.y)
         {
+            tileList[count - 1] = PipeDB[Pipe.LeftDown];
+        }
+        else
+        {
+            tileList[count - 1] = PipeDB[Pipe.LeftUp];
+        }*/
+
+        while (currentPos.y != endPosR.y)
+        {
+            TileBase nextTile = PipeDB[Pipe.Vertical];
             nextPos.y += MoveTowardsInt(currentPos.y, endPosR.y);
             if (tileMap.GetTile(nextPos))
             {
@@ -84,9 +164,14 @@ public class CableTilePlacer : MonoBehaviour
                     currentPos.x += 1;
                 }
                 //If there is, move left
-                else
+                else if(!tileMap.GetTile(nextPos + Vector3Int.right))
                 {
                     currentPos.x -= 1;
+                }
+                else
+                {
+                    Debug.LogError("Could not find a path. Please change Start and/or End points");
+                    break;
                 }
             }
             else
@@ -96,6 +181,9 @@ public class CableTilePlacer : MonoBehaviour
             }
 
             Positions.Add(currentPos);
+            tileList.Add(nextTile);
+            nextPos = currentPos;
+
             count++;
         }
 
@@ -105,11 +193,16 @@ public class CableTilePlacer : MonoBehaviour
         }*/
         //if (count >= 50)
         //{
-            line.positionCount = Positions.Count;
-            line.SetPositions(Positions.ToArray());
+
+        Vector3[] posArray = Array.ConvertAll(Positions.ToArray(), item => (Vector3)item);
+        line.positionCount = Positions.Count;
+        line.SetPositions(posArray);
         //}
 
+        cableTileMap.SetTiles(Positions.ToArray(), tileList.ToArray());
+
         Positions.Clear();
+        tileList.Clear();
     }
 
     //Adds 1 or -1 based on the dist from vectors a to b
