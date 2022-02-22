@@ -15,6 +15,7 @@ public class ExpozyteMove : MonoBehaviour
     public Transform player;
     public int atCheckpoint;
     public int toCheckpoint;
+    public int queueMove;
     public bool moving;
     public bool left;
     public bool withPlayer;
@@ -43,16 +44,24 @@ public class ExpozyteMove : MonoBehaviour
     private void Move()
     {
         //If he is not there yet, move him there
-        if(Expozyte.position != Checkpoints[toCheckpoint].position)
+        if (Expozyte.position != Checkpoints[toCheckpoint].position)
         {
             Expozyte.position = Vector2.MoveTowards(Expozyte.position, Checkpoints[toCheckpoint].position, 10 * Time.deltaTime);
         }
         //If he is, change his values
         else
         {
-            atCheckpoint = toCheckpoint;
-            toCheckpoint = -1;
-            moving = false;
+            if (queueMove == -1)
+            {
+                atCheckpoint = toCheckpoint;
+                toCheckpoint = -1;
+                moving = false;
+            }
+            else
+            {
+                toCheckpoint = queueMove;
+                queueMove = -1;
+            }
         }
     }
 
@@ -60,8 +69,15 @@ public class ExpozyteMove : MonoBehaviour
     public void BeginMove(int newCheckpoint)
     {
         //Set moving and the checkpoint
-        moving = true;
-        toCheckpoint = newCheckpoint;
+        if (!moving)
+        {
+            moving = true;
+            toCheckpoint = newCheckpoint;
+        }
+        else
+        {
+            queueMove = newCheckpoint;
+        }
     }
 
     //This function handles movement with player
@@ -84,7 +100,7 @@ public class ExpozyteMove : MonoBehaviour
 
         if (moving)
         {
-            Expozyte.position = Vector2.MoveTowards(Expozyte.position, Checkpoints[toCheckpoint].position, 10 * Time.deltaTime);
+            Expozyte.position = Vector2.MoveTowards(Expozyte.position, Checkpoints[toCheckpoint].position, 4 * Time.deltaTime);
         }
     }
 
