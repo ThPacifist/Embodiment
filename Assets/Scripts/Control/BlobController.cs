@@ -79,7 +79,8 @@ public class BlobController : Controller
                     {
                         if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                         {
-                            PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.6f, ForceMode2D.Impulse);
+                            //PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.2f, ForceMode2D.Impulse);
+                            PlayerBrain.PB.rb.AddRelativeForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.15f, ForceMode2D.Impulse);
                         }
                     }
 
@@ -152,7 +153,7 @@ public class BlobController : Controller
         {
             if (isGrounded() || PlayerBrain.PB.inWater)
             {
-                PlayerBrain.PB.rb.AddForce((Vector2.up * jumpHeight) /*- new Vector2(0, rb.velocity.y)*/, ForceMode2D.Impulse);
+                PlayerBrain.PB.rb.AddForce((Vector2.up * jumpHeight), ForceMode2D.Impulse);
             }
             else if (isAttached)
             {
@@ -232,6 +233,7 @@ public class BlobController : Controller
         if (!PlayerBrain.PB.spring.isActiveAndEnabled)
         {
             lRenderer.enabled = true;
+            PlayerBrain.PB.plyCol.size = new Vector2(0.96f, 0.96f);
             PlayerBrain.PB.spring.enabled = true;
             PlayerBrain.PB.spring.connectedAnchor = lamp.transform.position;
             lRenderer.SetPosition(1, new Vector3(lamp.transform.position.x, lamp.transform.position.y, transform.position.z));
@@ -239,6 +241,7 @@ public class BlobController : Controller
         }
         else
         {
+            PlayerBrain.PB.plyCol.size = colliderSize;
             PlayerBrain.PB.spring.enabled = false;
             PlayerBrain.PB.spring.connectedAnchor = Vector2.zero;
             lRenderer.SetPosition(1, transform.position);

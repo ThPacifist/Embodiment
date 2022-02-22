@@ -53,7 +53,7 @@ public class CatController : Controller
                 //Checks if the player is pushing up or down
                 if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y != 0)
                 {
-                    PlayerBrain.PB.rb.velocity += (Vector2.up * PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y * speed * 0.5f) - new Vector2(0, PlayerBrain.PB.rb.velocity.y);
+                    PlayerBrain.PB.rb.velocity += (Vector2.up * PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y * speed * 0.75f) - new Vector2(0, PlayerBrain.PB.rb.velocity.y);
                     if (audioManager != null)
                     {
                         audioManager.Play("catClimb");
