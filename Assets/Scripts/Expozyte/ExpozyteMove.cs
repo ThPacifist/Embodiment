@@ -105,12 +105,12 @@ public class ExpozyteMove : MonoBehaviour
     }
 
     //This function handles moving with the player
-    public void MoveWithPlayer(bool leftRight)
+    public void MoveWithPlayer(bool leftRight, int checkpoint)
     {
         //Sets the direction of movement
         left = leftRight;
         withPlayer = true;
         //Sets checkpoint 
-        toCheckpoint = atCheckpoint;
+        toCheckpoint = checkpoint;
     }
 }

@@ -18,7 +18,7 @@ public class ExpozyteMoveWithPlayer : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         //Begin move
-        ExpMove.BeginMove(goToCheckpoint);
+        ExpMove.MoveWithPlayer(left, goToCheckpoint);
         this.gameObject.SetActive(false);
     }
 }
