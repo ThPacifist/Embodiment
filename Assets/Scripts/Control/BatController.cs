@@ -150,6 +150,7 @@ public class BatController : Controller
             PlayerBrain.PB.plyAnim.SetBool("isGrabbing", true);
             //Attach box
             heldBox = box;
+            heldBox.gravityScale = 0;
             boxHeld = true;
             PlayerBrain.PB.fixedJ.enabled = true;
             PlayerBrain.PB.fixedJ.connectedBody = heldBox;
@@ -164,6 +165,7 @@ public class BatController : Controller
             PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
             //plyAnim.SetTrigger("Bat");
             boxHeld = false;
+            heldBox.gravityScale = 1;
             PlayerBrain.PB.fixedJ.enabled = false;
             PlayerBrain.PB.fixedJ.connectedBody = null;
             heldBox = null;

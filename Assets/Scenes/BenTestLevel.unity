@@ -39620,8 +39620,9 @@ GameObject:
   - component: {fileID: 1425310312}
   - component: {fileID: 1425310311}
   - component: {fileID: 1425310310}
+  - component: {fileID: 1425310313}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: BubbleCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39645,7 +39646,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -1.24}
+  m_AnchoredPosition: {x: 0, y: -1.25}
   m_SizeDelta: {x: 196, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1425310310
@@ -39709,6 +39710,23 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1425310313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425310308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c62d9a16be60df44cb2bb3f54b6b31c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bubbleCanvas: {fileID: 1425310312}
+  bubbleTail: {fileID: 2000492841}
+  talkBubble: {fileID: 1784240589}
+  Expoyzte: {fileID: 2040185927}
+  target: {x: 77.64004, y: 835.92, z: 9.069959}
 --- !u!1 &1469167458
 GameObject:
   m_ObjectHideFlags: 0
@@ -43844,7 +43862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6415094, g: 0.27475968, b: 0.27475968, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -43885,7 +43903,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &2040185928
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -43945,7 +43963,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2040185927}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.32, y: 6.21, z: -0.93004125}
+  m_LocalPosition: {x: -4.9, y: 6.14, z: -0.93004125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1425310309}
