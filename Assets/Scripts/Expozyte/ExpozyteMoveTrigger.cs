@@ -20,4 +20,5 @@ public class ExpozyteMoveTrigger : MonoBehaviour
         ExpMove.BeginMove(goToCheckpoint);
         this.gameObject.SetActive(false);
     }
+
 }
