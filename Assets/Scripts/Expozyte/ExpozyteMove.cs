@@ -25,6 +25,7 @@ public class ExpozyteMove : MonoBehaviour
     //Private variables
     private int queuePos = 0;
     private int[] queueMove;
+    private bool catchUp;
 
     private void Start()
     {
@@ -50,7 +51,7 @@ public class ExpozyteMove : MonoBehaviour
         }
         else if (queueMove[0] != -1)
         {
-
+            catchUp = true;
             toCheckpoint = queueMove[0];
             fixQueue();
             moving = true;
@@ -61,9 +62,13 @@ public class ExpozyteMove : MonoBehaviour
     private void Move()
     {
         //If he is not there yet, move him there
-        if (Expozyte.position != Checkpoints[toCheckpoint].position)
+        if (Expozyte.position != Checkpoints[toCheckpoint].position && catchUp)
         {
             Expozyte.position = Vector2.MoveTowards(Expozyte.position, Checkpoints[toCheckpoint].position, 10 * Time.deltaTime);
+        }
+        else if(Expozyte.position != Checkpoints[toCheckpoint].position)
+        {
+            Expozyte.position = Vector2.MoveTowards(Expozyte.position, Checkpoints[toCheckpoint].position, 6 * Time.deltaTime);
         }
         //If he is, change his values
         else
@@ -149,5 +154,14 @@ public class ExpozyteMove : MonoBehaviour
             queueMove[i] = queueMove[i + 1];
         }
         queuePos--;
+        if(queuePos == 0)
+        {
+            catchUp = false;
+        }
+        else if(queuePos < 0)
+        {
+            queuePos = 0;
+            catchUp = false;
+        }
     }
 }
