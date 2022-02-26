@@ -12,13 +12,14 @@ public class ExpozyteMoveWithPlayer : MonoBehaviour
     //Public Variables
     public ExpozyteMove ExpMove;
     public int goToCheckpoint;
+    public int speed;
     public bool left;
 
     //When the player enters move
     public void OnTriggerEnter2D(Collider2D collision)
     {
         //Begin move
-        ExpMove.MoveWithPlayer(left, goToCheckpoint);
+        ExpMove.MoveWithPlayer(left, goToCheckpoint, speed);
         this.gameObject.SetActive(false);
     }
 }

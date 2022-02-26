@@ -11,6 +11,7 @@ public class ExpozyteMove : MonoBehaviour
      */
 
     //Public variables
+    public AnimationCurve animCurve;
     public Transform Expozyte;
     public Transform player;
     public int atCheckpoint;
@@ -25,6 +26,8 @@ public class ExpozyteMove : MonoBehaviour
     //Private variables
     private int queuePos = 0;
     private int[] queueMove;
+    private float speed;
+    private float rate;
     private bool catchUp;
 
     private void Start()
@@ -116,7 +119,16 @@ public class ExpozyteMove : MonoBehaviour
 
         if (moving)
         {
-            Expozyte.position = Vector2.MoveTowards(Expozyte.position, Checkpoints[toCheckpoint].position, 4 * Time.deltaTime);
+            //Sets rate based on distance from player on x axis
+            rate = Mathf.Abs(player.position.x - Expozyte.position.x) / 3;
+            rate = Mathf.Clamp(rate, 0.1f, 1);
+            //Move expozyte
+            Expozyte.position = Vector2.Lerp(Expozyte.position, Checkpoints[toCheckpoint].position, animCurve.Evaluate(rate * Time.deltaTime * speed));
+
+            if(Mathf.Abs(Expozyte.position.x - Checkpoints[toCheckpoint].position.x) < 5)
+            {
+                Expozyte.position = Vector2.MoveTowards(Expozyte.position, Checkpoints[toCheckpoint].position, speed / 2 * Time.deltaTime);
+            }
         }
 
         //Check if he has arrived
@@ -126,10 +138,11 @@ public class ExpozyteMove : MonoBehaviour
             withPlayer = false;
             toCheckpoint = -1;
         }
+
     }
 
     //This function handles moving with the player
-    public void MoveWithPlayer(bool leftRight, int checkpoint)
+    public void MoveWithPlayer(bool leftRight, int checkpoint, float speed)
     {
         if (!moving)
         {
@@ -138,6 +151,9 @@ public class ExpozyteMove : MonoBehaviour
             withPlayer = true;
             //Sets checkpoint 
             toCheckpoint = checkpoint;
+            PlyMove();
+            //Sets speed
+            this.speed = speed;
         }
         else
         {
@@ -164,4 +180,5 @@ public class ExpozyteMove : MonoBehaviour
             catchUp = false;
         }
     }
+
 }
