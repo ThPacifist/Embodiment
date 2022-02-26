@@ -25,6 +25,7 @@ public class CableTilePlacer : MonoBehaviour
     GameObject startPos;
     [SerializeField]
     GameObject endPos;
+    [Tooltip("Toggle this to make draw through tiles.")]
     [SerializeField]
     bool ignoreTilemap;
     [SerializeField]
@@ -76,7 +77,7 @@ public class CableTilePlacer : MonoBehaviour
             InitializeDB();
 
         //Initializing TileMap
-        GameObject CableMap = new GameObject("Cable Map (1)");
+        GameObject CableMap = new GameObject("Cable Map");
         CableMap.transform.parent = this.transform.parent;
         Tilemap cableTileMap = CableMap.AddComponent<Tilemap>();
         CableMap.AddComponent<TilemapRenderer>();
@@ -95,6 +96,7 @@ public class CableTilePlacer : MonoBehaviour
         tileList.Add(PipeDB[Pipe.Hori]);
         count = 1;
 
+        //Updating the x position
         while(currentPos.x != endPosR.x)
         {
             //This is for when I am moving right instead of left
@@ -105,9 +107,8 @@ public class CableTilePlacer : MonoBehaviour
             //Sets the default tile
             TileBase nextTile = PipeDB[Pipe.Hori];
             nextPos.x += MoveTowardsInt(currentPos.x, endPosR.x);
-            if (tileMap.GetTile(nextPos))
+            if (tileMap.GetTile(nextPos) && !ignoreTilemap)
             {
-                Debug.Log("There is a tile");
                 nextPos = currentPos;
                 //If there is not a tile above, move current pos up
                 if(!tileMap.GetTile(nextPos + Vector3Int.up))
@@ -120,7 +121,6 @@ public class CableTilePlacer : MonoBehaviour
                     if (tileList[count - 2] == PipeDB[Pipe.Hori])
                     {
                         tileList[count - 1] = PipeDB[Pipe.LU + adjustment];
-                        Debug.Log("Placed Left up Tile");
                     }
                     //If not place the vertical tile
                     else
@@ -136,7 +136,7 @@ public class CableTilePlacer : MonoBehaviour
 
                     //In the case there is multiple tiles to the right
                     //Check to see if previous tile was the horizontal tile
-                    if (tileMap.GetTile(Positions[count - 2]) == PipeDB[Pipe.Hori])
+                    if (tileList[count - 2] == PipeDB[Pipe.Hori])
                     {
                         tileList[count - 1] = PipeDB[Pipe.LD + adjustment];
                     }
@@ -154,7 +154,6 @@ public class CableTilePlacer : MonoBehaviour
             }
             else
             {
-                Debug.Log("There is not a tile");
                 currentPos.x += MoveTowardsInt(currentPos.x, endPosR.x);
             }
 
@@ -165,6 +164,7 @@ public class CableTilePlacer : MonoBehaviour
             count++;
         }
 
+        //Turning towards the end pos
         nextPos = currentPos;
         if(currentPos.y > endPosR.y)
         {
@@ -181,6 +181,8 @@ public class CableTilePlacer : MonoBehaviour
             tileList[count - 1] = PipeDB[Pipe.LU + adjustment];
         }
 
+
+        //Updating the Y position
         while (currentPos.y != endPosR.y)
         {
             //This is for when am moving up instead of down
@@ -190,21 +192,40 @@ public class CableTilePlacer : MonoBehaviour
 
             TileBase nextTile = PipeDB[Pipe.Vert];
             nextPos.y += MoveTowardsInt(currentPos.y, endPosR.y);
-            if (tileMap.GetTile(nextPos))
+            if (tileMap.GetTile(nextPos) && !ignoreTilemap)
             {
-                Debug.Log("There is a tile");
                 nextPos = currentPos;
                 //If there is not a tile to the right, move current pos right
                 if (!tileMap.GetTile(nextPos + Vector3Int.right))
                 {
                     currentPos.x += 1;
-                    //nextTile = PipeDB[Pipe.RU]
+                    nextTile = PipeDB[Pipe.LU + adjustment];
+
+                    if (tileList[count - 2] == PipeDB[Pipe.Vert])
+                    {
+                        Debug.Log("There was a vertical tile");
+                        tileList[count - 1] = PipeDB[Pipe.RD - adjustment];
+                    }
+                    else
+                    {
+                        Debug.Log("There wasn't a vertical tile");
+                        tileList[count - 1] = PipeDB[Pipe.Hori];
+                    }
                 }
                 //If there is, move left
                 else if(!tileMap.GetTile(nextPos + Vector3Int.right))
                 {
                     currentPos.x -= 1;
-                    //nextTile = PipeDB[Pipe.LU];
+                    nextTile = PipeDB[Pipe.RU + adjustment];
+
+                    if (tileList[count - 2] == PipeDB[Pipe.Vert])
+                    {
+                        tileList[count - 1] = PipeDB[Pipe.LD - adjustment];
+                    }
+                    else
+                    {
+                        tileList[count - 1] = PipeDB[Pipe.Hori];
+                    }
                 }
                 else
                 {
@@ -214,7 +235,6 @@ public class CableTilePlacer : MonoBehaviour
             }
             else
             {
-                Debug.Log("There is not a tile");
                 currentPos.y += MoveTowardsInt(currentPos.y, endPosR.y);
             }
 
@@ -225,17 +245,9 @@ public class CableTilePlacer : MonoBehaviour
             count++;
         }
 
-        /*for(int i = 0; i < Positions.Count; i++)
-        {
-            Debug.Log("Position " + i + " is: " + Positions[i]);
-        }*/
-        //if (count >= 50)
-        //{
-
         Vector3[] posArray = Array.ConvertAll(Positions.ToArray(), item => (Vector3)item);
         line.positionCount = Positions.Count;
         line.SetPositions(posArray);
-        //}
 
         cableTileMap.SetTiles(Positions.ToArray(), tileList.ToArray());
 
