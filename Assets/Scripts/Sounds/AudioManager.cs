@@ -82,8 +82,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    [ContextMenu ("Create Assistants")]
-    void CreateAssistants()
+    public void CreateAssistants()
     {
         if(mAssistGO != null)
         {
@@ -95,20 +94,23 @@ public class AudioManager : MonoBehaviour
         mAssist = mAssistGO.AddComponent<MusicAssistant>();
         mAssist.audioManager = this;
         mAssist.mixerGroup = mixerGroup.audioMixer.FindMatchingGroups("Music")[0];
-        foreach (Sound s in Music)
+        if (Music.Length > 0)
         {
-            GameObject gObject = new GameObject();
-            s.source = gObject.AddComponent<AudioSource>();
-            gObject.name = s.clip.name;
-            s.source.clip = s.clip;
-            s.source.loop = true;
-            s.source.volume = s.volume;
-            s.source.playOnAwake = false;
+            foreach (Sound s in Music)
+            {
+                GameObject gObject = new GameObject();
+                s.source = gObject.AddComponent<AudioSource>();
+                gObject.name = s.clip.name;
+                s.source.clip = s.clip;
+                s.source.loop = true;
+                s.source.volume = s.volume;
+                s.source.playOnAwake = false;
 
-            gObject.transform.parent = mAssistGO.transform;
+                gObject.transform.parent = mAssistGO.transform;
 
-            s.source.outputAudioMixerGroup = mixerGroup.audioMixer.FindMatchingGroups("Music")[0];
-            mAssist.music.Add(s);
+                s.source.outputAudioMixerGroup = mixerGroup.audioMixer.FindMatchingGroups("Music")[0];
+                mAssist.music.Add(s);
+            }
         }
 
         if (sAssistGO != null)
@@ -121,20 +123,24 @@ public class AudioManager : MonoBehaviour
         sAssist = sAssistGO.AddComponent<SoundAssistant>();
         sAssist.audioManager = this;
         sAssist.mixerGroup = mixerGroup.audioMixer.FindMatchingGroups("SFX")[0];
-        foreach (Sound s in sounds) //Init each sound - give it a source and init that source to make it playable
+
+        if (sounds.Length > 0)
         {
-            GameObject gObject = new GameObject();
-            s.source = gObject.AddComponent<AudioSource>();
-            gObject.name = s.clip.name;
-            s.source.clip = s.clip;
-            s.source.loop = s.loop;
-            s.source.volume = s.volume;
-            s.source.playOnAwake = false;
+            foreach (Sound s in sounds) //Init each sound - give it a source and init that source to make it playable
+            {
+                GameObject gObject = new GameObject();
+                s.source = gObject.AddComponent<AudioSource>();
+                gObject.name = s.clip.name;
+                s.source.clip = s.clip;
+                s.source.loop = s.loop;
+                s.source.volume = s.volume;
+                s.source.playOnAwake = false;
 
-            gObject.transform.parent = sAssistGO.transform;
+                gObject.transform.parent = sAssistGO.transform;
 
-            s.source.outputAudioMixerGroup = mixerGroup.audioMixer.FindMatchingGroups("SFX")[0];
-            sAssist.soundEffects.Add(s);
+                s.source.outputAudioMixerGroup = mixerGroup.audioMixer.FindMatchingGroups("SFX")[0];
+                sAssist.soundEffects.Add(s);
+            }
         }
     }
     /// <summary>

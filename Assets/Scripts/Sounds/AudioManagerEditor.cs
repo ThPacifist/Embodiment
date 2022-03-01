@@ -9,9 +9,11 @@ public class AudioManagerEditor : Editor
 {
     public override void OnInspectorGUI()
     {
+        AudioManager manager = (AudioManager)target;
+
         if (GUILayout.Button("Refresh"))
         {
-
+            manager.CreateAssistants();
         }
         DrawDefaultInspector();
     }
