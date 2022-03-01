@@ -95,154 +95,170 @@ public class CableTilePlacer : MonoBehaviour
         Positions.Add(currentPos);
         tileList.Add(PipeDB[Pipe.Hori]);
         count = 1;
+        int loops = 0;
 
-        //Updating the x position
-        while(currentPos.x != endPosR.x)
+        while (currentPos != endPosR && loops < 5)
         {
-            //This is for when I am moving right instead of left
-            int adjustment = 0;
-            if (currentPos.x > endPosR.x)
-                adjustment = 2;
-
-            //Sets the default tile
-            TileBase nextTile = PipeDB[Pipe.Hori];
-            nextPos.x += MoveTowardsInt(currentPos.x, endPosR.x);
-            if (tileMap.GetTile(nextPos) && !ignoreTilemap)
+            //Updating the x position
+            while (currentPos.x != endPosR.x)
             {
-                nextPos = currentPos;
-                //If there is not a tile above, move current pos up
-                if(!tileMap.GetTile(nextPos + Vector3Int.up))
-                {
-                    currentPos.y += 1;
-                    nextTile = PipeDB[Pipe.RD - adjustment];
+                //This is for when I am moving right instead of left
+                int adjustment = 0;
+                if (currentPos.x > endPosR.x)
+                    adjustment = 2;
 
-                    //In the case there is multiple tiles to the right
-                    //Check to see if previous tile was the horizontal tile
-                    if (tileList[count - 2] == PipeDB[Pipe.Hori])
+                //Sets the default tile
+                TileBase nextTile = PipeDB[Pipe.Hori];
+                nextPos.x += MoveTowardsInt(currentPos.x, endPosR.x);
+                if (tileMap.GetTile(nextPos) && !ignoreTilemap)
+                {
+                    nextPos = currentPos;
+                    //If there is not a tile above, move current pos up
+                    if (!tileMap.GetTile(nextPos + Vector3Int.up))
                     {
-                        tileList[count - 1] = PipeDB[Pipe.LU + adjustment];
+                        currentPos.y += 1;
+                        nextTile = PipeDB[Pipe.RD - adjustment];
+
+                        //In the case there is multiple tiles to the right
+                        //Check to see if previous tile was the horizontal tile
+                        if (tileList[count - 2] == PipeDB[Pipe.Hori])
+                        {
+                            tileList[count - 1] = PipeDB[Pipe.LU + adjustment];
+                        }
+                        //If not place the vertical tile
+                        else
+                        {
+                            tileList[count - 1] = PipeDB[Pipe.Vert];
+                        }
                     }
-                    //If not place the vertical tile
+                    //If there is, move down
+                    else if (!tileMap.GetTile(nextPos + Vector3Int.down))
+                    {
+                        currentPos.y -= 1;
+                        nextTile = PipeDB[Pipe.RU - adjustment];
+
+                        //In the case there is multiple tiles to the right
+                        //Check to see if previous tile was the horizontal tile
+                        if (tileList[count - 2] == PipeDB[Pipe.Hori])
+                        {
+                            tileList[count - 1] = PipeDB[Pipe.LD + adjustment];
+                        }
+                        //If not place the vertical tile
+                        else
+                        {
+                            tileList[count - 1] = PipeDB[Pipe.Vert];
+                        }
+                    }
                     else
                     {
-                        tileList[count - 1] = PipeDB[Pipe.Vert];
-                    }
-                }
-                //If there is, move down
-                else if(!tileMap.GetTile(nextPos + Vector3Int.down))
-                {
-                    currentPos.y -= 1;
-                    nextTile = PipeDB[Pipe.RU - adjustment];
-
-                    //In the case there is multiple tiles to the right
-                    //Check to see if previous tile was the horizontal tile
-                    if (tileList[count - 2] == PipeDB[Pipe.Hori])
-                    {
-                        tileList[count - 1] = PipeDB[Pipe.LD + adjustment];
-                    }
-                    //If not place the vertical tile
-                    else
-                    {
-                        tileList[count - 1] = PipeDB[Pipe.Vert];
+                        Debug.LogError("Could not find a path. Please change Start and/or End points");
+                        break;
                     }
                 }
                 else
                 {
-                    Debug.LogError("Could not find a path. Please change Start and/or End points");
-                    break;
+                    currentPos.x += MoveTowardsInt(currentPos.x, endPosR.x);
                 }
-            }
-            else
-            {
-                currentPos.x += MoveTowardsInt(currentPos.x, endPosR.x);
+
+                Positions.Add(currentPos);
+                tileList.Add(nextTile);
+                nextPos = currentPos;
+
+                count++;
             }
 
-            Positions.Add(currentPos);
-            tileList.Add(nextTile);
+            //Turning towards the end pos
             nextPos = currentPos;
-
-            count++;
-        }
-
-        //Turning towards the end pos
-        nextPos = currentPos;
-        if(currentPos.y > endPosR.y)
-        {
-            int adjustment = 0;
-            if (currentPos.x > endPosR.x)
-                adjustment = 2;
-            tileList[count - 1] = PipeDB[Pipe.LD + adjustment];
-        }
-        else
-        {
-            int adjustment = 0;
-            if (currentPos.x > endPosR.x)
-                adjustment = 2;
-            tileList[count - 1] = PipeDB[Pipe.LU + adjustment];
-        }
-
-
-        //Updating the Y position
-        while (currentPos.y != endPosR.y)
-        {
-            //This is for when am moving up instead of down
-            int adjustment = 0;
+            //Current pos needs to head downwards
             if (currentPos.y > endPosR.y)
-                adjustment = 1;
-
-            TileBase nextTile = PipeDB[Pipe.Vert];
-            nextPos.y += MoveTowardsInt(currentPos.y, endPosR.y);
-            if (tileMap.GetTile(nextPos) && !ignoreTilemap)
             {
-                nextPos = currentPos;
-                //If there is not a tile to the right, move current pos right
-                if (!tileMap.GetTile(nextPos + Vector3Int.right))
-                {
-                    currentPos.x += 1;
-                    nextTile = PipeDB[Pipe.LU + adjustment];
+                //if we start to the left of the end point
+                if (startPosR.x < endPosR.x)
+                    tileList[count - 1] = PipeDB[Pipe.LD];
+                //if we start to the right of the end point
+                else
+                    tileList[count - 1] = PipeDB[Pipe.RD];
+            }
+            //Current pos needs to upwards
+            else
+            {
+                //if we start to the left of the end point
+                if (startPosR.x < endPosR.x)
+                    tileList[count - 1] = PipeDB[Pipe.LU];
+                //if we start to the right of the end point
+                else
+                    tileList[count - 1] = PipeDB[Pipe.RU];
+            }
 
-                    if (tileList[count - 2] == PipeDB[Pipe.Vert])
+
+            //Updating the Y position
+            while (currentPos.y != endPosR.y)
+            {
+                //This is for when am moving up instead of down
+                int adjustment = 0;
+                if (currentPos.y > endPosR.y)
+                    adjustment = 1;
+
+                TileBase nextTile = PipeDB[Pipe.Vert];
+                nextPos.y += MoveTowardsInt(currentPos.y, endPosR.y);
+                if (tileMap.GetTile(nextPos) && !ignoreTilemap)
+                {
+                    nextPos = currentPos;
+                    //If there is not a tile to the right, move current pos right
+                    if (!tileMap.GetTile(nextPos + Vector3Int.right))
                     {
-                        Debug.Log("There was a vertical tile");
-                        tileList[count - 1] = PipeDB[Pipe.RD - adjustment];
+                        currentPos.x += 1;
+                        nextTile = PipeDB[Pipe.LU + adjustment];
+
+                        if (tileList[count - 2] == PipeDB[Pipe.Vert])
+                        {
+                            tileList[count - 1] = PipeDB[Pipe.RD - adjustment];
+                        }
+                        else
+                        {
+                            tileList[count - 1] = PipeDB[Pipe.Hori];
+                        }
+                    }
+                    //If there is, move left
+                    else if (!tileMap.GetTile(nextPos + Vector3Int.right))
+                    {
+                        currentPos.x -= 1;
+                        nextTile = PipeDB[Pipe.RU + adjustment];
+
+                        if (tileList[count - 2] == PipeDB[Pipe.Vert])
+                        {
+                            tileList[count - 1] = PipeDB[Pipe.LD - adjustment];
+                        }
+                        else
+                        {
+                            tileList[count - 1] = PipeDB[Pipe.Hori];
+                        }
                     }
                     else
                     {
-                        Debug.Log("There wasn't a vertical tile");
-                        tileList[count - 1] = PipeDB[Pipe.Hori];
-                    }
-                }
-                //If there is, move left
-                else if(!tileMap.GetTile(nextPos + Vector3Int.right))
-                {
-                    currentPos.x -= 1;
-                    nextTile = PipeDB[Pipe.RU + adjustment];
-
-                    if (tileList[count - 2] == PipeDB[Pipe.Vert])
-                    {
-                        tileList[count - 1] = PipeDB[Pipe.LD - adjustment];
-                    }
-                    else
-                    {
-                        tileList[count - 1] = PipeDB[Pipe.Hori];
+                        Debug.LogError("Could not find a path. Please change Start and/or End points");
+                        break;
                     }
                 }
                 else
                 {
-                    Debug.LogError("Could not find a path. Please change Start and/or End points");
-                    break;
+                    currentPos.y += MoveTowardsInt(currentPos.y, endPosR.y);
                 }
-            }
-            else
-            {
-                currentPos.y += MoveTowardsInt(currentPos.y, endPosR.y);
-            }
 
-            Positions.Add(currentPos);
-            tileList.Add(nextTile);
-            nextPos = currentPos;
+                Positions.Add(currentPos);
+                tileList.Add(nextTile);
+                nextPos = currentPos;
 
-            count++;
+                count++;
+            }
+            loops++;
+        }
+
+        if (currentPos != endPosR && loops >= 5)
+        {
+            Debug.LogError("Could not get to end point: " + endPosR + ". Reasons for why that might be:\n" +
+                "- Can not get to end point because it is through tile map, thus inaccessible\n" +
+                "- It was very far and exceded the number of loops\n");
         }
 
         Vector3[] posArray = Array.ConvertAll(Positions.ToArray(), item => (Vector3)item);
