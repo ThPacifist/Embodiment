@@ -12,6 +12,7 @@ public class Embodiment : MonoBehaviour
 {
     public Transform currentSkeleton;
     public SkeletonTrigger targetSkeleton;
+    public GameObject cloudPrefab;
     public static bool canEmbody = true;
     public static bool canDisembody = false;
 
@@ -30,6 +31,7 @@ public class Embodiment : MonoBehaviour
     //Changes the player's form
     void Embody()
     {
+        Instantiate(cloudPrefab, transform.position, Quaternion.identity);
         Debug.Log("Embody");    
         if(targetSkeleton != null && CheckSpace(targetSkeleton) && canEmbody)
         {
@@ -60,6 +62,7 @@ public class Embodiment : MonoBehaviour
     //Reverts the Player back to the blob form
     void Disembody()
     {
+        Instantiate(cloudPrefab, transform.position, Quaternion.identity);
         Debug.Log("Disembody");
         if (currentSkeleton != null && canDisembody)
         {

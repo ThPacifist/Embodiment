@@ -55,12 +55,12 @@ public class GameAction : MonoBehaviour
     //Using the inputted collider places the gameobject on the floor
     public static Vector2 PlaceColOnGround(Collider2D col)
     {
-        int layermask = LayerMask.GetMask("Jumpables");
+        int layermask = LayerMask.NameToLayer("CheckSpace");
         RaycastHit2D hit = Physics2D.Raycast(col.transform.position, Vector2.down, Mathf.Infinity, layermask);
 
         if(hit.collider != null)
         {
-            Vector2 Point = new Vector2(hit.point.x, hit.point.y + col.bounds.extents.y);
+            Vector2 Point = new Vector2(hit.point.x, hit.point.y);
             return Point;
         }
         return col.transform.position;
