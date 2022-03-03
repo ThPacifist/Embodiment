@@ -10,9 +10,19 @@ public class HumanController : Controller
     Transform heldPos;
     public bool boxHeld;
     public bool heavyBoxHeld;
+    float defaultSpeed;
+    float defaultJumpHeight;
     //[HideInInspector]
     public Rigidbody2D box;
     string boxTag;
+
+    public override void Start()
+    {
+        base.Start();
+
+        defaultSpeed = speed;
+        defaultJumpHeight = jumpHeight;
+    }
 
     public override void FixedUpdate()
     {
@@ -177,7 +187,7 @@ public class HumanController : Controller
                 PlayerBrain.PB.fixedJ.enabled = true;
                 PlayerBrain.PB.fixedJ.connectedBody = heldBox;
                 PlayerBrain.PB.fixedJ.connectedBody.mass = 6;
-                PlayerBrain.PB.canJump = false;
+                jumpHeight = 0;
                 speed = 3;
             }
         }
@@ -197,6 +207,9 @@ public class HumanController : Controller
             {
                 PickUpBoxHuman(null);
             }
+
+            PlyCtrl.Player.Interact.performed += _ => PlayerBrain.Interact();
+            PlyCtrl.Player.Interact.performed -= _ => ThrowBox();
         }
     }
 
@@ -213,6 +226,32 @@ public class HumanController : Controller
         }
     }
 
+    public void ThrowBox()
+    {
+        Debug.Log("Called throw box");
+        if(heldBox != null && boxHeld && boxTag != "HBox")
+        {
+            PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
+            heldBox.gravityScale = 1;
+            jumpHeight = defaultJumpHeight;
+            PlayerBrain.PB.fixedJ.enabled = false;
+            PlayerBrain.PB.fixedJ.connectedBody = null;
+
+            float facing = -1 * transform.localScale.x;
+
+            Vector2 direction = new Vector2(facing + PlayerBrain.PB.rb.velocity.x, 
+                0.45f + Mathf.Abs(PlayerBrain.PB.rb.velocity.y));
+            Debug.Log("Direction: " + direction.normalized);
+            heldBox.AddForce(direction.normalized * 300 * heldBox.mass);
+
+            boxHeld = false;
+            heldBox = null;
+        }
+        PlyCtrl.Player.Interact.performed += _ => PlayerBrain.Interact();
+        PlyCtrl.Player.Interact.performed -= _ => ThrowBox();
+        ToggleBody(true);
+    }
+
     public override void SetToDefault()
     {
         PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
@@ -222,10 +261,15 @@ public class HumanController : Controller
         PlayerBrain.PB.fixedJ.enabled = false;
         if (boxTag == "HBox")
             PlayerBrain.PB.fixedJ.connectedBody.mass = 20;
-        speed = 5;
+        speed = defaultSpeed;
+        jumpHeight = defaultJumpHeight;
         PlayerBrain.PB.fixedJ.connectedBody = null;
+        heldBox.gravityScale = 1;
         heldBox = null;
         box = null;
+        PlyCtrl.Player.Interact.performed += _ => PlayerBrain.Interact();
+        PlyCtrl.Player.Interact.performed -= _ => ThrowBox();
+        ToggleBody(true);
     }
 
     //Sets the value of the held box
@@ -263,11 +307,20 @@ public class HumanController : Controller
             PlayerBrain.PB.fixedJ.enabled = true;
             PlayerBrain.PB.fixedJ.connectedBody = heldBox;
             heldBox.transform.position = heldPos.transform.position;
+
             if(boxTag == "LBox")
             {
-                heldBox.simulated = false;
+                heldBox.gravityScale = 0;
+            }
+            else if(boxTag == "MBox")
+            {
+                jumpHeight = 0;
             }
 
+            PlyCtrl.Player.Interact.performed -= _ => PlayerBrain.Interact();
+            PlyCtrl.Player.Interact.performed += _ => ThrowBox();
+
+            ToggleBody(false);
         }
         else
         {
@@ -284,12 +337,22 @@ public class HumanController : Controller
             {
                 PlayerBrain.PB.fixedJ.connectedBody.mass = 20;
             }
-            heldBox.simulated = true;
-            PlayerBrain.PB.canJump = true;
-            speed = 5;
+            heldBox.gravityScale = 1;
+            jumpHeight = defaultJumpHeight;
+            speed = defaultSpeed;
             PlayerBrain.PB.fixedJ.connectedBody = null;
             heldBox = null;
+
+            PlyCtrl.Player.Interact.performed += _ => PlayerBrain.Interact();
+            PlyCtrl.Player.Interact.performed -= _ => ThrowBox();
+
+            ToggleBody(true);
         }
+    }
+
+    private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        throw new System.NotImplementedException();
     }
 
     //Checks to see if there is enough space for the box, so that it does not get put through a wall

@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: {fileID: 0}
+  bat: {fileID: 0}
+  human: {fileID: 0}
 --- !u!61 &1642387621
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -70,7 +72,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.25, y: 1.25}
+  m_Size: {x: 1.7125777, y: 1.7125776}
   m_EdgeRadius: 0
 --- !u!1 &4909862592832104645
 GameObject:

@@ -15,9 +15,6 @@ public class GameAction : MonoBehaviour
      * This allows us easily give scripts triggerable behaviors
      */
 
-    static ContactFilter2D filter;
-    static LayerMask layer = 3;
-
     public virtual void Action ()
     {
 
@@ -59,7 +56,7 @@ public class GameAction : MonoBehaviour
     public static Vector2 PlaceColOnGround(Collider2D col)
     {
         int layermask = LayerMask.GetMask("Jumpables");
-        RaycastHit2D hit = Physics2D.Raycast(col.transform.position, Vector2.down, 10f, layermask);
+        RaycastHit2D hit = Physics2D.Raycast(col.transform.position, Vector2.down, Mathf.Infinity, layermask);
 
         if(hit.collider != null)
         {

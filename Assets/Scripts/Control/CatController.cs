@@ -27,6 +27,11 @@ public class CatController : Controller
             Embodiment.canDisembody = true;
         }
 
+        if(OnWall)
+        {
+            PlayerBrain.PB.rb.AddForce(catDir * 10, ForceMode2D.Impulse);//Applies force in towards the climbing wall
+        }
+
         if (PlayerBrain.PB.canMove && !treadmill)
         {
             //Regular grounded movement
@@ -48,7 +53,6 @@ public class CatController : Controller
             else if (OnWall)
             {
                 PlayerBrain.PB.rb.gravityScale = 0;
-                PlayerBrain.PB.rb.AddForce(catDir, ForceMode2D.Impulse);//Applies force in towards the climbing wall
 
                 //Checks if the player is pushing up or down
                 if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y != 0)
@@ -64,7 +68,8 @@ public class CatController : Controller
                     audioManager.Stop("catClimb");
                 }
             }
-            else if (!OnWall)
+            
+            if (!OnWall)
             {
                 PlayerBrain.PB.rb.gravityScale = 1;
                 if (audioManager != null)
@@ -142,7 +147,7 @@ public class CatController : Controller
             //Side jump when climbing
             else if (OnWall)
             {
-                PlayerBrain.PB.rb.AddForce((-catDir * 25) - new Vector2(PlayerBrain.PB.rb.velocity.x, 0), ForceMode2D.Impulse);
+                PlayerBrain.PB.rb.AddForce(new Vector2(-catDir.x, 1 + PlayerBrain.PB.rb.velocity.y) * jumpHeight * 0.75f, ForceMode2D.Impulse);
                 catDir = -catDir;
             }
 
