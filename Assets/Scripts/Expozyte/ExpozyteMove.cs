@@ -28,7 +28,6 @@ public class ExpozyteMove : MonoBehaviour
     private int[] queueMove;
     private float speed;
     private float rate;
-    private bool catchUp;
 
     private void Start()
     {
@@ -54,10 +53,10 @@ public class ExpozyteMove : MonoBehaviour
         }
         else if (queueMove[0] != -1)
         {
-            catchUp = true;
             toCheckpoint = queueMove[0];
             fixQueue();
             moving = true;
+            speed = 10;
         }
     }
 
@@ -65,13 +64,9 @@ public class ExpozyteMove : MonoBehaviour
     private void Move()
     {
         //If he is not there yet, move him there
-        if (Expozyte.position != Checkpoints[toCheckpoint].position && catchUp)
+        if(Expozyte.position != Checkpoints[toCheckpoint].position)
         {
-            Expozyte.position = Vector2.MoveTowards(Expozyte.position, Checkpoints[toCheckpoint].position, 10 * Time.deltaTime);
-        }
-        else if(Expozyte.position != Checkpoints[toCheckpoint].position)
-        {
-            Expozyte.position = Vector2.MoveTowards(Expozyte.position, Checkpoints[toCheckpoint].position, 6 * Time.deltaTime);
+            Expozyte.position = Vector2.MoveTowards(Expozyte.position, Checkpoints[toCheckpoint].position, speed * Time.deltaTime);
         }
         //If he is, change his values
         else
@@ -83,17 +78,17 @@ public class ExpozyteMove : MonoBehaviour
     }
 
     //This function sets the movement
-    public void BeginMove(int newCheckpoint)
+    public void BeginMove(int newCheckpoint, float newSpeed)
     {
         //Set moving and the checkpoint
         if (!moving)
         {
+            speed = newSpeed;
             moving = true;
             toCheckpoint = newCheckpoint;
         }
         else
         {
-            Debug.Log("QueuePos: " + queuePos);// + ". QueueMove: " + queueMove[queuePos]);
             queueMove[queuePos] = newCheckpoint;
             queuePos++;
         }
@@ -108,7 +103,7 @@ public class ExpozyteMove : MonoBehaviour
             moving = true;
         }
         //If the player is to the right, and he needs them to be to the right, move
-        else if (player.position.x > Expozyte.position.x)
+        else if (!left && player.position.x > Expozyte.position.x)
         {
             moving = true;
         }
@@ -120,15 +115,10 @@ public class ExpozyteMove : MonoBehaviour
         if (moving)
         {
             //Sets rate based on distance from player on x axis
-            rate = Mathf.Abs(player.position.x - Expozyte.position.x) / 3;
-            rate = Mathf.Clamp(rate, 0.1f, 1);
+            float currRate = Mathf.Abs(player.position.x - Expozyte.position.x) / 3;
+            rate += Mathf.Clamp(currRate, 0.01f, 0.1f);
             //Move expozyte
-            Expozyte.position = Vector2.Lerp(Expozyte.position, Checkpoints[toCheckpoint].position, animCurve.Evaluate(rate * Time.deltaTime * speed));
-
-            if(Mathf.Abs(Expozyte.position.x - Checkpoints[toCheckpoint].position.x) < 5)
-            {
-                Expozyte.position = Vector2.MoveTowards(Expozyte.position, Checkpoints[toCheckpoint].position, speed / 2 * Time.deltaTime);
-            }
+            Expozyte.position = Vector2.Lerp(Checkpoints[atCheckpoint].position, Checkpoints[toCheckpoint].position, animCurve.Evaluate(rate * Time.deltaTime * speed));
         }
 
         //Check if he has arrived
@@ -136,6 +126,7 @@ public class ExpozyteMove : MonoBehaviour
         {
             moving = false;
             withPlayer = false;
+            atCheckpoint = toCheckpoint;
             toCheckpoint = -1;
         }
 
@@ -146,6 +137,8 @@ public class ExpozyteMove : MonoBehaviour
     {
         if (!moving)
         {
+            //Set rate
+            rate = 0;
             //Sets the direction of movement
             left = leftRight;
             withPlayer = true;
@@ -157,7 +150,6 @@ public class ExpozyteMove : MonoBehaviour
         }
         else
         {
-            Debug.Log("QueuePos: " + queuePos);// + ". QueueMove: " + queueMove[queuePos]);
             queueMove[queuePos] = checkpoint;
             queuePos++;
         }
@@ -172,12 +164,10 @@ public class ExpozyteMove : MonoBehaviour
         queuePos--;
         if(queuePos == 0)
         {
-            catchUp = false;
         }
         else if(queuePos < 0)
         {
             queuePos = 0;
-            catchUp = false;
         }
     }
 

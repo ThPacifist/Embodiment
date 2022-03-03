@@ -12,12 +12,13 @@ public class ExpozyteMoveTrigger : MonoBehaviour
     //Public Variables
     public ExpozyteMove ExpMove;
     public int goToCheckpoint;
+    public float speed;
 
     //When the player enters move
     public void OnTriggerEnter2D(Collider2D collision)
     {
         //Begin move
-        ExpMove.BeginMove(goToCheckpoint);
+        ExpMove.BeginMove(goToCheckpoint, speed);
         this.gameObject.SetActive(false);
     }
 
