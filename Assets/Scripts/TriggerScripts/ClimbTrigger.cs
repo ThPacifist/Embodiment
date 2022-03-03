@@ -60,4 +60,25 @@ public class ClimbTrigger : MonoBehaviour
             cat = null;
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 center = transform.position;
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(center + new Vector3(-0.5f, 0, 0), center + new Vector3(0.5f, 0, 0));
+        if (right)
+        {
+            Vector3 tip = center + new Vector3(0.5f, 0, 0);
+            Gizmos.DrawLine(tip, tip + new Vector3(-0.25f, 0.25f, 0));
+            Gizmos.DrawLine(tip, tip + new Vector3(-0.25f, -0.25f, 0));
+            Gizmos.DrawLine(tip + new Vector3(-0.25f, 0.25f, 0), tip + new Vector3(-0.25f, -0.25f, 0));
+        }
+        else if (left)
+        {
+            Vector3 tip = center + new Vector3(-0.5f, 0, 0);
+            Gizmos.DrawLine(tip, tip + new Vector3(0.25f, 0.25f, 0));
+            Gizmos.DrawLine(tip, tip + new Vector3(0.25f, -0.25f, 0));
+            Gizmos.DrawLine(tip + new Vector3(0.25f, 0.25f, 0), tip + new Vector3(0.25f, -0.25f, 0));
+        }
+    }
 }

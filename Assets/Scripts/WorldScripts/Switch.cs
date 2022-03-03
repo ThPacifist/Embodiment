@@ -22,6 +22,8 @@ public class Switch : MonoBehaviour
     [SerializeField]
     GameObject indicator;
     [SerializeField]
+    GameObject buttonPrompt;
+    [SerializeField]
     public Animator anim;
     [SerializeField]
     GameAction[] behaviors; //behavior that is triggered when the switch is active
@@ -45,7 +47,7 @@ public class Switch : MonoBehaviour
     FishController FC;
 
     /* interact Buttons:
-     * - Press the interact button to activate the button
+     * - Press the interact key to activate the button
      */
 
     /* onePress Buttons:
@@ -180,8 +182,9 @@ public class Switch : MonoBehaviour
             //Check if it is light or a lever
             if (interact)
             {
+                buttonPrompt.SetActive(true);
                 b = true;
-                PlyController.Interact += Interact;
+                PlayerBrain.Interact += Interact;
             }
 
             if(Lever && other.CompareTag("Fish"))
@@ -204,8 +207,9 @@ public class Switch : MonoBehaviour
             //Check if the button is light or a lever
             if (interact)
             {
+                buttonPrompt.SetActive(false);
                 b = false;
-                PlyController.Interact -= Interact;
+                PlayerBrain.Interact -= Interact;
             }
             
             if (Lever && other.CompareTag("Fish"))

@@ -31,11 +31,11 @@ public class Embodiment : MonoBehaviour
     //Changes the player's form
     void Embody()
     {
-        Instantiate(cloudPrefab, transform.position, Quaternion.identity);
         Debug.Log("Embody");    
         if(targetSkeleton != null && CheckSpace(targetSkeleton) && canEmbody)
         {
-            if(AudioManager.instance != null)
+            Instantiate(cloudPrefab, transform.position, Quaternion.identity);
+            if (AudioManager.instance != null)
             {
                 AudioManager.instance.Play("embody");
             }
@@ -62,10 +62,10 @@ public class Embodiment : MonoBehaviour
     //Reverts the Player back to the blob form
     void Disembody()
     {
-        Instantiate(cloudPrefab, transform.position, Quaternion.identity);
         Debug.Log("Disembody");
         if (currentSkeleton != null && canDisembody)
         {
+            Instantiate(cloudPrefab, transform.position, Quaternion.identity);
             if (AudioManager.instance != null)
             {
                 AudioManager.instance.Play("unEmbody");

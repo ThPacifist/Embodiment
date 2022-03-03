@@ -147,7 +147,7 @@ public class CatController : Controller
             //Side jump when climbing
             else if (OnWall)
             {
-                PlayerBrain.PB.rb.AddForce(new Vector2(-catDir.x, 1 + PlayerBrain.PB.rb.velocity.y) * jumpHeight * 0.75f, ForceMode2D.Impulse);
+                PlayerBrain.PB.rb.AddForce(new Vector2(-catDir.x, 1 + PlayerBrain.PB.rb.velocity.y) * jumpHeight * 0.5f, ForceMode2D.Impulse);
                 catDir = -catDir;
             }
 
