@@ -45462,10 +45462,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 344267386, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: speed
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 1189157436, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 12.29
@@ -45473,22 +45469,6 @@ PrefabInstance:
     - target: {fileID: 1189157436, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 2.88
-      objectReference: {fileID: 0}
-    - target: {fileID: 1373430572, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 1373430572, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 1651337005, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.39
-      objectReference: {fileID: 0}
-    - target: {fileID: 1651337005, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.68
       objectReference: {fileID: 0}
     - target: {fileID: 4819060323351451821, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
       propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.size
