@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6303674869034216969}
   - component: {fileID: 471598562}
   - component: {fileID: 3464032078569571765}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,6 +77,7 @@ MonoBehaviour:
   buttonBase: {fileID: 6303674870544144431}
   spring: {fileID: 267487907}
   indicator: {fileID: 0}
+  buttonPrompt: {fileID: 0}
   anim: {fileID: 0}
   behaviors:
   - {fileID: 0}
@@ -188,7 +189,7 @@ GameObject:
   - component: {fileID: 471598561}
   - component: {fileID: 267487908}
   - component: {fileID: 267487907}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Constant Press Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +324,7 @@ SpringJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.3}
-  m_ConnectedAnchor: {x: 0.011034489, y: -0.971}
+  m_ConnectedAnchor: {x: 0.011035919, y: -0.97099996}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
   m_DampingRatio: 1
