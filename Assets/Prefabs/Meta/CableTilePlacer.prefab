@@ -39,7 +39,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4506060535468739988}
-  - component: {fileID: 4506060535468739987}
   - component: {fileID: 4506060535468739986}
   - component: {fileID: 4506060535468739985}
   m_Layer: 0
@@ -65,21 +64,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4506060535468739987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4506060535468739984}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 604eea22cff80f44fbebe6778b6a33ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offColor: {r: 0, g: 0, b: 0, a: 0}
-  onCOlor: {r: 0, g: 0, b: 0, a: 0}
-  tileMap: {fileID: 0}
 --- !u!114 &4506060535468739986
 MonoBehaviour:
   m_ObjectHideFlags: 0

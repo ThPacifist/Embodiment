@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(TileMapColorChanger))]
 [RequireComponent(typeof(LineRenderer))]
 public class CableTilePlacer : MonoBehaviour
 {
@@ -30,6 +29,8 @@ public class CableTilePlacer : MonoBehaviour
     bool ignoreTilemap;
     [SerializeField]
     Tilemap tileMap;
+    [SerializeField]
+    Material WireRGBMat;
 
     [Header("List of Tiles")]
     public TileBase HorizontalCable;
@@ -76,11 +77,20 @@ public class CableTilePlacer : MonoBehaviour
         if (PipeDB == null)
             InitializeDB();
 
+        if(tileMap == null)
+        {
+            ignoreTilemap = true;
+            Debug.LogWarning("Tilemap has not been set. Will ignore tilemap by default.");
+        }
+
         //Initializing TileMap
         GameObject CableMap = new GameObject("Cable Map");
         CableMap.transform.parent = this.transform.parent;
         Tilemap cableTileMap = CableMap.AddComponent<Tilemap>();
-        CableMap.AddComponent<TilemapRenderer>();
+        TilemapRenderer tileRenderer = CableMap.AddComponent<TilemapRenderer>();
+        tileRenderer.material = WireRGBMat;
+        TileMapColorChanger TMColorChanger = CableMap.AddComponent<TileMapColorChanger>();
+        TMColorChanger.tileMapRenderer = tileRenderer;
 
         //Converts the positions of the game objects to be integer vectors
         startPosR = Vector3Int.FloorToInt(startPos.transform.position);
@@ -296,9 +306,9 @@ public class CableTilePlacer : MonoBehaviour
         Vector3 ePint = Vector3Int.FloorToInt(endPos.transform.position);
 
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(sPint, 1);
+        Gizmos.DrawWireCube(sPint + new Vector3(0.5f, 0.5f, 0), new Vector3(1, 1, 0));
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(ePint, 1);
+        Gizmos.DrawWireCube(ePint + new Vector3(0.5f, 0.5f, 0), new Vector3(1, 1, 0));
     }
 }
