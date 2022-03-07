@@ -8842,6 +8842,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.72
       objectReference: {fileID: 0}
+    - target: {fileID: 6507493257711535252, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 4159865657535033913}
     - target: {fileID: 8298231712000885528, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: cam
       value: 
@@ -66293,6 +66297,11 @@ PrefabInstance:
 --- !u!4 &4159865657535033912 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4819060323485262879, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
+  m_PrefabInstance: {fileID: 4159865657535033911}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4159865657535033913 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4819060323485262873, guid: 9355ba29b00e0b54b855859b6f16518e, type: 3}
   m_PrefabInstance: {fileID: 4159865657535033911}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &4397798236379710349
