@@ -7,6 +7,11 @@ using Cinemachine;
 [ExecuteAlways]
 public class AnimatedTalkBubble : MonoBehaviour
 {
+    public float xBounds;
+    public float yBounds;
+    public float xBubbleBounds;
+    public float yBubbleBounds;
+
     public RectTransform bubbleCanvas;
     public RectTransform bubbleTail;
     public RectTransform wordBubble;
@@ -20,12 +25,14 @@ public class AnimatedTalkBubble : MonoBehaviour
         Vector3 expoyzteScreenPos = cam.WorldToScreenPoint(Expoyzte.transform.position);
 
         Vector3[] corners = new Vector3[4];
+        Vector3[] wordBubbleCorners = new Vector3[4];
 
         bubbleCanvas.GetWorldCorners(corners);
         //corners[0] is bot left
         //corners[1] is top left
         //corners[2] is top right
         //corners[3] is bot right
+        wordBubble.GetWorldCorners(wordBubbleCorners);
 
         //Constraints for Canvas
         bubbleCanvas.transform.position = Vector3.MoveTowards(bubbleCanvas.transform.position, 
@@ -33,14 +40,14 @@ public class AnimatedTalkBubble : MonoBehaviour
 
         Vector3 camTR = cam.ViewportToWorldPoint(new Vector3(1, 1, cam.nearClipPlane));
         Vector3 camBL = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
-        wordBubble.GetWorldCorners(corners);
-        Vector3 midpoint = (corners[0] + corners[2]) / 2;
-        float xDist = Mathf.Abs(midpoint.x - corners[0].x);
-        float yDist = Mathf.Abs(midpoint.y - corners[0].y);
+        //bubbleCanvas.GetWorldCorners(corners);
+        Vector3 midpoint = (wordBubbleCorners[0] + wordBubbleCorners[2]) / 2;
+        float xDist = Mathf.Abs(wordBubbleCorners[0].x - midpoint.x);
+        float yDist = Mathf.Abs(wordBubbleCorners[0].y - midpoint.y);
 
         bubbleCanvas.transform.position = new Vector3(
-            Mathf.Clamp(bubbleCanvas.transform.position.x, camBL.x + xDist, camTR.x - xDist),
-            Mathf.Clamp(bubbleCanvas.transform.position.y, camBL.y + yDist, camTR.y - yDist),
+            Mathf.Clamp(bubbleCanvas.transform.position.x, camBL.x + xDist + xBounds, camTR.x - xDist - xBounds),
+            Mathf.Clamp(bubbleCanvas.transform.position.y, camBL.y + yDist + yBounds, camTR.y - yDist - yBounds),
             0);
 
         //Constraints for bubble tail
@@ -50,8 +57,8 @@ public class AnimatedTalkBubble : MonoBehaviour
         bubbleTail.transform.rotation = rotation;
 
         bubbleTail.transform.position = new Vector3(
-            Mathf.Clamp(Expoyzte.transform.position.x, corners[0].x + 0.5f, corners[2].x - 0.5f),
-            Mathf.Clamp(Expoyzte.transform.position.y, corners[0].y + 0.4f, corners[2].y - 0.4f),
+            Mathf.Clamp(Expoyzte.transform.position.x, wordBubbleCorners[0].x + xBubbleBounds, wordBubbleCorners[2].x - xBubbleBounds),
+            Mathf.Clamp(Expoyzte.transform.position.y, wordBubbleCorners[0].y + yBubbleBounds, wordBubbleCorners[2].y - yBubbleBounds),
             0);
 
     }
