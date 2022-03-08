@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 5908265556387583176}
   - component: {fileID: 5908265556387583177}
   - component: {fileID: 6027191195174404841}
+  - component: {fileID: 560259880881183647}
   - component: {fileID: 6507493257711535252}
   m_Layer: 10
   m_Name: Expozyte
@@ -356,6 +357,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &560259880881183647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5908265556387583179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e41864ad14f5274c86c1a455af42f40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textBox: {fileID: 0}
+  Dialogue: []
+  timeDisplayed: 
 --- !u!114 &6507493257711535252
 MonoBehaviour:
   m_ObjectHideFlags: 0
