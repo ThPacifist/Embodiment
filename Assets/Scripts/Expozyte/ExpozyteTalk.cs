@@ -3,20 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ExpozyteTalk : MonoBehaviour
+public class ExpozyteTalk : TalkParent
 {
     /*
      * Description:
      * This function is what makes expozyte talk
      * It is attached to the point he is at rather than him to ensure the player can see the text at the correct spot
      */
-
-    //Structures
-    public struct dialogueStruct
-    {
-        public string[] Dialogue;
-        public int[] timeDisplayed;
-    };
 
     //Public variables
     public TextMeshProUGUI textBox;
@@ -29,22 +22,17 @@ public class ExpozyteTalk : MonoBehaviour
     private int currentDialogue = 0;
     private int letter = 0;
 
-    //Detects when expozyte enters the checkpoint
-    public void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("Caught you");
-        PlayDialogue();
-    }
 
     //Plays through the dialogue
-    private void PlayDialogue()
+    public void PlayDialogue()
     {
         //Check if there is anything else to display
         if (currentDialogue < checkpointDialogue.Dialogue[currentDialogue].Length)
         {
+            Debug.Log("Hello there");
             //Change text, make it visible and wait
-            OneChar();
             bubble.gameObject.SetActive(true);
+            StartCoroutine("OneChar");
             StartCoroutine("Wait");
         }
     }
