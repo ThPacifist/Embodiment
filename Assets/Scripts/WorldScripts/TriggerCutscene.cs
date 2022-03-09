@@ -5,11 +5,10 @@ using UnityEngine.Playables;
 
 public class TriggerCutscene : MonoBehaviour
 {
-    public PlayableDirector director;
-    public PlayableAsset playable;
+    public GameObject cutsceneGameobject;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        director.Play(playable);
+        cutsceneGameobject.SetActive(true);
     }
 }
