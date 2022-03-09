@@ -88,6 +88,7 @@ public class CableTilePlacer : MonoBehaviour
         CableMap.transform.parent = this.transform.parent;
         Tilemap cableTileMap = CableMap.AddComponent<Tilemap>();
         TilemapRenderer tileRenderer = CableMap.AddComponent<TilemapRenderer>();
+        tileRenderer.sortingOrder = 5;
         tileRenderer.material = WireRGBMat;
         TileMapColorChanger TMColorChanger = CableMap.AddComponent<TileMapColorChanger>();
         TMColorChanger.tileMapRenderer = tileRenderer;
