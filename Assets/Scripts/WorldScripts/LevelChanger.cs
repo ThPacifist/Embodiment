@@ -36,7 +36,13 @@ public class LevelChanger : MonoBehaviour
     IEnumerator ChangeLevelIE()
     {
         Scene currentScene = SceneManager.GetActiveScene();
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(newSceneName);//Loads next scene in background asyncronously
+
+        if(asyncLoad == null)
+        {
+           asyncLoad = SceneManager.LoadSceneAsync(0);
+        }
 
         while(!asyncLoad.isDone)// Run this code until the next scene is done loading
         {
