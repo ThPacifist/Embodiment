@@ -27,13 +27,13 @@ public class ExpozyteTalk : TalkParent
     public void PlayDialogue()
     {
         //Check if there is anything else to display
-        if (currentDialogue < checkpointDialogue.Dialogue[currentDialogue].Length)
+        if (currentDialogue < checkpointDialogue.Dialogue.Length)
         {
-            Debug.Log("Hello there");
             //Change text, make it visible and wait
-            bubble.gameObject.SetActive(true);
+            bubble.SetActive(true);
+            textBox.text = "";
+            currentText = checkpointDialogue.Dialogue[0];
             StartCoroutine("OneChar");
-            StartCoroutine("Wait");
         }
     }
 
@@ -41,10 +41,8 @@ public class ExpozyteTalk : TalkParent
     IEnumerator Wait()
     {
         //Keep it displayed
-        yield return new WaitForSeconds(currentText.Length + 2);
+        yield return new WaitForSeconds(checkpointDialogue.timeDisplayed[currentDialogue]);
         bubble.gameObject.SetActive(false);
-        //Turn it off for a little bit
-        yield return new WaitForSeconds(0.5f);
         //Clear the textbox
         textBox.text = "";
         letter = 0;
@@ -52,14 +50,22 @@ public class ExpozyteTalk : TalkParent
         currentDialogue++;
         if (currentDialogue < checkpointDialogue.Dialogue.Length)
         {
+            bubble.gameObject.SetActive(true);
             currentText = checkpointDialogue.Dialogue[currentDialogue];
-            PlayDialogue();
+            StartCoroutine("OneChar");
+        }
+        else
+        {
+            bubble.SetActive(false);
+            currentText = "";
+            currentDialogue = 0;
         }
     }
 
     //Put the text in there one character at a time
     IEnumerator OneChar()
     {
+        Debug.Log(currentText);
         while (letter < currentText.Length)
         {
             //Put the next letter in and increment letter
@@ -68,5 +74,6 @@ public class ExpozyteTalk : TalkParent
             //Next frame
             yield return new WaitForEndOfFrame();
         }
+        StartCoroutine("Wait");
     }
 }
