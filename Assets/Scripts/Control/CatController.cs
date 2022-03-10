@@ -90,18 +90,23 @@ public class CatController : Controller
             {
                 PlayerBrain.PB.plyAnim.SetBool("Climb", true);
 
-                if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y != 0)
+                if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y > 0)
                 {
-                    PlayerBrain.PB.plyAnim.SetBool("Walking", true);
+                    PlayerBrain.PB.plyAnim.SetInteger("WallState", 1);
+                }
+                else if(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y < 0)
+                {
+                    PlayerBrain.PB.plyAnim.SetInteger("WallState", -1);
                 }
                 else
                 {
-                    PlayerBrain.PB.plyAnim.SetBool("Walking", false);
+                    PlayerBrain.PB.plyAnim.SetInteger("WallState", 0);
                 }
             }
             else
             {
                 PlayerBrain.PB.plyAnim.SetBool("Climb", false);
+                PlayerBrain.PB.plyAnim.SetInteger("WallState", 0);
             }
 
             //Set direction as cat on wall
