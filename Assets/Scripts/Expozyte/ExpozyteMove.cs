@@ -120,6 +120,14 @@ public class ExpozyteMove : MonoBehaviour
             //Move expozyte
             Expozyte.position = Vector2.Lerp(Checkpoints[atCheckpoint].position, Checkpoints[toCheckpoint].position, animCurve.Evaluate(rate * Time.deltaTime * speed));
         }
+        else
+        {
+            //Sets rate based on distance from player on x axis
+            float currRate = Mathf.Abs(player.position.x - Expozyte.position.x) / 10;
+            rate -= Mathf.Clamp(currRate, 0f, 1f);
+            //Move expozyte
+            Expozyte.position = Vector2.Lerp(Checkpoints[atCheckpoint].position, Checkpoints[toCheckpoint].position, animCurve.Evaluate(rate * Time.deltaTime * speed));
+        }
 
         //Check if he has arrived
         if (Expozyte.position == Checkpoints[toCheckpoint].position)

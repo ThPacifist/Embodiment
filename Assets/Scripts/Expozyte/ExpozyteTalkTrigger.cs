@@ -21,6 +21,7 @@ public class ExpozyteTalkTrigger : TalkParent
 
     //Private variables
     dialogueStruct dialogue;
+    private bool play;
 
     //Do on start
     private void Start()
@@ -44,6 +45,9 @@ public class ExpozyteTalkTrigger : TalkParent
             case 1:
                 dialogue.Dialogue[0] = dialogue1;
                 break;
+            default:
+                play = false;
+                break;
         }
         dialogue.timeDisplayed = dialogueLength;
     }
@@ -51,7 +55,10 @@ public class ExpozyteTalkTrigger : TalkParent
     //Once this trigger is entered send the struct
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        ExpTalk.checkpointDialogue = dialogue;
-        ExpTalk.PlayDialogue();
+        if (play)
+        {
+            ExpTalk.checkpointDialogue = dialogue;
+            ExpTalk.PlayDialogue();
+        }
     }
 }
