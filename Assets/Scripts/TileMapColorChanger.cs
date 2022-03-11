@@ -15,7 +15,14 @@ public class TileMapColorChanger : GameAction
     }
     public override void Action(bool b)
     {
-        tileMapRenderer.material.color = onColor;
+        if (!b)
+        {
+            tileMapRenderer.material.color = onColor;
+        }
+        else
+        {
+            Reset();
+        }
     }
     public void Reset() 
     {

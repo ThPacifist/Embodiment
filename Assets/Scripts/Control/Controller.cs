@@ -103,6 +103,15 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     public virtual void FixedUpdate()
     {
+        if(!isGrounded())
+        {
+            ToggleBody(false);
+        }
+        else
+        {
+            ToggleBody(true);
+        }
+
         if (PlayerBrain.PB.canMove)
         {
             //Keeps track of what direction player is moving in and flips the player based on the direction they are heading in

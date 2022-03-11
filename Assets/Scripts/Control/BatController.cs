@@ -155,6 +155,7 @@ public class BatController : Controller
             PlayerBrain.PB.fixedJ.enabled = true;
             PlayerBrain.PB.fixedJ.connectedBody = heldBox;
             heldBox.transform.position = heldPos.transform.position;
+            ToggleBody(false);
         }
         else
         {
@@ -169,6 +170,7 @@ public class BatController : Controller
             PlayerBrain.PB.fixedJ.enabled = false;
             PlayerBrain.PB.fixedJ.connectedBody = null;
             heldBox = null;
+            ToggleBody(true);
         }
     }
 
