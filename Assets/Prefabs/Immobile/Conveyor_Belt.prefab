@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 465797150ccb72d4a9d875f469441eb2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 4.16, y: 0.86}
@@ -114,7 +114,7 @@ SurfaceEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Speed: 3
+  m_Speed: -15
   m_SpeedVariation: 0
   m_ForceScale: 0.1
   m_UseContactForce: 0
@@ -133,10 +133,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   surfaceEff: {fileID: 5475933872320612713}
-  toggleOnOff: 0
-  switchDirection: 0
   sprite: {fileID: 5475933872320612715}
   conveyorAnim: {fileID: 7501841396537037191}
+  toggleOnOff: 0
+  switchDirection: 0
 --- !u!95 &7501841396537037191
 Animator:
   serializedVersion: 3

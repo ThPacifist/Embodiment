@@ -49,8 +49,11 @@ public class Controller : MonoBehaviour
     {
         PlyCtrl = new PlayerControls();
         audioManager = FindObjectOfType<AudioManager>();
-        //this.gameObject.transform.position = GameAction.PlaceColOnGround(PlayerBrain.PB.plyCol);
-        InitializeForm();
+        //this.gameObject.transform.position = GameAction.PlaceColOnGround(PlayerBrain.PB.plyCol);\
+        if (this.enabled)
+        {
+            InitializeForm();
+        }
         TransitionController.slideInAction = UnFreezePlayer;
     }
 
@@ -70,6 +73,8 @@ public class Controller : MonoBehaviour
         PlayerBrain.PB.plyCol.direction = direction;
         PlayerBrain.PB.plyCol.density = density;
         PlayerBrain.PB.plyAnim.runtimeAnimatorController = animatorController;
+
+        Debug.Log("The form is: " + form);
     }
 
     protected virtual void OnDisable()
