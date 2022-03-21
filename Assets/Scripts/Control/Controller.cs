@@ -30,6 +30,7 @@ public class Controller : MonoBehaviour
     public Vector2 colliderOffset;
     public CapsuleDirection2D direction;
     public RuntimeAnimatorController animatorController;
+    public GameObject note;
 
     //Protected Variables
     protected PlayerControls PlyCtrl;
@@ -103,6 +104,7 @@ public class Controller : MonoBehaviour
 
         PlayerBrain.PB.spring.enabled = false;
         PlayerBrain.PB.fixedJ.enabled = false;
+        PlayerBrain.Interact += OpenNote;
     }
 
     // Update is called once per frame
@@ -289,6 +291,28 @@ public class Controller : MonoBehaviour
     private void OnDrawGizmos()
     {
 
+    }
+
+    private void OpenNote()
+    {
+        Debug.Log("OpenNote called");
+
+        //Check if there is a note to interact with
+        if (note != null)
+        {
+            Debug.Log(note);
+            Debug.Log(note.activeSelf);
+            if (!note.activeSelf)
+            {
+                note.SetActive(true);
+                Time.timeScale = 0;
+            }
+            else
+            {
+                note.SetActive(false);
+                Time.timeScale = 1;
+            }
+        }
     }
 
     //Checks for embodiment and causes it

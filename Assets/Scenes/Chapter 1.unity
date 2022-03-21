@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3399,7 +3399,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: b8bcbad47ec5ea840857d1d9cd5e90d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4462,7 +4462,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: 5fe113e4a6014c04495e5862b3dec033, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -6131,7 +6131,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: 36770c157c6e7fc46a0847f082f3f30d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -8371,7 +8371,7 @@ PrefabInstance:
       objectReference: {fileID: 4159865657535033912}
     - target: {fileID: 2434449296246677316, guid: 15ea112ca3909cd47b598c53c9fa9c03, type: 3}
       propertyPath: m_Lens.OrthographicSize
-      value: 5.55
+      value: 6.78
       objectReference: {fileID: 0}
     - target: {fileID: 2434449296246677338, guid: 15ea112ca3909cd47b598c53c9fa9c03, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9207,6 +9207,10 @@ PrefabInstance:
       propertyPath: speed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3167510396051044458, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 4233490045944089557, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -9353,7 +9357,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_SortingOrder
-      value: -4
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
+      propertyPath: m_Parameters.numCapVertices
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Parameters.colorGradient.ctime0
@@ -9365,27 +9373,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b
-      value: 0.6698113
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.g
-      value: 0.6698113
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.r
-      value: 0.6698113
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Parameters.colorGradient.key1.b
-      value: 0.6698113
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Parameters.colorGradient.key1.g
-      value: 0.6698113
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Parameters.colorGradient.key1.r
-      value: 0.6698113
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
+      propertyPath: m_Parameters.colorGradient.m_Mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
