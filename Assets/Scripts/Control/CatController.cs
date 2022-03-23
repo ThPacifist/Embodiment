@@ -60,7 +60,7 @@ public class CatController : Controller
                     PlayerBrain.PB.rb.velocity += (Vector2.up * PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y * speed * 0.75f) - new Vector2(0, PlayerBrain.PB.rb.velocity.y);
                     if (audioManager != null)
                     {
-                        audioManager.Play("catClimb");
+                        //audioManager.Play("catClimb");
                     }
                 }
                 else if (audioManager != null)

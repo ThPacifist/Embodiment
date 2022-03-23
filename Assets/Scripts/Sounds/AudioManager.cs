@@ -56,7 +56,7 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        if(!s.source.isPlaying)
+        //if(!s.source.isPlaying)
             s.source.Play();
     }
 

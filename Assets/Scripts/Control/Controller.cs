@@ -1,5 +1,3 @@
-
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -220,8 +218,10 @@ public class Controller : MonoBehaviour
     }
 
     //Pass in a valid string to play a sound
-    public void PlaySoundFromAudioManager(string name)
+    public void PlaySoundFromAudioManager(string list)
     {
+        string[] names = list.Split();
+        string name = names[Random.Range(0, names.Length)];
         audioManager.Play(name);
     }
 
