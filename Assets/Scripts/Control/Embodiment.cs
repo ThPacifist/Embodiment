@@ -182,4 +182,22 @@ public class Embodiment : MonoBehaviour
         Debug.Log(hit.collider);
         return hit.collider == null;
     }
+
+    //Check if it enters a no-disembody area
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Embody"))
+        {
+            canDisembody = false;
+        }
+    }
+
+    //Check if it exits a no-disembody area
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Embody"))
+        {
+            canDisembody = true;
+        }
+    }
 }
