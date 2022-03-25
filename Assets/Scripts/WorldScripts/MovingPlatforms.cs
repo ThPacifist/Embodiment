@@ -193,7 +193,8 @@ public class MovingPlatforms : GameAction
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //Parent to platform
-        collision.transform.SetParent(platform);
+        if(!collision.collider.CompareTag("Ground"))
+            collision.transform.SetParent(platform);
         //Check if it was the player
         if (GameAction.PlayerTags(collision.collider.tag))
         {
@@ -206,13 +207,23 @@ public class MovingPlatforms : GameAction
     private void OnCollisionExit2D(Collision2D collision)
     {
         //Remove parent
-        collision.transform.SetParent(null);
+        if (!collision.collider.CompareTag("Ground"))
+            collision.transform.SetParent(null);
         //Check if it was the player
         if (GameAction.PlayerTags(collision.collider.tag))
         {
             Debug.Log("Player left");
             //Set playerOn
             playerOn = false;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        foreach(Transform point in points)
+        {
+            Gizmos.DrawWireCube(point.position, Vector3.one);
         }
     }
 }

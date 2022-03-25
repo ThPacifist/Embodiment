@@ -156,8 +156,8 @@ public class HumanController : Controller
         {
             if (boxTag == "LBox" || boxTag == "MBox")
             {
-                if (!CheckSpaceForBox(box))
-                {
+                //f (!CheckSpaceForBox(box))
+                //{
                     Debug.Log("Inside check space for box");
                     if (!Left && !Right)
                     {
@@ -167,11 +167,11 @@ public class HumanController : Controller
                     {
                         PickUpBoxHuman(box);
                     }
-                }
-                else
+                //}
+                /*else
                 {
                     Debug.LogError("Not Enough space for box");
-                }
+                }*/
             }
             else if (boxTag == "HBox")
             {
