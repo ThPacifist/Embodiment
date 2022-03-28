@@ -80,8 +80,8 @@ public class Switch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, spring.transform.position.x + 0.01f, spring.transform.position.x + 0.01f),
-            Mathf.Clamp(transform.position.y, spring.transform.position.y + 0.25f, spring.transform.position.y + 0.7f), transform.position.z);
+        //transform.position = new Vector3(Mathf.Clamp(transform.position.x, spring.transform.position.x + 0.01f, spring.transform.position.x + 0.01f),
+            //Mathf.Clamp(transform.position.y, spring.transform.position.y + 0.25f, spring.transform.position.y + 0.7f), transform.position.z);
 
         //Gets the distance between the button and the base
         if (Constant || onePress)
