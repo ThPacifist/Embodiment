@@ -4682,7 +4682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &623839421
 Transform:
   m_ObjectHideFlags: 0
@@ -4824,6 +4824,7 @@ MonoBehaviour:
   - Chapter 2
   - Chapter 3
   - Chapter 4
+  - Chapter 5
   levelButtonPrefab: {fileID: 6723320981020090651, guid: f30d7d511c112d140911c536a740931b, type: 3}
   menuButtons: {fileID: 1528689516}
   settingsButtons: {fileID: 941469881}
@@ -5260,7 +5261,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.41960788, g: 0.41960788, b: 0.41960788, a: 1}
+    m_HighlightedColor: {r: 0.5471698, g: 0.51826274, b: 0.51826274, a: 1}
     m_PressedColor: {r: 0.41960788, g: 0.41960788, b: 0.41960788, a: 1}
     m_SelectedColor: {r: 0.6313726, g: 0.6313726, b: 0.6313726, a: 1}
     m_DisabledColor: {r: 0.75294125, g: 0.75294125, b: 0.75294125, a: 0.5019608}
@@ -5301,7 +5302,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831744327}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -5907,7 +5908,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.41960788, g: 0.41960788, b: 0.41960788, a: 1}
+    m_HighlightedColor: {r: 0.5471698, g: 0.51826274, b: 0.51826274, a: 1}
     m_PressedColor: {r: 0.41960788, g: 0.41960788, b: 0.41960788, a: 1}
     m_SelectedColor: {r: 0.6313726, g: 0.6313726, b: 0.6313726, a: 1}
     m_DisabledColor: {r: 0.75294125, g: 0.75294125, b: 0.75294125, a: 0.5019608}
@@ -5948,7 +5949,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1128771880}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -6626,7 +6627,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.41960788, g: 0.41960788, b: 0.41960788, a: 1}
+    m_HighlightedColor: {r: 0.5471698, g: 0.51826274, b: 0.51826274, a: 1}
     m_PressedColor: {r: 0.41960788, g: 0.41960788, b: 0.41960788, a: 1}
     m_SelectedColor: {r: 0.6313726, g: 0.6313726, b: 0.6313726, a: 1}
     m_DisabledColor: {r: 0.75294125, g: 0.75294125, b: 0.75294125, a: 0.5019608}
@@ -6667,7 +6668,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702437875}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -6929,7 +6930,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.41960788, g: 0.41960788, b: 0.41960788, a: 1}
+    m_HighlightedColor: {r: 0.5471698, g: 0.51826274, b: 0.51826274, a: 1}
     m_PressedColor: {r: 0.41960788, g: 0.41960788, b: 0.41960788, a: 1}
     m_SelectedColor: {r: 0.6313726, g: 0.6313726, b: 0.6313726, a: 1}
     m_DisabledColor: {r: 0.75294125, g: 0.75294125, b: 0.75294125, a: 0.5019608}
@@ -6970,7 +6971,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1746639201}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
