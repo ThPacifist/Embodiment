@@ -175,6 +175,14 @@ public class Controller : MonoBehaviour
             PlayerBrain.PB.plyAnim.SetTrigger("Death");
             SetToDefault();
         }
+
+        if(other.CompareTag("Shrieker"))
+        {
+            if(tag != "Blob")
+            {
+                PlayerBrain.PB.Embodiment.ShriekerEvent();
+            }
+        }
     }
 
     public virtual void OnTriggerStay2D(Collider2D other)

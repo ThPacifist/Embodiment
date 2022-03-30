@@ -183,6 +183,14 @@ public class Embodiment : MonoBehaviour
         return hit.collider == null;
     }
 
+    /// <summary>
+    /// To be used by the shrieker to remove the skeleton from the blob
+    /// </summary>
+    public void ShriekerEvent()
+    {
+        EmbodyThis(null);
+    }
+
     //Check if it enters a no-disembody area
     public void OnCollisionEnter2D(Collision2D collision)
     {
