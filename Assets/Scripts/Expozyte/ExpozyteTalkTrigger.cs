@@ -21,7 +21,7 @@ public class ExpozyteTalkTrigger : TalkParent
 
     //Private variables
     dialogueStruct dialogue;
-    private bool play;
+    private bool play = true;
 
     //Do on start
     private void Start()
@@ -59,6 +59,7 @@ public class ExpozyteTalkTrigger : TalkParent
         {
             ExpTalk.checkpointDialogue = dialogue;
             ExpTalk.PlayDialogue();
+            play = false;
         }
     }
 }
