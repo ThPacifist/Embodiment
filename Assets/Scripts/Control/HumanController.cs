@@ -292,6 +292,8 @@ public class HumanController : Controller
         }
     }
 
+    //Used to hold the mass of a light box
+    float tempValue = 0;
     public void PickUpBoxHuman(Rigidbody2D box)
     {
         if (box != null)
@@ -310,11 +312,12 @@ public class HumanController : Controller
 
             if(boxTag == "LBox")
             {
-                heldBox.gravityScale = 0;
+                tempValue = heldBox.mass;
+                heldBox.mass = 0;
             }
             else if(boxTag == "MBox")
             {
-                jumpHeight = 0;
+                PlayerBrain.PB.canJump = false;
             }
 
             PlyCtrl.Player.Interact.performed -= _ => PlayerBrain.Interact();
@@ -337,8 +340,8 @@ public class HumanController : Controller
             {
                 PlayerBrain.PB.fixedJ.connectedBody.mass = 20;
             }
-            heldBox.gravityScale = 1;
-            jumpHeight = defaultJumpHeight;
+            heldBox.mass = tempValue;
+            PlayerBrain.PB.canJump = true;
             speed = defaultSpeed;
             PlayerBrain.PB.fixedJ.connectedBody = null;
             heldBox = null;

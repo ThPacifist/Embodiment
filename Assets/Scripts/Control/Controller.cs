@@ -252,14 +252,14 @@ public class Controller : MonoBehaviour
 
     public void DisableMovement()
     {
-        PlayerBrain.PB.canMove = false;
-        PlayerBrain.PB.canJump = false;
+        PlayerBrain.PB.rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        //PlayerBrain.PB.canJump = false;
     }
 
     public void RenableMovement()
     {
-        PlayerBrain.PB.canMove = true;
-        PlayerBrain.PB.canJump = true;
+        PlayerBrain.PB.rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        //PlayerBrain.PB.canJump = true;
     }
 
     //Calls all functions subscribed to death; Used in Death animation
