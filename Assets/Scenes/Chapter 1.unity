@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9939,7 +9939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8298231711477028955, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.0062958347
+      value: -0.00000004371139
       objectReference: {fileID: 0}
     - target: {fileID: 8298231711477028955, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_LocalRotation.x
@@ -9951,23 +9951,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8298231711477028955, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.9999802
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8298231711477028955, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -11.146279
+      value: -0.11250522
       objectReference: {fileID: 0}
     - target: {fileID: 8298231711477028955, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 12.578137
+      value: 11.445615
       objectReference: {fileID: 0}
     - target: {fileID: 8298231711477028956, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_RotationAtRest.z
-      value: 179.27855
+      value: -180
       objectReference: {fileID: 0}
     - target: {fileID: 8298231711477028956, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_RotationOffset.z
-      value: 0.18402708
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8298231712000885524, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_RootOrder
@@ -9979,7 +9979,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8298231712000885524, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.29526186
+      value: 0.0029802322
       objectReference: {fileID: 0}
     - target: {fileID: 8298231712000885524, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_AnchoredPosition.y
