@@ -236,6 +236,8 @@ public class HumanController : Controller
             jumpHeight = defaultJumpHeight;
             PlayerBrain.PB.fixedJ.enabled = false;
             PlayerBrain.PB.fixedJ.connectedBody = null;
+            heldBox.mass = tempValue;
+            PlayerBrain.PB.canJump = true;
 
             float facing = -1 * transform.localScale.x;
 
