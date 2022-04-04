@@ -7,6 +7,11 @@ public class TriggerCutscene : MonoBehaviour
 {
     public GameObject cutsceneGameobject;
 
+    private void Awake()
+    {
+        cutsceneGameobject.SetActive(false);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         cutsceneGameobject.SetActive(true);

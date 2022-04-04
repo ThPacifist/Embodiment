@@ -188,7 +188,28 @@ public class Embodiment : MonoBehaviour
     /// </summary>
     public void ShriekerEvent()
     {
-        EmbodyThis(null);
+        //EmbodyThis(null);
+        Debug.Log("The type is: " + PlayerBrain.PB.currentController.GetType());
+        //Checks if the current form is the blob, then reacts accordingly
+        if (PlayerBrain.PB.currentController.GetType() == typeof(BlobController))
+        {
+            BlobController control = (BlobController)PlayerBrain.PB.currentController;
+
+            if(control.skelHeld)
+            {
+                control.heldSkel.isGrabbed = false;
+                control.heldSkel = null;
+                control.skelHeld = false;
+                PlayerBrain.PB.fixedJ.enabled = false;
+                PlayerBrain.PB.fixedJ.connectedBody = null;
+                PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
+                control.jumpHeight = 18.1f;
+            }
+        }
+        else
+        {
+            EmbodyThis(null);
+        }
     }
 
     //Check if it enters a no-disembody area

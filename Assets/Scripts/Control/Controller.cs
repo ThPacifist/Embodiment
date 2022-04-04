@@ -178,7 +178,7 @@ public class Controller : MonoBehaviour
 
         if(other.CompareTag("Shrieker"))
         {
-            if(tag != "Blob")
+            if (this.enabled)
             {
                 PlayerBrain.PB.Embodiment.ShriekerEvent();
             }

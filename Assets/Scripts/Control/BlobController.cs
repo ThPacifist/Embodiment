@@ -345,6 +345,12 @@ public class BlobController : Controller
         {
             if (other.CompareTag("Water"))
             {
+                //if the player is in the water while carrying a skeleton
+                if(skelHeld)
+                {
+                    PickUpSkeleton(null);
+                }
+
                 //Makes Blob float
                 if (audioManager != null)
                 {
