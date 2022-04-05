@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 584262705685045570}
   - component: {fileID: 584262705685045580}
   - component: {fileID: 584262705685045571}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Checkpoint 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,6 @@ MonoBehaviour:
   - {fileID: 584262705685045570}
   player: {fileID: 0}
   toCheckpoint: 0
-  plyCntrl: {fileID: 0}
   transCntrl: {fileID: 0}
   previousCheckpoint: 0
 --- !u!1 &5752391404740920137
@@ -135,7 +134,7 @@ GameObject:
   - component: {fileID: 599303354148432377}
   - component: {fileID: 6576441827751574357}
   - component: {fileID: 3805165820615275814}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Checkpoint 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

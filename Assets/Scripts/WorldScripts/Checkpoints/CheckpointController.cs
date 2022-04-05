@@ -18,9 +18,6 @@ public class CheckpointController : MonoBehaviour
     public static Action RebuildData = delegate{ };
 
     [SerializeField]
-    PlyController plyCntrl;
-
-    [SerializeField]
     TransitionController transCntrl;
 
     //Private variables
@@ -49,7 +46,6 @@ public class CheckpointController : MonoBehaviour
         //Debug.Log("Animator is " + plyAnim);
     }
 
-    //Update
     //Debug mode change checkpoints, add slashes to * for testing
     /*
      *
@@ -73,7 +69,6 @@ public class CheckpointController : MonoBehaviour
     //Update checkpoint number when a new checkpoint is touched
     public void UpdateCheckpoint(int newPosition)
     {
-        Debug.Log("Player has passed Checkpoint: " + newPosition);
         if (newPosition > previousCheckpoint)
         {
             previousCheckpoint = newPosition;
@@ -88,7 +83,7 @@ public class CheckpointController : MonoBehaviour
         MoveToCheckpoint(previousCheckpoint);
         player.GetComponent<SpriteRenderer>().enabled = true;
         //Try to place the player on the ground
-        player.position = GameAction.PlaceColOnGround(player.GetComponent<Collider2D>());
+        //player.position = GameAction.PlaceColOnGround(player.GetComponent<Collider2D>());
         plyAnim.SetTrigger(player.tag);
     }
 

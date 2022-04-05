@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6835,6 +6835,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5374543288877131976, guid: ffd2f1541f469ee4f92fc1c21bff559e, type: 3}
   m_PrefabInstance: {fileID: 1860361893}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1668736671 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6303674869034217075, guid: 550da5b7498a17740a448490084b2025, type: 3}
+  m_PrefabInstance: {fileID: 5131296693234313890}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1668736678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668736671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a567df977e2481943ac1820271587fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sprite: {fileID: 570199729}
 --- !u!1 &1670105353
 GameObject:
   m_ObjectHideFlags: 0
@@ -69300,7 +69318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6303674869034217076, guid: 550da5b7498a17740a448490084b2025, type: 3}
       propertyPath: behaviors.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6303674869034217076, guid: 550da5b7498a17740a448490084b2025, type: 3}
       propertyPath: behaviors.Array.data[0]
@@ -69310,6 +69328,10 @@ PrefabInstance:
       propertyPath: behaviors.Array.data[1]
       value: 
       objectReference: {fileID: 797582529}
+    - target: {fileID: 6303674869034217076, guid: 550da5b7498a17740a448490084b2025, type: 3}
+      propertyPath: behaviors.Array.data[2]
+      value: 
+      objectReference: {fileID: 1668736678}
     - target: {fileID: 6303674870544144421, guid: 550da5b7498a17740a448490084b2025, type: 3}
       propertyPath: m_RootOrder
       value: 1
