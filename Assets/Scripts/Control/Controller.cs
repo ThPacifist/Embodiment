@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,6 +44,8 @@ public class Controller : MonoBehaviour
     { get { return right; } }
     public bool Left
     { get { return left; } }
+
+    protected bool hasRun = true;
 
     protected virtual void Awake()
     {
@@ -111,10 +114,15 @@ public class Controller : MonoBehaviour
         if(!isGrounded())
         {
             ToggleBody(false);
+            hasRun = false;
         }
         else
         {
-            ToggleBody(true);
+            if (!hasRun)
+            {
+                ToggleBody(true);
+                hasRun = true;
+            }
         }
 
         if (PlayerBrain.PB.canMove)
@@ -229,7 +237,7 @@ public class Controller : MonoBehaviour
     public void PlaySoundFromAudioManager(string list)
     {
         string[] names = list.Split();
-        string name = names[Random.Range(0, names.Length)];
+        string name = names[UnityEngine.Random.Range(0, names.Length)];
         audioManager.Play(name);
     }
 
@@ -243,23 +251,14 @@ public class Controller : MonoBehaviour
 
     }
 
-    /*//Special cooldown
-    public IEnumerator SpecialCoolDown()
-    {
-        yield return new WaitForSeconds(cooldownTime);
-        specialReady = true;
-    }*/
-
-    public void DisableMovement()
+    public virtual void DisableMovement()
     {
         PlayerBrain.PB.rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        //PlayerBrain.PB.canJump = false;
     }
 
-    public void RenableMovement()
+    public virtual void RenableMovement()
     {
         PlayerBrain.PB.rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        //PlayerBrain.PB.canJump = true;
     }
 
     //Calls all functions subscribed to death; Used in Death animation
@@ -270,7 +269,7 @@ public class Controller : MonoBehaviour
     }
 
     void FreezePlayer()
-    {
+    { 
         PlayerBrain.PB.rb.simulated = false;
         PlayerBrain.PB.rb.velocity = Vector2.zero;
         ToggleBody(false);

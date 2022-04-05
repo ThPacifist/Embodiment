@@ -195,6 +195,7 @@ public class Embodiment : MonoBehaviour
         {
             BlobController control = (BlobController)PlayerBrain.PB.currentController;
 
+            //Detaches the skeleton from the player if it is carrying a skeleton
             if(control.skelHeld)
             {
                 control.heldSkel.isGrabbed = false;

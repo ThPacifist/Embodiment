@@ -32,21 +32,23 @@ public class BlobController : Controller
         if (skelHeld)
         {
             heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
-            Embodiment.canEmbody = false;
-        }
-        else
-        {
-            Embodiment.canEmbody = true;
         }
 
-        if(isAttached || !isGrounded())
+        if(isAttached)
         {
             Embodiment.canEmbody = false;
+            hasRun = false;
         }
         else
         {
-            Embodiment.canEmbody = true;
+            if (!hasRun)
+            {
+                Embodiment.canEmbody = true;
+                hasRun = true;
+            }
         }
+
+        Debug.Log(Embodiment.canEmbody);
 
         if (PlayerBrain.PB.canMove)
         {
@@ -172,7 +174,6 @@ public class BlobController : Controller
         {
             if (!CheckSpaceForSkelo())
             {
-                Debug.Log("Picking up skeleton");
                 if (!Left && !Right)
                 {
                     PlayerBrain.PB.plyAnim.SetBool("isGrabbing", true);
@@ -195,7 +196,6 @@ public class BlobController : Controller
         //Drop skeleton
         else if (skelHeld)
         {
-            Debug.Log("Putting down Skeleton");
             if (!Left && !Right)
             {
                 PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
@@ -285,8 +285,7 @@ public class BlobController : Controller
             heldSkel.skelGObject.transform.position = skelHeldPos.transform.position;
             PlayerBrain.PB.plyAnim.SetBool("isGrabbing", true);
             jumpHeight = 60;
-
-            Debug.Log("Picked up " + skelo.name);
+            ToggleBody(false);
         }
         else if (skelo == null && skelHeld)
         {
@@ -297,8 +296,7 @@ public class BlobController : Controller
             PlayerBrain.PB.fixedJ.connectedBody = null;
             PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
             jumpHeight = 18.1f;
-
-            Debug.Log("Put Down my object");
+            ToggleBody(false);
         }
     }
 
@@ -377,6 +375,24 @@ public class BlobController : Controller
                 PlayerBrain.PB.plyCol.density = density;
                 jumpHeight = 18.1f;
             }
+        }
+    }
+
+    public override void DisableMovement()
+    {
+        base.DisableMovement();
+        if(this.enabled)
+        {
+            ToggleBody(false);
+        }
+    }
+
+    public override void RenableMovement()
+    {
+        base.RenableMovement();
+        if (this.enabled)
+        {
+            ToggleBody(true);
         }
     }
 

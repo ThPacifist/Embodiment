@@ -18,7 +18,7 @@ public class CatController : Controller
     {
         base.FixedUpdate();
 
-        if(OnWall || !isGrounded())
+        if(OnWall)
         {
             Embodiment.canDisembody = false;
         }
