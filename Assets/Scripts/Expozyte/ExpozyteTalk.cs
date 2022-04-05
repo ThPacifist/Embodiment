@@ -26,6 +26,7 @@ public class ExpozyteTalk : TalkParent
     //Plays through the dialogue
     public void PlayDialogue()
     {
+        currentDialogue = 0;
         //Check if there is anything else to display
         if (currentDialogue < checkpointDialogue.Dialogue.Length)
         {
@@ -33,7 +34,16 @@ public class ExpozyteTalk : TalkParent
             bubble.SetActive(true);
             textBox.text = "";
             currentText = checkpointDialogue.Dialogue[0];
+            letter = 0;
             StartCoroutine("OneChar");
+        }
+        else
+        {
+            //Disable the bubble and clear the text
+            bubble.SetActive(false);
+            textBox.text = "";
+            currentText = "";
+            letter = 0;
         }
     }
 
@@ -65,7 +75,6 @@ public class ExpozyteTalk : TalkParent
     //Put the text in there one character at a time
     IEnumerator OneChar()
     {
-        Debug.Log(currentText);
         while (letter < currentText.Length)
         {
             //Put the next letter in and increment letter

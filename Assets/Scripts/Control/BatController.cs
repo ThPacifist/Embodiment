@@ -14,6 +14,8 @@ public class BatController : Controller
     bool batJump = true;
     bool boxHeld;
 
+    private bool flap;
+
     public override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -53,15 +55,18 @@ public class BatController : Controller
             {
                 batJump = false;
                 PlayerBrain.PB.rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, PlayerBrain.PB.rb.velocity.y), ForceMode2D.Impulse);
-                PlayerBrain.PB.plyAnim.SetTrigger("Flap");
-                if (audioManager != null)
+                if (audioManager != null && flap)
                 {
+                    PlayerBrain.PB.plyAnim.SetTrigger("Flap");
                     audioManager.Play("wingFlap");
                 }
                 StartCoroutine(FlyCoolDown());
             }
 
-            base.Jump();
+            if (flap)
+            {
+                base.Jump();
+            }
         }
     }
 
@@ -226,5 +231,16 @@ public class BatController : Controller
         //Bat Box Pos
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(heldPos.position, 0.3f);
+    }
+
+    //Flap animation 
+    public void PlayFlapAnim()
+    {
+        flap = true;
+    }
+
+    public void StopFlapAnim()
+    {
+        flap = false;
     }
 }
