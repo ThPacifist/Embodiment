@@ -62,4 +62,21 @@ public class AnimatedTalkBubble : MonoBehaviour
             0);
 
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Vector3[] wordBubbleCorners = new Vector3[4];
+        wordBubble.GetWorldCorners(wordBubbleCorners);
+
+        Vector3 tR = new Vector3(wordBubbleCorners[2].x - xBubbleBounds, wordBubbleCorners[2].y - yBubbleBounds);
+        Vector3 bR = new Vector3(wordBubbleCorners[2].x - xBubbleBounds, wordBubbleCorners[0].y + yBubbleBounds);
+        Vector3 bL = new Vector3(wordBubbleCorners[0].x + xBubbleBounds, wordBubbleCorners[0].y + yBubbleBounds);
+        Vector3 tL = new Vector3(wordBubbleCorners[0].x + xBubbleBounds, wordBubbleCorners[2].y - yBubbleBounds);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(bL, bR);
+        Gizmos.DrawLine(bR, tR);
+        Gizmos.DrawLine(tR, tL);
+        Gizmos.DrawLine(tL, bL);
+    }
 }

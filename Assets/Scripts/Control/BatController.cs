@@ -169,7 +169,6 @@ public class BatController : Controller
                 audioManager.Play("boxGrab");
             }
             PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);
-            //plyAnim.SetTrigger("Bat");
             boxHeld = false;
             heldBox.gravityScale = 1;
             PlayerBrain.PB.fixedJ.enabled = false;

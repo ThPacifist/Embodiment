@@ -265,8 +265,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xBounds: 0.67
   yBounds: 0.73
-  xBubbleBounds: 0.18
-  yBubbleBounds: 0.14
+  xBubbleBounds: 0.33
+  yBubbleBounds: 0.32
   bubbleCanvas: {fileID: 8103181914665862557}
   bubbleTail: {fileID: 8103181915199037138}
   wordBubble: {fileID: 8103181914978557494}
@@ -359,7 +359,6 @@ GameObject:
   - component: {fileID: 8103181915199037138}
   - component: {fileID: 8103181915199037140}
   - component: {fileID: 8103181915199037139}
-  - component: {fileID: 8103181915199037141}
   m_Layer: 5
   m_Name: BubbleTail
   m_TagString: Untagged
@@ -424,22 +423,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1818360609 &8103181915199037141
-RotationConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103181915199037137}
-  m_Enabled: 1
-  m_Weight: 1
-  m_RotationAtRest: {x: 0, y: 0, z: -99.11867}
-  m_RotationOffset: {x: 0, y: 0, z: -99.11867}
-  m_AffectRotationX: 0
-  m_AffectRotationY: 0
-  m_AffectRotationZ: 0
-  m_IsContraintActive: 1
-  m_IsLocked: 0
-  m_Sources:
-  - sourceTransform: {fileID: 0}
-    weight: 1

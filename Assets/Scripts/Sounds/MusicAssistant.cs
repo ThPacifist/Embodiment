@@ -30,8 +30,11 @@ public class MusicAssistant : MonoBehaviour
         }
         else
         {
-            int rand = Random.Range(0, music.Count);
-            Play(music[rand].name);
+            if (music[0] != null)
+            {
+                int rand = Random.Range(0, music.Count);
+                Play(music[rand].name);
+            }
         }
     }
 

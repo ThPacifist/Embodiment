@@ -48,8 +48,6 @@ public class BlobController : Controller
             }
         }
 
-        Debug.Log(Embodiment.canEmbody);
-
         if (PlayerBrain.PB.canMove)
         {
             lRenderer.SetPosition(0, transform.position);
