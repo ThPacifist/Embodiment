@@ -19,7 +19,7 @@ public class ExpozyteMoveTrigger : MonoBehaviour
     {
         //Begin move
         ExpMove.BeginMove(goToCheckpoint, speed);
-        this.gameObject.SetActive(false);
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
 
 }

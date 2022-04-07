@@ -20,6 +20,6 @@ public class ExpozyteMoveWithPlayer : MonoBehaviour
     {
         //Begin move
         ExpMove.MoveWithPlayer(left, goToCheckpoint, speed);
-        this.gameObject.SetActive(false);
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
 }

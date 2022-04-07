@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 5908265556387583178}
   - component: {fileID: 3167510396051044458}
   - component: {fileID: 5908265556387583177}
+  - component: {fileID: 8538540477386644014}
   - component: {fileID: 6027191195174404841}
   - component: {fileID: 560259880881183647}
   - component: {fileID: 6507493257711535252}
@@ -359,6 +360,21 @@ MonoBehaviour:
   Checkpoints:
   - {fileID: 6314912952040915422}
   - {fileID: 8376889456795416275}
+--- !u!114 &8538540477386644014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5908265556387583179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f1d9784230c314d9b3f0b38e3c4150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  savedObject: {fileID: 5908265556387583179}
+  expMove: {fileID: 5908265556387583177}
+  expozyte: {fileID: 5908265556387583178}
 --- !u!95 &6027191195174404841
 Animator:
   serializedVersion: 3
