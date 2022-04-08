@@ -74,9 +74,7 @@ public class BoxTrigger : MonoBehaviour
         Vector2 plyPoint = new Vector2(plyCol.bounds.center.x, plyCol.bounds.min.y);
 
         Vector2 tR = new Vector2(InnerCol.bounds.max.x, OuterCol.bounds.max.y);
-        Vector2 bL = new Vector2(InnerCol.bounds.min.x, InnerCol.bounds.max.y - 0.01f);
-
-        Debug.DrawLine(tR, bL);
+        Vector2 bL = new Vector2(InnerCol.bounds.min.x, InnerCol.bounds.max.y - 0.02f);
 
         if (plyPoint.x < tR.x && plyPoint.x > bL.x && plyPoint.y < tR.y && plyPoint.y > bL.y)
         {
@@ -117,7 +115,7 @@ public class BoxTrigger : MonoBehaviour
         Collider2D InnerCol = this.transform.parent.GetComponent<Collider2D>();
 
         Vector2 tR = new Vector2(InnerCol.bounds.max.x, OuterCol.bounds.max.y);
-        Vector2 bL = new Vector2(InnerCol.bounds.min.x, InnerCol.bounds.max.y - 0.01f);
+        Vector2 bL = new Vector2(InnerCol.bounds.min.x, InnerCol.bounds.max.y - 0.02f);
 
         Vector3 center = new Vector3((tR.x + bL.x) / 2, (tR.y + bL.y) / 2, 0);
         Vector3 size = new Vector3(Mathf.Abs(tR.x - bL.x), Mathf.Abs(tR.y - bL.y), 0);

@@ -44,7 +44,7 @@ public class Embodiment : MonoBehaviour
             PlayerBrain.PB.currentController.enabled = false;
             PlayerBrain.Skeletons[targetSkeleton.type].enabled = true;
             targetSkeleton.isGrabbed = true;
-            Debug.Log("Player set to " + targetSkeleton.type);
+            //Debug.Log("Player set to " + targetSkeleton.type);
 
             //Attach skeleton to player and disable it
             currentSkeleton = targetSkeleton.transform.parent;
@@ -179,7 +179,7 @@ public class Embodiment : MonoBehaviour
         //Send a Capsule cast to see if there is enough space for the player
         RaycastHit2D hit = Physics2D.CapsuleCast(targetCenter, targetSkeleton.colliderSize, targetSkeleton.direction,
             0f, Vector2.down, 0f, layer);
-        Debug.Log(hit.collider);
+        //Debug.Log(hit.collider);
         return hit.collider == null;
     }
 

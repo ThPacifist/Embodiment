@@ -66,34 +66,19 @@ public class BlobController : Controller
                 this.transform.rotation = rotation;
             }
 
-            if (PlayerBrain.PB.canMove)
+            if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
             {
-                if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+                //Movement
+                if (Mathf.Abs(PlayerBrain.PB.rb.velocity.x) < speed && !isAttached)
                 {
-                    //Movement
-                    if (Mathf.Abs(PlayerBrain.PB.rb.velocity.x) < speed && !isAttached)
-                    {
-                        PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 20 * PlayerBrain.PB.rb.mass);
-                    }
-                    else if (isAttached)
-                    {
-                        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
-                        {
-                            //PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.2f, ForceMode2D.Impulse);
-                            PlayerBrain.PB.rb.AddRelativeForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.15f, ForceMode2D.Impulse);
-                        }
-                    }
-
-                    if (audioManager != null)
-                    {
-                        //audioManager.Play("blobStep");
-                    }
+                    PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 20 * PlayerBrain.PB.rb.mass);
                 }
-                else
+                else if (isAttached)
                 {
-                    if (audioManager != null)
+                    if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
                     {
-                        audioManager.Stop("blobStep");
+                        //PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.2f, ForceMode2D.Impulse);
+                        PlayerBrain.PB.rb.AddRelativeForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 0.15f, ForceMode2D.Impulse);
                     }
                 }
             }
@@ -232,9 +217,9 @@ public class BlobController : Controller
         {
             lRenderer.enabled = true;
             PlayerBrain.PB.plyCol.size = new Vector2(0.96f, 0.96f);
+            StartCoroutine(AnimateTentacle(lamp.transform.position));
             PlayerBrain.PB.spring.enabled = true;
             PlayerBrain.PB.spring.connectedAnchor = lamp.transform.position;
-            lRenderer.SetPosition(1, new Vector3(lamp.transform.position.x, lamp.transform.position.y, transform.position.z));
             isAttached = true;
         }
         else
@@ -397,6 +382,26 @@ public class BlobController : Controller
     public override void ToggleBody(bool value)
     {
         Embodiment.canEmbody = value;
+    }
+
+    IEnumerator AnimateTentacle(Vector3 endPos)
+    {
+        //new Vector3(lamp.transform.position.x, lamp.transform.position.y, transform.position.z)
+        int frames = 12; //Number of frames of the animation    
+        int elapsedFrames = 0; //Don't change
+
+        while (elapsedFrames != frames)
+        {
+            float ratio = (float)elapsedFrames / frames;
+            Vector3 interpolatedPosition = Vector3.Lerp(transform.position, endPos, ratio);
+
+            elapsedFrames = (elapsedFrames + 1) % (frames + 1);
+
+            lRenderer.SetPosition(1, interpolatedPosition);
+            yield return null;
+        }
+
+        lRenderer.SetPosition(1, endPos);
     }
 
     private void OnDrawGizmos()

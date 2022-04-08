@@ -23,7 +23,6 @@ public class SwingerVisuals : MonoBehaviour
             {
                 if (interaction != null)
                     interaction.SetSwingerGameObject(gameObject);
-                //indicator.SetActive(true);
             }
         }
     }
@@ -38,7 +37,6 @@ public class SwingerVisuals : MonoBehaviour
                     interaction.SetSwingerGameObject(null);
                     interaction = null;
                 }
-                //indicator.SetActive(false);
             }
         }
     }
