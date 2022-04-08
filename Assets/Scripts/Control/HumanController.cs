@@ -16,6 +16,15 @@ public class HumanController : Controller
     public Rigidbody2D box;
     string boxTag;
 
+    bool greenBox;
+    public Vector2 greenOffset;
+    public Vector2 greenSize;
+    bool redBox;
+    public Vector2 redOffset;
+    public Vector2 redSize;
+    float startingGrav;
+
+
     public override void Start()
     {
         base.Start();
@@ -50,6 +59,18 @@ public class HumanController : Controller
             {
                 heldBox.velocity = PlayerBrain.PB.rb.velocity;
             }
+        }
+
+        int layer = LayerMask.GetMask("Jumpables");
+
+        greenBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (greenOffset.x * transform.localScale.x), transform.position.y + (greenOffset.y)),
+            greenSize, 0f, layer);
+        redBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (redOffset.x * transform.localScale.x), transform.position.y + (redOffset.y)),
+            redSize, 0f, layer);
+
+        if(greenBox && !redBox && !isGrounded() && !boxHeld && PlayerBrain.PB.canMove)
+        {
+            //activate ledge grab
         }
 
         #region Animation Block
@@ -355,11 +376,6 @@ public class HumanController : Controller
         }
     }
 
-    private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-    {
-        throw new System.NotImplementedException();
-    }
-
     //Checks to see if there is enough space for the box, so that it does not get put through a wall
     bool CheckSpaceForBox(Rigidbody2D rb)
     {
@@ -410,5 +426,10 @@ public class HumanController : Controller
         //Human Box Pos
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(heldPos.position, 0.3f);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(new Vector2(transform.position.x + (redOffset.x * transform.localScale.x), transform.position.y + (redOffset.y)), redSize);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(new Vector2(transform.position.x + (greenOffset.x * transform.localScale.x), transform.position.y + (greenOffset.y)), greenSize);
     }
 }
