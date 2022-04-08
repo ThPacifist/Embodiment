@@ -13,6 +13,7 @@ public class Embodiment : MonoBehaviour
     public Transform currentSkeleton;
     public SkeletonTrigger targetSkeleton;
     public GameObject cloudPrefab;
+    public PlayerBrain PB;
     public static bool canEmbody = true;
     public static bool canDisembody = false;
 
@@ -32,7 +33,7 @@ public class Embodiment : MonoBehaviour
     void Embody()
     {
         Debug.Log("Embody");    
-        if(targetSkeleton != null && CheckSpace(targetSkeleton) && canEmbody)
+        if(targetSkeleton != null && CheckSpace(targetSkeleton) && canEmbody && !PB.plyAnim.GetBool("isJumping"))
         {
             Instantiate(cloudPrefab, transform.position, Quaternion.identity);
             if (AudioManager.instance != null)
@@ -63,7 +64,7 @@ public class Embodiment : MonoBehaviour
     void Disembody()
     {
         Debug.Log("Disembody");
-        if (currentSkeleton != null && canDisembody)
+        if (currentSkeleton != null && canDisembody && !PB.plyAnim.GetBool("isJumping"))
         {
             Instantiate(cloudPrefab, transform.position, Quaternion.identity);
             if (AudioManager.instance != null)
