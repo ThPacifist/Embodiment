@@ -39,6 +39,11 @@ public class Controller : MonoBehaviour
     protected bool specialReady = true;
     protected float cooldownTime;
 
+    /*public Animator anim;
+    private int parametrA;
+    public string nameOfTheParameter;
+    private AnimatorStateInfo cInfo;*/
+
     //Private
     public bool Right
     { get { return right; } }
@@ -49,6 +54,13 @@ public class Controller : MonoBehaviour
 
     protected virtual void Awake()
     {
+        /*cInfo = anim.GetCurrentAnimatorStateInfo(0);
+       
+        parametrA = Animator.StringToHash(nameOfTheParameter);
+
+        anim.SetTrigger(parametrA);*/
+
+
         PlyCtrl = new PlayerControls();
         audioManager = FindObjectOfType<AudioManager>();
         //this.gameObject.transform.position = GameAction.PlaceColOnGround(PlayerBrain.PB.plyCol);\

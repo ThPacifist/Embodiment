@@ -61,7 +61,7 @@ public class HumanController : Controller
             }
         }
 
-        int layer = LayerMask.GetMask("Jumpables");
+        /*int layer = LayerMask.GetMask("Jumpables");
 
         greenBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (greenOffset.x * transform.localScale.x), transform.position.y + (greenOffset.y)),
             greenSize, 0f, layer);
@@ -71,7 +71,7 @@ public class HumanController : Controller
         if(greenBox && !redBox && !isGrounded() && !boxHeld && PlayerBrain.PB.canMove)
         {
             //activate ledge grab
-        }
+        }*/
 
         #region Animation Block
         if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && PlayerBrain.PB.canMove)
@@ -427,9 +427,9 @@ public class HumanController : Controller
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(heldPos.position, 0.3f);
 
-        Gizmos.color = Color.red;
+        /*Gizmos.color = Color.red;
         Gizmos.DrawWireCube(new Vector2(transform.position.x + (redOffset.x * transform.localScale.x), transform.position.y + (redOffset.y)), redSize);
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(new Vector2(transform.position.x + (greenOffset.x * transform.localScale.x), transform.position.y + (greenOffset.y)), greenSize);
+        Gizmos.DrawWireCube(new Vector2(transform.position.x + (greenOffset.x * transform.localScale.x), transform.position.y + (greenOffset.y)), greenSize);*/
     }
 }
