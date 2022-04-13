@@ -258,7 +258,7 @@ public class HumanController : Controller
             jumpHeight = defaultJumpHeight;
             PlayerBrain.PB.fixedJ.enabled = false;
             PlayerBrain.PB.fixedJ.connectedBody = null;
-            if (boxTag == "LBox")
+            if (tempString == "LBox")
             {
                 heldBox.mass = tempValue;
             }
@@ -273,6 +273,7 @@ public class HumanController : Controller
 
             boxHeld = false;
             heldBox = null;
+            tempString = "";
         }
         PlyCtrl.Player.Interact.performed += _ => PlayerBrain.Interact();
         PlyCtrl.Player.Interact.performed -= _ => ThrowBox();
