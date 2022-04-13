@@ -210,6 +210,7 @@ public class HumanController : Controller
                 PlayerBrain.PB.fixedJ.connectedBody = heldBox;
                 PlayerBrain.PB.fixedJ.connectedBody.mass = 6;
                 speed = 3;
+                ToggleBody(false);
             }
         }
         else if (boxHeld || heavyBoxHeld)
@@ -319,7 +320,7 @@ public class HumanController : Controller
     }
 
     //Used to hold the mass of a light box
-    float tempValue = 0;
+    float tempValue = 1;
     public void PickUpBoxHuman(Rigidbody2D box)
     {
         if (box != null)
