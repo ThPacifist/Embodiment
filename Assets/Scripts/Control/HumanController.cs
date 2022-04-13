@@ -321,6 +321,7 @@ public class HumanController : Controller
 
     //Used to hold the mass of a light box
     float tempValue = 1;
+    string tempString = "";
     public void PickUpBoxHuman(Rigidbody2D box)
     {
         if (box != null)
@@ -329,6 +330,7 @@ public class HumanController : Controller
             {
                 audioManager.Play("boxGrab");
             }
+            tempString = boxTag;
             PlayerBrain.PB.plyAnim.SetBool("isGrabbing", true);
             //Attach box
             heldBox = box;
@@ -337,12 +339,12 @@ public class HumanController : Controller
             PlayerBrain.PB.fixedJ.connectedBody = heldBox;
             heldBox.transform.position = heldPos.transform.position;
 
-            if(boxTag == "LBox")
+            if(tempString == "LBox")
             {
                 tempValue = heldBox.mass;
                 heldBox.mass = 0;
             }
-            else if(boxTag == "MBox")
+            else if(tempString == "MBox")
             {
                 PlayerBrain.PB.canJump = false;
             }
@@ -363,11 +365,11 @@ public class HumanController : Controller
             boxHeld = false;
             heavyBoxHeld = false;
             PlayerBrain.PB.fixedJ.enabled = false;
-            if (boxTag == "HBox")
+            if (tempString == "HBox")
             {
                 PlayerBrain.PB.fixedJ.connectedBody.mass = 20;
             }
-            else if (boxTag == "LBox")
+            else if (tempString == "LBox")
             {
                 heldBox.mass = tempValue;
             }
@@ -375,6 +377,7 @@ public class HumanController : Controller
             speed = defaultSpeed;
             PlayerBrain.PB.fixedJ.connectedBody = null;
             heldBox = null;
+            tempString = "";
 
             PlyCtrl.Player.Interact.performed += _ => PlayerBrain.Interact();
             PlyCtrl.Player.Interact.performed -= _ => ThrowBox();
