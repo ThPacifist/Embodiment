@@ -137,6 +137,13 @@ public class Controller : MonoBehaviour
             }
         }
 
+        //Remove momentum while on ground
+        if (PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded())
+        {
+            //Reduce the player's speed by half
+            PlayerBrain.PB.rb.velocity *= new Vector2(0.75f, 1);
+        }
+
         if (PlayerBrain.PB.canMove)
         {
             //Keeps track of what direction player is moving in and flips the player based on the direction they are heading in
@@ -159,31 +166,25 @@ public class Controller : MonoBehaviour
                 left = false;
                 right = false;
             }
+        }
 
-            //Remove momentum while on ground
-            if (PlyCtrl.Player.Movement.ReadValue<float>() == 0 && isGrounded())
-            {
-                //Reduce the player's speed by half
-                PlayerBrain.PB.rb.velocity *= new Vector2(0.75f, 1);
-            }
 
-            if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && PlayerBrain.PB.canMove)
-            {
-                PlayerBrain.PB.plyAnim.SetBool("Walking", true);
-            }
-            else
-            {
-                PlayerBrain.PB.plyAnim.SetBool("Walking", false);
-            }
+        if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && PlayerBrain.PB.canMove)
+        {
+            PlayerBrain.PB.plyAnim.SetBool("Walking", true);
+        }
+        else
+        {
+            PlayerBrain.PB.plyAnim.SetBool("Walking", false);
+        }
 
-            if (isGrounded())
-            {
-                PlayerBrain.PB.plyAnim.SetBool("isJumping", false);
-            }
-            else
-            {
-                PlayerBrain.PB.plyAnim.SetBool("isJumping", true);
-            }
+        if (isGrounded())
+        {
+            PlayerBrain.PB.plyAnim.SetBool("isJumping", false);
+        }
+        else
+        {
+            PlayerBrain.PB.plyAnim.SetBool("isJumping", true);
         }
     }
 

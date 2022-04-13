@@ -205,10 +205,10 @@ public class HumanController : Controller
                 //Attach Box
                 heavyBoxHeld = true;
                 heldBox = box;
+                PlayerBrain.PB.canJump = false;
                 PlayerBrain.PB.fixedJ.enabled = true;
                 PlayerBrain.PB.fixedJ.connectedBody = heldBox;
                 PlayerBrain.PB.fixedJ.connectedBody.mass = 6;
-                jumpHeight = 0;
                 speed = 3;
             }
         }
@@ -257,7 +257,10 @@ public class HumanController : Controller
             jumpHeight = defaultJumpHeight;
             PlayerBrain.PB.fixedJ.enabled = false;
             PlayerBrain.PB.fixedJ.connectedBody = null;
-            heldBox.mass = tempValue;
+            if (boxTag == "LBox")
+            {
+                heldBox.mass = tempValue;
+            }
             PlayerBrain.PB.canJump = true;
 
             float facing = -1 * transform.localScale.x;
@@ -363,7 +366,10 @@ public class HumanController : Controller
             {
                 PlayerBrain.PB.fixedJ.connectedBody.mass = 20;
             }
-            heldBox.mass = tempValue;
+            else if (boxTag == "LBox")
+            {
+                heldBox.mass = tempValue;
+            }
             PlayerBrain.PB.canJump = true;
             speed = defaultSpeed;
             PlayerBrain.PB.fixedJ.connectedBody = null;
