@@ -8,7 +8,7 @@ public class FishController : Controller
     [Header("Fish Settings")]
     public Switch lever;
     public float waterDensity;
-    float angle;
+    public float angle;
 
     public override void FixedUpdate()
     {
@@ -70,20 +70,47 @@ public class FishController : Controller
             {
                 PlayerBrain.PB.plyAnim.SetBool("Walking", false);
             }
-            angle = Vector2.SignedAngle(Vector2.left, PlyCtrl.Player.FishInWater.ReadValue<Vector2>());
 
-            /*if(angle > 90)
+            //Fish Rotation Block
+            Vector2 playerInput = new Vector2(Mathf.Round(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().x), 
+                Mathf.Round(PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y));
+
+            if (playerInput == Vector2.left || playerInput == Vector2.right)// Player is pressing left or right
             {
-                angle = transform.localScale.x * (90 - (angle - 90));
+                transform.rotation = Quaternion.Euler(0, 0, 0);
             }
-            else if(angle < -90)
+            else if(playerInput == Vector2.up)// Player is pressing up
             {
-                angle = transform.localScale.x * (90 + (angle + 90));
-            }*/
-
-            Quaternion rotation = Quaternion.Euler(0, 0, angle);
-
-            //transform.rotation = rotation;
+                transform.rotation = Quaternion.Euler(0, 0, -90 * transform.localScale.x);
+            }
+            else if (playerInput == Vector2.down)// Player is pressing down
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 90 * transform.localScale.x);
+            }
+            else if(playerInput == new Vector2(1, 1))// Player is press righta and up
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 45);
+            }
+            else if (playerInput == new Vector2(1, -1))// Player is pressing right and down
+            {
+                transform.rotation = Quaternion.Euler(0, 0, -45);
+            }
+            else if (playerInput == new Vector2(-1, 1))// Player is pressing left and up
+            {
+                transform.rotation = Quaternion.Euler(0, 0, -45);
+            }
+            else if (playerInput == new Vector2(-1, -1))// Player is pressing left and down
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 45);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         #endregion
     }
