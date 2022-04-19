@@ -152,7 +152,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -194,8 +194,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0, b: 0, a: 1}
-      key1: {r: 0, g: 0, b: 0, a: 1}
+      key0: {r: 0.9811321, g: 0.5220363, b: 0.5220363, a: 1}
+      key1: {r: 0.509434, g: 0.49693844, b: 0.49693844, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -222,7 +222,7 @@ LineRenderer:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
-    numCapVertices: 0
+    numCapVertices: 10
     alignment: 0
     textureMode: 0
     shadowBias: 0.5
@@ -422,6 +422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   expAnim: {fileID: 6027191195174404841}
   angle: 0
+  distance: 0
 --- !u!61 &5493811965441788808
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -476,6 +477,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5908265555904216018}
     m_Modifications:
+    - target: {fileID: 8103181914665862544, guid: 7102c272214e42b42beb20d211ce050f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8103181914665862545, guid: 7102c272214e42b42beb20d211ce050f, type: 3}
       propertyPath: cam
       value: 

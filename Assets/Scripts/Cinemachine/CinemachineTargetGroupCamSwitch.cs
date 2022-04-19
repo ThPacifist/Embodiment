@@ -11,7 +11,6 @@ public class CinemachineTargetGroupCamSwitch : MonoBehaviour
     //Should only detect player because the trigger is on the player detector layer
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Hit: Collision is " + collision);
         vCam.Priority = 2;
     }
 
