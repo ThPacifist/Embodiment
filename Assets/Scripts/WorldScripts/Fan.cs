@@ -18,7 +18,8 @@ public class Fan : GameAction
 
     //Private values and assets
     private bool on;
-
+    private float force;
+    private bool buttonPressed;
 
     //Called on start
     public void Start()
@@ -31,13 +32,30 @@ public class Fan : GameAction
         {
             effector.forceMagnitude *= -1;
         }
+        //Get the force
+        force = effector.forceMagnitude;
     }
 
     //Called when an associated button switches state
-    public override void Action()
+    public override void Action(bool var)
     {
-        on = !on;
-        FanAnimator.SetBool("On", on);
+        Debug.Log("Fan Script");
+        if (!buttonPressed)
+        {
+            //Set on variable and animation
+            on = !on;
+            FanAnimator.SetBool("On", on);
+            //Set area effector
+            if (on)
+            {
+                effector.forceMagnitude = force;
+            }
+            else
+            {
+                effector.forceMagnitude = 0;
+            }
+            buttonPressed = true;
+        }
     }
 
 }
