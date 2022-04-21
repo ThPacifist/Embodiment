@@ -7,9 +7,9 @@ using UnityEngine.InputSystem;
 public class CatController : Controller
 {
     public static Action Scratch = delegate { };
+    public static Action JumpAction = delegate { };
     [Header("Cat Settings")]
     public bool OnWall;
-    [HideInInspector]
     public bool treadmill = false;
 
     Vector2 catDir;
@@ -26,6 +26,7 @@ public class CatController : Controller
         {
             Embodiment.canDisembody = true;
         }
+
 
         if(OnWall)
         {
@@ -71,7 +72,6 @@ public class CatController : Controller
             
             if (!OnWall)
             {
-                PlayerBrain.PB.rb.gravityScale = 1;
                 if (audioManager != null)
                 {
                     audioManager.Stop("catClimb");
@@ -157,6 +157,7 @@ public class CatController : Controller
             }
 
             base.Jump();
+            JumpAction();
         }
     }
 

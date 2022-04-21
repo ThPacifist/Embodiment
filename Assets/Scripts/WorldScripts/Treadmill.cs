@@ -22,6 +22,8 @@ public class Treadmill : MonoBehaviour
     [Tooltip("Represents the direction the player needs to move.\n" +
         "Note: Make sure to flip the Sprite Renderer along the x axis")]
     public Direction direction;
+    public bool isAttached;
+    public float range = 0;
 
     /// <summary>
     /// Makes the affectedObject return it's original position over time
@@ -38,15 +40,28 @@ public class Treadmill : MonoBehaviour
     private void Awake()
     {
         anim.SetFloat("Speed", 0);
+        if (affectedObject != null)
         restPos = affectedObject.position;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(!isAttached && cat != null)
+        {
+            if(cat.transform.position.x < (transform.position.x + range) && cat.transform.position.x > (transform.position.x - range))
+            {
+                isAttached = true;
+                cat.treadmill = true;
+                cat.transform.position = new Vector3(transform.position.x, cat.transform.position.y, cat.transform.position.z);
+                PlayerBrain.PB.rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            }
+        }
+
+
         if (!Decay)
         {
-            if (cat != null)
+            if (isAttached && cat != null)
             {
                 //If direction is set to Right
                 if (direction == Direction.Right)
@@ -96,7 +111,7 @@ public class Treadmill : MonoBehaviour
         }
         else
         {
-            if (cat != null)
+            if (isAttached && cat != null)
             {
                 if (cat.Left)
                 {
@@ -135,7 +150,7 @@ public class Treadmill : MonoBehaviour
             //When gObject is at the endPos, unlock the player
             else
             {
-                PlayerBrain.PB.canMove = true;
+                DisconnectCat();
             }
         }
         else if(value == '-')
@@ -147,7 +162,7 @@ public class Treadmill : MonoBehaviour
             //When gObject is at the restPos, unlock the player
             else
             {
-                PlayerBrain.PB.canMove = true;
+                DisconnectCat();
             }
         }
     }
@@ -164,6 +179,34 @@ public class Treadmill : MonoBehaviour
     public void SetCatCntrl(CatController kit)
     {
         cat = kit;
+    }
+
+    void DisconnectCat()
+    {
+        isAttached = false;
+        cat.treadmill = false;
+        cat = null;
+        PlayerBrain.PB.rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        CatController.JumpAction -= DisconnectCat;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.CompareTag("Cat"))
+        {
+            cat = collision.collider.GetComponent<CatController>();
+            CatController.JumpAction += DisconnectCat;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Cat"))
+        {
+            CatController.JumpAction -= DisconnectCat;
+            PlayerBrain.PB.rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            cat = null;
+        }
     }
 
     private void OnDrawGizmos()
@@ -185,5 +228,11 @@ public class Treadmill : MonoBehaviour
             Gizmos.DrawLine(tip, tip + new Vector3(0.25f, -0.25f, 0));
             Gizmos.DrawLine(tip + new Vector3(0.25f, 0.25f, 0), tip + new Vector3(0.25f, -0.25f, 0));
         }
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(new Vector3(transform.position.x + range, transform.position.y + 0.5f, 0), 
+            new Vector3(transform.position.x + range, transform.position.y - 0.5f, 0));
+        Gizmos.DrawLine(new Vector3(transform.position.x - range, transform.position.y + 0.5f, 0),
+            new Vector3(transform.position.x - range, transform.position.y - 0.5f, 0));
     }
 }

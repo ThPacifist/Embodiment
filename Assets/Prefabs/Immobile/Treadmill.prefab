@@ -151,6 +151,9 @@ MonoBehaviour:
   affectedObject: {fileID: 0}
   endPos: {fileID: 0}
   speed: 1
+  direction: 0
+  isAttached: 0
+  range: 0.1
   Decay: 0
   decaySpeed: 1
 --- !u!255 &4202252123542980532
@@ -207,7 +210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4202252124093569044
 Transform:
   m_ObjectHideFlags: 0
@@ -216,7 +219,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4202252124093569045}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.09, z: 0}
+  m_LocalPosition: {x: 0, y: 0.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4202252123542980538}
@@ -260,5 +263,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4296837, y: 0.819675}
+  m_Size: {x: 1.0195885, y: 0.19977054}
   m_EdgeRadius: 0
