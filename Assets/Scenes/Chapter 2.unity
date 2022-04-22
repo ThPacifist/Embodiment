@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6040,6 +6040,12 @@ MonoBehaviour:
   - {x: 44.43747, y: 32.72517, z: 0}
   - {x: 43.06143, y: 32.72341, z: 0}
   - {x: 43.061623, y: 37.724842, z: 0}
+  - {x: 35.436543, y: 37.72359, z: 0}
+  - {x: 35.43578, y: 33.098324, z: 0}
+  - {x: 43.05876, y: 33.099926, z: 0}
+  - {x: 43.057228, y: 32.723186, z: 0}
+  - {x: 35.061504, y: 32.723694, z: 0}
+  - {x: 35.063522, y: 37.72332, z: 0}
   - {x: -20.735157, y: 37.72355, z: 0}
   - {x: -20.735931, y: 7.0990567, z: 0}
   - {x: -14.2367, y: 7.1000667, z: 0}
@@ -89029,15 +89035,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1448344421898293945, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1448344421898293945, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1448344421898293945, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2045534645168684211, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[0].x
@@ -89105,7 +89111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2048893818817401718, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.2116146
+      value: -3.2234344
       objectReference: {fileID: 0}
     - target: {fileID: 2048893818817401718, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_LocalPosition.y

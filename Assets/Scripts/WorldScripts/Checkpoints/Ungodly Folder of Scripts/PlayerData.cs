@@ -152,5 +152,7 @@ public class PlayerData : BaseData
         {
             Destroy(PlayerBrain.PB.prefabInstance);
         }
+
+        player.GetComponent<Rigidbody2D>().gravityScale = 1;
     }
 }
