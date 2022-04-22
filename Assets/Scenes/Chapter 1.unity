@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7708,7 +7708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LightType: 1
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.75
+  m_FalloffIntensity: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
@@ -69066,7 +69066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4869438459966937975, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_Lens.OrthographicSize
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5185543777510184353, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -69126,7 +69126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5852236757575851228, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_Lens.OrthographicSize
-      value: 6.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5852236758373906024, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[0].x

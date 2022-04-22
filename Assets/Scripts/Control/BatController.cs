@@ -55,17 +55,17 @@ public class BatController : Controller
             {
                 batJump = false;
                 PlayerBrain.PB.rb.AddForce((Vector2.up * jumpHeight) - new Vector2(0, PlayerBrain.PB.rb.velocity.y), ForceMode2D.Impulse);
-                if (audioManager != null && flap)
+                if (audioManager != null)
                 {
                     PlayerBrain.PB.plyAnim.SetTrigger("Flap");
                     audioManager.Play("wingFlap");
                 }
                 StartCoroutine(FlyCoolDown());
-            }
 
-            if (flap)
-            {
-                base.Jump();
+                if (flap)
+                {
+                    base.Jump();
+                }
             }
         }
     }
@@ -201,7 +201,7 @@ public class BatController : Controller
     //Cooldown for jumping in midair
     IEnumerator FlyCoolDown()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.4f);
         batJump = true;
     }
 
@@ -240,6 +240,6 @@ public class BatController : Controller
 
     public void StopFlapAnim()
     {
-        flap = false;
+        //flap = false;
     }
 }
