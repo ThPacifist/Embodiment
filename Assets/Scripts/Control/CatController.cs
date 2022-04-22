@@ -72,6 +72,7 @@ public class CatController : Controller
             
             if (!OnWall)
             {
+                PlayerBrain.PB.rb.gravityScale = 1;
                 if (audioManager != null)
                 {
                     audioManager.Stop("catClimb");
