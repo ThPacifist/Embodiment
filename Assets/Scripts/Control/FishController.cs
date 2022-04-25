@@ -10,9 +10,42 @@ public class FishController : Controller
     public float waterDensity;
     public float angle;
 
+    Quaternion maintainedAngle;
+    int frames = 3;
+    int elapsedFrames = 0;
+    bool isFishFlipping = false;
+    float prevDir = 0;
+    float temp;
+
     public override void FixedUpdate()
     {
+        if(PlayerBrain.PB.inWater)
+            prevDir = transform.localScale.x;
         base.FixedUpdate();
+        if (PlayerBrain.PB.inWater)
+        {
+            if (prevDir != transform.localScale.x && !isFishFlipping)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z * -1);
+
+                /*isFishFlipping = true;
+                temp = prevDir;*/
+            }
+
+            /*if(isFishFlipping)
+            {
+                float ratio = (float)elapsedFrames / frames;
+                transform.localScale = Vector3.Lerp(new Vector3(temp, transform.localScale.y, transform.localScale.z), 
+                    new Vector3(temp * -1, transform.localScale.y, transform.localScale.z), 
+                    ratio);
+                elapsedFrames = (elapsedFrames + 1) % (frames + 1);
+                if (ratio == 1)
+                {
+                    elapsedFrames = 0;
+                    isFishFlipping = false;
+                }
+            }*/
+        }
 
         //Movement when in water
         //Handles movemnt when on the land
@@ -77,40 +110,50 @@ public class FishController : Controller
 
             if (playerInput == Vector2.left || playerInput == Vector2.right)// Player is pressing left or right
             {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                maintainedAngle = Quaternion.Euler(0, 0, 0);
             }
             else if(playerInput == Vector2.up)// Player is pressing up
             {
-                transform.rotation = Quaternion.Euler(0, 0, -90 * transform.localScale.x);
+                maintainedAngle = Quaternion.Euler(0, 0, -90 * Mathf.Round(transform.localScale.x));
             }
             else if (playerInput == Vector2.down)// Player is pressing down
             {
-                transform.rotation = Quaternion.Euler(0, 0, 90 * transform.localScale.x);
+                maintainedAngle = Quaternion.Euler(0, 0, 90 * Mathf.Round(transform.localScale.x));
             }
-            else if(playerInput == new Vector2(1, 1))// Player is press righta and up
+            else if(playerInput == new Vector2(1, 1))// Player is press right and up
             {
-                transform.rotation = Quaternion.Euler(0, 0, 45);
+                maintainedAngle = Quaternion.Euler(0, 0, 45);
             }
             else if (playerInput == new Vector2(1, -1))// Player is pressing right and down
             {
-                transform.rotation = Quaternion.Euler(0, 0, -45);
+                maintainedAngle = Quaternion.Euler(0, 0, -45);
             }
             else if (playerInput == new Vector2(-1, 1))// Player is pressing left and up
             {
-                transform.rotation = Quaternion.Euler(0, 0, -45);
+                maintainedAngle = Quaternion.Euler(0, 0, -45);
             }
             else if (playerInput == new Vector2(-1, -1))// Player is pressing left and down
             {
-                transform.rotation = Quaternion.Euler(0, 0, 45);
+                maintainedAngle = Quaternion.Euler(0, 0, 45);
             }
-            else
+
+            if (transform.rotation != maintainedAngle)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                //float ratio = (float)elapsedFrames / frames;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, maintainedAngle, 3);
+                //elapsedFrames = (elapsedFrames + 1) % (frames + 1);
             }
+
         }
         else
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            maintainedAngle = Quaternion.Euler(0, 0, 0);
+            if (transform.rotation != maintainedAngle)
+            {
+                //float ratio = (float)elapsedFrames / frames;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, maintainedAngle, 3);
+                //elapsedFrames = (elapsedFrames + 1) % (frames + 1);
+            }
         }
         #endregion
     }
@@ -191,6 +234,15 @@ public class FishController : Controller
                 PlayerBrain.PB.plyCol.density = density;
                 PlayerBrain.PB.plyAnim.SetBool("inWater", false);
             }
+        }
+    }
+
+    IEnumerator SpinFish(Quaternion angle)
+    {
+        while(transform.rotation != angle)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, angle, 8 * Time.deltaTime);
+            yield return null;
         }
     }
 
