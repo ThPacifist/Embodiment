@@ -23,6 +23,7 @@ public class MainMenu : MonoBehaviour
     public GameObject menuButton;
     public GameObject men2Button;
     public GameObject newGameButton;
+    public GameObject creditScreen;
     public TransitionController transCtrl;
     public EventSystem eventS;
 
@@ -141,10 +142,21 @@ public class MainMenu : MonoBehaviour
         menuButtons.gameObject.SetActive(true);
         //Disable settings buttons
         settingsButtons.gameObject.SetActive(false);
-        //Disable manu buttons
+        //Disable level buttons
         levelButtons.gameObject.SetActive(false);
+        //Disable credits
+        creditScreen.SetActive(false);
         //Set active button
         eventS.SetSelectedGameObject(newGameButton);
+    }
+
+    //Credits
+    public void showCredits()
+    {
+        //Disable menu buttons
+        menuButtons.gameObject.SetActive(false);
+        //Enable credits screen
+        creditScreen.SetActive(true);
     }
 
     //Timer for starting the game when new game is pressed
