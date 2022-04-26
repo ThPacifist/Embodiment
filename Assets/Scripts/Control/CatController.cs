@@ -13,6 +13,14 @@ public class CatController : Controller
     public bool treadmill = false;
 
     Vector2 catDir;
+    float defGravScale;
+
+    public override void Start()
+    {
+        base.Start();
+
+        defGravScale = PlayerBrain.PB.rb.gravityScale;
+    }
 
     public override void FixedUpdate()
     {
@@ -53,8 +61,6 @@ public class CatController : Controller
             //If Cat is on wall
             else if (OnWall)
             {
-                PlayerBrain.PB.rb.gravityScale = 0;
-
                 //Checks if the player is pushing up or down
                 if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y != 0)
                 {
@@ -72,7 +78,6 @@ public class CatController : Controller
             
             if (!OnWall)
             {
-                PlayerBrain.PB.rb.gravityScale = 1;
                 if (audioManager != null)
                 {
                     audioManager.Stop("catClimb");
@@ -89,7 +94,6 @@ public class CatController : Controller
             //Climbing on Wall as cat
             if (OnWall)
             {
-                PlayerBrain.PB.plyAnim.SetBool("Climb", true);
 
                 if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>().y > 0)
                 {
@@ -140,6 +144,15 @@ public class CatController : Controller
     {
         OnWall = value;
         catDir = direction;
+        PlayerBrain.PB.plyAnim.SetBool("Climb", value);
+        if (value)
+        {
+            PlayerBrain.PB.rb.gravityScale = 0;
+        }
+        else
+        {
+            PlayerBrain.PB.rb.gravityScale = defGravScale;
+        }
     }
 
     public override void Jump()
@@ -153,7 +166,7 @@ public class CatController : Controller
             //Side jump when climbing
             else if (OnWall)
             {
-                PlayerBrain.PB.rb.AddForce(new Vector2(-catDir.x, 1 + PlayerBrain.PB.rb.velocity.y) * jumpHeight * 0.5f, ForceMode2D.Impulse);
+                PlayerBrain.PB.rb.AddForce(new Vector2(-catDir.x, 1) * jumpHeight * 0.5f, ForceMode2D.Impulse);
                 catDir = -catDir;
             }
 

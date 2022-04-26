@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HumanController : Controller
 {
@@ -16,13 +17,13 @@ public class HumanController : Controller
     public Rigidbody2D box;
     string boxTag;
 
-    bool greenBox;
+    /*bool greenBox;
     public Vector2 greenOffset;
     public Vector2 greenSize;
     bool redBox;
     public Vector2 redOffset;
     public Vector2 redSize;
-    float startingGrav;
+    float startingGrav;*/
 
 
     public override void Start()
@@ -164,7 +165,6 @@ public class HumanController : Controller
         {
             if (other.CompareTag("Water"))
             {
-                Debug.Log("Inside Water check: Human");
                 PlayerBrain.PB.plyAnim.SetTrigger("Death");
             }
         }
@@ -179,7 +179,6 @@ public class HumanController : Controller
             {
                 //f (!CheckSpaceForBox(box))
                 //{
-                    Debug.Log("Inside check space for box");
                     if (!Left && !Right)
                     {
                         PlayerBrain.PB.plyAnim.SetBool("isGrabbing", true);
@@ -230,8 +229,7 @@ public class HumanController : Controller
                 PickUpBoxHuman(null);
             }
 
-            PlyCtrl.Player.Interact.performed += _ => PlayerBrain.Interact();
-            PlyCtrl.Player.Interact.performed -= _ => ThrowBox();
+            PlayerBrain.Interact -= ThrowBox;
         }
     }
 
@@ -275,8 +273,7 @@ public class HumanController : Controller
             heldBox = null;
             tempString = "";
         }
-        PlyCtrl.Player.Interact.performed += _ => PlayerBrain.Interact();
-        PlyCtrl.Player.Interact.performed -= _ => ThrowBox();
+        PlayerBrain.Interact -= ThrowBox;
         ToggleBody(true);
     }
 
@@ -295,16 +292,23 @@ public class HumanController : Controller
         heldBox.gravityScale = 1;
         heldBox = null;
         box = null;
-        PlyCtrl.Player.Interact.performed += _ => PlayerBrain.Interact();
-        PlyCtrl.Player.Interact.performed -= _ => ThrowBox();
+        PlayerBrain.Interact -= ThrowBox;
         ToggleBody(true);
     }
 
     //Sets the value of the held box
     public void SetHeldBox(Rigidbody2D rb, string inputTag)
     {
-        box = rb;
-        boxTag = inputTag;
+        if(rb != null && inputTag != "")
+        {
+            box = rb;
+            boxTag = inputTag;
+        }
+        else
+        {
+            StartCoroutine(DelaySetting());
+        }
+
         if (PlayerBrain.PB.prefabInstance == null)
         {
             PlayerBrain.PB.prefabInstance = Instantiate(PlayerBrain.PB.IndicatorPrefab, box.transform);
@@ -350,8 +354,7 @@ public class HumanController : Controller
                 PlayerBrain.PB.canJump = false;
             }
 
-            PlyCtrl.Player.Interact.performed -= _ => PlayerBrain.Interact();
-            PlyCtrl.Player.Interact.performed += _ => ThrowBox();
+            PlayerBrain.Interact += ThrowBox;
 
             ToggleBody(false);
         }
@@ -380,8 +383,7 @@ public class HumanController : Controller
             heldBox = null;
             tempString = "";
 
-            PlyCtrl.Player.Interact.performed += _ => PlayerBrain.Interact();
-            PlyCtrl.Player.Interact.performed -= _ => ThrowBox();
+            PlayerBrain.Interact -= ThrowBox;
 
             ToggleBody(true);
         }
@@ -430,6 +432,13 @@ public class HumanController : Controller
     public override void ToggleBody(bool value)
     {
         Embodiment.canDisembody = value;
+    }
+
+    IEnumerator DelaySetting()
+    {
+        yield return new WaitForSeconds(0.5f);
+        box = null;
+        boxTag = "";
     }
 
     private void OnDrawGizmos()

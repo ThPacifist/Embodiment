@@ -100,7 +100,6 @@ public class BoxTrigger : MonoBehaviour
 
         if (plyPoint.y < tR.y)
         {
-            Debug.Log("Inside Bounds");
             return true;
         }
         else
