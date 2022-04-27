@@ -49,44 +49,47 @@ public class FishController : Controller
 
         //Movement when in water
         //Handles movemnt when on the land
-        if(PlayerBrain.PB.inWater)
-        //if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && PlayerBrain.PB.inWater)
+        if (PlayerBrain.PB.canMove)
         {
-            //Move when the player is pressing buttons
-            if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
+            if (PlayerBrain.PB.inWater)
+            //if (PlyCtrl.Player.Movement.ReadValue<float>() != 0 && PlayerBrain.PB.inWater)
             {
-                float x = 0, y = 0;
-                //Checks if either the y or x velocity is exceeding the speed
-                if (Mathf.Abs(PlayerBrain.PB.rb.velocity.x) < speed)
+                //Move when the player is pressing buttons
+                if (PlyCtrl.Player.FishInWater.ReadValue<Vector2>() != Vector2.zero)
                 {
-                    x = 1;
-                }
-                if (Mathf.Abs(PlayerBrain.PB.rb.velocity.y) < speed)
-                {
-                    y = 1;
-                }
+                    float x = 0, y = 0;
+                    //Checks if either the y or x velocity is exceeding the speed
+                    if (Mathf.Abs(PlayerBrain.PB.rb.velocity.x) < speed)
+                    {
+                        x = 1;
+                    }
+                    if (Mathf.Abs(PlayerBrain.PB.rb.velocity.y) < speed)
+                    {
+                        y = 1;
+                    }
 
-                PlayerBrain.PB.rb.AddForce(new Vector2(x, y) * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * 20 * PlayerBrain.PB.rb.mass);
-            }
-        }
-        //Movement when on the ground
-        else if (isGrounded())
-        {
-            //Move when the player is pressing buttons
-            if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
-            {
-                if (Mathf.Abs(PlayerBrain.PB.rb.velocity.x) < speed * 0.3f)
-                {
-                    PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 20 * PlayerBrain.PB.rb.mass);
+                    PlayerBrain.PB.rb.AddForce(new Vector2(x, y) * PlyCtrl.Player.FishInWater.ReadValue<Vector2>() * 20 * PlayerBrain.PB.rb.mass);
                 }
             }
-        }
-        else
-        {
-            //Move when the player is pressing the direction
-            if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+            //Movement when on the ground
+            else if (isGrounded())
             {
-                PlayerBrain.PB.rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.5f) - new Vector2(PlayerBrain.PB.rb.velocity.x, 0);
+                //Move when the player is pressing buttons
+                if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+                {
+                    if (Mathf.Abs(PlayerBrain.PB.rb.velocity.x) < speed * 0.3f)
+                    {
+                        PlayerBrain.PB.rb.AddForce(Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * 20 * PlayerBrain.PB.rb.mass);
+                    }
+                }
+            }
+            else
+            {
+                //Move when the player is pressing the direction
+                if (PlyCtrl.Player.Movement.ReadValue<float>() != 0)
+                {
+                    PlayerBrain.PB.rb.velocity += (Vector2.right * PlyCtrl.Player.Movement.ReadValue<float>() * speed * 0.5f) - new Vector2(PlayerBrain.PB.rb.velocity.x, 0);
+                }
             }
         }
 
@@ -140,7 +143,7 @@ public class FishController : Controller
             if (transform.rotation != maintainedAngle)
             {
                 //float ratio = (float)elapsedFrames / frames;
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, maintainedAngle, 3);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, maintainedAngle, 5);
                 //elapsedFrames = (elapsedFrames + 1) % (frames + 1);
             }
 
@@ -151,7 +154,7 @@ public class FishController : Controller
             if (transform.rotation != maintainedAngle)
             {
                 //float ratio = (float)elapsedFrames / frames;
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, maintainedAngle, 3);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, maintainedAngle, 5);
                 //elapsedFrames = (elapsedFrames + 1) % (frames + 1);
             }
         }
@@ -207,6 +210,7 @@ public class FishController : Controller
                 }
                 PlayerBrain.PB.inWater = true;
                 PlayerBrain.PB.plyCol.density = waterDensity;
+                PlayerBrain.PB.canJump = false;
             }
         }
     }
@@ -231,6 +235,7 @@ public class FishController : Controller
             if (other.CompareTag("Water"))
             {
                 PlayerBrain.PB.inWater = false;
+                PlayerBrain.PB.canJump = true;
                 PlayerBrain.PB.plyCol.density = density;
                 PlayerBrain.PB.plyAnim.SetBool("inWater", false);
             }
