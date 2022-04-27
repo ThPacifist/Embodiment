@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using Cinemachine;
 
 public class MainMenu : MonoBehaviour
 {

@@ -248,7 +248,6 @@ public class HumanController : Controller
 
     public void ThrowBox()
     {
-        Debug.Log("Called throw box");
         if(heldBox != null && boxHeld && boxTag != "HBox")
         {
             PlayerBrain.PB.plyAnim.SetBool("isGrabbing", false);

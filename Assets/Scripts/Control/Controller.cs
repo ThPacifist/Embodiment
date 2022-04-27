@@ -315,8 +315,6 @@ public class Controller : MonoBehaviour
 
     private void OpenNote()
     {
-        Debug.Log("OpenNote called");
-
         //Check if there is a note to interact with
         if (note != null)
         {
