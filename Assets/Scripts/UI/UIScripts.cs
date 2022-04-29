@@ -174,11 +174,4 @@ public class UIScripts : MonoBehaviour
         SceneManager.LoadScene(scene.name);
         Time.timeScale = 1;
     }
-
-    bool HasMouseMoved()
-    {
-        plyCntrl.UI.Point.ReadValue<Vector2>();
-
-        return true;
-    }
 }
