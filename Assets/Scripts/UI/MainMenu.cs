@@ -25,6 +25,7 @@ public class MainMenu : MonoBehaviour
     public GameObject men2Button;
     public GameObject newGameButton;
     public GameObject creditScreen;
+    public Animator cinemachineAnim;
     public TransitionController transCtrl;
     public EventSystem eventS;
 
@@ -65,6 +66,7 @@ public class MainMenu : MonoBehaviour
             newButton.name = levelNames[i];
             button = newButton.GetComponent<Button>();
             newButton.GetComponent<RectTransform>().SetParent(levelButtons.GetComponent<RectTransform>());
+            newButton.GetComponent<RectTransform>().localScale = Vector3.one;
             //Place the button on the screen and change its text
             newButton.GetComponent<RectTransform>().localPosition = new Vector2(buttonPos.x + 250 * (i / 8), buttonPos.y - 100 * (i % 8));
             newButton.GetComponent<RectTransform>().GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = levelNames[i];
