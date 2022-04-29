@@ -23,6 +23,7 @@ public class MainMenu : MonoBehaviour
     public GameObject levelButtons;
     public GameObject menuButton;
     public GameObject men2Button;
+    public GameObject men3Button;
     public GameObject newGameButton;
     public GameObject creditScreen;
     public Animator cinemachineAnim;
@@ -160,6 +161,7 @@ public class MainMenu : MonoBehaviour
         menuButtons.gameObject.SetActive(false);
         //Enable credits screen
         creditScreen.SetActive(true);
+        eventS.SetSelectedGameObject(men3Button);
     }
 
     //Timer for starting the game when new game is pressed
