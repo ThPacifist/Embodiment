@@ -3577,6 +3577,10 @@ PrefabInstance:
       value: Expozyte Items
       objectReference: {fileID: 0}
     - target: {fileID: 5908265556387583177, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 766791567515375194}
+    - target: {fileID: 5908265556387583177, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: Checkpoints.Array.size
       value: 8
       objectReference: {fileID: 0}
@@ -3632,6 +3636,10 @@ PrefabInstance:
       propertyPath: dialogueLength.Array.data[0]
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8298231712000885528, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 422337809827893869}
     - target: {fileID: 8376889456795416275, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.69
@@ -5390,11 +5398,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2048893818817401718, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.8694077
+      value: 5.6471853
       objectReference: {fileID: 0}
     - target: {fileID: 2048893818817401718, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.0000076
+      value: 2.0000026
       objectReference: {fileID: 0}
     - target: {fileID: 2136359313461025573, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
       propertyPath: m_Follow
@@ -5485,6 +5493,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4860f9f4510e3c345aa2192d330f9631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!20 &422337809827893869 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1448344421898293945, guid: db04acb251903314dbd3c7a84fd167f3, type: 3}
+  m_PrefabInstance: {fileID: 422337809827893867}
+  m_PrefabAsset: {fileID: 0}
 --- !u!483693784 &468003789045975061
 TilemapRenderer:
   m_ObjectHideFlags: 0
