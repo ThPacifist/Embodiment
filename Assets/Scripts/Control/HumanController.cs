@@ -257,7 +257,7 @@ public class HumanController : Controller
             PlayerBrain.PB.fixedJ.connectedBody = null;
             if (tempString == "LBox")
             {
-                heldBox.mass = tempValue;
+                heldBox.gravityScale = tempValue;
             }
             PlayerBrain.PB.canJump = true;
 
@@ -345,8 +345,8 @@ public class HumanController : Controller
 
             if(tempString == "LBox")
             {
-                tempValue = heldBox.mass;
-                heldBox.mass = 0;
+                tempValue = heldBox.gravityScale;
+                heldBox.gravityScale = 0;
             }
             else if(tempString == "MBox")
             {
@@ -374,7 +374,7 @@ public class HumanController : Controller
             }
             else if (tempString == "LBox")
             {
-                heldBox.mass = tempValue;
+                heldBox.gravityScale = tempValue;
             }
             PlayerBrain.PB.canJump = true;
             speed = defaultSpeed;
