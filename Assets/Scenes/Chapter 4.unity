@@ -1447,30 +1447,34 @@ PrefabInstance:
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+      objectReference: {fileID: 2100000, guid: 194abcd6e7871074682eb60f0f50e428, type: 2}
+    - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
+      propertyPath: m_Parameters.colorGradient.ctime1
+      value: 65342
+      objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b
-      value: 0.5220363
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.g
-      value: 0.5220363
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.r
-      value: 0.9811321
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Parameters.colorGradient.key1.b
-      value: 0.49693844
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Parameters.colorGradient.key1.g
-      value: 0.49693844
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6080287947326091455, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Parameters.colorGradient.key1.r
-      value: 0.509434
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6081112102156266276, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: speed
