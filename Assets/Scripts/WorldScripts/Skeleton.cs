@@ -35,6 +35,14 @@ public class Skeleton : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.CompareTag("Shrieker"))
+        {
+            RespawnSkeleton();
+        }
+    }
+
     public void RespawnSkeleton()
     {
         skeleton.position = spawnPoint.position;
