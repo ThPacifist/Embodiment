@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Steamworks;
 
 public class UIScripts : MonoBehaviour
 {
@@ -33,6 +34,8 @@ public class UIScripts : MonoBehaviour
     Vector2 lastPos;
     Vector2 curPos;
 
+    protected Callback<GameOverlayActivated_t> m_GameOverlayActivated;
+
     private void Awake()
     {
         plyCntrl = new PlayerControls();
@@ -42,6 +45,10 @@ public class UIScripts : MonoBehaviour
     //Do on enable and do on disable
     private void OnEnable()
     {
+        if(SteamManager.Initialized)
+        {
+            m_GameOverlayActivated = Callback<GameOverlayActivated_t>.Create(OnGameOverlayActivated);
+        }
         plyCntrl.Enable();
         PlyController.Pause += pause;
         PlayerBrain.Pause += pause;
@@ -149,6 +156,22 @@ public class UIScripts : MonoBehaviour
             onUIEnter();
             paused = true;
         }
+    }
+
+    void OnGameOverlayActivated(GameOverlayActivated_t pCallback)
+    {
+        /*if (pCallback.m_bActive != 0)
+        {
+            Debug.Log("Steam Overlay has been activated");
+            onUIExit();
+            paused = false;
+        }
+        else
+        {
+            Debug.Log("Steam Overlay has been closed");
+            onUIEnter();
+            paused = true;
+        }*/
     }
 
     //Quit to title screen

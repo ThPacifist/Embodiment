@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4057,11 +4057,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7575680623758667908, guid: af21f3a1f566f304c804d9d3cff7abba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.06286907
+      value: 0.06286955
       objectReference: {fileID: 0}
     - target: {fileID: 7575680623758667908, guid: af21f3a1f566f304c804d9d3cff7abba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.024999619
+      value: 0.00000047683716
       objectReference: {fileID: 0}
     - target: {fileID: 7575680623758667908, guid: af21f3a1f566f304c804d9d3cff7abba, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5816,7 +5816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2434449296246677338, guid: 15ea112ca3909cd47b598c53c9fa9c03, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -40.23
+      value: -40.31
       objectReference: {fileID: 0}
     - target: {fileID: 2434449296246677338, guid: 15ea112ca3909cd47b598c53c9fa9c03, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8925,7 +8925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2434449296246677338, guid: 15ea112ca3909cd47b598c53c9fa9c03, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.49
+      value: -3.39
       objectReference: {fileID: 0}
     - target: {fileID: 2434449296246677338, guid: 15ea112ca3909cd47b598c53c9fa9c03, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9974,7 +9974,7 @@ PrefabInstance:
       objectReference: {fileID: 3945871360470693383}
     - target: {fileID: 8298231712000885528, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: yBubbleBounds
-      value: 0.17
+      value: 0.47
       objectReference: {fileID: 0}
     - target: {fileID: 8298231712000885529, guid: 8517ab5f9cc3b574ba13797182bcc92e, type: 3}
       propertyPath: m_Camera
