@@ -57,7 +57,7 @@ public class PlayerBrain : MonoBehaviour
     {
         //Makes sure there is only one instance of Player brain
         if (PB != null)
-            GameObject.Destroy(PB);
+            Destroy(PB);
         else
             PB = this;
 
