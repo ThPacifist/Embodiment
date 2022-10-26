@@ -14,13 +14,14 @@ public class BasicMovement : MonoBehaviour
 
     PlayerControls plyCntrl;
 
-    public static Action JumpAction = delegate { };
+    public static Action<Vector2> JumpAction = delegate { };
 
     public float speed = 5.0f;
     public float jumpForce = 2.0f;
     public Direction direction = Direction.Left;
     public Rigidbody2D rb;
     public CapsuleCollider2D CapCollider;
+    public TentacleManager tentacleManager;
     public bool isGrounded = false;
 
     private void OnEnable()
@@ -33,6 +34,12 @@ public class BasicMovement : MonoBehaviour
     {
         plyCntrl.Disable();
     }
+
+    private void Awake()
+    {
+        tentacleManager = TentacleManager.instance;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,16 +77,17 @@ public class BasicMovement : MonoBehaviour
             dist, layer);
 
         //Debug.Log(hit.collider);
-        return hit.collider != null;
+        return tentacleManager.CheckIfGrounded();
     }
 
     void Jump()
     {
-        JumpAction();
+        Vector2 force = Vector2.up * jumpForce;
+        JumpAction(force);
 
         if(isGrounded)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            rb.AddForce(force, ForceMode2D.Impulse);
         }
     }
 }

@@ -18,6 +18,7 @@ public class TentacleManager : MonoBehaviour
     public Bounds bounds;
     //[HideInInspector]
     public RaycastHit2D ray;
+    public AnimationCurve animTentCurve;
 
     LinkedList<TentacleDrawer> tentaclesLL;
 
@@ -27,6 +28,8 @@ public class TentacleManager : MonoBehaviour
             Destroy(this.gameObject);
         else
             instance = this;
+
+        BasicMovement.JumpAction = DelayJump;
     }
 
     private void Update()
@@ -47,14 +50,14 @@ public class TentacleManager : MonoBehaviour
         ray = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity, layer);
     }
 
-    public void UpdateTentaclePosition(TentacleDrawer tent)
+    public Vector2 UpdateTentaclePosition(TentacleDrawer tent)
     {
         TentacleDrawer temp = tentacles.Find(t => t.name == tent.name);
-        Debug.Log("Called by " + temp.name);
+        //Debug.Log("Called by " + temp.name);
 
         int layer = LayerMask.GetMask("Jumpables");
         float value = 0;
-        float rand = Random.Range(0, randDist);
+        float rand = Random.Range(0, 0);
 
         if(basicMovement.direction == BasicMovement.Direction.Left)
         {
@@ -78,15 +81,59 @@ public class TentacleManager : MonoBehaviour
 
         if (hit.collider != null)
         {
-            temp.AnimateTransform(hit.point);
-            return;
+            return hit.point;
+        }
+        else
+        {
+            Debug.LogWarning("Could not find a surface");
+
+            return Vector2.zero;
+        }
+    }
+
+    public Vector3 BottomRightCorner()
+    {
+        return new Vector3(bounds.min.x, bounds.max.y);
+    }
+
+    public bool CheckIfGrounded()
+    {
+        int count = 0;
+        foreach(TentacleDrawer tent in tentacles)
+        {
+            if(tent.isGrounded)
+            {
+                count++;
+            }
         }
 
-        Debug.LogWarning("Could not find a surface");
-    }   
+        return count >= 3 ? true : false;
+    }
+
+    void DelayJump(Vector2 force)
+    {
+        StartCoroutine(DelayJumpE(force));
+    }
+
+    void MakeTentaculesJump(Vector2 force)
+    {
+        foreach(TentacleDrawer tent in tentacles)
+        {
+            tent.rb.AddForce(force, ForceMode2D.Impulse);
+        }
+    }
+
+    IEnumerator DelayJumpE(Vector2 force)
+    {
+        yield return new WaitForEndOfFrame();
+        MakeTentaculesJump(force);
+    }
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position, transform.position + (Vector3)rb.velocity.normalized * 1f);
+
         Gizmos.color = Color.green;
         Vector2 temp = rb.velocity;
         Vector3 currentCenter = transform.position + offset + new Vector3(
